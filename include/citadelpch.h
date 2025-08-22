@@ -22,4 +22,6 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
+#include "citadel/export.h"
+
 #endif
