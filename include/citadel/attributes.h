@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        attributes.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,10 +19,15 @@
 
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
+#ifndef CITADEL_ATTRIBUTES_H
+#define CITADEL_ATTRIBUTES_H
 
-#include "citadel/attributes.h"
-#include "citadel/export.h"
+#define CITADEL_INLINE inline
+
+#define CITADEL_GETTER \
+	[[nodiscard]] CITADEL_INLINE
+
+#define CITADEL_SETTER \
+	CITADEL_INLINE
 
 #endif
