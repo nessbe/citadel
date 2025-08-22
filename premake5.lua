@@ -47,6 +47,17 @@ project "citadel"
 	filter "system:windows"
 		systemversion "latest"
 
+	filter "kind:StaticLib"
+		defines {
+			"CITADEL_LINKAGE_STATIC",
+		}
+
+	filter "kind:SharedLib"
+		defines {
+			"CITADEL_LINKAGE_DYNAMIC",
+			"CITADEL_BUILD_DLL",
+		}
+
 	filter "configurations:Debug"
 		defines {
 			"CITADEL_DEBUG",

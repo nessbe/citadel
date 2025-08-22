@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        citadel.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,8 +19,8 @@
 
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
+#ifndef CITADEL_H
+#define CITADEL_H
 
 #include "citadel/export.h"
 
