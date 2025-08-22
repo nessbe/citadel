@@ -22,16 +22,23 @@
 #ifndef CITADEL_EXPORT_H
 #define CITADEL_EXPORT_H
 
-#ifdef _WIN32
+#include "citadel/platforms.h"
+
+#if CITADEL_PLATFORM_WINDOWS
 	#define CITADEL_EXPORT_ATTRIBUTE __declspec(dllexport)
 	#define CITADEL_IMPORT_ATTRIBUTE __declspec(dllimport)
 	#define CITADEL_NO_EXPORT_ATTRIBUTE
 	#define CITADEL_DEPRECATED_ATTRIBUTE __declspec(deprecated)
-#else
+#elif CITADEL_PLATFORM_LINUX || CITADEL_PLATFORM_MACOS
 	#define CITADEL_EXPORT_ATTRIBUTE __attribute__((visibility("default")))
 	#define CITADEL_IMPORT_ATTRIBUTE __attribute__((visibility("default")))
 	#define CITADEL_NO_EXPORT_ATTRIBUTE __attribute__((visibility("hidden")))
 	#define CITADEL_DEPRECATED_ATTRIBUTE __attribute__((__deprecated__))
+#else
+	#define CITADEL_EXPORT_ATTRIBUTE
+	#define CITADEL_IMPORT_ATTRIBUTE
+	#define CITADEL_NO_EXPORT_ATTRIBUTE
+	#define CITADEL_DEPRECATED_ATTRIBUTE
 #endif
 
 #ifdef CITADEL_LINKAGE_STATIC
