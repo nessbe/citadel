@@ -26,6 +26,9 @@ project "citadel"
 	language "C++"
 	cppdialect "C++20"
 
+	pchheader "citadelpch.h"
+	pchsource "source/citadelpch.cpp"
+
 	targetdir(root_dir .. "bin/" .. output_dir .. "%{prj.name}")
 	objdir(root_dir .. "obj/" .. output_dir .. "%{prj.name}")
 
