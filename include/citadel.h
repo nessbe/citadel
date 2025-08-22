@@ -22,6 +22,7 @@
 #ifndef CITADEL_H
 #define CITADEL_H
 
+#include "citadel/attributes.h"
 #include "citadel/export.h"
 
 #endif
