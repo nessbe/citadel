@@ -1,4 +1,4 @@
-// File:        application.h
+// File:        entry_point.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,33 +19,24 @@
 
 #pragma once
 
-#ifndef CITADEL_APPLICATION_H
-#define CITADEL_APPLICATION_H
+#ifndef CITADEL_ENTRY_POINT_H
+#define CITADEL_ENTRY_POINT_H
 
-#include "citadel/attributes.h"
-#include "citadel/export.h"
+#include "citadel/core/application.h"
 
-namespace Citadel
+extern Citadel::Application* Citadel::create_application();
+
+int main(int argc, char** argv)
 {
-	class Application
-	{
-	public:
-		Application() = default;
-		virtual ~Application() { }
+	Citadel::Application* application = Citadel::create_application();
+	application->initialize();
 
-		virtual void initialize() = 0;
-		virtual int run() = 0;
-		virtual void shutdown() = 0;
+	int exit_code = application->run();
 
-		CITADEL_API CITADEL_GETTER bool is_running() const noexcept;
-		CITADEL_API CITADEL_SETTER void start() noexcept;
-		CITADEL_API CITADEL_SETTER void stop() noexcept;
+	application->shutdown();
+	delete application;
 
-	private:
-		bool is_running_ = false;
-	};
-
-	Application* create_application();
+	return exit_code;
 }
 
 #endif

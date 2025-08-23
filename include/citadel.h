@@ -30,5 +30,6 @@
 #include "citadel/platforms.h"
 
 #include "citadel/core/application.h"
+#include "citadel/core/entry_point.h"
 
 #endif
