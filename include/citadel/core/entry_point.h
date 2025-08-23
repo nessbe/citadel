@@ -32,7 +32,8 @@ int main(int argc, char** argv)
 	Citadel::Application* application = Citadel::create_application();
 	application->initialize();
 
-	Citadel::ExitCode exit_code = application->run();
+	Citadel::ApplicationArguments arguments(argc, argv);
+	Citadel::ExitCode exit_code = application->run(arguments);
 
 	application->shutdown();
 	delete application;

@@ -22,6 +22,12 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
+#include <string>
+#include <vector>
+
+#include <ostream>
+#include <sstream>
+
 #include "citadel/architectures.h"
 #include "citadel/assert.h"
 #include "citadel/attributes.h"

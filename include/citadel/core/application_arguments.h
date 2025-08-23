@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        application_arguments.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,19 +19,36 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_APPLICATION_ARGUMENTS_H
+#define CITADEL_APPLICATION_ARGUMENTS_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
+#include <string>
+#include <vector>
+
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
+namespace Citadel
+{
+	class ApplicationArguments
+	{
+	public:
+		CITADEL_API ApplicationArguments(int argument_count, char** arguments);
+		~ApplicationArguments() = default;
+
+		CITADEL_API CITADEL_GETTER std::size_t size() const noexcept;
+		CITADEL_API std::string to_string() const;
+
+		CITADEL_API CITADEL_GETTER const std::string& get_program_name() const noexcept;
+
+		CITADEL_API CITADEL_GETTER bool has_argument(std::size_t index) const noexcept;
+		CITADEL_API CITADEL_GETTER const std::string& get_argument(std::size_t index) const;
+
+	private:
+		std::size_t argument_count_;
+		std::string program_name_;
+		std::vector<std::string> arguments_;
+	};
+}
 
 #endif
