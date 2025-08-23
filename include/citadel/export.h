@@ -22,6 +22,7 @@
 #ifndef CITADEL_EXPORT_H
 #define CITADEL_EXPORT_H
 
+#include "citadel/compilers.h"
 #include "citadel/platforms.h"
 
 #if CITADEL_PLATFORM_WINDOWS
@@ -29,7 +30,7 @@
 	#define CITADEL_IMPORT_ATTRIBUTE __declspec(dllimport)
 	#define CITADEL_NO_EXPORT_ATTRIBUTE
 	#define CITADEL_DEPRECATED_ATTRIBUTE __declspec(deprecated)
-#elif CITADEL_PLATFORM_LINUX || CITADEL_PLATFORM_MACOS
+#elif CITADEL_COMPILER_CLANG || CITADEL_COMPILER_GCC
 	#define CITADEL_EXPORT_ATTRIBUTE __attribute__((visibility("default")))
 	#define CITADEL_IMPORT_ATTRIBUTE __attribute__((visibility("default")))
 	#define CITADEL_NO_EXPORT_ATTRIBUTE __attribute__((visibility("hidden")))
