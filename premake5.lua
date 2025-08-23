@@ -61,6 +61,8 @@ project "citadel"
 	filter "configurations:Debug"
 		defines {
 			"CITADEL_DEBUG",
+			"CITADEL_ENABLE_DEBUGBREAK",
+			"CITADEL_ENABLE_ASSERTIONS",
 		}
 		symbols "On"
 		runtime "Release"
