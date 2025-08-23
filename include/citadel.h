@@ -31,5 +31,6 @@
 
 #include "citadel/core/application.h"
 #include "citadel/core/entry_point.h"
+#include "citadel/core/exit_code.h"
 
 #endif

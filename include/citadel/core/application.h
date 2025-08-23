@@ -25,6 +25,8 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/core/exit_code.h"
+
 namespace Citadel
 {
 	class Application
@@ -34,7 +36,7 @@ namespace Citadel
 		virtual ~Application() { }
 
 		virtual void initialize() = 0;
-		virtual int run() = 0;
+		virtual ExitCode run() = 0;
 		virtual void shutdown() = 0;
 
 		CITADEL_API CITADEL_GETTER bool is_running() const noexcept;

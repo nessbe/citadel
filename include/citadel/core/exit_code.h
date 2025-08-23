@@ -1,4 +1,4 @@
-// File:        entry_point.h
+// File:        exit_code.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,25 +19,19 @@
 
 #pragma once
 
-#ifndef CITADEL_ENTRY_POINT_H
-#define CITADEL_ENTRY_POINT_H
+#ifndef CITADEL_EXIT_CODE_H
+#define CITADEL_EXIT_CODE_H
 
-#include "citadel/core/application.h"
-#include "citadel/core/exit_code.h"
-
-extern Citadel::Application* Citadel::create_application();
-
-int main(int argc, char** argv)
+namespace Citadel
 {
-	Citadel::Application* application = Citadel::create_application();
-	application->initialize();
+	using ExitCode_t = int;
 
-	Citadel::ExitCode exit_code = application->run();
-
-	application->shutdown();
-	delete application;
-
-	return static_cast<int>(exit_code);
+	enum class ExitCode : ExitCode_t
+	{
+		Undefined = -1,
+		Success = 0,
+		Failure = 1,
+	};
 }
 
 #endif
