@@ -27,24 +27,43 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/logging/log_level.h"
+
 namespace Citadel
 {
 	class Logger
 	{
 	public:
 		Logger(const std::string& configuration)
-			: configuration_(configuration) { }
+			: configuration_(configuration), min_level_(LogLevel::Debug) { }
+
+		Logger(const std::string& configuration, LogLevel level)
+			: configuration_(configuration), min_level_(level) { }
+
 		~Logger() = default;
 
 		CITADEL_API CITADEL_GETTER const std::string& get_configuration() const noexcept;
 
-		CITADEL_API void log(const std::string& message);
+		CITADEL_API CITADEL_GETTER LogLevel get_level() const noexcept;
+		CITADEL_API CITADEL_SETTER void set_level(LogLevel level) noexcept;
+
+		CITADEL_API CITADEL_GETTER bool is_level_valid(LogLevel level) const noexcept;
+
+		CITADEL_API void log(const std::string& message, LogLevel level);
+
+		CITADEL_API CITADEL_INLINE void log_debug(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_trace(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_info(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_warning(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_error(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_critical(const std::string& message);
 
 	private:
 		std::string configuration_;
+		LogLevel min_level_;
 
 	private:
-		CITADEL_API std::string format_message(const std::string& message) const;
+		CITADEL_API std::string format_message(const std::string& message, LogLevel level) const;
 		CITADEL_API void log_raw(const std::string& message);
 	};
 }

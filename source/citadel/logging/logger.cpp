@@ -27,16 +27,67 @@ namespace Citadel
 		return configuration_;
 	}
 
-	void Logger::log(const std::string& message)
+	LogLevel Logger::get_level() const noexcept
 	{
-		std::string formatted_message = format_message(message);
+		return LogLevel();
+	}
+
+	void Logger::set_level(LogLevel level) noexcept
+	{
+		min_level_ = level;
+	}
+
+	bool Logger::is_level_valid(LogLevel level) const noexcept
+	{
+		return level >= min_level_;
+	}
+
+	void Logger::log(const std::string& message, LogLevel level)
+	{
+		if (!is_level_valid(level))
+		{
+			return;
+		}
+
+		std::string formatted_message = format_message(message, level);
 		log_raw(formatted_message);
 	}
 
-	std::string Logger::format_message(const std::string& message) const
+	void Logger::log_debug(const std::string& message)
+	{
+		log(message, LogLevel::Debug);
+	}
+
+	void Logger::log_trace(const std::string& message)
+	{
+		log(message, LogLevel::Trace);
+	}
+
+	void Logger::log_info(const std::string& message)
+	{
+		log(message, LogLevel::Info);
+	}
+
+	void Logger::log_warning(const std::string& message)
+	{
+		log(message, LogLevel::Warning);
+	}
+
+	void Logger::log_error(const std::string& message)
+	{
+		log(message, LogLevel::Error);
+	}
+
+	void Logger::log_critical(const std::string& message)
+	{
+		log(message, LogLevel::Critical);
+	}
+
+	std::string Logger::format_message(const std::string& message, LogLevel level) const
 	{
 		std::ostringstream oss;
 		oss << '[' << configuration_ << "] ";
+		oss << '[' << level << "] ";
 		oss << message;
 		return oss.str();
 	}
