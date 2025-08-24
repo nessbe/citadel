@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        scope.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,24 +19,24 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_SCOPE_H
+#define CITADEL_SCOPE_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
+#include <memory>
+#include <type_traits>
+
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
+namespace Citadel
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
 
-#include "citadel/logging/logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+	template<typename T, typename... VarArgs>
+	CITADEL_GETTER Scope<T> make_scoped(VarArgs&&... arguments)
+	{
+		return std::make_unique<T>(std::forward<VarArgs>(arguments)...);
+	}
+}
 
 #endif

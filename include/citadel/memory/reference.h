@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        reference.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,24 +19,24 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_REFERENCE_H
+#define CITADEL_REFERENCE_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
+#include <memory>
+#include <type_traits>
+
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
+namespace Citadel
+{
+	template<typename T>
+	using Reference = std::shared_ptr<T>;
 
-#include "citadel/logging/logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+	template<typename T, typename... VarArgs>
+	CITADEL_GETTER Reference<T> make_referenced(VarArgs&&... arguments)
+	{
+		return std::make_shared<T>(std::forward<VarArgs>(arguments)...);
+	}
+}
 
 #endif

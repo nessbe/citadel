@@ -22,7 +22,11 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
+#include <cinttypes>
+
+#include <memory>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 #include <ostream>
