@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        logger.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,23 +17,18 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#ifndef CITADEL_H
-#define CITADEL_H
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
-
+#include "citadelpch.h"
 #include "citadel/logging/logger.h"
 
-#endif
+namespace Citadel
+{
+	void Logger::log(const std::string& message)
+	{
+		log_raw(message);
+	}
+
+	void Logger::log_raw(const std::string& message)
+	{
+		std::cout << message << std::endl;
+	}
+}
