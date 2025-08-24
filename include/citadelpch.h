@@ -42,4 +42,6 @@
 #include "citadel/export.h"
 #include "citadel/platforms.h"
 
+#include "citadel/logging/log_macros.h"
+
 #endif

@@ -37,6 +37,7 @@
 #include "citadel/format/formatter.h"
 
 #include "citadel/logging/log_level.h"
+#include "citadel/logging/log_macros.h"
 #include "citadel/logging/log_message.h"
 #include "citadel/logging/logger.h"
 #include "citadel/logging/logger_db.h"

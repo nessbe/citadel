@@ -34,6 +34,8 @@
 
 #include "citadel/format/formatter.h"
 
+#include "citadel/logging/log_macros.h"
+
 #ifdef CITADEL_DEBUG
 	#if CITADEL_COMPILER_MSVC
 		#define CITADEL_DEBUGBREAK() __debugbreak()
@@ -59,8 +61,7 @@
 			if (!(condition)) \
 			{ \
 				Citadel::Formatter formatter(message); \
-				std::cerr << "Assertion failed: (" << #condition << ") " \
-					<< formatter.format(##__VA_ARGS__) << std::endl; \
+				CITADEL_LOG_CRITICAL("Assertion failed: ({0}) {1}", condition, formatter.format(##__VA_ARGS__)); \
 				CITADEL_DEBUGBREAK(); \
 			} \
 		} \
