@@ -34,6 +34,8 @@
 #include "citadel/core/entry_point.h"
 #include "citadel/core/exit_code.h"
 
+#include "citadel/format/formatter.h"
+
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/logger.h"
 #include "citadel/logging/logger_db.h"

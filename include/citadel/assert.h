@@ -25,10 +25,14 @@
 #include <csignal>
 #include <cstdio>
 #include <iostream>
+#include <string>
 
 #include "citadel/architectures.h"
+#include "citadel/export.h"
 #include "citadel/compilers.h"
 #include "citadel/platforms.h"
+
+#include "citadel/format/formatter.h"
 
 #ifdef CITADEL_DEBUG
 	#if CITADEL_COMPILER_MSVC
@@ -49,13 +53,14 @@
 #endif
 
 #ifdef CITADEL_ENABLE_ASSERTS
-	#define CITADEL_ASSERT(condition, message) \
+	#define CITADEL_ASSERT(condition, message, ...) \
 		do \
 		{ \
 			if (!(condition)) \
 			{ \
+				Citadel::Formatter formatter(message); \
 				std::cerr << "Assertion failed: (" << #condition << ") " \
-					<< message << std::endl; \
+					<< formatter.format(##__VA_ARGS__) << std::endl; \
 				CITADEL_DEBUGBREAK(); \
 			} \
 		} \
@@ -65,11 +70,11 @@
 #endif
 
 
-#define CITADEL_TRY_OR_ASSERT(scope, message) \
+#define CITADEL_TRY_OR_ASSERT(scope, message, ...) \
 	try scope \
 	catch (...) \
 	{ \
-		CITADEL_ASSERT(false, message); \
+		CITADEL_ASSERT(false, message, ##__VA_ARGS__) \
 	}
 
 #endif
