@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        log_message.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,31 +17,18 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#ifndef CITADEL_H
-#define CITADEL_H
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
-
-#include "citadel/format/formatter.h"
-
-#include "citadel/logging/log_level.h"
+#include "citadelpch.h"
 #include "citadel/logging/log_message.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/logger_db.h"
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+namespace Citadel
+{
+	const std::string& LogMessage::get_literal() const noexcept
+	{
+		return literal_;
+	}
 
-#endif
+	LogLevel LogMessage::get_level() const noexcept
+	{
+		return level_;
+	}
+}

@@ -28,6 +28,7 @@
 #include "citadel/export.h"
 
 #include "citadel/logging/log_level.h"
+#include "citadel/logging/log_message.h"
 
 namespace Citadel
 {
@@ -49,7 +50,7 @@ namespace Citadel
 
 		CITADEL_API CITADEL_GETTER bool is_level_valid(LogLevel level) const noexcept;
 
-		CITADEL_API void log(const std::string& message, LogLevel level);
+		CITADEL_API void log(const LogMessage& message);
 
 		CITADEL_API CITADEL_INLINE void log_debug(const std::string& message);
 		CITADEL_API CITADEL_INLINE void log_trace(const std::string& message);
@@ -63,7 +64,7 @@ namespace Citadel
 		LogLevel min_level_;
 
 	private:
-		CITADEL_API std::string format_message(const std::string& message, LogLevel level) const;
+		CITADEL_API std::string format_message(const LogMessage& message) const;
 		CITADEL_API void log_raw(const std::string& message);
 	};
 }
