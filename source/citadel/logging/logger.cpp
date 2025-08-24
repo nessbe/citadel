@@ -22,9 +22,23 @@
 
 namespace Citadel
 {
+	const std::string& Logger::get_configuration() const noexcept
+	{
+		return configuration_;
+	}
+
 	void Logger::log(const std::string& message)
 	{
-		log_raw(message);
+		std::string formatted_message = format_message(message);
+		log_raw(formatted_message);
+	}
+
+	std::string Logger::format_message(const std::string& message) const
+	{
+		std::ostringstream oss;
+		oss << '[' << configuration_ << "] ";
+		oss << message;
+		return oss.str();
 	}
 
 	void Logger::log_raw(const std::string& message)
