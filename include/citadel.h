@@ -36,6 +36,7 @@
 
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/logger.h"
+#include "citadel/logging/logger_db.h"
 
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
