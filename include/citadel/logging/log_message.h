@@ -29,6 +29,8 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/format/formatter.h"
+
 #include "citadel/logging/log_level.h"
 
 namespace Citadel
@@ -41,10 +43,17 @@ namespace Citadel
 			LogLevel level
 		) :
 			literal_(literal),
-			level_(level)
+			level_(level),
+			formatter_(literal)
 		{ }
 
 		~LogMessage() = default;
+
+		template<typename... VarArgs>
+		std::string format(VarArgs&&... arguments) const
+		{
+			return formatter_.format(std::forward<VarArgs>(arguments)...);
+		}
 
 		CITADEL_API CITADEL_GETTER const std::string& get_literal() const noexcept;
 		CITADEL_API CITADEL_GETTER LogLevel get_level() const noexcept;
@@ -52,6 +61,8 @@ namespace Citadel
 	private:
 		std::string literal_;
 		LogLevel level_;
+
+		Formatter formatter_;
 	};
 }
 

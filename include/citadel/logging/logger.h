@@ -50,21 +50,70 @@ namespace Citadel
 
 		CITADEL_API CITADEL_GETTER bool is_level_valid(LogLevel level) const noexcept;
 
-		CITADEL_API void log(const LogMessage& message);
+		template<typename... VarArgs>
+		void log(LogMessage message, VarArgs&&... arguments)
+		{
+			if (!is_level_valid(message.get_level()))
+			{
+				return;
+			}
 
-		CITADEL_API CITADEL_INLINE void log_debug(const std::string& message);
-		CITADEL_API CITADEL_INLINE void log_trace(const std::string& message);
-		CITADEL_API CITADEL_INLINE void log_info(const std::string& message);
-		CITADEL_API CITADEL_INLINE void log_warning(const std::string& message);
-		CITADEL_API CITADEL_INLINE void log_error(const std::string& message);
-		CITADEL_API CITADEL_INLINE void log_critical(const std::string& message);
+			std::string formatted_message = format_message(message, std::forward<VarArgs>(arguments)...);
+
+			log_raw(formatted_message);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_debug(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Debug), std::forward<VarArgs>(arguments)...);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_trace(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Trace), std::forward<VarArgs>(arguments)...);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_info(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Info), std::forward<VarArgs>(arguments)...);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_warning(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Warning), std::forward<VarArgs>(arguments)...);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_error(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Error), std::forward<VarArgs>(arguments)...);
+		}
+
+		template<typename... VarArgs>
+		CITADEL_INLINE void log_critical(const std::string& message, VarArgs&&... arguments)
+		{
+			log(LogMessage(message, LogLevel::Critical), std::forward<VarArgs>(arguments)...);
+		}
 
 	private:
 		std::string configuration_;
 		LogLevel min_level_;
 
 	private:
-		CITADEL_API std::string format_message(const LogMessage& message) const;
+		template<typename... VarArgs>
+		std::string format_message(const LogMessage& message, VarArgs&&... arguments) const
+		{
+			std::ostringstream oss;
+			oss << '[' << configuration_ << "] ";
+			oss << '[' << message.get_level() << "] ";
+			oss << message.format(std::forward<VarArgs>(arguments)...);
+			return oss.str();
+		}
+
 		CITADEL_API void log_raw(const std::string& message);
 	};
 }
