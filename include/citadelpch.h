@@ -41,6 +41,7 @@
 #include "citadel/compilers.h"
 #include "citadel/export.h"
 #include "citadel/platforms.h"
+#include "citadel/utils.h"
 
 #include "citadel/logging/log_macros.h"
 

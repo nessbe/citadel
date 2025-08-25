@@ -1,4 +1,4 @@
-// File:        console_sink.cpp
+// File:        sink_stack.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -18,18 +18,46 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadelpch.h"
-#include "citadel/io/sinks/console_sink.h"
+#include "citadel/io/sinks/sink_stack.h"
 
 namespace Citadel
 {
-	void ConsoleSink::manipulate(ManipFunction manip)
+	Reference<Sink> SinkStack::back_sink() const
 	{
-		manip(out_);
+		return sinks_.back();
 	}
 
-	bool ConsoleSink::write_implementation(const std::string& value)
+	void SinkStack::push_sink(Reference<Sink> sink)
 	{
-		out_ << value;
-		return false;
+		sinks_.push_back(sink);
+	}
+
+	Reference<Sink> SinkStack::pop_sink()
+	{
+		Reference<Sink> back = back_sink();
+		sinks_.pop_back();
+		return back;
+	}
+
+	std::size_t SinkStack::size() const
+	{
+		return sinks_.size();
+	}
+
+	void SinkStack::propagate_implementation(const std::string& value)
+	{
+		for (std::size_t i = 0; i < sinks_.size(); i++)
+		{
+			if (write(i, value))
+			{
+				return;
+			}
+		}
+	}
+
+	bool SinkStack::write(std::size_t index, const std::string& value)
+	{
+		const Reference<Sink>& sink = sinks_[index];
+		return sink->write(value);
 	}
 }

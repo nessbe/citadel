@@ -1,4 +1,4 @@
-// File:        console_sink.cpp
+// File:        void_sink.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,19 +17,25 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#include "citadelpch.h"
-#include "citadel/io/sinks/console_sink.h"
+#pragma once
+
+#ifndef CITADEL_VOID_SINK_H
+#define CITADEL_VOID_SINK_H
+
+#include "citadel/export.h"
+
+#include "citadel/io/sinks/sink.h"
 
 namespace Citadel
 {
-	void ConsoleSink::manipulate(ManipFunction manip)
+	class VoidSink : public Sink
 	{
-		manip(out_);
-	}
+	public:
+		VoidSink() = default;
+		virtual ~VoidSink() override = default;
 
-	bool ConsoleSink::write_implementation(const std::string& value)
-	{
-		out_ << value;
-		return false;
-	}
+		virtual bool write_implementation(const std::string& value) override { return true; }
+	};
 }
+
+#endif

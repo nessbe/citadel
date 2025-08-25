@@ -42,7 +42,7 @@ namespace Citadel
 		std::ostream& out_ = std::cout;
 
 	private:
-		CITADEL_API virtual void write_implementation(const std::string& value) override;
+		CITADEL_API virtual bool write_implementation(const std::string& value) override;
 	};
 }
 

@@ -45,9 +45,9 @@ namespace Citadel
 		virtual void manipulate(ManipFunction manip) { }
 
 		template<typename T>
-		CITADEL_INLINE void write(T&& value)
+		CITADEL_INLINE bool write(T&& value)
 		{
-			write_implementation(Stringifier::to_string(std::forward<T>(value)) + '\n');
+			return write_implementation(Stringifier::to_string(std::forward<T>(value)) + '\n');
 		}
 
 		template<typename T>
@@ -64,7 +64,7 @@ namespace Citadel
 		}
 
 	private:
-		virtual void write_implementation(const std::string& value) = 0;
+		virtual bool write_implementation(const std::string& value) = 0;
 	};
 }
 

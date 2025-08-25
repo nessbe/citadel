@@ -28,6 +28,7 @@
 #include "citadel/compilers.h"
 #include "citadel/export.h"
 #include "citadel/platforms.h"
+#include "citadel/utils.h"
 
 #include "citadel/core/application.h"
 #include "citadel/core/application_arguments.h"
@@ -39,7 +40,10 @@
 #include "citadel/format/stringifier.h"
 
 #include "citadel/io/sinks/console_sink.h"
+#include "citadel/io/sinks/null_sink.h"
 #include "citadel/io/sinks/sink.h"
+#include "citadel/io/sinks/sink_stack.h"
+#include "citadel/io/sinks/void_sink.h"
 
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/log_macros.h"
