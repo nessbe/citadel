@@ -38,6 +38,9 @@
 #include "citadel/format/stringifiable.h"
 #include "citadel/format/stringifier.h"
 
+#include "citadel/io/sinks/console_sink.h"
+#include "citadel/io/sinks/sink.h"
+
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/log_macros.h"
 #include "citadel/logging/log_message.h"
