@@ -27,8 +27,13 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/io/sinks/sink.h"
+#include "citadel/io/sinks/sink_stack.h"
+
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/log_message.h"
+
+#include "citadel/memory/reference.h"
 
 namespace Citadel
 {
@@ -49,6 +54,11 @@ namespace Citadel
 		CITADEL_API CITADEL_SETTER void set_level(LogLevel level) noexcept;
 
 		CITADEL_API CITADEL_GETTER bool is_level_valid(LogLevel level) const noexcept;
+
+		CITADEL_API CITADEL_INLINE Reference<Sink> back_sink() const;
+
+		CITADEL_API CITADEL_INLINE void push_sink(Reference<Sink> sink);
+		CITADEL_API CITADEL_INLINE Reference<Sink> pop_sink();
 
 		template<typename... VarArgs>
 		void log(LogMessage message, VarArgs&&... arguments)
@@ -102,6 +112,8 @@ namespace Citadel
 	private:
 		std::string configuration_;
 		LogLevel min_level_;
+
+		SinkStack sinks_;
 
 	private:
 		template<typename... VarArgs>

@@ -42,8 +42,23 @@ namespace Citadel
 		return level >= min_level_;
 	}
 
+	Reference<Sink> Logger::back_sink() const
+	{
+		return sinks_.back_sink();
+	}
+
+	void Logger::push_sink(Reference<Sink> sink)
+	{
+		sinks_.push_sink(sink);
+	}
+
+	Reference<Sink> Logger::pop_sink()
+	{
+		return sinks_.pop_sink();
+	}
+
 	void Logger::log_raw(const std::string& message)
 	{
-		std::cout << message << std::endl;
+		sinks_.propagate(message);
 	}
 }
