@@ -1,4 +1,4 @@
-// File:        formatter.h
+// File:        stringifiable.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,43 +19,20 @@
 
 #pragma once
 
-#ifndef CITADEL_FORMATTER_H
-#define CITADEL_FORMATTER_H
+#ifndef CITADEL_STRINGIFIABLE_H
+#define CITADEL_STRINGIFIABLE_H
 
-#include <sstream>
 #include <string>
-#include <type_traits>
-#include <vector>
-
-#include "citadel/attributes.h"
-#include "citadel/export.h"
-
-#include "citadel/format/stringifier.h"
 
 namespace Citadel
 {
-	class Formatter
+	class IStringifiable
 	{
 	public:
-		explicit Formatter(const std::string& format)
-			: format_(format) { }
-		~Formatter() = default;
+		IStringifiable() = default;
+		virtual ~IStringifiable() = default;
 
-		CITADEL_API CITADEL_INLINE std::string format() const;
-
-		template<typename... VarArgs>
-		std::string format(VarArgs&&... arguments) const
-		{
-			std::vector<std::string> string_arguments = {
-				Stringifier::to_string(std::forward<VarArgs>(arguments))...
-			};
-			return format_implementation(string_arguments);
-		}
-
-	private:
-		CITADEL_API std::string format_implementation(const std::vector<std::string>& arguments) const;
-
-		std::string format_;
+		virtual std::string to_string() const = 0;
 	};
 }
 

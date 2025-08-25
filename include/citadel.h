@@ -35,6 +35,8 @@
 #include "citadel/core/exit_code.h"
 
 #include "citadel/format/formatter.h"
+#include "citadel/format/stringifiable.h"
+#include "citadel/format/stringifier.h"
 
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/log_macros.h"
