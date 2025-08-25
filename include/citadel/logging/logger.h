@@ -22,7 +22,11 @@
 #ifndef CITADEL_LOGGER_H
 #define CITADEL_LOGGER_H
 
+#include <ostream>
+#include <sstream>
 #include <string>
+#include <type_traits>
+#include <vector>
 
 #include "citadel/attributes.h"
 #include "citadel/export.h"
@@ -32,6 +36,7 @@
 
 #include "citadel/logging/log_level.h"
 #include "citadel/logging/log_message.h"
+#include "citadel/logging/log_settings.h"
 
 #include "citadel/memory/reference.h"
 
@@ -40,93 +45,107 @@ namespace Citadel
 	class Logger
 	{
 	public:
-		Logger(const std::string& configuration)
-			: configuration_(configuration), min_level_(LogLevel::Debug) { }
-
-		Logger(const std::string& configuration, LogLevel level)
-			: configuration_(configuration), min_level_(level) { }
-
+		explicit Logger(const std::string& configuration)
+			: configuration_(configuration) { }
 		~Logger() = default;
 
 		CITADEL_API CITADEL_GETTER const std::string& get_configuration() const noexcept;
 
-		CITADEL_API CITADEL_GETTER LogLevel get_level() const noexcept;
-		CITADEL_API CITADEL_SETTER void set_level(LogLevel level) noexcept;
-
-		CITADEL_API CITADEL_GETTER bool is_level_valid(LogLevel level) const noexcept;
-
 		CITADEL_API CITADEL_INLINE Reference<Sink> back_sink() const;
 
-		CITADEL_API CITADEL_INLINE void push_sink(Reference<Sink> sink);
+		CITADEL_API CITADEL_INLINE void push_sink(Reference<Sink> sink, const LogSettings& settings);
 		CITADEL_API CITADEL_INLINE Reference<Sink> pop_sink();
 
 		template<typename... VarArgs>
-		void log(LogMessage message, VarArgs&&... arguments)
+		void log(Reference<LogMessage> message, VarArgs&&... arguments)
 		{
-			if (!is_level_valid(message.get_level()))
-			{
-				return;
-			}
-
-			std::string formatted_message = format_message(message, std::forward<VarArgs>(arguments)...);
-
-			log_raw(formatted_message);
+			write_sinks(message, std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_debug(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Debug), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Debug), std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_trace(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Trace), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Trace), std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_info(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Info), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Info), std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_warning(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Warning), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Warning), std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_error(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Error), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Error), std::forward<VarArgs>(arguments)...);
 		}
 
 		template<typename... VarArgs>
 		CITADEL_INLINE void log_critical(const std::string& message, VarArgs&&... arguments)
 		{
-			log(LogMessage(message, LogLevel::Critical), std::forward<VarArgs>(arguments)...);
+			log(make_referenced<LogMessage>(message, LogLevel::Critical), std::forward<VarArgs>(arguments)...);
 		}
 
 	private:
 		std::string configuration_;
-		LogLevel min_level_;
 
 		SinkStack sinks_;
+		std::vector<LogSettings> settings_;
 
 	private:
 		template<typename... VarArgs>
-		std::string format_message(const LogMessage& message, VarArgs&&... arguments) const
+		void write_sinks(Reference<LogMessage> message, VarArgs&&... arguments)
 		{
-			std::ostringstream oss;
-			oss << '[' << configuration_ << "] ";
-			oss << '[' << message.get_level() << "] ";
-			oss << message.format(std::forward<VarArgs>(arguments)...);
-			return oss.str();
+			for (std::size_t i = 0; i < sinks_.size(); i++)
+			{
+				if (write_sink(i, message, std::forward<VarArgs>(arguments)...))
+				{
+					return;
+				}
+			}
 		}
 
-		CITADEL_API void log_raw(const std::string& message);
+		template<typename... VarArgs>
+		bool write_sink(std::size_t index, Reference<LogMessage> message, VarArgs&&... arguments)
+		{
+			const Reference<Sink>& sink = sinks_[index];
+			const LogSettings& settings = settings_[index];
+
+			if (!settings.is_valid(message))
+			{
+				return false;
+			}
+
+			std::string formatted_message = format_message(message, settings, std::forward<VarArgs>(arguments)...);
+
+			return sink->write(formatted_message);
+		}
+
+		template<typename... VarArgs>
+		std::string format_message(Reference<LogMessage> message, const LogSettings& settings, VarArgs&&... arguments)
+		{
+			std::ostringstream oss;
+
+			oss << '[' << configuration_ << "]";
+			oss << '[' << message->get_level() << "] ";
+
+			std::string literal = message->format(std::forward<VarArgs>(arguments)...);
+			oss << literal;
+
+			return oss.str();
+		}
 	};
 }
 

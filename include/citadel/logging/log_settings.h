@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        log_settings.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,40 +19,29 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_LOG_SETTINGS_H
+#define CITADEL_LOG_SETTINGS_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
-#include "citadel/utils.h"
-
-#include "citadel/core/application.h"
-#include "citadel/core/application_arguments.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/exit_code.h"
 
 #include "citadel/format/formatter.h"
-#include "citadel/format/stringifiable.h"
-#include "citadel/format/stringifier.h"
-
-#include "citadel/io/sinks/console_sink.h"
-#include "citadel/io/sinks/null_sink.h"
-#include "citadel/io/sinks/sink.h"
-#include "citadel/io/sinks/sink_stack.h"
-#include "citadel/io/sinks/void_sink.h"
 
 #include "citadel/logging/log_level.h"
-#include "citadel/logging/log_macros.h"
 #include "citadel/logging/log_message.h"
-#include "citadel/logging/log_settings.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/logger_db.h"
 
 #include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+
+namespace Citadel
+{
+	struct LogSettings
+	{
+	public:
+		LogLevel min_level;
+
+		CITADEL_API bool is_level_valid(LogLevel level) const noexcept;
+
+		CITADEL_API bool is_valid(Reference<LogMessage> message) const;
+	};
+}
 
 #endif

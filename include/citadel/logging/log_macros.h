@@ -27,6 +27,8 @@
 #include "citadel/logging/logger.h"
 #include "citadel/logging/logger_db.h"
 
+#include "citadel/memory/reference.h"
+
 #ifndef CITADEL_LOG_CONFIGURATION
 	#define CITADEL_LOG_CONFIGURATION "CORE"
 #endif
@@ -35,7 +37,7 @@
 	Citadel::LoggerDB::get_or_create_logger(CITADEL_LOG_CONFIGURATION)
 
 #define CITADEL_CREATE_LOG_MESSAGE(literal, level) \
-	Citadel::LogMessage(literal, level)
+	Citadel::make_referenced<Citadel::LogMessage>(literal, level)
 
 #define CITADEL_LOG(message, level, ...) \
 	CITADEL_GET_LOGGER()->log(CITADEL_CREATE_LOG_MESSAGE(message, level), ##__VA_ARGS__)

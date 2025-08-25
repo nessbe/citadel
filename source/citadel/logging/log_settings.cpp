@@ -1,4 +1,4 @@
-// File:        logger.cpp
+// File:        log_settings.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -18,28 +18,17 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadelpch.h"
-#include "citadel/logging/logger.h"
+#include "citadel/logging/log_settings.h"
 
 namespace Citadel
 {
-	const std::string& Logger::get_configuration() const noexcept
+	bool LogSettings::is_level_valid(LogLevel level) const noexcept
 	{
-		return configuration_;
+		return level >= min_level;
 	}
 
-	Reference<Sink> Logger::back_sink() const
+	bool LogSettings::is_valid(Reference<LogMessage> message) const
 	{
-		return sinks_.back_sink();
-	}
-
-	void Logger::push_sink(Reference<Sink> sink, const LogSettings& settings)
-	{
-		sinks_.push_sink(sink);
-		settings_.push_back(settings);
-	}
-
-	Reference<Sink> Logger::pop_sink()
-	{
-		return sinks_.pop_sink();
+		return is_level_valid(message->get_level());
 	}
 }
