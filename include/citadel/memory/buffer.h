@@ -91,6 +91,19 @@ namespace Citadel
 			return get(index);
 		}
 
+		std::vector<T> data() const
+		{
+			std::vector<T> data;
+			data.reserve(size_);
+
+			for (std::size_t i = 0; i < size_; i++)
+			{
+				data.push_back(get(i));
+			}
+
+			return data;
+		}
+
 		CITADEL_INLINE std::size_t size() const noexcept
 		{
 			return size_;
@@ -121,9 +134,14 @@ namespace Citadel
 			return static_cast<char*>(raw_memory_) + index * stride_;
 		}
 
+		CITADEL_INLINE T* get_pointer(std::size_t index) const
+		{
+			return reinterpret_cast<T*>(get_raw_pointer(index));
+		}
+
 		CITADEL_INLINE T& get(std::size_t index) const
 		{
-			return *reinterpret_cast<T*>(get_raw_pointer(index));
+			return *get_pointer(index);
 		}
 
 		void construct()
