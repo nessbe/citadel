@@ -53,6 +53,7 @@
 #include "citadel/logging/logger.h"
 #include "citadel/logging/logger_db.h"
 
+#include "citadel/memory/buffer.h"
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 
