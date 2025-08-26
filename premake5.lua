@@ -59,6 +59,7 @@ project "citadel"
 		defines {
 			"CITADEL_DEBUG",
 			"CITADEL_ENABLE_ASSERTS",
+			"CITADEL_ENABLE_EXCEPTIONS",
 		}
 		symbols "On"
 		runtime "Release"
@@ -66,6 +67,7 @@ project "citadel"
 	filter "configurations:Release"
 		defines {
 			"CITADEL_RELEASE",
+			"CITADEL_ENABLE_EXCEPTIONS",
 		}
 		optimize "on"
 		runtime "Release"

@@ -44,6 +44,12 @@ namespace Citadel
 		return sinks_.size();
 	}
 
+	Reference<Sink>& SinkStack::operator[](const std::size_t index)
+	{
+		CITADEL_EXCEPT_OUT_OF_RANGE(index < sinks_.size(), "Sink index is out of range");
+		return sinks_[index];
+	}
+
 	void SinkStack::propagate_implementation(const std::string& value)
 	{
 		for (std::size_t i = 0; i < sinks_.size(); i++)

@@ -27,8 +27,8 @@
 #include <string>
 #include <vector>
 
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
+#include "citadel/exceptions.h"
 #include "citadel/export.h"
 #include "citadel/utils.h"
 
@@ -61,12 +61,7 @@ namespace Citadel
 			propagate_implementation(Stringifier::to_string(std::forward<T>(value)));
 		}
 
-		CITADEL_INLINE Reference<Sink>& operator[](const std::size_t index) noexcept
-		{
-			CITADEL_ASSERT(index < sinks_.size(), "Sink index is out of range");
-
-			return sinks_[index];
-		}
+		CITADEL_API CITADEL_INLINE Reference<Sink>& operator[](const std::size_t index);
 
 		CITADEL_ITERATOR_WRAPPER(Reference<Sink>, sinks_);
 

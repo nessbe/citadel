@@ -66,7 +66,7 @@ namespace Citadel
 
 	const std::string& ApplicationArguments::get_argument(std::size_t index) const
 	{
-		CITADEL_ASSERT(!has_argument(index), "Argument index is out of range");
+		CITADEL_EXCEPT_OUT_OF_RANGE(has_argument(index), "Argument index is out of range");
 		return arguments_.at(index);
 	}
 }
