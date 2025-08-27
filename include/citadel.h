@@ -55,6 +55,7 @@
 
 #include "citadel/memory/buffer.h"
 #include "citadel/memory/reference.h"
+#include "citadel/memory/ring_buffer.h"
 #include "citadel/memory/scope.h"
 
 #endif
