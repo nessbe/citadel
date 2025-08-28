@@ -63,6 +63,8 @@ project "citadel"
 			"CITADEL_DEBUG",
 			"CITADEL_ENABLE_DEBUGBREAK",
 			"CITADEL_ENABLE_ASSERTIONS",
+			"CITADEL_ENABLE_THROWING",
+			"CITADEL_ENABLE_EXCEPTIONS",
 		}
 		symbols "On"
 		runtime "Release"

@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        exceptions.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,18 +19,35 @@
 
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
+#ifndef CITADEL_EXCEPTIONS_H
+#define CITADEL_EXCEPTIONS_H
 
-#include <csignal>
 #include <iostream>
 #include <stdexcept>
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+#ifdef CITADEL_ENABLE_THROWING
+	#define CITADEL_THROW(exception, ...) \
+		throw exception(##__VA_ARGS__)
+#else
+	#define CITADEL_THROW(exception, ...)
+#endif
+
+#ifdef CITADEL_ENABLE_EXCEPTIONS
+	#define CITADEL_EXCEPT(condition, message, exception, ...) \
+		do \
+		{ \
+			if (!(condition)) \
+			{ \
+				std::cerr << "Exception thrown (" << #condition << "): " \
+					<< message << std::endl; \
+				CITADEL_THROW(exception, message, ##__VA_ARGS__); \
+			} \
+		} while(0)
+#else
+	#define CITADEL_EXCEPT(condition, message, exception, ...)
+#endif
+
+#define CITADEL_EXCEPT_RUNTIME_ERROR(condition, message, ...) \
+	CITADEL_EXCEPT(condition, message, std::runtime_error, ##__VA_ARGS__)
 
 #endif
