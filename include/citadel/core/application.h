@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        application.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,17 +19,37 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_APPLICATION_H
+#define CITADEL_APPLICATION_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/core/application.h"
+namespace citadel
+{
+	class application
+	{
+	public:
+		application() = default;
+		virtual ~application() = default;
+
+		CITADEL_API void start();
+		CITADEL_API void stop();
+
+		CITADEL_API void initialize();
+		CITADEL_API CITADEL_NODISCARD int run();
+		CITADEL_API void shutdown();
+
+		CITADEL_API bool is_running() const noexcept;
+
+	private:
+		bool is_running_ = false;
+
+	private:
+		virtual void _initialize() = 0;
+		CITADEL_NODISCARD virtual int _run() = 0;
+		virtual void _shutdown() = 0;
+	};
+}
 
 #endif

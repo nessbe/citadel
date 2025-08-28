@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        application.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,19 +17,40 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#ifndef CITADEL_H
-#define CITADEL_H
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
+#include "citadelpch.h"
 #include "citadel/core/application.h"
 
-#endif
+namespace citadel
+{
+	void application::start()
+	{
+		is_running_ = true;
+	}
+
+	void application::stop()
+	{
+		is_running_ = false;
+	}
+
+	void application::initialize()
+	{
+		_initialize();
+		start();
+	}
+
+	int application::run()
+	{
+		return _run();
+	}
+
+	void application::shutdown()
+	{
+		stop();
+		_shutdown();
+	}
+
+	bool application::is_running() const noexcept
+	{
+		return is_running_;
+	}
+}
