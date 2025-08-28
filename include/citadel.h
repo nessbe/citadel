@@ -34,5 +34,6 @@
 
 #include "citadel/core/application.h"
 #include "citadel/core/entry_point.h"
+#include "citadel/core/window.h"
 
 #endif

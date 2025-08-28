@@ -22,12 +22,14 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
+#include <cmath>
+#include <csignal>
+#include <cstddef>
+
 #include <iostream>
 #include <ostream>
 #include <sstream>
 
-#include <cmath>
-#include <csignal>
 #include <optional>
 #include <stdexcept>
 #include <string>
