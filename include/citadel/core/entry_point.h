@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        entry_point.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,18 +19,24 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+#ifndef CITADEL_ENTRY_POINT_H
+#define CITADEL_ENTRY_POINT_H
 
 #include "citadel/core/application.h"
-#include "citadel/core/entry_point.h"
+
+extern citadel::application* citadel::create_application();
+
+int main(int argc, char** argv)
+{
+	citadel::application* application = citadel::create_application();
+	application->initialize();
+
+	int exit_code = application->run();
+
+	application->shutdown();
+	delete application;
+
+	return exit_code;
+}
 
 #endif

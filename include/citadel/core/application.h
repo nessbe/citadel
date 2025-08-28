@@ -50,6 +50,8 @@ namespace citadel
 		CITADEL_NODISCARD virtual int _run() = 0;
 		virtual void _shutdown() = 0;
 	};
+
+	application* create_application();
 }
 
 #endif
