@@ -25,6 +25,8 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/cli/command_line.h"
+
 namespace citadel
 {
 	class application
@@ -37,7 +39,7 @@ namespace citadel
 		CITADEL_API void stop();
 
 		CITADEL_API void initialize();
-		CITADEL_API CITADEL_NODISCARD int run();
+		CITADEL_API CITADEL_NODISCARD int run(const command_line& arguments);
 		CITADEL_API void shutdown();
 
 		CITADEL_API bool is_running() const noexcept;
@@ -47,7 +49,7 @@ namespace citadel
 
 	private:
 		virtual void _initialize() = 0;
-		CITADEL_NODISCARD virtual int _run() = 0;
+		CITADEL_NODISCARD virtual int _run(const command_line& arguments) = 0;
 		virtual void _shutdown() = 0;
 	};
 

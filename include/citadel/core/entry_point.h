@@ -22,6 +22,8 @@
 #ifndef CITADEL_ENTRY_POINT_H
 #define CITADEL_ENTRY_POINT_H
 
+#include "citadel/cli/command_line.h"
+
 #include "citadel/core/application.h"
 
 extern citadel::application* citadel::create_application();
@@ -31,7 +33,8 @@ int main(int argc, char** argv)
 	citadel::application* application = citadel::create_application();
 	application->initialize();
 
-	int exit_code = application->run();
+	citadel::command_line arguments(argc, argv);
+	int exit_code = application->run(arguments);
 
 	application->shutdown();
 	delete application;
