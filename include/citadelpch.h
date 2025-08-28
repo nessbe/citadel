@@ -22,9 +22,16 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
-#include <csignal>
 #include <iostream>
+#include <ostream>
+#include <sstream>
+
+#include <cmath>
+#include <csignal>
+#include <optional>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 #include "citadel/architectures.h"
 #include "citadel/assert.h"
