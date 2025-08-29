@@ -27,27 +27,46 @@
 
 #include "citadel/cli/command_line.h"
 
+#include "citadel/core/platform_window.h"
+#include "citadel/core/window.h"
+
+#include "citadel/memory/scope.h"
+
+int main(int argc, char** argv);
+
 namespace citadel
 {
 	class application
 	{
 	public:
+		friend int ::main(int argc, char** argv);
+
+	public:
 		application() = default;
 		virtual ~application() = default;
+
+		CITADEL_API CITADEL_GETTER static application& get();
 
 		CITADEL_API void start();
 		CITADEL_API void stop();
 
+		CITADEL_API CITADEL_GETTER bool is_running() const noexcept;
+		CITADEL_API CITADEL_GETTER window& get_window();
+
+	protected:
+		CITADEL_API bool update();
+
+	private:
+		inline static application* instance;
+
+		bool is_running_ = false;
+		scope<window> window_ = nullptr;
+
+	private:
 		CITADEL_API void initialize();
 		CITADEL_API CITADEL_NODISCARD int run(const command_line& arguments);
 		CITADEL_API void shutdown();
 
-		CITADEL_API bool is_running() const noexcept;
-
-	private:
-		bool is_running_ = false;
-
-	private:
 		virtual void _initialize() = 0;
 		CITADEL_NODISCARD virtual int _run(const command_line& arguments) = 0;
 		virtual void _shutdown() = 0;

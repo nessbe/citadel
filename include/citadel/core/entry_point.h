@@ -31,12 +31,16 @@ extern citadel::application* citadel::create_application();
 int main(int argc, char** argv)
 {
 	citadel::application* application = citadel::create_application();
+	citadel::application::instance = application;
+
 	application->initialize();
 
 	citadel::command_line arguments(argc, argv);
 	int exit_code = application->run(arguments);
 
 	application->shutdown();
+
+	citadel::application::instance = nullptr;
 	delete application;
 
 	return exit_code;
