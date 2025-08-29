@@ -22,6 +22,7 @@
 #ifndef CITADELPCH_H
 #define CITADELPCH_H
 
+#include <cinttypes>
 #include <cmath>
 #include <csignal>
 #include <cstddef>

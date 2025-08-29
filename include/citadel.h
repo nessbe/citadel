@@ -40,6 +40,8 @@
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 
+#include "citadel/rendering/color.h"
+
 #include "citadel/string/const_string.h"
 
 #include "platforms/windows/windows_window.h"
