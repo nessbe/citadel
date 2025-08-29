@@ -22,6 +22,11 @@
 
 namespace citadel
 {
+	application& application::get()
+	{
+		return *instance;
+	}
+
 	void application::start()
 	{
 		is_running_ = true;
@@ -32,8 +37,30 @@ namespace citadel
 		is_running_ = false;
 	}
 
+	bool application::is_running() const noexcept
+	{
+		return is_running_;
+	}
+
+	window& citadel::application::get_window()
+	{
+		return *window_;
+	}
+
+	bool application::update()
+	{
+		if (!window_->update())
+		{
+			stop();
+		}
+		return is_running_;
+	}
+
 	void application::initialize()
 	{
+		window_ = make_scoped<platform_window>(800, 600, "Application window");
+		window_->open();
+
 		_initialize();
 		start();
 	}
@@ -47,10 +74,5 @@ namespace citadel
 	{
 		stop();
 		_shutdown();
-	}
-
-	bool application::is_running() const noexcept
-	{
-		return is_running_;
 	}
 }
