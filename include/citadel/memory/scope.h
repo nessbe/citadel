@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        scope.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,32 +19,22 @@
 
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
-
-#include <cmath>
-#include <csignal>
-#include <cstddef>
-
-#include <iostream>
-#include <ostream>
-#include <sstream>
+#ifndef CITADEL_SCOPE_H
+#define CITADEL_SCOPE_H
 
 #include <memory>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-#include <vector>
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+namespace citadel
+{
+	template<typename T>
+	using scope = std::unique_ptr<T>;
+
+	template<typename T, typename... Arguments>
+	CITADEL_INLINE scope<T> make_scoped(Arguments&&... arguments);
+}
+
+#include "citadel/memory/scope.inl"
 
 #endif
