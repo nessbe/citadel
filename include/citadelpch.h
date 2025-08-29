@@ -47,4 +47,6 @@
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 
+#include "citadel/string/const_string.h"
+
 #endif
