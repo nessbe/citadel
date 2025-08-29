@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        platform_window.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,24 +19,22 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_PLATFORM_WINDOW_H
+#define CITADEL_PLATFORM_WINDOW_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
-#include "citadel/export.h"
 #include "citadel/platforms.h"
 
-#include "citadel/cli/command_line.h"
+#ifdef CITADEL_PLATFORM_WINDOWS
+	#include "platforms/windows/windows_window.h"
+#endif
 
-#include "citadel/core/application.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/platform_window.h"
-#include "citadel/core/window.h"
-
-#include "platforms/windows/windows_window.h"
+namespace citadel
+{
+#if CITADEL_PLATFORM_WINDOWS
+	using platform_window = windows_window;
+#else
+	#error Citadel does not support your platform window system yet
+#endif
+}
 
 #endif
