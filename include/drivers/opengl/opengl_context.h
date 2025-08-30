@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        opengl_context.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,36 +19,46 @@
 
 #pragma once
 
-#ifndef CITADEL_H
-#define CITADEL_H
+#ifndef CITADEL_OPENGL_CONTEXT_H
+#define CITADEL_OPENGL_CONTEXT_H
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
 #include "citadel/export.h"
 #include "citadel/platforms.h"
 
-#include "citadel/cli/command_line.h"
-
-#include "citadel/core/application.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/platform_window.h"
-#include "citadel/core/window.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/rendering/color.h"
 #include "citadel/rendering/rendering_context.h"
-#include "citadel/rendering/rendering_types.h"
-#include "citadel/rendering/viewport.h"
-
-#include "citadel/string/const_string.h"
-
-#include "drivers/opengl/opengl_context.h"
 
 #include "platforms/windows/windows_window.h"
+
+#if CITADEL_PLATFORM_WINDOWS
+	#include <Windows.h>
+	#include <gl/GL.h>
+#endif
+
+namespace citadel
+{
+	class opengl_context : public rendering_context
+	{
+	public:
+		opengl_context() = default;
+		virtual ~opengl_context() override = default;
+
+	private:
+#if CITADEL_PLATFORM_WINDOWS
+		HWND window_handle_ = nullptr;
+		HDC device_context_handle_ = nullptr;
+		HGLRC gl_rendering_context_handle_ = nullptr;
+#endif
+
+	private:
+		CITADEL_API virtual void _initialize(window* window) override;
+
+		CITADEL_API virtual void _begin_frame() override;
+		CITADEL_API virtual void _end_frame() override;
+
+		CITADEL_API virtual void _swap_buffers() override;
+
+		CITADEL_API void initialize_windows(windows_window* window);
+	};
+}
 
 #endif

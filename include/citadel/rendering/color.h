@@ -47,6 +47,8 @@ namespace citadel
 
 		~color() = default;
 
+		CITADEL_API void to_float(float& out_red, float& out_green, float& out_blue, float& out_alpha) const;
+
 		CITADEL_API CITADEL_GETTER channel_t get_red() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_red(channel_t red) noexcept;
 

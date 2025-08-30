@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        rendering_types.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,38 +17,20 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
+#ifndef CITADEL_RENDERING_TYPES_H
+#define CITADEL_RENDERING_TYPES_H
 
-#ifndef CITADEL_H
-#define CITADEL_H
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/exceptions.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/cli/command_line.h"
-
-#include "citadel/core/application.h"
-#include "citadel/core/entry_point.h"
-#include "citadel/core/platform_window.h"
-#include "citadel/core/window.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/rendering/color.h"
 #include "citadel/rendering/rendering_context.h"
-#include "citadel/rendering/rendering_types.h"
-#include "citadel/rendering/viewport.h"
-
-#include "citadel/string/const_string.h"
 
 #include "drivers/opengl/opengl_context.h"
 
-#include "platforms/windows/windows_window.h"
+namespace citadel
+{
+#ifdef CITADEL_GRAPHICS_API_OPENGL
+	using default_rendering_context = opengl_context;
+#else
+	#error Citadel does not support the given rendering API yet
+#endif
+}
 
 #endif

@@ -30,6 +30,7 @@
 
 #include "citadel/memory/scope.h"
 
+#include "citadel/rendering/rendering_context.h"
 #include "citadel/rendering/viewport.h"
 
 namespace citadel
@@ -40,19 +41,7 @@ namespace citadel
 		using dimension_t = unsigned int;
 
 	public:
-		window(dimension_t x, dimension_t y, dimension_t width, dimension_t height, const std::string& title) :
-			x_(x),
-			y_(y),
-			width_(width),
-			height_(height),
-			title_(title),
-			viewport_(make_scoped<viewport>(
-				static_cast<viewport::dimension_t>(x),
-				static_cast<viewport::dimension_t>(y),
-				static_cast<viewport::dimension_t>(width),
-				static_cast<viewport::dimension_t>(height)
-			))
-		{ }
+		window(dimension_t x, dimension_t y, dimension_t width, dimension_t height, const std::string& title);
 
 		window(const window&) = delete;
 		window& operator=(const window&) = delete;
@@ -100,6 +89,7 @@ namespace citadel
 		bool is_visible_ = false;
 
 		scope<viewport> viewport_;
+		scope<rendering_context> rendering_context_;
 
 	private:
 		virtual void _open() = 0;

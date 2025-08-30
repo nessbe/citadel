@@ -32,6 +32,10 @@ project "citadel"
 	targetdir(root_dir .. "bin/" .. output_dir .. "%{prj.name}")
 	objdir(root_dir .. "obj/" .. output_dir .. "%{prj.name}")
 
+	defines {
+		"CITADEL_GRAPHICS_API_OPENGL",
+	}
+
 	files {
 		"include/**.h",
 		"inline/**.inl",
@@ -45,6 +49,9 @@ project "citadel"
 	}
 
 	filter "system:windows"
+		links {
+			"opengl32",
+		}
 		systemversion "latest"
 
 	filter "kind:StaticLib"

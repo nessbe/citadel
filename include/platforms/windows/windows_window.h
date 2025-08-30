@@ -80,7 +80,6 @@ namespace citadel
 		CITADEL_API CITADEL_GETTER std::wstring get_wide_title() const;
 
 		CITADEL_API bool process_messages();
-		CITADEL_API void set_position(dimension_t x, dimension_t y, dimension_t width, dimension_t height) const;
 	};
 }
 

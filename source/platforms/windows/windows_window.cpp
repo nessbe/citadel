@@ -31,7 +31,7 @@ namespace citadel
 	{
 		register_window_class();
 
-		DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
+		DWORD style = WS_OVERLAPPEDWINDOW;
 
 		RECT rect = { };
 
@@ -87,22 +87,18 @@ namespace citadel
 
 	void windows_window::_set_x(dimension_t x)
 	{
-		set_position(x, get_y(), get_width(), get_height());
 	}
 
 	void windows_window::_set_y(dimension_t y)
 	{
-		set_position(get_x(), y, get_width(), get_height());
 	}
 
 	void windows_window::_set_width(dimension_t width)
 	{
-		set_position(get_x(), get_y(), width, get_height());
 	}
 
 	void windows_window::_set_height(dimension_t height)
 	{
-		set_position(get_x(), get_y(), get_width(), height);
 	}
 
 	void windows_window::_set_title(const std::string& title)
@@ -159,16 +155,12 @@ namespace citadel
 			return 0;
 
 		case WM_CLOSE:
-			if (window_count_ > 0)
-			{
-				window_count_--;
-			}
-
 			DestroyWindow(window_handle);
-
 			return 0;
 
 		case WM_DESTROY:
+			window_count_--;
+	
 			if (window_count_ <= 0)
 			{
 				if (window)
@@ -193,6 +185,7 @@ namespace citadel
 		}
 
 		WNDCLASS window_class = { };
+		window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		window_class.lpszClassName = CLASS_NAME;
 		window_class.hInstance = instance_handle_;
 		window_class.hIcon = LoadIcon(nullptr, IDI_WINLOGO);
@@ -237,20 +230,5 @@ namespace citadel
 		}
 
 		return true;
-	}
-
-	void windows_window::set_position(dimension_t x, dimension_t y, dimension_t width, dimension_t height) const
-	{
-		UINT flags = SWP_NOZORDER | SWP_NOACTIVATE;
-
-		SetWindowPos(
-			window_handle_,
-			nullptr,
-			static_cast<int>(x),
-			static_cast<int>(y),
-			static_cast<int>(width),
-			static_cast<int>(height),
-			flags
-		);
 	}
 }

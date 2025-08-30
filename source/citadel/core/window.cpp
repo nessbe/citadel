@@ -20,12 +20,31 @@
 #include "citadelpch.h"
 #include "citadel/core/window.h"
 
+#include "citadel/rendering/rendering_types.h"
+
 namespace citadel
 {
+	window::window(dimension_t x, dimension_t y, dimension_t width, dimension_t height, const std::string& title) :
+		x_(x),
+		y_(y),
+		width_(width),
+		height_(height),
+		title_(title),
+		viewport_(make_scoped<viewport>(
+			static_cast<viewport::dimension_t>(x),
+			static_cast<viewport::dimension_t>(y),
+			static_cast<viewport::dimension_t>(width),
+			static_cast<viewport::dimension_t>(height)
+		)),
+		rendering_context_(make_scoped<default_rendering_context>())
+	{ }
+
 	void window::open()
 	{
 		is_running_ = true;
+
 		_open();
+		rendering_context_->initialize(this);
 	}
 
 	void window::close()
@@ -48,6 +67,10 @@ namespace citadel
 
 	bool window::update()
 	{
+		rendering_context_->begin_frame();
+
+		rendering_context_->end_frame();
+
 		if (!is_running_)
 		{
 			return false;

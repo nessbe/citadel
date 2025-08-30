@@ -22,6 +22,14 @@
 
 namespace citadel
 {
+	void color::to_float(float& out_red, float& out_green, float& out_blue, float& out_alpha) const
+	{
+		out_red = red_ / float(MAX_CHANNEL_VALUE);
+		out_green = green_ / float(MAX_CHANNEL_VALUE);
+		out_blue = blue_ / float(MAX_CHANNEL_VALUE);
+		out_alpha = alpha_ / float(MAX_CHANNEL_VALUE);
+	}
+
 	color::channel_t color::get_red() const noexcept
 	{
 		return red_;

@@ -58,7 +58,7 @@ namespace citadel
 
 	void application::initialize()
 	{
-		window_ = make_scoped<platform_window>(0, 0, 800, 600, "Application window");
+		window_ = make_scoped<platform_window>(100, 75, 800, 600, "Application window");
 		window_->open();
 
 		_initialize();
