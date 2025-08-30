@@ -34,8 +34,9 @@ namespace citadel
 		DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
 
 		RECT rect = { };
-		rect.left = 250;
-		rect.top = 250;
+
+		rect.left = static_cast<LONG>(get_x());
+		rect.top = static_cast<LONG>(get_y());
 		rect.right = rect.left + static_cast<LONG>(get_width());
 		rect.bottom = rect.top + static_cast<LONG>(get_height());
 
@@ -84,14 +85,24 @@ namespace citadel
 		return process_messages();
 	}
 
+	void windows_window::_set_x(dimension_t x)
+	{
+		set_position(x, get_y(), get_width(), get_height());
+	}
+
+	void windows_window::_set_y(dimension_t y)
+	{
+		set_position(get_x(), y, get_width(), get_height());
+	}
+
 	void windows_window::_set_width(dimension_t width)
 	{
-		resize(width, get_height());
+		set_position(get_x(), get_y(), width, get_height());
 	}
 
 	void windows_window::_set_height(dimension_t height)
 	{
-		resize(get_width(), height);
+		set_position(get_x(), get_y(), get_width(), height);
 	}
 
 	void windows_window::_set_title(const std::string& title)
@@ -119,6 +130,30 @@ namespace citadel
 
 		switch (message)
 		{
+		case WM_MOVE:
+		{
+			int x = (int)(short)LOWORD(long_parameter);
+			int y = (int)(short)HIWORD(long_parameter);
+
+			if (window)
+			{
+				window->set_x(static_cast<dimension_t>(x));
+				window->set_y(static_cast<dimension_t>(y));
+			}
+		} break;
+
+		case WM_SIZE:
+		{
+			int width = (int)(short)LOWORD(long_parameter);
+			int height = (int)(short)HIWORD(long_parameter);
+
+			if (window)
+			{
+				window->set_width(static_cast<dimension_t>(width));
+				window->set_height(static_cast<dimension_t>(height));
+			}
+		} break;
+
 		case WM_CREATE:
 			window_count_++;
 			return 0;
@@ -204,18 +239,15 @@ namespace citadel
 		return true;
 	}
 
-	void windows_window::resize(dimension_t width, dimension_t height) const
+	void windows_window::set_position(dimension_t x, dimension_t y, dimension_t width, dimension_t height) const
 	{
 		UINT flags = SWP_NOZORDER | SWP_NOACTIVATE;
-
-		RECT rect;
-		GetWindowRect(window_handle_, &rect);
 
 		SetWindowPos(
 			window_handle_,
 			nullptr,
-			rect.left,
-			rect.top,
+			static_cast<int>(x),
+			static_cast<int>(y),
 			static_cast<int>(width),
 			static_cast<int>(height),
 			flags
