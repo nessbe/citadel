@@ -1,4 +1,4 @@
-// File:        application.cpp
+// File:        viewport.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -18,61 +18,57 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadelpch.h"
-#include "citadel/core/application.h"
+#include "citadel/rendering/viewport.h"
 
 namespace citadel
 {
-	application& application::get()
+	viewport::dimension_t viewport::get_x() const noexcept
 	{
-		return *instance;
+		return x_;
 	}
 
-	void application::start()
+	void viewport::set_x(dimension_t x) noexcept
 	{
-		is_running_ = true;
+		x_ = x;
 	}
 
-	void application::stop()
+	viewport::dimension_t viewport::get_y() const noexcept
 	{
-		is_running_ = false;
+		return y_;
 	}
 
-	bool application::is_running() const noexcept
+	void viewport::set_y(dimension_t y) noexcept
 	{
-		return is_running_;
+		y_ = y;
 	}
 
-	window& citadel::application::get_window()
+	viewport::dimension_t viewport::get_width() const noexcept
 	{
-		return *window_;
+		return width_;
 	}
 
-	bool application::update()
+	void viewport::set_width(dimension_t width) noexcept
 	{
-		if (!window_->update())
-		{
-			stop();
-		}
-		return is_running_;
+		width_ = width;
 	}
 
-	void application::initialize()
+	viewport::dimension_t viewport::get_height() const noexcept
 	{
-		window_ = make_scoped<platform_window>(0, 0, 800, 600, "Application window");
-		window_->open();
-
-		_initialize();
-		start();
+		return height_;
 	}
 
-	int application::run(const command_line& arguments)
+	void viewport::set_height(dimension_t height) noexcept
 	{
-		return _run(arguments);
+		height_ = height;
 	}
 
-	void application::shutdown()
+	color viewport::get_clear_color() const
 	{
-		stop();
-		_shutdown();
+		return clear_color_;
+	}
+
+	void viewport::set_clear_color(color clear_color)
+	{
+		clear_color_ = clear_color;
 	}
 }

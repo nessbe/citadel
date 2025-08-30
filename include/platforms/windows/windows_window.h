@@ -39,8 +39,8 @@ namespace citadel
 	class windows_window : public window
 	{
 	public:
-		windows_window(dimension_t width, dimension_t height, const std::string& title)
-			: window(width, height, title), instance_handle_(GetModuleHandle(nullptr)) { }
+		windows_window(dimension_t x, dimension_t y, dimension_t width, dimension_t height, const std::string& title)
+			: window(x, y, width, height, title), instance_handle_(GetModuleHandle(nullptr)) { }
 
 		CITADEL_API virtual ~windows_window() override;
 
@@ -62,8 +62,12 @@ namespace citadel
 
 		CITADEL_API virtual bool _update() override;
 
+		CITADEL_API virtual void _set_x(dimension_t x) override;
+		CITADEL_API virtual void _set_y(dimension_t y) override;
+
 		CITADEL_API virtual void _set_width(dimension_t width) override;
 		CITADEL_API virtual void _set_height(dimension_t height) override;
+
 		CITADEL_API virtual void _set_title(const std::string& title) override;
 
 		CITADEL_API CITADEL_GETTER virtual void* _get_native_handle() const override;
@@ -76,7 +80,7 @@ namespace citadel
 		CITADEL_API CITADEL_GETTER std::wstring get_wide_title() const;
 
 		CITADEL_API bool process_messages();
-		CITADEL_API void resize(dimension_t width, dimension_t height) const;
+		CITADEL_API void set_position(dimension_t x, dimension_t y, dimension_t width, dimension_t height) const;
 	};
 }
 

@@ -28,6 +28,10 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/memory/scope.h"
+
+#include "citadel/rendering/viewport.h"
+
 namespace citadel
 {
 	class window
@@ -36,8 +40,19 @@ namespace citadel
 		using dimension_t = unsigned int;
 
 	public:
-		window(dimension_t width, dimension_t height, const std::string& title)
-			: width_(width), height_(height), title_(title) { }
+		window(dimension_t x, dimension_t y, dimension_t width, dimension_t height, const std::string& title) :
+			x_(x),
+			y_(y),
+			width_(width),
+			height_(height),
+			title_(title),
+			viewport_(make_scoped<viewport>(
+				static_cast<viewport::dimension_t>(x),
+				static_cast<viewport::dimension_t>(y),
+				static_cast<viewport::dimension_t>(width),
+				static_cast<viewport::dimension_t>(height)
+			))
+		{ }
 
 		window(const window&) = delete;
 		window& operator=(const window&) = delete;
@@ -52,6 +67,12 @@ namespace citadel
 
 		CITADEL_API bool update();
 
+		CITADEL_API CITADEL_GETTER dimension_t get_x() const noexcept;
+		CITADEL_API CITADEL_SETTER void set_x(dimension_t x) noexcept;
+
+		CITADEL_API CITADEL_GETTER dimension_t get_y() const noexcept;
+		CITADEL_API CITADEL_SETTER void set_y(dimension_t y) noexcept;
+
 		CITADEL_API CITADEL_GETTER dimension_t get_width() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_width(dimension_t width);
 
@@ -65,14 +86,20 @@ namespace citadel
 		CITADEL_API CITADEL_GETTER bool is_visible() const noexcept;
 
 		CITADEL_API CITADEL_GETTER void* get_native_handle() const;
+		CITADEL_API CITADEL_GETTER viewport& get_viewport();
 
 	private:
+		dimension_t x_ = 0;
+		dimension_t y_ = 0;
 		dimension_t width_ = 0;
 		dimension_t height_ = 0;
+
 		std::string title_;
 
 		bool is_running_ = false;
 		bool is_visible_ = false;
+
+		scope<viewport> viewport_;
 
 	private:
 		virtual void _open() = 0;
@@ -83,8 +110,12 @@ namespace citadel
 
 		virtual bool _update() = 0;
 
+		virtual void _set_x(dimension_t x) = 0;
+		virtual void _set_y(dimension_t y) = 0;
+
 		virtual void _set_width(dimension_t width) = 0;
 		virtual void _set_height(dimension_t height) = 0;
+
 		virtual void _set_title(const std::string& title) = 0;
 
 		CITADEL_GETTER virtual void* _get_native_handle() const = 0;

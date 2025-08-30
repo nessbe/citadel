@@ -61,6 +61,28 @@ namespace citadel
 		return is_running_;
 	}
 
+	window::dimension_t window::get_x() const noexcept
+	{
+		return x_;
+	}
+
+	void window::set_x(dimension_t x) noexcept
+	{
+		x_ = x;
+		_set_x(x);
+	}
+
+	window::dimension_t window::get_y() const noexcept
+	{
+		return y_;
+	}
+
+	void window::set_y(dimension_t y) noexcept
+	{
+		y_ = y;
+		_set_y(y);
+	}
+
 	window::dimension_t window::get_width() const noexcept
 	{
 		return width_;
@@ -69,6 +91,8 @@ namespace citadel
 	void window::set_width(dimension_t width)
 	{
 		width_ = width;
+		viewport_->set_width(width);
+
 		_set_width(width);
 	}
 
@@ -80,6 +104,8 @@ namespace citadel
 	void window::set_height(dimension_t height)
 	{
 		height_ = height;
+		viewport_->set_height(height);
+
 		_set_height(height);
 	}
 
@@ -107,5 +133,10 @@ namespace citadel
 	void* window::get_native_handle() const
 	{
 		return _get_native_handle();
+	}
+
+	viewport& window::get_viewport()
+	{
+		return *viewport_;
 	}
 }
