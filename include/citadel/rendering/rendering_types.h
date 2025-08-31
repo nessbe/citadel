@@ -23,11 +23,13 @@
 #include "citadel/rendering/rendering_context.h"
 
 #include "drivers/opengl/opengl_context.h"
+#include "drivers/opengl/opengl_viewport.h"
 
 namespace citadel
 {
 #ifdef CITADEL_GRAPHICS_API_OPENGL
 	using default_rendering_context = opengl_context;
+	using default_viewport = opengl_viewport;
 #else
 	#error Citadel does not support the given rendering API yet
 #endif

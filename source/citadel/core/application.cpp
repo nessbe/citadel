@@ -49,10 +49,15 @@ namespace citadel
 
 	bool application::update()
 	{
-		if (!window_->update())
+		window_->update();
+
+		if (window_->should_close())
 		{
 			stop();
 		}
+
+		window_->render();
+
 		return is_running_;
 	}
 

@@ -50,4 +50,9 @@
 
 #include "citadel/string/const_string.h"
 
+#if CITADEL_PLATFORM_WINDOWS
+	#include <Windows.h>
+	#include <gl/GL.h>
+#endif
+
 #endif

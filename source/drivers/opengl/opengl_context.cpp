@@ -36,28 +36,22 @@ namespace citadel
 #endif
 	}
 
-	void opengl_context::_begin_frame()
+	void opengl_context::_destroy()
 	{
-		viewport& viewport = get_viewport();
-		glViewport(0, 0, viewport.get_width(), viewport.get_height());
-
-		float red, green, blue, alpha;
-		viewport.get_clear_color().to_float(red, green, blue, alpha);
-
-		glClearColor(red, green, blue, alpha);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void opengl_context::_end_frame()
-	{
+#if CITADEL_PLATFORM_WINDOWS
+		destroy_windows();
+#else
+	#error opengl_context does not support your platform yet
+#endif
 	}
 
 	void opengl_context::_swap_buffers()
 	{
-		if (device_context_handle_)
-		{
-			SwapBuffers(device_context_handle_);
-		}
+#if CITADEL_PLATFORM_WINDOWS
+		swap_buffers_windows();
+#else
+	#error opengl_context does not support your platform yet
+#endif
 	}
 
 	void opengl_context::initialize_windows(windows_window* window)
@@ -76,10 +70,30 @@ namespace citadel
 		pixel_format_descriptor.iLayerType = PFD_MAIN_PLANE;
 
 		int pixel_format = ChoosePixelFormat(device_context_handle_, &pixel_format_descriptor);
-		SetPixelFormat(device_context_handle_, pixel_format, &pixel_format_descriptor);
+		CITADEL_ASSERT(pixel_format != 0, "Failed to choose pixel format");
+
+		BOOL set_pixel_format_result = SetPixelFormat(device_context_handle_, pixel_format, &pixel_format_descriptor);
+		CITADEL_ASSERT(set_pixel_format_result == TRUE, "Failed to set pixel format");
 
 		gl_rendering_context_handle_ = wglCreateContext(device_context_handle_);
 		wglMakeCurrent(device_context_handle_, gl_rendering_context_handle_);
+#endif
+	}
+
+	void opengl_context::destroy_windows()
+	{
+#if CITADEL_PLATFORM_WINDOWS
+		wglDeleteContext(gl_rendering_context_handle_);
+#endif
+	}
+
+	void opengl_context::swap_buffers_windows()
+	{
+#if CITADEL_PLATFORM_WINDOWS
+		if (device_context_handle_)
+		{
+			SwapBuffers(device_context_handle_);
+		}
 #endif
 	}
 }

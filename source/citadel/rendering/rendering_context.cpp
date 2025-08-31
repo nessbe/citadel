@@ -26,32 +26,12 @@ namespace citadel
 {
 	void rendering_context::initialize(window* window)
 	{
-		viewport_ = &window->get_viewport();
 		_initialize(window);
 	}
 
-	void rendering_context::begin_frame()
+	void rendering_context::destroy()
 	{
-		is_frame_in_progress_ = true;
-		_begin_frame();
-	}
-
-	void rendering_context::end_frame()
-	{
-		_end_frame();
-		swap_buffers();
-
-		is_frame_in_progress_ = false;
-	}
-
-	bool rendering_context::is_frame_in_progess() const noexcept
-	{
-		return is_frame_in_progress_;
-	}
-
-	viewport& rendering_context::get_viewport() const
-	{
-		return *viewport_;
+		_destroy();
 	}
 
 	void rendering_context::swap_buffers()

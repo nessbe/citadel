@@ -61,6 +61,7 @@ namespace citadel
 		CITADEL_API virtual void _hide() override;
 
 		CITADEL_API virtual bool _update() override;
+		CITADEL_API virtual void _render() override;
 
 		CITADEL_API virtual void _set_x(dimension_t x) override;
 		CITADEL_API virtual void _set_y(dimension_t y) override;

@@ -22,6 +22,16 @@
 
 namespace citadel
 {
+	void viewport::bind() const
+	{
+		_bind();
+	}
+
+	void viewport::clear() const
+	{
+		_clear();
+	}
+
 	viewport::dimension_t viewport::get_x() const noexcept
 	{
 		return x_;

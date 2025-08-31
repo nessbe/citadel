@@ -54,7 +54,10 @@ namespace citadel
 		CITADEL_API void show();
 		CITADEL_API void hide();
 
-		CITADEL_API bool update();
+		CITADEL_API bool should_close() const;
+
+		CITADEL_API void update();
+		CITADEL_API void render();
 
 		CITADEL_API CITADEL_GETTER dimension_t get_x() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_x(dimension_t x) noexcept;
@@ -99,6 +102,7 @@ namespace citadel
 		virtual void _hide() = 0;
 
 		virtual bool _update() = 0;
+		virtual void _render() = 0;
 
 		virtual void _set_x(dimension_t x) = 0;
 		virtual void _set_y(dimension_t y) = 0;

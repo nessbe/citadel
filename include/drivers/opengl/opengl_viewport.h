@@ -1,4 +1,4 @@
-// File:        opengl_context.h
+// File:        opengl_viewport.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,15 +19,13 @@
 
 #pragma once
 
-#ifndef CITADEL_OPENGL_CONTEXT_H
-#define CITADEL_OPENGL_CONTEXT_H
+#ifndef CITADEL_OPENGL_VIEWPORT_H
+#define CITADEL_OPENGL_VIEWPORT_H
 
 #include "citadel/export.h"
 #include "citadel/platforms.h"
 
-#include "citadel/rendering/rendering_context.h"
-
-#include "platforms/windows/windows_window.h"
+#include "citadel/rendering/viewport.h"
 
 #if CITADEL_PLATFORM_WINDOWS
 	#include <Windows.h>
@@ -36,27 +34,17 @@
 
 namespace citadel
 {
-	class opengl_context : public rendering_context
+	class opengl_viewport : public viewport
 	{
 	public:
-		opengl_context() = default;
-		virtual ~opengl_context() override = default;
+		opengl_viewport(dimension_t x, dimension_t y, dimension_t width, dimension_t height)
+			: viewport(x, y, width, height) { }
+
+		virtual ~opengl_viewport() override = default;
 
 	private:
-#if CITADEL_PLATFORM_WINDOWS
-		HWND window_handle_ = nullptr;
-		HDC device_context_handle_ = nullptr;
-		HGLRC gl_rendering_context_handle_ = nullptr;
-#endif
-
-	private:
-		CITADEL_API virtual void _initialize(window* window) override;
-		CITADEL_API virtual void _destroy() override;
-		CITADEL_API virtual void _swap_buffers() override;
-
-		CITADEL_API void initialize_windows(windows_window* window);
-		CITADEL_API void destroy_windows();
-		CITADEL_API void swap_buffers_windows();
+		CITADEL_API virtual void _bind() const override;
+		CITADEL_API virtual void _clear() const override;
 	};
 }
 

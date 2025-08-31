@@ -30,7 +30,7 @@ namespace citadel
 		width_(width),
 		height_(height),
 		title_(title),
-		viewport_(make_scoped<viewport>(
+		viewport_(make_scoped<default_viewport>(
 			static_cast<viewport::dimension_t>(x),
 			static_cast<viewport::dimension_t>(y),
 			static_cast<viewport::dimension_t>(width),
@@ -41,15 +41,17 @@ namespace citadel
 
 	void window::open()
 	{
-		is_running_ = true;
-
 		_open();
 		rendering_context_->initialize(this);
+
+		is_running_ = true;
 	}
 
 	void window::close()
 	{
 		is_running_ = false;
+
+		rendering_context_->destroy();
 		_close();
 	}
 
@@ -65,23 +67,32 @@ namespace citadel
 		_hide();
 	}
 
-	bool window::update()
+	bool window::should_close() const
 	{
-		rendering_context_->begin_frame();
+		return !is_running_;
+	}
 
-		rendering_context_->end_frame();
-
-		if (!is_running_)
+	void window::update()
+	{
+		if (!is_visible_)
 		{
-			return false;
+			return;
 		}
 
-		if (is_visible_)
+		if (!_update())
 		{
-			return _update();
+			close();
 		}
+	}
 
-		return is_running_;
+	void window::render()
+	{
+		viewport_->bind();
+		viewport_->clear();
+
+		_render();
+
+		rendering_context_->swap_buffers();
 	}
 
 	window::dimension_t window::get_x() const noexcept

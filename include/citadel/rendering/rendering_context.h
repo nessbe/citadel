@@ -38,24 +38,13 @@ namespace citadel
 		virtual ~rendering_context() = default;
 
 		CITADEL_API void initialize(window* window);
+		CITADEL_API void destroy();
 
-		CITADEL_API void begin_frame();
-		CITADEL_API void end_frame();
-
-		CITADEL_API CITADEL_GETTER bool is_frame_in_progess() const noexcept;
-		CITADEL_API CITADEL_GETTER viewport& get_viewport() const;
-
-	private:
-		bool is_frame_in_progress_ = false;
-		viewport* viewport_ = nullptr;
-
-	private:
 		CITADEL_API void swap_buffers();
 
+	private:
 		virtual void _initialize(window* window) = 0;
-
-		virtual void _begin_frame() = 0;
-		virtual void _end_frame() = 0;
+		virtual void _destroy() = 0;
 
 		virtual void _swap_buffers() = 0;
 	};

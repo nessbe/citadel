@@ -38,7 +38,10 @@ namespace citadel
 		viewport(dimension_t x, dimension_t y, dimension_t width, dimension_t height)
 			: x_(x), y_(y), width_(width), height_(height) { }
 
-		~viewport() = default;
+		virtual ~viewport() = default;
+
+		CITADEL_API void bind() const;
+		CITADEL_API void clear() const;
 
 		CITADEL_API CITADEL_GETTER dimension_t get_x() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_x(dimension_t x) noexcept;
@@ -58,6 +61,10 @@ namespace citadel
 	private:
 		dimension_t x_, y_, width_, height_;
 		color clear_color_ = color(color::MAX_CHANNEL_VALUE, color::MAX_CHANNEL_VALUE, color::MAX_CHANNEL_VALUE);
+
+	private:
+		virtual void _bind() const = 0;
+		virtual void _clear() const = 0;
 	};
 }
 

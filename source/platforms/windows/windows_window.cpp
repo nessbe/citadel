@@ -85,6 +85,22 @@ namespace citadel
 		return process_messages();
 	}
 
+	void windows_window::_render()
+	{
+		glBegin(GL_TRIANGLES);
+
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glVertex2f(0.0f, 0.5f);
+
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(0.5f, -0.5f);
+
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex2f(-0.5f, -0.5f);
+
+		glEnd();
+	}
+
 	void windows_window::_set_x(dimension_t x)
 	{
 	}
@@ -155,6 +171,11 @@ namespace citadel
 			return 0;
 
 		case WM_CLOSE:
+			if (window)
+			{
+				window->close();
+			}
+
 			DestroyWindow(window_handle);
 			return 0;
 
@@ -219,12 +240,6 @@ namespace citadel
 
 		while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (message.message == WM_QUIT)
-			{
-				close();
-				return false;
-			}
-
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
