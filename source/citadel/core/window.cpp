@@ -87,11 +87,20 @@ namespace citadel
 
 	void window::render()
 	{
+		_render();
+	}
+
+	void window::begin_step()
+	{
 		viewport_->bind();
 		viewport_->clear();
 
-		_render();
+		_begin_step();
+	}
 
+	void window::end_step()
+	{
+		_end_step();
 		rendering_context_->swap_buffers();
 	}
 

@@ -87,18 +87,14 @@ namespace citadel
 
 	void windows_window::_render()
 	{
-		glBegin(GL_TRIANGLES);
+	}
 
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(0.0f, 0.5f);
+	void windows_window::_begin_step()
+	{
+	}
 
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex2f(0.5f, -0.5f);
-
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(-0.5f, -0.5f);
-
-		glEnd();
+	void windows_window::_end_step()
+	{
 	}
 
 	void windows_window::_set_x(dimension_t x)

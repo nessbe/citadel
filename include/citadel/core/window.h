@@ -59,6 +59,9 @@ namespace citadel
 		CITADEL_API void update();
 		CITADEL_API void render();
 
+		CITADEL_API void begin_step();
+		CITADEL_API void end_step();
+
 		CITADEL_API CITADEL_GETTER dimension_t get_x() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_x(dimension_t x) noexcept;
 
@@ -103,6 +106,9 @@ namespace citadel
 
 		virtual bool _update() = 0;
 		virtual void _render() = 0;
+
+		virtual void _begin_step() = 0;
+		virtual void _end_step() = 0;
 
 		virtual void _set_x(dimension_t x) = 0;
 		virtual void _set_y(dimension_t y) = 0;

@@ -27,6 +27,7 @@
 
 #include "citadel/cli/command_line.h"
 
+#include "citadel/core/main_loop.h"
 #include "citadel/core/platform_window.h"
 #include "citadel/core/window.h"
 
@@ -54,12 +55,14 @@ namespace citadel
 		CITADEL_API CITADEL_GETTER window& get_window();
 
 	protected:
-		CITADEL_API bool update();
+		CITADEL_API void begin_step();
+		CITADEL_API void update();
+		CITADEL_API void end_step();
 
 	private:
 		inline static application* instance;
 
-		bool is_running_ = false;
+		main_loop main_loop_;
 		scope<window> window_ = nullptr;
 
 	private:

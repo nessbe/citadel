@@ -29,17 +29,17 @@ namespace citadel
 
 	void application::start()
 	{
-		is_running_ = true;
+		main_loop_.start();
 	}
 
 	void application::stop()
 	{
-		is_running_ = false;
+		main_loop_.stop();
 	}
 
 	bool application::is_running() const noexcept
 	{
-		return is_running_;
+		return main_loop_.is_running();
 	}
 
 	window& citadel::application::get_window()
@@ -47,18 +47,27 @@ namespace citadel
 		return *window_;
 	}
 
-	bool application::update()
+	void application::begin_step()
+	{
+		main_loop_.begin_step();
+		window_->begin_step();
+	}
+
+	void application::update()
 	{
 		window_->update();
+		window_->render();
 
 		if (window_->should_close())
 		{
 			stop();
 		}
+	}
 
-		window_->render();
-
-		return is_running_;
+	void application::end_step()
+	{
+		window_->end_step();
+		main_loop_.end_step();
 	}
 
 	void application::initialize()
