@@ -37,6 +37,9 @@
 #include "citadel/core/platform_window.h"
 #include "citadel/core/window.h"
 
+#include "citadel/math/vectors/basic_vec2.h"
+#include "citadel/math/vectors/vec2.h"
+
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 
