@@ -47,12 +47,14 @@
 #include "citadel/rendering/color.h"
 #include "citadel/rendering/rendering_context.h"
 #include "citadel/rendering/rendering_types.h"
+#include "citadel/rendering/vertex_array.h"
 #include "citadel/rendering/viewport.h"
 
 #include "citadel/string/const_string.h"
 
 #include "drivers/opengl/opengl_context.h"
 #include "drivers/opengl/opengl_loader.h"
+#include "drivers/opengl/opengl_vertex_array.h"
 #include "drivers/opengl/opengl_viewport.h"
 
 #include "platforms/windows/windows_window.h"

@@ -1,4 +1,4 @@
-// File:        rendering_types.h
+// File:        vertex_array.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,24 +17,34 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#ifndef CITADEL_RENDERING_TYPES_H
-#define CITADEL_RENDERING_TYPES_H
+#pragma once
 
-#include "citadel/rendering/rendering_context.h"
+#ifndef CITADEL_VERTEX_ARRAY_H
+#define CITADEL_VERTEX_ARRAY_H
 
-#include "drivers/opengl/opengl_context.h"
-#include "drivers/opengl/opengl_vertex_array.h"
-#include "drivers/opengl/opengl_viewport.h"
+#include "citadel/attributes.h"
+#include "citadel/export.h"
 
 namespace citadel
 {
-#ifdef CITADEL_GRAPHICS_API_OPENGL
-	using default_rendering_context = opengl_context;
-	using default_vertex_array = opengl_vertex_array;
-	using default_viewport = opengl_viewport;
-#else
-	#error Citadel does not support the given rendering API yet
-#endif
+	class vertex_array
+	{
+	public:
+		vertex_array() = default;
+		virtual ~vertex_array() = default;
+
+		CITADEL_API void bind();
+		CITADEL_API void unbind();
+
+		CITADEL_API CITADEL_GETTER bool is_bound() const noexcept;
+
+	private:
+		bool is_bound_ = false;
+
+	private:
+		virtual void _bind() = 0;
+		virtual void _unbind() = 0;
+	};
 }
 
 #endif
