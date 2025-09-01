@@ -52,6 +52,7 @@
 #include "citadel/string/const_string.h"
 
 #include "drivers/opengl/opengl_context.h"
+#include "drivers/opengl/opengl_loader.h"
 #include "drivers/opengl/opengl_viewport.h"
 
 #include "platforms/windows/windows_window.h"

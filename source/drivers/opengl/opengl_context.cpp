@@ -24,6 +24,8 @@
 
 #include "citadel/rendering/color.h"
 
+#include "drivers/opengl/opengl_loader.h"
+
 namespace citadel
 {
 	void opengl_context::_initialize(window* window)
@@ -34,6 +36,7 @@ namespace citadel
 #else
 	#error opengl_context does not support your platform yet
 #endif
+		load_opengl_functions();
 	}
 
 	void opengl_context::_destroy()
@@ -76,6 +79,8 @@ namespace citadel
 		CITADEL_ASSERT(set_pixel_format_result == TRUE, "Failed to set pixel format");
 
 		gl_rendering_context_handle_ = wglCreateContext(device_context_handle_);
+		CITADEL_ASSERT(gl_rendering_context_handle_, "Windows OpenGL context handle is null");
+
 		wglMakeCurrent(device_context_handle_, gl_rendering_context_handle_);
 #endif
 	}
@@ -84,10 +89,11 @@ namespace citadel
 	{
 #if CITADEL_PLATFORM_WINDOWS
 		wglDeleteContext(gl_rendering_context_handle_);
+		gl_rendering_context_handle_ = nullptr;
 #endif
 	}
 
-	void opengl_context::swap_buffers_windows()
+	void opengl_context::swap_buffers_windows() const
 	{
 #if CITADEL_PLATFORM_WINDOWS
 		if (device_context_handle_)

@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        opengl_loader.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,44 +17,19 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
-
-#include <cinttypes>
-#include <cmath>
-#include <csignal>
-#include <cstddef>
-
-#include <iostream>
-#include <ostream>
-#include <sstream>
-
-#include <memory>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-#include <vector>
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/string/const_string.h"
-
+#include "citadelpch.h"
 #include "drivers/opengl/opengl_loader.h"
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <gl/GL.h>
-#endif
+PFNGLGENVERTEXARRAYSPROC glGenVertexArraysProc = nullptr;
+PFNGLBINDVERTEXARRAYPROC glBindVertexArrayProc = nullptr;
+PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArraysProc = nullptr;
 
-#endif
+namespace citadel
+{
+	void load_opengl_functions()
+	{
+		CITADEL_LOAD_OPENGL_FUNCTION(PFNGLGENVERTEXARRAYSPROC, glGenVertexArraysProc, glGenVertexArrays);
+		CITADEL_LOAD_OPENGL_FUNCTION(PFNGLBINDVERTEXARRAYPROC, glBindVertexArrayProc, glBindVertexArray);
+		CITADEL_LOAD_OPENGL_FUNCTION(PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArraysProc, glDeleteVertexArrays);
+	}
+}

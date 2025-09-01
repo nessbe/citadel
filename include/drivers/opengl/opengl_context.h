@@ -56,7 +56,7 @@ namespace citadel
 
 		CITADEL_API void initialize_windows(windows_window* window);
 		CITADEL_API void destroy_windows();
-		CITADEL_API void swap_buffers_windows();
+		CITADEL_API void swap_buffers_windows() const;
 	};
 }
 
