@@ -41,6 +41,7 @@
 #include "citadel/math/vectors/basic_vec2.h"
 #include "citadel/math/vectors/vec2.h"
 
+#include "citadel/memory/buffer.h"
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 

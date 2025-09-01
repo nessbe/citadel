@@ -50,4 +50,7 @@
 #define CITADEL_EXCEPT_RUNTIME_ERROR(condition, message, ...) \
 	CITADEL_EXCEPT(condition, message, std::runtime_error, ##__VA_ARGS__)
 
+#define CITADEL_EXCEPT_OUT_OF_RANGE(condition, message, ...) \
+	CITADEL_EXCEPT(condition, message, std::out_of_range, ##__VA_ARGS__)
+
 #endif
