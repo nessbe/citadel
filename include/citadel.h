@@ -29,6 +29,7 @@
 #include "citadel/exceptions.h"
 #include "citadel/export.h"
 #include "citadel/platforms.h"
+#include "citadel/utilities.h"
 
 #include "citadel/cli/command_line.h"
 
@@ -48,15 +49,25 @@
 #include "citadel/rendering/color.h"
 #include "citadel/rendering/rendering_context.h"
 #include "citadel/rendering/rendering_types.h"
-#include "citadel/rendering/vertex_array.h"
 #include "citadel/rendering/viewport.h"
+
+#include "citadel/rendering/retained/index_buffer.h"
+#include "citadel/rendering/retained/vertex_array.h"
+#include "citadel/rendering/retained/vertex_buffer.h"
+#include "citadel/rendering/retained/vertex_buffer_element.h"
+#include "citadel/rendering/retained/vertex_buffer_layout.h"
 
 #include "citadel/string/const_string.h"
 
 #include "drivers/opengl/opengl_context.h"
+#include "drivers/opengl/opengl_defines.h"
 #include "drivers/opengl/opengl_loader.h"
-#include "drivers/opengl/opengl_vertex_array.h"
+#include "drivers/opengl/opengl_types.h"
 #include "drivers/opengl/opengl_viewport.h"
+
+#include "drivers/opengl/retained/opengl_index_buffer.h"
+#include "drivers/opengl/retained/opengl_vertex_array.h"
+#include "drivers/opengl/retained/opengl_vertex_buffer.h"
 
 #include "platforms/windows/windows_window.h"
 

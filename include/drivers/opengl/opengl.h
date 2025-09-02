@@ -1,4 +1,4 @@
-// File:        opengl_viewport.h
+// File:        opengl.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,30 +19,18 @@
 
 #pragma once
 
-#ifndef CITADEL_OPENGL_VIEWPORT_H
-#define CITADEL_OPENGL_VIEWPORT_H
+#ifndef CITADEL_OPENGL_H
+#define CITADEL_OPENGL_H
 
-#include "citadel/export.h"
 #include "citadel/platforms.h"
 
-#include "citadel/rendering/viewport.h"
+#if CITADEL_PLATFORM_WINDOWS
+	#include <Windows.h>
+	#include <gl/GL.h>
+#endif
 
-#include "drivers/opengl/opengl.h"
-
-namespace citadel
-{
-	class opengl_viewport : public viewport
-	{
-	public:
-		opengl_viewport(dimension_t x, dimension_t y, dimension_t width, dimension_t height)
-			: viewport(x, y, width, height) { }
-
-		virtual ~opengl_viewport() override = default;
-
-	private:
-		CITADEL_API virtual void _bind() const override;
-		CITADEL_API virtual void _clear() const override;
-	};
-}
+#include "drivers/opengl/opengl_defines.h"
+#include "drivers/opengl/opengl_loader.h"
+#include "drivers/opengl/opengl_types.h"
 
 #endif

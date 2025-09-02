@@ -1,4 +1,4 @@
-// File:        opengl_vertex_array.cpp
+// File:        index_buffer.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -18,27 +18,48 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadelpch.h"
-#include "drivers/opengl/opengl_vertex_array.h"
+#include "citadel/rendering/retained/index_buffer.h"
 
 namespace citadel
 {
-	opengl_vertex_array::opengl_vertex_array()
+	void index_buffer::bind()
 	{
-		glGenVertexArrays(1, &id_);
+		_bind();
 	}
 
-	opengl_vertex_array::~opengl_vertex_array()
+	void index_buffer::unbind()
 	{
-		glDeleteVertexArrays(1, &id_);
+		_unbind();
 	}
 
-	void opengl_vertex_array::_bind()
+	std::vector<index_buffer::index_t> index_buffer::data() const
 	{
-		glBindVertexArray(id_);
+		return indices_.data();
 	}
 
-	void opengl_vertex_array::_unbind()
+	index_buffer::index_t* index_buffer::raw_data() const
 	{
-		glBindVertexArray(0);
+		return indices_.raw_data();
+	}
+
+	std::size_t index_buffer::size() const noexcept
+	{
+		return indices_.size();
+	}
+
+	std::size_t index_buffer::memory_size() const noexcept
+	{
+		return indices_.memory_size();
+	}
+
+	index_buffer::buffer_t& index_buffer::get_indices()
+	{
+		return indices_;
+	}
+
+	void index_buffer::set_indices(buffer_t indices)
+	{
+		indices_ = std::move(indices);
+		_set_indices(indices);
 	}
 }

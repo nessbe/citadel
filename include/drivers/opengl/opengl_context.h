@@ -27,12 +27,9 @@
 
 #include "citadel/rendering/rendering_context.h"
 
-#include "platforms/windows/windows_window.h"
+#include "drivers/opengl/opengl.h"
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <gl/GL.h>
-#endif
+#include "platforms/windows/windows_window.h"
 
 namespace citadel
 {

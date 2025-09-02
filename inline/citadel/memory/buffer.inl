@@ -32,6 +32,13 @@ namespace citadel
 	}
 
 	template<typename T>
+	buffer<T>::buffer(std::initializer_list<T> data, std::size_t offset)
+		: size_(data.size()), offset_(offset), stride_(sizeof(T) + offset), raw_memory_(nullptr)
+	{
+		construct_from_list(data);
+	}
+
+	template<typename T>
 	buffer<T>::buffer(buffer<T>&& other) noexcept :
 		is_good_(other.is_good_),
 		size_(other.size_),
@@ -145,6 +152,19 @@ namespace citadel
 		for (std::size_t i = 0; i < size_; i++)
 		{
 			new (get_raw_pointer(i)) T();
+		}
+	}
+
+	template<typename T>
+	void buffer<T>::construct_from_list(std::initializer_list<T>& list)
+	{
+		raw_memory_ = ::operator new(memory_size());
+
+		std::size_t i = 0;
+		for (const T& element : list)
+		{
+			new (get_raw_pointer(i)) T(element);
+			i++;
 		}
 	}
 

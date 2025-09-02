@@ -17,13 +17,23 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
+// This file is highly inspired by this file in the Hazel GitHub repository by TheCherno:
+//     - https://github.com/TheCherno/Hazel/blob/master/Hazel/src/Platform/OpenGL/OpenGLVertexArray.h
+
 #pragma once
 
 #ifndef CITADEL_VERTEX_ARRAY_H
 #define CITADEL_VERTEX_ARRAY_H
 
+#include <vector>
+
 #include "citadel/attributes.h"
 #include "citadel/export.h"
+
+#include "citadel/memory/reference.h"
+
+#include "citadel/rendering/retained/index_buffer.h"
+#include "citadel/rendering/retained/vertex_buffer.h"
 
 namespace citadel
 {
@@ -38,12 +48,26 @@ namespace citadel
 
 		CITADEL_API CITADEL_GETTER bool is_bound() const noexcept;
 
+		CITADEL_API CITADEL_GETTER const reference<index_buffer>& get_index_buffer() const noexcept;
+		CITADEL_API void set_index_buffer(const reference<index_buffer>& index_buffer);
+
+		CITADEL_API CITADEL_GETTER const std::vector<reference<vertex_buffer>>& get_vertex_buffers() const noexcept;
+		CITADEL_API void add_vertex_buffer(const reference<vertex_buffer>& vertex_buffer);
+
+		CITADEL_API void clear();
+
 	private:
 		bool is_bound_ = false;
+
+		reference<index_buffer> index_buffer_;
+		std::vector<reference<vertex_buffer>> vertex_buffers_;
 
 	private:
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
+
+		virtual void _set_index_buffer(const reference<index_buffer>& index_buffer) = 0;
+		virtual void _add_vertex_buffer(const reference<vertex_buffer>& vertex_buffer, std::size_t vertex_buffer_count) = 0;
 	};
 }
 

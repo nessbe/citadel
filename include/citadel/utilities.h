@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        utilities.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,43 +19,26 @@
 
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
+#ifndef CITADEL_UTILITIES_H
+#define CITADEL_UTILITIES_H
 
-#include <cinttypes>
-#include <cmath>
-#include <csignal>
-#include <cstddef>
-
-#include <iostream>
-#include <ostream>
-#include <sstream>
-
-#include <memory>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-
-#include <initializer_list>
 #include <vector>
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
-#include "citadel/utilities.h"
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/string/const_string.h"
-
-#include "drivers/opengl/opengl.h"
-#include "drivers/opengl/opengl_defines.h"
-#include "drivers/opengl/opengl_loader.h"
-#include "drivers/opengl/opengl_types.h"
+#define CITADEL_ITERATOR_WRAPPER(member) \
+	auto begin() noexcept { return member.begin(); } \
+	auto end() noexcept { return member.end(); } \
+	auto begin() const noexcept { return member.begin(); } \
+	auto end() const noexcept { return member.end(); } \
+	auto cbegin() const noexcept { return member.cbegin(); } \
+	auto cend() const noexcept { return member.cend(); } \
+	auto rbegin() noexcept { return member.rbegin(); } \
+	auto rend() noexcept { return member.rend(); } \
+	auto rbegin() const noexcept { return member.rbegin(); } \
+	auto rend() const noexcept { return member.rend(); } \
+	auto crbegin() const noexcept { return member.crbegin(); } \
+	auto crend() const noexcept { return member.crend(); }
 
 #endif

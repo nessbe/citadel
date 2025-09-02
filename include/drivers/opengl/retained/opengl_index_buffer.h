@@ -1,4 +1,4 @@
-// File:        opengl_viewport.h
+// File:        opengl_index_buffer.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,29 +19,33 @@
 
 #pragma once
 
-#ifndef CITADEL_OPENGL_VIEWPORT_H
-#define CITADEL_OPENGL_VIEWPORT_H
+#ifndef CITADEL_OPENGL_INDEX_BUFFER_H
+#define CITADEL_OPENGL_INDEX_BUFFER_H
 
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/rendering/viewport.h"
+#include "citadel/rendering/retained/index_buffer.h"
 
 #include "drivers/opengl/opengl.h"
 
 namespace citadel
 {
-	class opengl_viewport : public viewport
+	class opengl_index_buffer : public index_buffer
 	{
 	public:
-		opengl_viewport(dimension_t x, dimension_t y, dimension_t width, dimension_t height)
-			: viewport(x, y, width, height) { }
+		CITADEL_API opengl_index_buffer(std::size_t size);
+		CITADEL_API opengl_index_buffer(buffer_t&& indices);
 
-		virtual ~opengl_viewport() override = default;
+		CITADEL_API virtual ~opengl_index_buffer() override;
 
 	private:
-		CITADEL_API virtual void _bind() const override;
-		CITADEL_API virtual void _clear() const override;
+		GLuint id_;
+
+	private:
+		CITADEL_API virtual void _bind() override;
+		CITADEL_API virtual void _unbind() override;
+
+		CITADEL_API virtual void _set_indices(const buffer_t& indices) override;
 	};
 }
 

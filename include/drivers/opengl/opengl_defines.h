@@ -1,4 +1,4 @@
-// File:        opengl_vertex_array.h
+// File:        opengl_defines.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,28 +19,23 @@
 
 #pragma once
 
-#ifndef CITADEL_OPENGL_VERTEX_ARRAY_H
-#define CITADEL_OPENGL_VERTEX_ARRAY_H
+#ifndef CITADEL_OPENGL_DEFINES_H
+#define CITADEL_OPENGL_DEFINES_H
 
-#include "citadel/export.h"
+#ifndef GL_ARRAY_BUFFER
+	#define GL_ARRAY_BUFFER         0x8892
+#endif
 
-#include "citadel/rendering/vertex_array.h"
+#ifndef GL_ELEMENT_ARRAY_BUFFER
+	#define GL_ELEMENT_ARRAY_BUFFER 0x8893
+#endif
 
-namespace citadel
-{
-	class opengl_vertex_array : public vertex_array
-	{
-	public:
-		CITADEL_API opengl_vertex_array();
-		CITADEL_API virtual ~opengl_vertex_array() override;
+#ifndef GL_STATIC_DRAW
+	#define GL_STATIC_DRAW          0x88E4
+#endif
 
-	private:
-		GLuint id_;
-
-	private:
-		CITADEL_API virtual void _bind() override = 0;
-		CITADEL_API virtual void _unbind() override = 0;
-	};
-}
+#ifndef GL_DYNAMIC_DRAW
+	#define GL_DYNAMIC_DRAW         0x88E8
+#endif
 
 #endif

@@ -1,4 +1,4 @@
-// File:        opengl_viewport.h
+// File:        vertex_buffer_layout.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,32 +17,31 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#ifndef CITADEL_OPENGL_VIEWPORT_H
-#define CITADEL_OPENGL_VIEWPORT_H
-
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/rendering/viewport.h"
-
-#include "drivers/opengl/opengl.h"
+#include "citadelpch.h"
+#include "citadel/rendering/retained/vertex_buffer_layout.h"
 
 namespace citadel
 {
-	class opengl_viewport : public viewport
+	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements)
+		: elements_(elements)
 	{
-	public:
-		opengl_viewport(dimension_t x, dimension_t y, dimension_t width, dimension_t height)
-			: viewport(x, y, width, height) { }
+		construct();
+	}
 
-		virtual ~opengl_viewport() override = default;
+	std::size_t vertex_buffer_layout::get_stride() const noexcept
+	{
+		return stride_;
+	}
 
-	private:
-		CITADEL_API virtual void _bind() const override;
-		CITADEL_API virtual void _clear() const override;
-	};
+	void vertex_buffer_layout::construct()
+	{
+		stride_ = 0;
+
+		for (vertex_buffer_element& element : elements_)
+		{
+			element.offset_ = stride_;
+			stride_ += element.size();
+		}
+	}
+
 }
-
-#endif

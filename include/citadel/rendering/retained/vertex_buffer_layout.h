@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        vertex_buffer_layout.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,45 +17,47 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
+// This file is highly inspired by this file in the Hazel GitHub repository by TheCherno:
+//     - https://github.com/TheCherno/Hazel/blob/master/Hazel/src/Hazel/Renderer/Buffer.h
+
 #pragma once
 
-#ifndef CITADELPCH_H
-#define CITADELPCH_H
+#ifndef CITADEL_VERTEX_BUFFER_LAYOUT_H
+#define CITADEL_VERTEX_BUFFER_LAYOUT_H
 
-#include <cinttypes>
-#include <cmath>
-#include <csignal>
 #include <cstddef>
-
-#include <iostream>
-#include <ostream>
-#include <sstream>
-
-#include <memory>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-
 #include <initializer_list>
 #include <vector>
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 #include "citadel/utilities.h"
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+#include "citadel/rendering/retained/vertex_buffer_element.h"
 
-#include "citadel/string/const_string.h"
+namespace citadel
+{
+	class vertex_buffer_layout
+	{
+	public:
+		vertex_buffer_layout()
+			: stride_(0) { }
 
-#include "drivers/opengl/opengl.h"
-#include "drivers/opengl/opengl_defines.h"
-#include "drivers/opengl/opengl_loader.h"
-#include "drivers/opengl/opengl_types.h"
+		CITADEL_API vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements);
+
+		~vertex_buffer_layout() = default;
+
+		CITADEL_API CITADEL_GETTER std::size_t get_stride() const noexcept;
+
+		CITADEL_ITERATOR_WRAPPER(elements_);
+
+	private:
+		std::vector<vertex_buffer_element> elements_;
+		std::size_t stride_;
+
+	private:
+		CITADEL_API void construct();
+	};
+}
 
 #endif

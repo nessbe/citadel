@@ -18,7 +18,10 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadelpch.h"
-#include "citadel/rendering/vertex_array.h"
+#include "citadel/rendering/retained/vertex_array.h"
+
+#include "citadel/rendering/retained/vertex_buffer_element.h"
+#include "citadel/rendering/retained/vertex_buffer_layout.h"
 
 namespace citadel
 {
@@ -37,5 +40,41 @@ namespace citadel
 	bool vertex_array::is_bound() const noexcept
 	{
 		return is_bound_;
+	}
+
+	const reference<index_buffer>& vertex_array::get_index_buffer() const noexcept
+	{
+		return index_buffer_;
+	}
+
+	void vertex_array::set_index_buffer(const reference<index_buffer>& index_buffer)
+	{
+		bind();
+		index_buffer->bind();
+
+		_set_index_buffer(index_buffer);
+
+		index_buffer_ = index_buffer;
+	}
+
+	const std::vector<reference<vertex_buffer>>& vertex_array::get_vertex_buffers() const noexcept
+	{
+		return vertex_buffers_;
+	}
+
+	void vertex_array::add_vertex_buffer(const reference<vertex_buffer>& vertex_buffer)
+	{
+		bind();
+		vertex_buffer->bind();
+
+		_add_vertex_buffer(vertex_buffer, vertex_buffers_.size());
+
+		vertex_buffers_.push_back(vertex_buffer);
+	}
+
+	void vertex_array::clear()
+	{
+		index_buffer_ = nullptr;
+		vertex_buffers_.clear();
 	}
 }

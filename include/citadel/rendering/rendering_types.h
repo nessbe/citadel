@@ -23,14 +23,19 @@
 #include "citadel/rendering/rendering_context.h"
 
 #include "drivers/opengl/opengl_context.h"
-#include "drivers/opengl/opengl_vertex_array.h"
 #include "drivers/opengl/opengl_viewport.h"
+
+#include "drivers/opengl/retained/opengl_index_buffer.h"
+#include "drivers/opengl/retained/opengl_vertex_array.h"
+#include "drivers/opengl/retained/opengl_vertex_buffer.h"
 
 namespace citadel
 {
 #ifdef CITADEL_GRAPHICS_API_OPENGL
+	using default_index_buffer = opengl_index_buffer;
 	using default_rendering_context = opengl_context;
 	using default_vertex_array = opengl_vertex_array;
+	using default_vertex_buffer = opengl_vertex_buffer;
 	using default_viewport = opengl_viewport;
 #else
 	#error Citadel does not support the given rendering API yet

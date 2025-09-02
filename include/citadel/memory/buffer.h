@@ -23,6 +23,7 @@
 #define CITADEL_BUFFER_H
 
 #include <cstddef>
+#include <initializer_list>
 #include <new>
 #include <vector>
 
@@ -39,6 +40,11 @@ namespace citadel
 
 		buffer(std::size_t size)
 			: buffer(size, 0) { }
+
+		buffer(std::initializer_list<T> data, std::size_t offset);
+
+		buffer(std::initializer_list<T> data)
+			: buffer(data, 0) { }
 
 		buffer(buffer<T>&& other) noexcept;
 		buffer& operator=(buffer<T>&& other) noexcept;
@@ -67,8 +73,9 @@ namespace citadel
 
 	private:
 		void construct();
-		void destroy();
+		void construct_from_list(std::initializer_list<T>& list);
 
+		void destroy();
 		void reset();
 
 		CITADEL_INLINE void* get_raw_pointer(std::size_t index) const;
