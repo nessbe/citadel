@@ -19,4 +19,8 @@
 
 #pragma once
 
+#include <iostream>
+#include <string>
+
+#include "citadel/assert.h"
 #include "citadel/export.h"

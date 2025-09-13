@@ -52,7 +52,9 @@ project "citadel"
 
 	filter "configurations:Debug"
 		defines {
-			"CITADEL_DEBUG"
+			"CITADEL_DEBUG",
+			"CITADEL_ENABLE_DEBUGBREAK",
+			"CITADEL_ENABLE_ASSERTIONS"
 		}
 
 		runtime "Debug"

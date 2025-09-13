@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        assert.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,5 +19,14 @@
 
 #pragma once
 
-#include "citadel/assert.h"
+#include <string>
+
 #include "citadel/export.h"
+
+namespace citadel
+{
+	CITADEL_API void debugbreak();
+
+	CITADEL_API void assert(bool condition, const std::string& message);
+	CITADEL_API void assert(bool condition, const std::string& condition_string, const std::string& message);
+}
