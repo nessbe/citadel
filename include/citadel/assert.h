@@ -30,3 +30,15 @@ namespace citadel
 	CITADEL_API void assert(bool condition, const std::string& message);
 	CITADEL_API void assert(bool condition, const std::string& condition_string, const std::string& message);
 }
+
+#ifdef CITADEL_ENABLE_DEBUGBREAK
+	#define CITADEL_DEBUGBREAK() ::citadel::debugbreak()
+#else
+	#define CITADEL_DEBUGBREAK()
+#endif
+
+#ifdef CITADEL_ENABLE_ASSERTIONS
+	#define CITADEL_ASSERT(condition, message) ::citadel::assert(condition, #condition, message)
+#else
+	#define CITADEL_ASSERT()
+#endif
