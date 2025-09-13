@@ -40,5 +40,8 @@ namespace citadel
 
 	private:
 		std::string name_;
+
+	private:
+		CITADEL_API CITADEL_NODISCARD std::string format_message(const std::string& message) const;
 	};
 }

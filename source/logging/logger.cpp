@@ -24,11 +24,20 @@ namespace citadel
 {
 	void logger::log(const std::string& message)
 	{
-		std::cout << message << std::endl;
+		std::string formatted_message = format_message(message);
+		std::cout << formatted_message << std::endl;
 	}
 
 	const std::string& logger::get_name() const noexcept
 	{
 		return name_;
+	}
+
+	std::string logger::format_message(const std::string& message) const
+	{
+		std::ostringstream oss;
+		oss << '[' << name_ << "] ";
+		oss << message;
+		return oss.str();
 	}
 }
