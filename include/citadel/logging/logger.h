@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        logger.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,10 +19,18 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+#include <string>
 
-#include "citadel/logging/logger.h"
+#include "citadel/export.h"
+
+namespace citadel
+{
+	class logger
+	{
+	public:
+		logger() = default;
+		~logger() = default;
+
+		CITADEL_API void log(const std::string& message);
+	};
+}
