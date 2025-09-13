@@ -20,7 +20,7 @@
 #include "citadel/pch.h"
 #include "citadel/assert.h"
 
-#if !defined(_WIN32) && (defined(__GLUC__) || defined (__clang__))
+#if !CITADEL_PLATFORM_WINDOWS && (defined(__GLUC__) || defined (__clang__))
 	#include <signal.h>
 #endif
 
@@ -29,7 +29,7 @@ namespace citadel
 	void debugbreak()
 	{
 #ifdef CITADEL_ENABLE_DEBUGBREAK
-	#ifdef _WIN32
+	#if CITADEL_PLATFORM_WINDOWS
 		__debugbreak();
 	#elif defined(__GLUC__) || defined(__clang__)
 		raise(SIGBREAK)

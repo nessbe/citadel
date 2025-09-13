@@ -21,3 +21,4 @@
 
 #include "citadel/assert.h"
 #include "citadel/export.h"
+#include "citadel/platforms.h"
