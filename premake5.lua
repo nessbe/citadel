@@ -24,6 +24,9 @@ project "citadel"
 	language "C++"
 	cppdialect("C++" .. cpp_dialect)
 
+	pchheader "citadel/pch.h"
+	pchsource "source/pch.cpp"
+
 	targetdir(root_dir .. "bin/" .. output_dir .. "%{prj.name}/")
 	objdir(root_dir .. "bin-int/" .. output_dir .. "%{prj.name}/")
 
