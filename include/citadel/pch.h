@@ -24,6 +24,7 @@
 
 #include "citadel/architectures.h"
 #include "citadel/assert.h"
+#include "citadel/attributes.h"
 #include "citadel/compilers.h"
 #include "citadel/export.h"
 #include "citadel/platforms.h"

@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        attributes.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,11 +19,13 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+#ifndef CITADEL_NODISCARD
+	#define CITADEL_NODISCARD [[nodiscard]]
+#endif
 
-#include "citadel/logging/logger.h"
+#ifndef CITADEL_INLINE
+	#define CITADEL_INLINE inline
+#endif
+
+#define CITADEL_GETTER CITADEL_NODISCARD CITADEL_INLINE
+#define CITADEL_SETTER CITADEL_INLINE
