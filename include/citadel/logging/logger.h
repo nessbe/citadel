@@ -21,6 +21,7 @@
 
 #include <string>
 
+#include "citadel/attributes.h"
 #include "citadel/export.h"
 
 namespace citadel
@@ -28,9 +29,16 @@ namespace citadel
 	class logger
 	{
 	public:
-		logger() = default;
+		logger(const std::string& name)
+			: name_(name) { }
+
 		~logger() = default;
 
 		CITADEL_API void log(const std::string& message);
+
+		CITADEL_API CITADEL_GETTER const std::string& get_name() const noexcept;
+
+	private:
+		std::string name_;
 	};
 }

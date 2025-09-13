@@ -26,4 +26,9 @@ namespace citadel
 	{
 		std::cout << message << std::endl;
 	}
+
+	const std::string& logger::get_name() const noexcept
+	{
+		return name_;
+	}
 }
