@@ -28,3 +28,6 @@
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+
+# Visual Studio hint files
+*.hint
