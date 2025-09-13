@@ -20,7 +20,7 @@
 #include "citadel/pch.h"
 #include "citadel/assert.h"
 
-#if !CITADEL_PLATFORM_WINDOWS && (defined(__GLUC__) || defined (__clang__))
+#if !CITADEL_PLATFORM_WINDOWS && (CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG)
 	#include <signal.h>
 #endif
 
