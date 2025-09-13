@@ -22,6 +22,7 @@
 #include <iostream>
 #include <string>
 
+#include "citadel/architectures.h"
 #include "citadel/assert.h"
 #include "citadel/compilers.h"
 #include "citadel/export.h"
