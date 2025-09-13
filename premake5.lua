@@ -39,6 +39,17 @@ project "citadel"
 		"include/"
 	}
 
+	filter "kind:StaticLib"
+		defines {
+			"CITADEL_LINKAGE_STATIC"
+		}
+
+	filter "kind:SharedLib"
+		defines {
+			"CITADEL_LINKAGE_SHARED",
+			"CITADEL_BUILD_DLL"
+		}
+
 	filter "configurations:Debug"
 		defines {
 			"CITADEL_DEBUG"

@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        citadel.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
