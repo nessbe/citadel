@@ -43,6 +43,13 @@ namespace citadel
 
 		CITADEL_API void log(const std::string& message, log_level level);
 
+		CITADEL_API CITADEL_INLINE void log_debug(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_trace(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_info(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_warning(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_error(const std::string& message);
+		CITADEL_API CITADEL_INLINE void log_fatal(const std::string& message);
+
 		CITADEL_API CITADEL_GETTER const std::string& get_name() const noexcept;
 
 		CITADEL_API CITADEL_GETTER log_level get_min_level() const noexcept;

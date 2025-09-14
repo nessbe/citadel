@@ -38,6 +38,36 @@ namespace citadel
 		std::cout << formatted_message << std::endl;
 	}
 
+	void logger::log_debug(const std::string& message)
+	{
+		log(message, log_level::debug);
+	}
+
+	void logger::log_trace(const std::string& message)
+	{
+		log(message, log_level::trace);
+	}
+
+	void logger::log_info(const std::string& message)
+	{
+		log(message, log_level::info);
+	}
+
+	void logger::log_warning(const std::string& message)
+	{
+		log(message, log_level::warning);
+	}
+
+	void logger::log_error(const std::string& message)
+	{
+		log(message, log_level::error);
+	}
+
+	void logger::log_fatal(const std::string& message)
+	{
+		log(message, log_level::fatal);
+	}
+
 	const std::string& logger::get_name() const noexcept
 	{
 		return name_;
