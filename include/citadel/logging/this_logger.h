@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        this_logger.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,12 +19,27 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 
 #include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+
+#ifndef CITADEL_THIS_LOGGER_NAME
+	#define CITADEL_THIS_LOGGER_NAME "CORE"
+#endif
+
+namespace citadel::detail
+{
+	logger this_logger(CITADEL_THIS_LOGGER_NAME);
+}
+
+namespace citadel::this_logger
+{
+	CITADEL_API CITADEL_GETTER logger& get() noexcept;
+
+	CITADEL_API void log(const std::string& message);
+
+	CITADEL_API CITADEL_GETTER const std::string& get_name() noexcept;
+}
+
+#include "citadel/logging/this_logger.inl"

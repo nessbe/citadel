@@ -32,6 +32,7 @@ project "citadel"
 
 	files {
 		"include/**.h",
+		"include/**.inl",
 		"source/**.cpp"
 	}
 

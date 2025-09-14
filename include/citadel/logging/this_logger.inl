@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        this_logger.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,12 +19,20 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+namespace citadel::this_logger
+{
+	logger& get() noexcept
+	{
+		return citadel::detail::this_logger;
+	}
 
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+	void log(const std::string& message)
+	{
+		get().log(message);
+	}
+
+	const std::string& get_name() noexcept
+	{
+		return get().get_name();
+	}
+}
