@@ -22,9 +22,19 @@
 
 namespace citadel
 {
-	void logger::log(const std::string& message)
+	bool logger::is_level_valid(log_level level) const noexcept
 	{
-		std::string formatted_message = format_message(message);
+		return level >= min_level_;
+	}
+
+	void logger::log(const std::string& message, log_level level)
+	{
+		if (!is_level_valid(level))
+		{
+			return;
+		}
+
+		std::string formatted_message = format_message(message, level);
 		std::cout << formatted_message << std::endl;
 	}
 
@@ -33,10 +43,21 @@ namespace citadel
 		return name_;
 	}
 
-	std::string logger::format_message(const std::string& message) const
+	log_level logger::get_min_level() const noexcept
+	{
+		return min_level_;
+	}
+
+	void logger::set_min_level(log_level value) noexcept
+	{
+		min_level_ = value;
+	}
+
+	std::string logger::format_message(const std::string& message, log_level level) const
 	{
 		std::ostringstream oss;
 		oss << '[' << name_ << "] ";
+		oss << '[' << log_level_to_string(level) << "] ";
 		oss << message;
 		return oss.str();
 	}

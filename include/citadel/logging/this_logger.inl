@@ -26,13 +26,28 @@ namespace citadel::this_logger
 		return citadel::detail::this_logger;
 	}
 
-	void log(const std::string& message)
+	bool is_level_valid(log_level level) noexcept
 	{
-		get().log(message);
+		return get().is_level_valid(level);
+	}
+
+	void log(const std::string& message, log_level level)
+	{
+		get().log(message, level);
 	}
 
 	const std::string& get_name() noexcept
 	{
 		return get().get_name();
+	}
+
+	log_level get_min_level() noexcept
+	{
+		return get().get_min_level();
+	}
+
+	void set_min_level(log_level value) noexcept
+	{
+		get().set_min_level(value);
 	}
 }

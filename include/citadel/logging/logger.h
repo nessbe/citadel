@@ -24,24 +24,35 @@
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
+#include "citadel/logging/log_level.h"
+
 namespace citadel
 {
 	class logger
 	{
 	public:
 		logger(const std::string& name)
-			: name_(name) { }
+			: name_(name), min_level_(log_level::debug) { }
+
+		logger(const std::string& name, log_level min_level)
+			: name_(name), min_level_(min_level) { }
 
 		~logger() = default;
 
-		CITADEL_API void log(const std::string& message);
+		CITADEL_API CITADEL_GETTER bool is_level_valid(log_level level) const noexcept;
+
+		CITADEL_API void log(const std::string& message, log_level level);
 
 		CITADEL_API CITADEL_GETTER const std::string& get_name() const noexcept;
 
-	private:
-		std::string name_;
+		CITADEL_API CITADEL_GETTER log_level get_min_level() const noexcept;
+		CITADEL_API CITADEL_SETTER void set_min_level(log_level value) noexcept;
 
 	private:
-		CITADEL_API CITADEL_NODISCARD std::string format_message(const std::string& message) const;
+		std::string name_;
+		log_level min_level_;
+
+	private:
+		CITADEL_API CITADEL_NODISCARD std::string format_message(const std::string& message, log_level level) const;
 	};
 }

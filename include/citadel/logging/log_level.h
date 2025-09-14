@@ -1,4 +1,4 @@
-// File:        this_logger.h
+// File:        log_level.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,33 +19,37 @@
 
 #pragma once
 
+#include <cinttypes>
+#include <string>
+#include <unordered_map>
+
 #include "citadel/attributes.h"
 #include "citadel/export.h"
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
+namespace citadel
+{
+	using log_level_t = std::uint8_t;
 
-#ifndef CITADEL_THIS_LOGGER_NAME
-	#define CITADEL_THIS_LOGGER_NAME "CORE"
-#endif
+	enum class log_level : log_level_t
+	{
+		debug =   0,
+		trace =   1,
+		info =    2,
+		warning = 3,
+		error =   4,
+		fatal =   5,
+		off =     6,
+	};
+
+}
 
 namespace citadel::detail
 {
-	logger this_logger(CITADEL_THIS_LOGGER_NAME);
+	extern std::unordered_map<log_level, std::string> log_level_to_string_map;
 }
 
-namespace citadel::this_logger
+namespace citadel
 {
-	CITADEL_API CITADEL_GETTER logger& get() noexcept;
-
-	CITADEL_API CITADEL_GETTER bool is_level_valid(log_level level) noexcept;
-
-	CITADEL_API void log(const std::string& message, log_level level);
-
-	CITADEL_API CITADEL_GETTER const std::string& get_name() noexcept;
-
-	CITADEL_API CITADEL_GETTER log_level get_min_level() noexcept;
-	CITADEL_API CITADEL_SETTER void set_min_level(log_level value) noexcept;
+	CITADEL_API CITADEL_GETTER constexpr log_level_t log_level_to_value(log_level level) noexcept;
+	CITADEL_API CITADEL_NODISCARD std::string log_level_to_string(log_level level);
 }
-
-#include "citadel/logging/this_logger.inl"

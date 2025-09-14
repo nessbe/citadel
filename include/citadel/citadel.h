@@ -26,5 +26,6 @@
 #include "citadel/export.h"
 #include "citadel/platforms.h"
 
+#include "citadel/logging/log_level.h"
 #include "citadel/logging/logger.h"
 #include "citadel/logging/this_logger.h"

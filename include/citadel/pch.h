@@ -19,9 +19,11 @@
 
 #pragma once
 
+#include <cinttypes>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 
 #include "citadel/architectures.h"
 #include "citadel/assert.h"
