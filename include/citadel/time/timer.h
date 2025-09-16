@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        timer.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,15 +19,38 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
+#include <chrono>
+
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+namespace citadel
+{
+	class timer
+	{
+	public:
+		using time_clock_t = std::chrono::high_resolution_clock;
+		using time_point_t = time_clock_t::time_point;
 
-#include "citadel/time/timer.h"
+	public:
+		timer() = default;
+		~timer() = default;
+
+		CITADEL_API void start();
+		CITADEL_API void stop();
+
+		CITADEL_API CITADEL_GETTER bool is_running() const;
+
+		template<typename Duration>
+		CITADEL_NODISCARD Duration elapsed() const;
+
+		template<typename Rep, typename Period>
+		CITADEL_GETTER std::chrono::duration<Rep, Period> elapsed() const;
+
+	public:
+		time_point_t start_time;
+		time_point_t end_time;
+	};
+}
+
+#include "citadel/time/timer.inl"

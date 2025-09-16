@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        timer.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,17 +17,24 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
-
+#include "citadel/pch.h"
 #include "citadel/time/timer.h"
+
+namespace citadel
+{
+	void timer::start()
+	{
+		start_time = time_clock_t::now();
+		end_time = time_point_t{ };
+	}
+
+	void timer::stop()
+	{
+		end_time = time_clock_t::now();
+	}
+
+	bool timer::is_running() const
+	{
+		return end_time == time_point_t{ };
+	}
+}

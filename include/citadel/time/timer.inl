@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        timer.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,15 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+namespace citadel
+{
+	template<typename Duration>
+	Duration timer::elapsed() const
+	{
+		if (is_running())
+		{
+			time_point_t current_time = time_clock_t::now();
+			return std::chrono::duration_cast<Duration>(current_time - start_time);
+		}
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+		return std::chrono::duration_cast<Duration>(end_time - start_time);
+	}
 
-#include "citadel/time/timer.h"
+	template<typename Rep, typename Period>
+	std::chrono::duration<Rep, Period> timer::elapsed() const
+	{
+		using duration_t = std::chrono::duration<Rep, Period>;
+		return elapsed<duration_t>();
+	}
+}

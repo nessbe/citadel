@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <chrono>
 #include <cinttypes>
 #include <iostream>
 #include <sstream>
