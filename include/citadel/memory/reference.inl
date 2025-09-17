@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        reference.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,22 +19,11 @@
 
 #pragma once
 
-#include <chrono>
-#include <cinttypes>
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <sstream>
-#include <string>
-#include <type_traits>
-#include <unordered_map>
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+namespace citadel
+{
+	template<typename T, typename... Arguments>
+	reference<T> make_referenced(Arguments&&... arguments)
+	{
+		return std::make_shared<T>(std::forward<Arguments>(arguments)...);
+	}
+}
