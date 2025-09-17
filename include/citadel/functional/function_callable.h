@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        function_callable.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,23 +19,38 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
+#include <functional>
+
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
 
 #include "citadel/functional/callable.h"
-#include "citadel/functional/function_callable.h"
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+namespace citadel
+{
+	template<typename Signature>
+	class function_callable;
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+	template<typename R, typename... Arguments>
+	class function_callable<R(Arguments...)> : public callable<R(Arguments...)>
+	{
+	public:
+		using function_t = std::function<R(Arguments...)>;
 
-#include "citadel/profiling/benchmarker.h"
+	public:
+		function_callable(const function_t& function)
+			: function_(function) { }
 
-#include "citadel/time/timer.h"
+		function_callable(function_t&& function)
+			: function_(std::move(function)) { }
+
+		virtual ~function_callable() override = default;
+
+		virtual R call(Arguments... arguments) override;
+		CITADEL_NODISCARD virtual operator bool() const noexcept override;
+
+	private:
+		function_t function_;
+	};
+}
+
+#include "citadel/functional/function_callable.inl"

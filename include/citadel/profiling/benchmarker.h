@@ -22,7 +22,6 @@
 #include <chrono>
 #include <functional>
 #include <string>
-#include <type_traits>
 
 #include "citadel/assert.h"
 #include "citadel/export.h"
@@ -46,7 +45,7 @@ namespace citadel
 
 	public:
 		benchmarker(const std::string& name)
-			: name_(name) { }
+			: name_(name), callable_(nullptr) { }
 
 		benchmarker(const std::string& name, reference<callable_t> callable)
 			: name_(name), callable_(callable) { }
@@ -54,6 +53,7 @@ namespace citadel
 		~benchmarker() = default;
 
 		CITADEL_GETTER bool is_good() const noexcept;
+
 		R execute(Arguments... arguments);
 
 		template<typename Duration>

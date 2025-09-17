@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        function_callable.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,23 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+namespace citadel
+{
+	template<typename R, typename... Arguments>
+	R function_callable<R(Arguments...)>::call(Arguments... arguments)
+	{
+		if constexpr (std::is_void_v<R>)
+		{
+			function_(arguments...);
+		}
+		else
+		{
+			return function_(arguments...);
+		}
+	}
 
-#include "citadel/functional/callable.h"
-#include "citadel/functional/function_callable.h"
-
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/profiling/benchmarker.h"
-
-#include "citadel/time/timer.h"
+	template<typename R, typename... Arguments>
+	function_callable<R(Arguments...)>::operator bool() const noexcept
+	{
+		return static_cast<bool>(function_);
+	}
+}
