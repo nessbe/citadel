@@ -40,5 +40,5 @@ namespace citadel
 #ifdef CITADEL_ENABLE_ASSERTIONS
 	#define CITADEL_ASSERT(condition, message) ::citadel::assert(condition, #condition, message)
 #else
-	#define CITADEL_ASSERT()
+	#define CITADEL_ASSERT(condition, message)
 #endif
