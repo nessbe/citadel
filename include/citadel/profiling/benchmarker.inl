@@ -22,65 +22,55 @@
 namespace citadel
 {
 	template<typename R, typename... Arguments>
-	bool benchmarker<R, Arguments...>::is_good() const noexcept
+	bool benchmarker<R(Arguments...)>::is_good() const noexcept
 	{
-		return function_;
+		return (bool)(&callable_);
 	}
 
 	template<typename R, typename... Arguments>
-	R benchmarker<R, Arguments...>::execute(Arguments... arguments)
+	R benchmarker<R(Arguments...)>::execute(Arguments... arguments)
 	{
 		static_assert(sizeof...(Arguments) >= 0, "Check arguments");
+		CITADEL_ASSERT(static_cast<bool>(callable_), "Benchmarker callable is null");
 
 		timer_.start();
 
-		if constexpr (sizeof...(Arguments) == 0)
+		if constexpr (std::is_void_v<R>)
 		{
-			if constexpr (std::is_void_v<R>)
-			{
-				function_();
-				timer_.stop();
-			}
-			else
-			{
-				R result = function_();
-				timer_.stop();
-				return result;
-			}
+			callable_->call(arguments...);
+			timer_.stop();
 		}
 		else
 		{
-			if constexpr (std::is_void_v<R>)
-			{
-				function_(arguments...);
-				timer_.stop();
-			}
-			else
-			{
-				R result = function_(arguments...);
-				timer_.stop();
-				return result;
-			}
+			R result = callable_->call(arguments...);
+			timer_.stop();
+			return result;
 		}
 	}
 
 	template<typename R, typename... Arguments>
 	template<typename Duration>
-	Duration benchmarker<R, Arguments...>::duration() const
+	Duration benchmarker<R(Arguments...)>::duration() const
 	{
 		return timer_.elapsed<Duration>();
 	}
 
 	template<typename R, typename... Arguments>
 	template<typename Rep, typename Period>
-	std::chrono::duration<Rep, Period> benchmarker<R, Arguments...>::duration() const
+	std::chrono::duration<Rep, Period> benchmarker<R(Arguments...)>::duration() const
 	{
 		return timer_.elapsed<Rep, Period>();
 	}
 
 	template<typename R, typename... Arguments>
-	void benchmarker<R, Arguments...>::set_function(function_t&& value)
+	void benchmarker<R(Arguments...)>::set_callable(reference<callable_t> value)
 	{
-		function_ = std::move(value);
+		callable_ = value;
+	}
+
+	template<typename R, typename... Arguments>
+	reference<callable<R(Arguments...)>> benchmarker<R(Arguments...)>::get_callable() const
+	{
+		return callable_;
 	}
 }

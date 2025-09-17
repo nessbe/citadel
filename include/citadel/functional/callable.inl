@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        callable.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,22 +19,11 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
-
-#include "citadel/functional/callable.h"
-
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/profiling/benchmarker.h"
-
-#include "citadel/time/timer.h"
+namespace citadel
+{
+	template<typename R, typename... Arguments>
+	R callable<R(Arguments...)>::operator()(Arguments... arguments)
+	{
+		return call(arguments...);
+	}
+}

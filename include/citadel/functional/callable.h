@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        callable.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,22 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
 #include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
 
-#include "citadel/functional/callable.h"
+namespace citadel
+{
+	template<typename Signature>
+	class callable;
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
+	template<typename R, typename... Arguments>
+	class callable<R(Arguments...)>
+	{
+	public:
+		virtual ~callable() = default;
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+		virtual R call(Arguments... arguments) = 0;
+		CITADEL_INLINE R operator()(Arguments... arguments);
 
-#include "citadel/profiling/benchmarker.h"
+		CITADEL_NODISCARD virtual operator bool() const noexcept = 0;
+	};
+}
 
-#include "citadel/time/timer.h"
+#include "citadel/functional/callable.inl"

@@ -27,22 +27,29 @@
 #include "citadel/assert.h"
 #include "citadel/export.h"
 
+#include "citadel/functional/callable.h"
+
+#include "citadel/memory/reference.h"
+
 #include "citadel/time/timer.h"
 
 namespace citadel
 {
+	template<typename Signature>
+	class benchmarker;
+
 	template<typename R, typename... Arguments>
-	class benchmarker
+	class benchmarker<R(Arguments...)>
 	{
 	public:
-		using function_t = std::function<R(Arguments...)>;
+		using callable_t = callable<R(Arguments...)>;
 
 	public:
 		benchmarker(const std::string& name)
 			: name_(name) { }
 
-		benchmarker(const std::string& name, function_t&& function)
-			: name_(name), function_(std::move(function)) { }
+		benchmarker(const std::string& name, reference<callable_t> callable)
+			: name_(name), callable_(callable) { }
 
 		~benchmarker() = default;
 
@@ -55,11 +62,12 @@ namespace citadel
 		template<typename Rep, typename Period>
 		CITADEL_GETTER std::chrono::duration<Rep, Period> duration() const;
 
-		void set_function(function_t&& value);
+		void set_callable(reference<callable_t> value);
+		reference<callable_t> get_callable() const;
 
 	private:
 		std::string name_;
-		function_t function_;
+		reference<callable_t> callable_;
 
 		timer timer_;
 	};
