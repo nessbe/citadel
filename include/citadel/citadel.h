@@ -30,4 +30,6 @@
 #include "citadel/logging/logger.h"
 #include "citadel/logging/this_logger.h"
 
+#include "citadel/profiling/benchmarker.h"
+
 #include "citadel/time/timer.h"

@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        benchmarker.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -20,17 +20,49 @@
 #pragma once
 
 #include <chrono>
-#include <cinttypes>
 #include <functional>
-#include <iostream>
-#include <sstream>
 #include <string>
 #include <type_traits>
-#include <unordered_map>
 
-#include "citadel/architectures.h"
 #include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
 #include "citadel/export.h"
-#include "citadel/platforms.h"
+
+#include "citadel/time/timer.h"
+
+namespace citadel
+{
+	template<typename R, typename... Arguments>
+	class benchmarker
+	{
+	public:
+		using function_t = std::function<R(Arguments...)>;
+
+	public:
+		benchmarker(const std::string& name)
+			: name_(name) { }
+
+		benchmarker(const std::string& name, function_t&& function)
+			: name_(name), function_(std::move(function)) { }
+
+		~benchmarker() = default;
+
+		CITADEL_GETTER bool is_good() const noexcept;
+		R execute(Arguments... arguments);
+
+		template<typename Duration>
+		CITADEL_GETTER Duration duration() const;
+
+		template<typename Rep, typename Period>
+		CITADEL_GETTER std::chrono::duration<Rep, Period> duration() const;
+
+		void set_function(function_t&& value);
+
+	private:
+		std::string name_;
+		function_t function_;
+
+		timer timer_;
+	};
+}
+
+#include "citadel/profiling/benchmarker.inl"
