@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        scoped_benchmarker.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,24 +19,41 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+#include <chrono>
+#include <string>
 
 #include "citadel/functional/callable.h"
-#include "citadel/functional/function_callable.h"
-
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
 
 #include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
 
 #include "citadel/profiling/benchmarker.h"
-#include "citadel/profiling/scoped_benchmarker.h"
 
-#include "citadel/time/timer.h"
+namespace citadel
+{
+	template<typename Signature>
+	class scoped_benchmarker;
+
+	template<typename R, typename... Arguments>
+	class scoped_benchmarker<R(Arguments...)> : public benchmarker<R(Arguments...)>
+	{
+	public:
+		using callback_t = callable<void()>;
+
+	public:
+		scoped_benchmarker(const std::string& name)
+			: benchmarker<R(Arguments...)>(name) { }
+
+		scoped_benchmarker(const std::string& name, reference<task_t> task)
+			: benchmarker<R(Arguments...)>(name, task) { }
+
+		virtual ~scoped_benchmarker() override;
+
+		void set_callback(reference<callback_t> value);
+		reference<callback_t> get_callback() const;
+
+	private:
+		reference<callback_t> callback_;
+	};
+}
+
+#include "citadel/profiling/scoped_benchmarker.inl"
