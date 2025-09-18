@@ -24,26 +24,49 @@ namespace citadel
 	template<typename R, typename... Arguments>
 	bool benchmarker<R(Arguments...)>::is_good() const noexcept
 	{
-		return (bool)(&callable_);
+		return (bool)(&task_);
+	}
+
+	template<typename R, typename... Arguments>
+	bool benchmarker<R(Arguments...)>::is_running() const noexcept
+	{
+		return total_timer_.is_running();
+	}
+
+	template<typename R, typename... Arguments>
+	void benchmarker<R(Arguments...)>::start()
+	{
+		total_timer_.start();
+	}
+
+	template<typename R, typename... Arguments>
+	void benchmarker<R(Arguments...)>::stop()
+	{
+		total_timer_.stop();
 	}
 
 	template<typename R, typename... Arguments>
 	R benchmarker<R(Arguments...)>::execute(Arguments... arguments)
 	{
 		static_assert(sizeof...(Arguments) >= 0, "Check arguments");
-		CITADEL_ASSERT(static_cast<bool>(callable_), "Benchmarker callable is null");
+		CITADEL_ASSERT(static_cast<bool>(task_), "Benchmarker task is null");
 
-		timer_.start();
+		if (!is_running())
+		{
+			start();
+		}
+
+		task_timer_.start();
 
 		if constexpr (std::is_void_v<R>)
 		{
-			callable_->call(arguments...);
-			timer_.stop();
+			task_->call(arguments...);
+			task_timer_.stop();
 		}
 		else
 		{
-			R result = callable_->call(arguments...);
-			timer_.stop();
+			R result = task_->call(arguments...);
+			task_timer_.stop();
 			return result;
 		}
 	}
@@ -52,25 +75,25 @@ namespace citadel
 	template<typename Duration>
 	Duration benchmarker<R(Arguments...)>::duration() const
 	{
-		return timer_.elapsed<Duration>();
+		return total_timer_.elapsed<Duration>();
 	}
 
 	template<typename R, typename... Arguments>
 	template<typename Rep, typename Period>
 	std::chrono::duration<Rep, Period> benchmarker<R(Arguments...)>::duration() const
 	{
-		return timer_.elapsed<Rep, Period>();
+		return total_timer_.elapsed<Rep, Period>();
 	}
 
 	template<typename R, typename... Arguments>
-	void benchmarker<R(Arguments...)>::set_callable(reference<callable_t> value)
+	void benchmarker<R(Arguments...)>::set_task(reference<task_t> value)
 	{
-		callable_ = value;
+		task_ = value;
 	}
 
 	template<typename R, typename... Arguments>
-	reference<callable<R(Arguments...)>> benchmarker<R(Arguments...)>::get_callable() const
+	reference<typename benchmarker<R(Arguments...)>::task_t> benchmarker<R(Arguments...)>::get_task() const
 	{
-		return callable_;
+		return task_;
 	}
 }

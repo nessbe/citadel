@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        scoped_benchmarker.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,24 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/platforms.h"
+namespace citadel
+{
+	template<typename R, typename... Arguments>
+	scoped_benchmarker<R(Arguments...)>::~scoped_benchmarker()
+	{
+		callback_();
+		stop();
+	}
 
-#include "citadel/functional/callable.h"
-#include "citadel/functional/function_callable.h"
+	template<typename R, typename... Arguments>
+	void scoped_benchmarker<R(Arguments...)>::set_callback(reference<callback_t> value)
+	{
+		callback_ = value;
+	}
 
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/profiling/benchmarker.h"
-#include "citadel/profiling/scoped_benchmarker.h"
-
-#include "citadel/time/timer.h"
+	template<typename R, typename... Arguments>
+	reference<typename scoped_benchmarker<R(Arguments...)>::callback_t> scoped_benchmarker<R(Arguments...)>::get_callback() const
+	{
+		return callback_;
+	}
+}

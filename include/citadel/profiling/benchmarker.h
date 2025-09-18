@@ -41,18 +41,22 @@ namespace citadel
 	class benchmarker<R(Arguments...)>
 	{
 	public:
-		using callable_t = callable<R(Arguments...)>;
+		using task_t = callable<R(Arguments...)>;
 
 	public:
 		benchmarker(const std::string& name)
-			: name_(name), callable_(nullptr) { }
+			: name_(name), task_(nullptr) { }
 
-		benchmarker(const std::string& name, reference<callable_t> callable)
-			: name_(name), callable_(callable) { }
+		benchmarker(const std::string& name, reference<task_t> task)
+			: name_(name), task_(task) { }
 
-		~benchmarker() = default;
+		virtual ~benchmarker() = default;
 
 		CITADEL_GETTER bool is_good() const noexcept;
+		CITADEL_GETTER bool is_running() const noexcept;
+
+		void start();
+		void stop();
 
 		R execute(Arguments... arguments);
 
@@ -62,14 +66,15 @@ namespace citadel
 		template<typename Rep, typename Period>
 		CITADEL_GETTER std::chrono::duration<Rep, Period> duration() const;
 
-		void set_callable(reference<callable_t> value);
-		reference<callable_t> get_callable() const;
+		void set_task(reference<task_t> value);
+		reference<task_t> get_task() const;
 
 	private:
 		std::string name_;
-		reference<callable_t> callable_;
+		reference<task_t> task_;
 
-		timer timer_;
+		timer task_timer_;
+		timer total_timer_;
 	};
 }
 
