@@ -48,7 +48,7 @@ namespace citadel
 	template<typename R, typename... Arguments>
 	R benchmarker<R(Arguments...)>::execute(Arguments... arguments)
 	{
-		static_assert(sizeof...(Arguments) >= 0, "Check arguments");
+		CITADEL_STATIC_ASSERT(sizeof...(Arguments) >= 0, "Check arguments");
 		CITADEL_ASSERT(static_cast<bool>(task_), "Benchmarker task is null");
 
 		if (!is_running())
