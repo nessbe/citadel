@@ -1,4 +1,4 @@
-// File:        assert.h
+// File:        benchmark_result.inl
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,28 +19,23 @@
 
 #pragma once
 
-#include <string>
-
-#include "citadel/export.h"
-
 namespace citadel
 {
-	CITADEL_API void debugbreak();
+	template<typename T, typename Rep, typename Period>
+	typename benchmark_result<T, std::chrono::duration<Rep, Period>>::duration_t benchmark_result<T, std::chrono::duration<Rep, Period>>::duration() const
+	{
+		return duration_;
+	}
 
-	CITADEL_API void assert(bool condition, const std::string& message);
-	CITADEL_API void assert(bool condition, const std::string& condition_string, const std::string& message);
+	template<typename T, typename Rep, typename Period>
+	const T& benchmark_result<T, std::chrono::duration<Rep, Period>>::value() const
+	{
+		return value_;
+	}
+
+	template<typename Rep, typename Period>
+	typename benchmark_result<void, std::chrono::duration<Rep, Period>>::duration_t benchmark_result<void, std::chrono::duration<Rep, Period>>::duration() const
+	{
+		return duration_;
+	}
 }
-
-#ifdef CITADEL_ENABLE_DEBUGBREAK
-	#define CITADEL_DEBUGBREAK() ::citadel::debugbreak()
-#else
-	#define CITADEL_DEBUGBREAK()
-#endif
-
-#ifdef CITADEL_ENABLE_ASSERTIONS
-	#define CITADEL_ASSERT(condition, message) ::citadel::assert(static_cast<bool>(condition), #condition, message)
-#else
-	#define CITADEL_ASSERT(condition, message)
-#endif
-
-#define CITADEL_STATIC_ASSERT(condition, message) static_assert(condition, message)

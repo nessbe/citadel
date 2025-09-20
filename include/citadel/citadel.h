@@ -36,6 +36,7 @@
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
 
+#include "citadel/profiling/benchmark_result.h"
 #include "citadel/profiling/benchmarker.h"
 #include "citadel/profiling/scoped_benchmarker.h"
 

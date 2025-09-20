@@ -21,21 +21,35 @@
 
 namespace citadel
 {
-	template<typename R, typename... Arguments>
-	scoped_benchmarker<R(Arguments...)>::~scoped_benchmarker()
+	template<typename Duration, typename R, typename... Arguments>
+	scoped_benchmarker<R(Arguments...), Duration>::scoped_benchmarker(const std::string& name)
+		: benchmarker<R(Arguments...)>(name)
 	{
-		callback_();
-		stop();
+		start();
 	}
 
-	template<typename R, typename... Arguments>
-	void scoped_benchmarker<R(Arguments...)>::set_callback(reference<callback_t> value)
+	template<typename Duration, typename R, typename... Arguments>
+	scoped_benchmarker<R(Arguments...), Duration>::scoped_benchmarker(const std::string& name, reference<typename benchmarker<R(Arguments...)>::task_t> task)
+		: benchmarker<R(Arguments...)>(name, task)
+	{
+		start();
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	scoped_benchmarker<R(Arguments...), Duration>::~scoped_benchmarker()
+	{
+		stop();
+		callback_->call(duration<Duration>());
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	void scoped_benchmarker<R(Arguments...), Duration>::set_callback(reference<callback_t> value)
 	{
 		callback_ = value;
 	}
 
-	template<typename R, typename... Arguments>
-	reference<typename scoped_benchmarker<R(Arguments...)>::callback_t> scoped_benchmarker<R(Arguments...)>::get_callback() const
+	template<typename Duration, typename R, typename... Arguments>
+	reference<typename scoped_benchmarker<R(Arguments...), Duration>::callback_t> scoped_benchmarker<R(Arguments...), Duration>::get_callback() const
 	{
 		return callback_;
 	}

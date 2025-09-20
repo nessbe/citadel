@@ -46,29 +46,39 @@ namespace citadel
 	}
 
 	template<typename R, typename... Arguments>
-	R benchmarker<R(Arguments...)>::execute(Arguments... arguments)
+	template<typename Duration>
+	typename benchmarker<R(Arguments...)>::result_t<Duration> benchmarker<R(Arguments...)>::execute(Arguments... arguments)
 	{
 		CITADEL_STATIC_ASSERT(sizeof...(Arguments) >= 0, "Check arguments");
-		CITADEL_ASSERT(static_cast<bool>(task_), "Benchmarker task is null");
 
 		if (!is_running())
 		{
 			start();
 		}
 
+
+		scope<result_t<Duration>> result = nullptr;
+
 		task_timer_.start();
 
 		if constexpr (std::is_void_v<R>)
 		{
-			task_->call(arguments...);
+			execute_raw(arguments...);
 			task_timer_.stop();
+
+			result = make_scoped<result_t<Duration>>(task_timer_.elapsed<Duration>());
 		}
 		else
 		{
-			R result = task_->call(arguments...);
+			R&& raw_result = execute_raw(arguments...);
 			task_timer_.stop();
-			return result;
+
+			result = make_scoped<result_t<Duration>>(task_timer_.elapsed<Duration>(), std::move(raw_result));
 		}
+
+		CITADEL_ASSERT(result, "Failed to gather a valid result");
+
+		return *result;
 	}
 
 	template<typename R, typename... Arguments>
@@ -95,5 +105,20 @@ namespace citadel
 	reference<typename benchmarker<R(Arguments...)>::task_t> benchmarker<R(Arguments...)>::get_task() const
 	{
 		return task_;
+	}
+
+	template<typename R, typename... Arguments>
+	R benchmarker<R(Arguments...)>::execute_raw(Arguments... arguments)
+	{
+		CITADEL_ASSERT(task_, "Task is null");
+
+		if constexpr (std::is_void_v<R>)
+		{
+			task_->call(arguments...);
+		}
+		else
+		{
+			return task_->call(arguments...);
+		}
 	}
 }

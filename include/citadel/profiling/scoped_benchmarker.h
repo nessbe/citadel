@@ -26,25 +26,24 @@
 
 #include "citadel/memory/reference.h"
 
+#include "citadel/profiling/benchmark_result.h"
 #include "citadel/profiling/benchmarker.h"
 
 namespace citadel
 {
-	template<typename Signature>
+	template<typename Signature, typename Duration>
 	class scoped_benchmarker;
 
-	template<typename R, typename... Arguments>
-	class scoped_benchmarker<R(Arguments...)> : public benchmarker<R(Arguments...)>
+	template<typename Duration, typename R, typename... Arguments>
+	class scoped_benchmarker<R(Arguments...), Duration> : public benchmarker<R(Arguments...)>
 	{
 	public:
-		using callback_t = callable<void()>;
+		using callback_t = callable<void(Duration)>;
 
 	public:
-		scoped_benchmarker(const std::string& name)
-			: benchmarker<R(Arguments...)>(name) { }
+		scoped_benchmarker(const std::string& name);
 
-		scoped_benchmarker(const std::string& name, reference<task_t> task)
-			: benchmarker<R(Arguments...)>(name, task) { }
+		scoped_benchmarker(const std::string& name, reference<typename benchmarker<R(Arguments...)>::task_t> task);
 
 		virtual ~scoped_benchmarker() override;
 

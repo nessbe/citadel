@@ -29,6 +29,9 @@
 #include "citadel/functional/callable.h"
 
 #include "citadel/memory/reference.h"
+#include "citadel/memory/scope.h"
+
+#include "citadel/profiling/benchmark_result.h"
 
 #include "citadel/time/timer.h"
 
@@ -42,6 +45,9 @@ namespace citadel
 	{
 	public:
 		using task_t = callable<R(Arguments...)>;
+
+		template<typename Duration>
+		using result_t = benchmark_result<R, Duration>;
 
 	public:
 		benchmarker(const std::string& name)
@@ -58,7 +64,11 @@ namespace citadel
 		void start();
 		void stop();
 
-		R execute(Arguments... arguments);
+		template<typename Duration>
+		CITADEL_NODISCARD result_t<Duration> execute(Arguments... arguments);
+
+		template<typename Rep, typename Period>
+		CITADEL_NODISCARD result_t<std::chrono::duration<Rep, Period>> execute(Arguments... arguments);
 
 		template<typename Duration>
 		CITADEL_GETTER Duration duration() const;
@@ -75,6 +85,9 @@ namespace citadel
 
 		timer task_timer_;
 		timer total_timer_;
+
+	private:
+		R execute_raw(Arguments... arguments);
 	};
 }
 
