@@ -56,13 +56,9 @@ namespace citadel
 		benchmarker(const std::string& name, reference<task_t> task)
 			: name_(name), task_(task) { }
 
-		virtual ~benchmarker() = default;
+		~benchmarker() = default;
 
 		CITADEL_GETTER bool is_good() const noexcept;
-		CITADEL_GETTER bool is_running() const noexcept;
-
-		void start();
-		void stop();
 
 		template<typename Duration>
 		CITADEL_NODISCARD result_t<Duration> execute(Arguments... arguments);
@@ -76,17 +72,16 @@ namespace citadel
 		template<typename Rep, typename Period>
 		CITADEL_GETTER std::chrono::duration<Rep, Period> duration() const;
 
-		std::string get_name() const;
+		CITADEL_GETTER std::string get_name() const;
 
-		void set_task(reference<task_t> value);
-		reference<task_t> get_task() const;
+		CITADEL_SETTER void set_task(reference<task_t> value);
+		CITADEL_GETTER reference<task_t> get_task() const;
 
 	private:
 		std::string name_;
 		reference<task_t> task_;
 
-		timer task_timer_;
-		timer total_timer_;
+		timer timer_;
 
 	private:
 		R execute_raw(Arguments... arguments);

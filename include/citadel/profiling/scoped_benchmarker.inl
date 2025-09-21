@@ -23,14 +23,14 @@ namespace citadel
 {
 	template<typename Duration, typename R, typename... Arguments>
 	scoped_benchmarker<R(Arguments...), Duration>::scoped_benchmarker(const std::string& name)
-		: benchmarker<R(Arguments...)>(name)
+		: name_(name), callback_(nullptr)
 	{
 		start();
 	}
 
 	template<typename Duration, typename R, typename... Arguments>
-	scoped_benchmarker<R(Arguments...), Duration>::scoped_benchmarker(const std::string& name, reference<typename benchmarker<R(Arguments...)>::task_t> task)
-		: benchmarker<R(Arguments...)>(name, task)
+	scoped_benchmarker<R(Arguments...), Duration>::scoped_benchmarker(const std::string& name, reference<callback_t> callback)
+		: name_(name), callback_(callback)
 	{
 		start();
 	}
@@ -41,7 +41,43 @@ namespace citadel
 		stop();
 
 		CITADEL_ASSERT(callback_, "Callback is null");
-		callback_->call(get_name(), duration<Duration>());
+		callback_->call(name_, duration());
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	bool scoped_benchmarker<R(Arguments...), Duration>::is_good() const
+	{
+		return static_cast<bool>(&callback_);
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	bool scoped_benchmarker<R(Arguments...), Duration>::is_running() const
+	{
+		return timer_.is_running();
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	void scoped_benchmarker<R(Arguments...), Duration>::start()
+	{
+		timer_.start();
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	void scoped_benchmarker<R(Arguments...), Duration>::stop()
+	{
+		timer_.stop();
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	Duration scoped_benchmarker<R(Arguments...), Duration>::duration() const
+	{
+		return timer_.elapsed<Duration>();
+	}
+
+	template<typename Duration, typename R, typename... Arguments>
+	const std::string& scoped_benchmarker<R(Arguments...), Duration>::get_name() const noexcept
+	{
+		return name_;
 	}
 
 	template<typename Duration, typename R, typename... Arguments>

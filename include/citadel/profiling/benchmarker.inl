@@ -24,25 +24,7 @@ namespace citadel
 	template<typename R, typename... Arguments>
 	bool benchmarker<R(Arguments...)>::is_good() const noexcept
 	{
-		return (bool)(&task_);
-	}
-
-	template<typename R, typename... Arguments>
-	bool benchmarker<R(Arguments...)>::is_running() const noexcept
-	{
-		return total_timer_.is_running();
-	}
-
-	template<typename R, typename... Arguments>
-	void benchmarker<R(Arguments...)>::start()
-	{
-		total_timer_.start();
-	}
-
-	template<typename R, typename... Arguments>
-	void benchmarker<R(Arguments...)>::stop()
-	{
-		total_timer_.stop();
+		return static_cast<bool>(&task_);
 	}
 
 	template<typename R, typename... Arguments>
@@ -51,29 +33,23 @@ namespace citadel
 	{
 		CITADEL_STATIC_ASSERT(sizeof...(Arguments) >= 0, "Check arguments");
 
-		if (!is_running())
-		{
-			start();
-		}
-
-
 		scope<result_t<Duration>> result = nullptr;
 
-		task_timer_.start();
+		timer_.start();
 
 		if constexpr (std::is_void_v<R>)
 		{
 			execute_raw(arguments...);
-			task_timer_.stop();
+			timer_.stop();
 
-			result = make_scoped<result_t<Duration>>(task_timer_.elapsed<Duration>());
+			result = make_scoped<result_t<Duration>>(timer_.elapsed<Duration>());
 		}
 		else
 		{
 			R&& raw_result = execute_raw(arguments...);
-			task_timer_.stop();
+			timer_.stop();
 
-			result = make_scoped<result_t<Duration>>(task_timer_.elapsed<Duration>(), std::move(raw_result));
+			result = make_scoped<result_t<Duration>>(timer_.elapsed<Duration>(), std::move(raw_result));
 		}
 
 		CITADEL_ASSERT(result, "Failed to gather a valid result");
@@ -85,14 +61,14 @@ namespace citadel
 	template<typename Duration>
 	Duration benchmarker<R(Arguments...)>::duration() const
 	{
-		return total_timer_.elapsed<Duration>();
+		return timer_.elapsed<Duration>();
 	}
 
 	template<typename R, typename... Arguments>
 	template<typename Rep, typename Period>
 	std::chrono::duration<Rep, Period> benchmarker<R(Arguments...)>::duration() const
 	{
-		return total_timer_.elapsed<Rep, Period>();
+		return timer_.elapsed<Rep, Period>();
 	}
 
 	template<typename R, typename... Arguments>

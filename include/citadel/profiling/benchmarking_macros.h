@@ -38,9 +38,8 @@ namespace citadel::detail
 }
 
 #define CITADEL_BENCHMARK_LINE(name, line)                                                                                                                                         \
-	::citadel::scoped_benchmarker<::citadel::detail::benchmark_callback_t, ::citadel::detail::benchmark_duration_t> benchmarker_##line(name);                                  \
 	auto benchmark_callback_##line = ::citadel::make_referenced<::citadel::function_callable<::citadel::detail::benchmark_callback_t>>(::citadel::detail::benchmark_callback); \
-	benchmarker_##line.set_callback(benchmark_callback_##line)
+	::citadel::scoped_benchmarker<::citadel::detail::benchmark_callback_t, ::citadel::detail::benchmark_duration_t> benchmarker_##line(name, benchmark_callback_##line);
 
 #define CITADEL_BENCHMARK_SCOPE() CITADEL_BENCHMARK_LINE(CITADEL_FUNCTION_CONTEXT, __LINE__)
 #define CITADEL_BENCHMARK_FUNCTION() CITADEL_BENCHMARK_LINE("'" CITADEL_FUNCTION_SIGNATURE "'", __LINE__)

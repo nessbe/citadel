@@ -22,12 +22,15 @@
 #include <chrono>
 #include <string>
 
+#include "citadel/attributes.h"
+
 #include "citadel/functional/callable.h"
 
 #include "citadel/memory/reference.h"
 
 #include "citadel/profiling/benchmark_result.h"
-#include "citadel/profiling/benchmarker.h"
+
+#include "citadel/time/timer.h"
 
 namespace citadel
 {
@@ -35,7 +38,7 @@ namespace citadel
 	class scoped_benchmarker;
 
 	template<typename Duration, typename R, typename... Arguments>
-	class scoped_benchmarker<R(Arguments...), Duration> : public benchmarker<R(Arguments...)>
+	class scoped_benchmarker<R(Arguments...), Duration>
 	{
 	public:
 		using callback_t = callable<void(const std::string&, Duration)>;
@@ -43,15 +46,28 @@ namespace citadel
 	public:
 		scoped_benchmarker(const std::string& name);
 
-		scoped_benchmarker(const std::string& name, reference<typename benchmarker<R(Arguments...)>::task_t> task);
+		scoped_benchmarker(const std::string& name, reference<callback_t> callback);
 
-		virtual ~scoped_benchmarker() override;
+		~scoped_benchmarker();
 
-		void set_callback(reference<callback_t> value);
-		reference<callback_t> get_callback() const;
+		CITADEL_GETTER bool is_good() const;
+		CITADEL_GETTER bool is_running() const;
+
+		CITADEL_INLINE void start();
+		CITADEL_INLINE void stop();
+
+		CITADEL_GETTER Duration duration() const;
+
+		CITADEL_GETTER const std::string& get_name() const noexcept;
+
+		CITADEL_SETTER void set_callback(reference<callback_t> value);
+		CITADEL_GETTER reference<callback_t> get_callback() const;
 
 	private:
+		std::string name_;
 		reference<callback_t> callback_;
+
+		timer timer_;
 	};
 }
 
