@@ -1,4 +1,4 @@
-// File:        citadel.h
+// File:        benchmarking_macros.cpp
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -17,30 +17,14 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
-#include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/function.h"
-#include "citadel/platforms.h"
-#include "citadel/utility.h"
-
-#include "citadel/functional/callable.h"
-#include "citadel/functional/function_callable.h"
-
-#include "citadel/logging/log_level.h"
-#include "citadel/logging/logger.h"
-#include "citadel/logging/this_logger.h"
-
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
-
-#include "citadel/profiling/benchmark_result.h"
-#include "citadel/profiling/benchmarker.h"
+#include "citadel/pch.h"
 #include "citadel/profiling/benchmarking_macros.h"
-#include "citadel/profiling/scoped_benchmarker.h"
 
-#include "citadel/time/timer.h"
+namespace citadel::detail
+{
+	void benchmark_callback(const std::string& name, benchmark_duration_t duration)
+	{
+		double duration_s = double(duration.count()) / double(benchmark_duration_t::period::den);
+		this_logger::log_info(name + " benchmark result: " + std::to_string(duration_s) + 's');
+	}
+}

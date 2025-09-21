@@ -1,4 +1,4 @@
-// File:        function.h
+// File:        utility.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,18 +19,7 @@
 
 #pragma once
 
-#include <string>
+#define CITADEL_EXPAND(x) x
 
-#include "citadel/compilers.h"
-
-#define CITADEL_FUNCTION_NAME __func__
-
-#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-	#define CITADEL_FUNCTION_SIGNATURE __PRETTY_FUNCTION__
-#elif CITADEL_COMPILER_MSVC
-	#define CITADEL_FUNCTION_SIGNATURE __FUNCSIG__
-#else
-	#define CITADEL_FUNCTION_SIGNATURE __func__
-#endif
-
-#define CITADEL_FUNCTION_CONTEXT "Line " + std::to_string(__LINE__) + " in '" + CITADEL_FUNCTION_SIGNATURE + "'"
+#define CITADEL_STRINGIFY(x) #x
+#define CITADEL_TO_STRING(x) CITADEL_STRINGIFY(x)

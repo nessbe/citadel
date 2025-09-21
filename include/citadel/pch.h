@@ -36,8 +36,11 @@
 #include "citadel/export.h"
 #include "citadel/function.h"
 #include "citadel/platforms.h"
+#include "citadel/utility.h"
 
 #include "citadel/logging/this_logger.h"
 
 #include "citadel/memory/reference.h"
 #include "citadel/memory/scope.h"
+
+#include "citadel/profiling/benchmarking_macros.h"

@@ -39,7 +39,9 @@ namespace citadel
 	scoped_benchmarker<R(Arguments...), Duration>::~scoped_benchmarker()
 	{
 		stop();
-		callback_->call(duration<Duration>());
+
+		CITADEL_ASSERT(callback_, "Callback is null");
+		callback_->call(get_name(), duration<Duration>());
 	}
 
 	template<typename Duration, typename R, typename... Arguments>

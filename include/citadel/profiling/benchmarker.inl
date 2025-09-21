@@ -96,6 +96,12 @@ namespace citadel
 	}
 
 	template<typename R, typename... Arguments>
+	std::string benchmarker<R(Arguments...)>::get_name() const
+	{
+		return name_;
+	}
+
+	template<typename R, typename... Arguments>
 	void benchmarker<R(Arguments...)>::set_task(reference<task_t> value)
 	{
 		task_ = value;

@@ -31,7 +31,7 @@
 
 namespace citadel::detail
 {
-	logger this_logger(CITADEL_THIS_LOGGER_NAME);
+	inline logger this_logger(CITADEL_THIS_LOGGER_NAME);
 }
 
 namespace citadel::this_logger

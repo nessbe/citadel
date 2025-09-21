@@ -76,6 +76,8 @@ namespace citadel
 		template<typename Rep, typename Period>
 		CITADEL_GETTER std::chrono::duration<Rep, Period> duration() const;
 
+		std::string get_name() const;
+
 		void set_task(reference<task_t> value);
 		reference<task_t> get_task() const;
 

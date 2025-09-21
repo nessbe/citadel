@@ -38,7 +38,7 @@ namespace citadel
 	class scoped_benchmarker<R(Arguments...), Duration> : public benchmarker<R(Arguments...)>
 	{
 	public:
-		using callback_t = callable<void(Duration)>;
+		using callback_t = callable<void(const std::string&, Duration)>;
 
 	public:
 		scoped_benchmarker(const std::string& name);
