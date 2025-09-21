@@ -24,6 +24,7 @@
 #include "citadel/attributes.h"
 #include "citadel/compilers.h"
 #include "citadel/export.h"
+#include "citadel/function.h"
 #include "citadel/platforms.h"
 
 #include "citadel/functional/callable.h"
@@ -38,6 +39,7 @@
 
 #include "citadel/profiling/benchmark_result.h"
 #include "citadel/profiling/benchmarker.h"
+#include "citadel/profiling/benchmarking_macros.h"
 #include "citadel/profiling/scoped_benchmarker.h"
 
 #include "citadel/time/timer.h"

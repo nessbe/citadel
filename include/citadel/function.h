@@ -1,4 +1,4 @@
-// File:        citadelpch.h
+// File:        function.h
 // Project:     citadel
 // Repository:  https://github.com/nessbe/citadel
 //
@@ -19,25 +19,16 @@
 
 #pragma once
 
-#include <chrono>
-#include <cinttypes>
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <sstream>
-#include <string>
-#include <type_traits>
-#include <unordered_map>
-
-#include "citadel/architectures.h"
-#include "citadel/assert.h"
-#include "citadel/attributes.h"
 #include "citadel/compilers.h"
-#include "citadel/export.h"
-#include "citadel/function.h"
-#include "citadel/platforms.h"
 
-#include "citadel/logging/this_logger.h"
+#define CITADEL_FUNCTION_NAME __func__
 
-#include "citadel/memory/reference.h"
-#include "citadel/memory/scope.h"
+#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+	#define CITADEL_FUNCTION_SIGNATURE __PRETTY_FUNCTION__
+#elif CITADEL_COMPILER_MSVC
+	#define CITADEL_FUNCTION_SIGNATURE __FUNCSIG__
+#else
+	#define CITADEL_FUNCTION_SIGNATURE __func__
+#endif
+
+#define CITADEL_FUNCTION_CONTEXT __FILE__ << ':' << __LINE__ << " in " << CITADEL_FUNCTION_SIGNATURE
