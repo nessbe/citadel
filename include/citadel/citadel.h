@@ -43,4 +43,6 @@
 #include "citadel/profiling/benchmarking_macros.h"
 #include "citadel/profiling/scoped_benchmarker.h"
 
+#include "citadel/string/static_string.h"
+
 #include "citadel/time/timer.h"

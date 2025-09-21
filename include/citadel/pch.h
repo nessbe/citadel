@@ -24,8 +24,10 @@
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <ostream>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <unordered_map>
 
@@ -44,3 +46,5 @@
 #include "citadel/memory/scope.h"
 
 #include "citadel/profiling/benchmarking_macros.h"
+
+#include "citadel/string/static_string.h"
