@@ -27,11 +27,15 @@ namespace citadel {
 
 int main(int argc, char* argv[]) {
 	citadel::application* application = citadel::create_application();
+	citadel::application::instance_ = application;
+
 	application->initialize();
 
 	int exit_code = application->run();
 
 	application->shutdown();
+
+	citadel::application::instance_ = nullptr;
 	delete application;
 
 	return exit_code;

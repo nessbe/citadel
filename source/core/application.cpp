@@ -21,6 +21,12 @@
 #include "citadel/core/application.hpp"
 
 namespace citadel {
+	application& application::get() {
+		return *instance_;
+	}
+
+	application* application::instance_ = nullptr;
+
 	void application::initialize() {
 		_initialize();
 	}

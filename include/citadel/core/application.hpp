@@ -32,6 +32,11 @@ namespace citadel {
 		application() = default;
 		virtual ~application() = default;
 
+		static application& get();
+
+	private:
+		CITADEL_API static application* instance_;
+
 	private:
 		CITADEL_API void initialize();
 		CITADEL_API int run();
