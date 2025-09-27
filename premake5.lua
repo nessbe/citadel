@@ -18,7 +18,7 @@
 -- For more details, see the LICENSE file at the root of the project.
 
 project "citadel"
-	kind "StaticLib"
+	kind "SharedLib"
 	staticruntime "Off"
 
 	language "C++"
@@ -47,7 +47,7 @@ project "citadel"
 
 	filter "kind:SharedLib"
 		defines {
-			"CITADEL_LINKAGE_SHARED",
+			"CITADEL_LINKAGE_DYNAMIC",
 			"CITADEL_BUILD_DLL"
 		}
 
