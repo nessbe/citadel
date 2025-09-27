@@ -19,7 +19,9 @@
 
 #pragma once
 
-#ifdef _WIN32
+#include "citadel/platforms.hpp"
+
+#if CITADEL_PLATFORM_WINDOWS
 	#define CITADEL_EXPORT_ATTRIBUTE __declspec(dllexport)
 	#define CITADEL_IMPORT_ATTRIBUTE __declspec(dllimport)
 	#define CITADEL_NO_EXPORT_ATTRIBUTE
