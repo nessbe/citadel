@@ -27,3 +27,9 @@ namespace citadel {
 	CITADEL_API void debugbreak();
 	CITADEL_API void assert(bool condition, const std::string& message);
 }
+
+#ifdef CITADEL_ENABLE_ASSERTION
+	#define CITADEL_ASSERT(condition, message) citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message)
+#else
+	#define CITADEL_ASSERT(condition, message)
+#endif
