@@ -1,4 +1,4 @@
-// File:       application.hpp
+// File:       entry_point.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,28 +19,20 @@
 
 #pragma once
 
-#include "citadel/export.hpp"
-
-int main(int argc, char* argv[]);
+#include "citadel/core/application.hpp"
 
 namespace citadel {
-	class application {
-	public:
-		friend int ::main(int argc, char* argv[]);
+	extern application* create_application();
+}
 
-	public:
-		application() = default;
-		virtual ~application() = default;
+int main(int argc, char* argv[]) {
+	citadel::application* application = citadel::create_application();
+	application->initialize();
 
-	private:
-		CITADEL_API void initialize();
-		CITADEL_API int run();
-		CITADEL_API void shutdown();
+	int exit_code = application->run();
 
-		virtual void _initialize() = 0;
-		virtual int _run() = 0;
-		virtual void _shutdown() = 0;
-	};
+	application->shutdown();
+	delete application;
 
-	application* create_application();
+	return exit_code;
 }
