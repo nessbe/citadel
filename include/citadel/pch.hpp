@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "citadel/architectures.hpp"
 #include "citadel/compilers.hpp"

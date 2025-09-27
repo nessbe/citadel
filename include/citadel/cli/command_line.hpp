@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       command_line.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,14 +19,29 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
+#include <string>
+#include <vector>
+
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
 
-#include "citadel/cli/command_line.hpp"
+namespace citadel {
+	class command_line {
+	public:
+		CITADEL_API command_line(int argc, char* argv[]);
+		~command_line() = default;
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
+		CITADEL_API CITADEL_GETTER const std::string& get_program_name() const noexcept;
+
+		CITADEL_API CITADEL_GETTER const std::vector<std::string>& get_arguments() const noexcept;
+		CITADEL_API CITADEL_GETTER std::size_t get_argument_count() const noexcept;
+
+		CITADEL_API CITADEL_GETTER std::size_t size() const noexcept;
+
+		CITADEL_API CITADEL_GETTER std::string operator[](std::size_t index) const noexcept;
+
+	private:
+		std::string program_name_;
+		std::vector<std::string> arguments_;
+	};
+}
