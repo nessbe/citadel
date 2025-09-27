@@ -27,6 +27,9 @@ project "citadel"
 	targetdir(root_dir .. target_dir .. output_dir .. "%{prj.name}")
 	objdir(root_dir .. obj_dir .. output_dir .. "%{prj.name}")
 
+	pchheader "citadel/pch.hpp"
+	pchsource "source/pch.cpp"
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",
