@@ -49,8 +49,13 @@ namespace citadel {
 		return arguments_.size() + 1;
 	}
 
-	std::string command_line::operator[](std::size_t index) const noexcept {
+	const std::string& command_line::operator[](std::size_t index) const noexcept {
 		CITADEL_ASSERT(index < size(), "Index is out of range");
-		return arguments_[index];
+
+		if (index == 0) {
+			return program_name_;
+		} else {
+			return arguments_[index - 1];
+		};
 	}
 }

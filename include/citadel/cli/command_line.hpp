@@ -38,7 +38,7 @@ namespace citadel {
 
 		CITADEL_API CITADEL_GETTER std::size_t size() const noexcept;
 
-		CITADEL_API CITADEL_GETTER std::string operator[](std::size_t index) const noexcept;
+		CITADEL_API CITADEL_GETTER const std::string& operator[](std::size_t index) const noexcept;
 
 	private:
 		std::string program_name_;
