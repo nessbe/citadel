@@ -56,7 +56,9 @@ project "citadel"
 		symbols "On"
 
 		defines {
-			"CITADEL_DEBUG"
+			"CITADEL_DEBUG",
+			"CITADEL_ENABLE_DEBUGBREAK",
+			"CITADEL_ENABLE_ASSERTION"
 		}
 
 	filter "configurations:Release"
@@ -64,6 +66,7 @@ project "citadel"
 		optimize "On"
 
 		defines {
-			"CITADEL_RELEASE"
+			"CITADEL_RELEASE",
+			"CITADEL_ENABLE_ASSERTION"
 		}
 

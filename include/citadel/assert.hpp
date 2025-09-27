@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       assert.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,11 +19,11 @@
 
 #pragma once
 
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
 #include <string>
 
-#include "citadel/architectures.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
+#include "citadel/export.hpp"
+
+namespace citadel {
+	CITADEL_API void debugbreak();
+	CITADEL_API void assert(bool condition, const std::string& message);
+}

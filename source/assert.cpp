@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       assert.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,10 +17,36 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include "citadel/architectures.hpp"
+#include "citadel/pch.hpp"
 #include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+
+namespace citadel {
+	void debugbreak() {
+#ifdef CITADEL_ENABLE_DEBUGBREAK
+	#if CITADEL_COMPILER_MSVC
+		__debugbreak();
+	#elif CITADEL_COMPILER_CLANG || CITADEL_COMPILER_GCC
+		#if CITADEL_ARCHITECTURE_X86_32 || CITADEL_ARCHITECTURE_X86_64
+			__asm__ volatile("int3");
+		#elif CITADEL_ARCHITECTURE_ARM_64
+			__asm__ volatile("brk #0");
+		#elif CITADEL_ARCHITECTURE_ARM_32
+			__asm__ volatile("bkpt #0");
+		#else
+			raise(SIGTRAP);
+		#endif
+	#else
+		std::abort();
+	#endif
+#endif
+	}
+
+	void assert(bool condition, const std::string& message) {
+#ifdef CITADEL_ENABLE_ASSERTION
+		if (!condition) {
+			std::cerr << message << std::endl;
+			debugbreak();
+		}
+#endif
+	}
+}
