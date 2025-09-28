@@ -31,5 +31,7 @@
 #include "citadel/core/application.hpp"
 #include "citadel/core/entry_point.hpp"
 
+#include "citadel/display/window.hpp"
+
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
