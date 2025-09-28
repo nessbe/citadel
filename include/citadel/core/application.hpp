@@ -21,6 +21,8 @@
 
 #include "citadel/export.hpp"
 
+#include "citadel/cli/command_line.hpp"
+
 int main(int argc, char* argv[]);
 
 namespace citadel {
@@ -39,11 +41,11 @@ namespace citadel {
 
 	private:
 		CITADEL_API void initialize();
-		CITADEL_API int run();
+		CITADEL_API int run(const command_line& arguments);
 		CITADEL_API void shutdown();
 
 		virtual void _initialize() = 0;
-		virtual int _run() = 0;
+		virtual int _run(const command_line& arguments) = 0;
 		virtual void _shutdown() = 0;
 	};
 

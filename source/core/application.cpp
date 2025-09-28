@@ -31,8 +31,8 @@ namespace citadel {
 		_initialize();
 	}
 
-	int application::run() {
-		return _run();
+	int application::run(const command_line& arguments) {
+		return _run(arguments);
 	}
 
 	void application::shutdown() {

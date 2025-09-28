@@ -26,5 +26,6 @@
 #include <vector>
 
 #include "citadel/architectures.hpp"
+#include "citadel/assert.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/platforms.hpp"

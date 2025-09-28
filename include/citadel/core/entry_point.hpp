@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include "citadel/cli/command_line.hpp"
+
 #include "citadel/core/application.hpp"
 
 namespace citadel {
@@ -31,7 +33,8 @@ int main(int argc, char* argv[]) {
 
 	application->initialize();
 
-	int exit_code = application->run();
+	citadel::command_line arguments(argc, argv);
+	int exit_code = application->run(arguments);
 
 	application->shutdown();
 
