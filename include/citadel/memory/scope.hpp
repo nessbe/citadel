@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       scope.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,18 +19,17 @@
 
 #pragma once
 
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
 #include <memory>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+#include "citadel/attributes.hpp"
+
+namespace citadel {
+	template <typename T>
+	using scope = std::unique_ptr<T>;
+
+	template <typename T, typename... Arguments>
+	CITADEL_GETTER scope<T> make_scoped(Arguments&&... arguments);
+}
+
+#include "citadel/memory/scope.inl"

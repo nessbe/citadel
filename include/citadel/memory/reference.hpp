@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       reference.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,18 +19,16 @@
 
 #pragma once
 
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
 #include <memory>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
+#include "citadel/attributes.hpp"
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+namespace citadel {
+	template <typename T>
+	using reference = std::shared_ptr<T>;
+
+	template <typename T, typename... Arguments>
+	CITADEL_GETTER reference<T> make_referenced(Arguments&&... arguments);
+}
+
+#include "citadel/memory/reference.inl"
