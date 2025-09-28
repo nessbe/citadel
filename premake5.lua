@@ -18,7 +18,17 @@
 -- For more details, see the LICENSE file at the root of the project.
 
 project "citadel"
-	kind "SharedLib"
+	if citadel_linkage == LINKAGE_STATIC then
+		print "Citadel compiling into a static library."
+		kind "StaticLib"
+	elseif citadel_linkage == LINKAGE_DYNAMIC then
+		print "Citadel compiling into a dynamic library."
+		kind "SharedLib"
+	else
+		print "Citadel not compiling."
+		kind "None"
+	end
+
 	staticruntime "Off"
 
 	language "C++"
@@ -69,4 +79,3 @@ project "citadel"
 			"CITADEL_RELEASE",
 			"CITADEL_ENABLE_ASSERTION"
 		}
-
