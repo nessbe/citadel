@@ -20,27 +20,45 @@
 #include "citadel/pch.hpp"
 #include "citadel/display/window.hpp"
 
+#include "citadel/platforms/windows/windows_window.hpp"
+
 namespace citadel {
 	window::~window() {
 		close();
 	}
 
 	void window::open() {
+		if (is_open_) {
+			return;
+		}
+
 		_open();
 		is_open_ = true;
 	}
 
 	void window::close() {
+		if (!is_open_) {
+			return;
+		}
+
 		_close();
 		is_open_ = false;
 	}
 
 	void window::show() {
+		if (is_visible_) {
+			return;
+		}
+
 		_show();
 		is_visible_ = true;
 	}
 
 	void window::hide() {
+		if (!is_visible_) {
+			return;
+		}
+
 		_hide();
 		is_visible_ = false;
 	}
@@ -112,5 +130,18 @@ namespace citadel {
 	void window::set_title(const std::string& title) {
 		title_ = title;
 		_set_title(title);
+	}
+
+	scope<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+#if CITADEL_PLATFORM_WINDOWS
+		return make_scoped<windows_window>(x, y, width, height, title);
+#else
+		CITADEL_ASSERT(false, "Citadel does not support your window system yet");
+		return nullptr;
+#endif
+	}
+
+	scope<window> window::create(dimension width, dimension height, const std::string& title) {
+		return create(0, 0, width, height, title);
 	}
 }

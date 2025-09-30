@@ -34,3 +34,7 @@
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
+
+#if CITADEL_PLATFORM_WINDOWS
+	#include <windows.h>
+#endif

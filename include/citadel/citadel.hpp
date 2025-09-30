@@ -35,3 +35,5 @@
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
+
+#include "citadel/platforms/windows/windows_window.hpp"

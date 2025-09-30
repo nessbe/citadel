@@ -24,6 +24,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 namespace citadel {
 	class window {
 	public:
@@ -75,12 +77,14 @@ namespace citadel {
 		CITADEL_API CITADEL_GETTER const std::string& get_title() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_title(const std::string& title);
 
+		CITADEL_API static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		CITADEL_API static scope<window> create(dimension width, dimension y, const std::string& title);
+
 	private:
 		std::string title_;
 
 		bool is_open_ = false;
 		bool is_visible_ = false;
-		bool should_close_ = false;
 
 	private:
 		virtual void _open() = 0;
