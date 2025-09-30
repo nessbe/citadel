@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <cinttypes>
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
@@ -31,6 +32,8 @@
 #include "citadel/assert.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/platforms.hpp"
+
+#include "citadel/input/key_code.hpp"
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
