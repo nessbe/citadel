@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       mouse_code.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,24 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+#include <cinttypes>
 
-#include "citadel/cli/command_line.hpp"
+namespace citadel {
+	enum class mouse_code : std::uint8_t {
+		// Buttons
+		left_button   = 1,
+		right_button  = 2,
+		middle_button = 3,
+		button_4      = 4,
+		button_5      = 5,
+		button_6      = 6,
+		button_7      = 7,
+		button_8      = 8,
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
-
-#include "citadel/display/window.hpp"
-
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/mouse_code.hpp"
-
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
-
-#include "citadel/platforms/windows/windows_window.hpp"
+		// Scroll
+		wheel_up      = 20,
+		wheel_down    = 21,
+		wheel_left    = 22,
+		wheel_right   = 23,
+	};
+}
