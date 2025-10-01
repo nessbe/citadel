@@ -34,7 +34,9 @@
 #include "citadel/display/window.hpp"
 
 #include "citadel/input/key_code.hpp"
-#include "citadel/input/mouse_code.hpp"
+#include "citadel/input/key_state.hpp"
+#include "citadel/input/mouse_button_code.hpp"
+#include "citadel/input/mouse_button_state.hpp"
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"

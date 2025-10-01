@@ -1,4 +1,4 @@
-// File:       mouse_code.hpp
+// File:       key_state.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -22,23 +22,11 @@
 #include <cinttypes>
 
 namespace citadel {
-	enum class mouse_code : std::uint8_t {
-		none =          0,
-
-		// Buttons
-		left_button   = 1,
-		right_button  = 2,
-		middle_button = 3,
-		button_4      = 4,
-		button_5      = 5,
-		button_6      = 6,
-		button_7      = 7,
-		button_8      = 8,
-
-		// Scroll
-		wheel_up      = 20,
-		wheel_down    = 21,
-		wheel_left    = 22,
-		wheel_right   = 23,
+	enum class key_state : std::uint8_t {
+		none =     0,
+		released = 1,
+		pressed  = 2,
+		repeated = 3,
+		held     = 4,
 	};
 }

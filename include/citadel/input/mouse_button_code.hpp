@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       mouse_button_code.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -20,28 +20,25 @@
 #pragma once
 
 #include <cinttypes>
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
+namespace citadel {
+	enum class mouse_button_code : std::uint8_t {
+		none =          0,
 
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
+		// Buttons
+		left_button   = 1,
+		right_button  = 2,
+		middle_button = 3,
+		button_4      = 4,
+		button_5      = 5,
+		button_6      = 6,
+		button_7      = 7,
+		button_8      = 8,
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
-
-#if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-#endif
+		// Scroll
+		wheel_up      = 20,
+		wheel_down    = 21,
+		wheel_left    = 22,
+		wheel_right   = 23,
+	};
+}
