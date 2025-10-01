@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       windows_key_code.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,25 +19,21 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 
-#include "citadel/cli/command_line.hpp"
+#if CITADEL_PLATFORM_WINDOWS
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
+#include <cinttypes>
+#include <unordered_map>
 
-#include "citadel/display/window.hpp"
+#include "citadel/export.hpp"
 
 #include "citadel/input/key_code.hpp"
-#include "citadel/input/mouse_code.hpp"
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+namespace citadel {
+	CITADEL_API extern const std::unordered_map<std::uint16_t, key_code> windows_key_codes;
 
-#include "citadel/platforms/windows/windows_key_code.hpp"
-#include "citadel/platforms/windows/windows_window.hpp"
+	CITADEL_API key_code get_key_code_windows(std::uint16_t code);
+}
+
+#endif

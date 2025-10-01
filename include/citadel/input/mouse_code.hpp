@@ -23,6 +23,8 @@
 
 namespace citadel {
 	enum class mouse_code : std::uint8_t {
+		none =          0,
+
 		// Buttons
 		left_button   = 1,
 		right_button  = 2,

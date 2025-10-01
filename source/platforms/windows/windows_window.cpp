@@ -20,6 +20,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"
 
+#if CITADEL_PLATFORM_WINDOWS
+
 namespace citadel {
 	windows_window::windows_window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
 		: window(x, y, width, height, title), handle_(nullptr), instance_(GetModuleHandle(NULL)) {
@@ -248,3 +250,5 @@ namespace citadel {
 		SetWindowText(handle_, wide_title.c_str());
 	}
 }
+
+#endif

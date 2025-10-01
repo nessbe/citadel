@@ -23,6 +23,8 @@
 
 namespace citadel {
 	enum class key_code : std::uint16_t {
+		none                 =   0,
+
 		// ASCII
 		space                =  32,
 		exclamation_mark     =  33, // !
