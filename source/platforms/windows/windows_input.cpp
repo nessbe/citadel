@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       windows_input.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,32 +17,17 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include <cinttypes>
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
-
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
-
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+#include "citadel/pch.hpp"
+#include "citadel/platforms/windows/windows_input.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-	#include <windowsx.h>
+
+#include "citadel/platforms/windows/windows_window.hpp"
+
+namespace citadel {
+	void windows_input::_update() {
+
+	}
+}
+
 #endif

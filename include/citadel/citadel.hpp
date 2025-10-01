@@ -42,5 +42,6 @@
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
 
+#include "citadel/platforms/windows/windows_input.hpp"
 #include "citadel/platforms/windows/windows_key_code.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"

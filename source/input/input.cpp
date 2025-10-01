@@ -20,10 +20,15 @@
 #include "citadel/pch.hpp"
 #include "citadel/input/input.hpp"
 
+#include "citadel/platforms/windows/windows_input.hpp"
+#include "citadel/platforms/windows/windows_window.hpp"
+
 namespace citadel {
 	void input::update() {
 		keys_.clear();
 		mouse_buttons_.clear();
+
+		clear_character_buffer();
 
 		_update();
 	}
@@ -68,6 +73,10 @@ namespace citadel {
 		return get_mouse_button_state(code) == mouse_button_state::released;
 	}
 
+	bool input::is_mouse_button_double_clicked(mouse_button_code code) const {
+		return get_mouse_button_state(code) == mouse_button_state::double_clicked;
+	}
+
 	bool input::is_mouse_button_held(mouse_button_code code) const {
 		return get_mouse_button_state(code) == mouse_button_state::held;
 	}
@@ -81,7 +90,12 @@ namespace citadel {
 	}
 
 	scope<input> input::create() {
+#if CITADEL_PLATFORM_WINDOWS
+		return make_scoped<windows_input>();
+#else
+		#error Citadel does not support your input system yet
 		return nullptr;
+#endif
 	}
 
 	void input::press_key(key_code code) {
@@ -116,6 +130,10 @@ namespace citadel {
 
 	void input::release_mouse_button(mouse_button_code code) {
 		mouse_buttons_[code] = mouse_button_state::released;
+	}
+
+	void input::double_click_mouse_button(mouse_button_code code) {
+		mouse_buttons_[code] = mouse_button_state::double_clicked;
 	}
 
 	void input::push_character(char character) {

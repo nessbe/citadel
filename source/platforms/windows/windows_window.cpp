@@ -22,6 +22,8 @@
 
 #if CITADEL_PLATFORM_WINDOWS
 
+#include "citadel/platforms/windows/windows_key_code.hpp"
+
 namespace citadel {
 	windows_window::windows_window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
 		: window(x, y, width, height, title), handle_(nullptr), instance_(GetModuleHandle(NULL)) {
@@ -55,6 +57,7 @@ namespace citadel {
 		}
 
 		windows_window* window = reinterpret_cast<windows_window*>(GetWindowLongPtr(window_handle, GWLP_USERDATA));
+		CITADEL_ASSERT("The given window is null");
 
 		switch (message) {
 		case WM_CREATE:
@@ -62,10 +65,8 @@ namespace citadel {
 			break;
 
 		case WM_MOVE: {
-			int x = (int)(short)LOWORD(long_parameter);
-			int y = (int)(short)HIWORD(long_parameter);
-
-			CITADEL_ASSERT(window, "The given window is null");
+			int x = GET_X_LPARAM(long_parameter);
+			int y = GET_Y_LPARAM(long_parameter);
 
 			if (window) {
 				window->x_ = x;
@@ -74,10 +75,8 @@ namespace citadel {
 		} break;
 
 		case WM_SIZE: {
-			int width = (int)(short)LOWORD(long_parameter);
-			int height = (int)(short)HIWORD(long_parameter);
-
-			CITADEL_ASSERT(window, "The given window is null");
+			int width = GET_X_LPARAM(long_parameter);
+			int height = GET_Y_LPARAM(long_parameter);
 
 			if (window) {
 				window->width_ = width;
@@ -86,8 +85,6 @@ namespace citadel {
 		} break;
 
 		case WM_CLOSE:
-			CITADEL_ASSERT(window, "The given window is null");
-
 			if (window) {
 				window->close();
 			}
@@ -102,6 +99,81 @@ namespace citadel {
 			}
 
 			return 0;
+
+		case WM_CHAR: {
+			char character = static_cast<char>(wide_parameter);
+			window->get_input().push_character(character);
+			
+		} break;
+
+		case WM_KEYDOWN: {
+			key_code key_code = get_key_code_windows(static_cast<std::uint16_t>(wide_parameter));
+			std::uint32_t repeat_count = long_parameter & 0xFFFF;
+
+			if (repeat_count > 0) {
+				window->get_input().repeat_key(key_code);
+			} else {
+				window->get_input().press_key(key_code);
+			}
+
+		} break;
+
+		case WM_KEYUP: {
+			key_code key_code = get_key_code_windows(static_cast<std::uint16_t>(wide_parameter));
+			window->get_input().release_key(key_code);
+		} break;
+
+		case WM_LBUTTONDOWN:
+			window->get_input().press_mouse_button(mouse_button_code::left_button);
+			break;
+
+		case WM_LBUTTONUP:
+			window->get_input().release_mouse_button(mouse_button_code::left_button);
+			break;
+
+		case WM_LBUTTONDBLCLK:
+			window->get_input().double_click_mouse_button(mouse_button_code::left_button);
+			break;
+
+		case WM_RBUTTONDOWN:
+			window->get_input().press_mouse_button(mouse_button_code::right_button);
+			break;
+
+		case WM_RBUTTONUP:
+			window->get_input().release_mouse_button(mouse_button_code::right_button);
+			break;
+
+		case WM_RBUTTONDBLCLK:
+			window->get_input().double_click_mouse_button(mouse_button_code::right_button);
+			break;
+
+		case WM_MBUTTONDOWN:
+			window->get_input().press_mouse_button(mouse_button_code::middle_button);
+			break;
+
+		case WM_MBUTTONUP:
+			window->get_input().release_mouse_button(mouse_button_code::middle_button);
+			break;
+
+		case WM_MBUTTONDBLCLK:
+			window->get_input().double_click_mouse_button(mouse_button_code::middle_button);
+			break;
+
+		case WM_MOUSEMOVE: {
+			int x = GET_X_LPARAM(long_parameter);
+			int y = GET_Y_LPARAM(long_parameter);
+		} break;
+
+		case WM_MOUSEWHEEL: {
+			short delta = GET_WHEEL_DELTA_WPARAM(wide_parameter);
+			int scroll_count = delta / WHEEL_DELTA;
+
+		} break;
+
+		case WM_MOUSEHWHEEL: {
+			short delta = GET_WHEEL_DELTA_WPARAM(wide_parameter);
+			int scroll_count = delta / WHEEL_DELTA;
+		} break;
 		}
 
 		return DefWindowProc(window_handle, message, wide_parameter, long_parameter);
@@ -129,17 +201,24 @@ namespace citadel {
 	void windows_window::update_rect() const {
 		CITADEL_ASSERT(handle_, "Window handle is null");
 
-		UINT flags = SWP_NOZORDER | SWP_NOACTIVATE;
+		RECT rect = { };
+		rect.left = get_x();
+		rect.top = get_y();
+		rect.right = get_x() + get_width();
+		rect.bottom = get_y() + get_height();
 
-		SetWindowPos(
+		AdjustWindowRect(&rect, GetWindowStyle(handle_), FALSE);
+
+		BOOL result = MoveWindow(
 			handle_,
-			NULL,
-			get_x(),
-			get_y(),
-			get_width(),
-			get_height(),
-			flags
+			rect.left,
+			rect.top,
+			rect.right - rect.left,
+			rect.bottom - rect.top,
+			TRUE
 		);
+
+		CITADEL_ASSERT(result, "Failed to update window rect");
 	}
 
 	void windows_window::_open() {

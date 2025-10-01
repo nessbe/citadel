@@ -23,9 +23,10 @@
 
 namespace citadel {
 	enum class mouse_button_state : std::uint8_t {
-		none     = 0,
-		pressed  = 1,
-		released = 2,
-		held     = 3,
+		none           = 0,
+		pressed        = 1,
+		released       = 2,
+		held           = 3,
+		double_clicked = 4,
 	};
 }

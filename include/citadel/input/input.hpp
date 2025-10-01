@@ -34,6 +34,11 @@
 
 namespace citadel {
 	class input {
+#if CITADEL_PLATFORM_WINDOWS
+	public:
+		friend class windows_window;
+#endif
+
 	public:
 		virtual ~input() = default;
 
@@ -48,12 +53,13 @@ namespace citadel {
 		CITADEL_API CITADEL_NODISCARD mouse_button_state get_mouse_button_state(mouse_button_code code) const;
 		CITADEL_API CITADEL_GETTER bool is_mouse_button_pressed(mouse_button_code code) const;
 		CITADEL_API CITADEL_GETTER bool is_mouse_button_released(mouse_button_code code) const;
+		CITADEL_API CITADEL_GETTER bool is_mouse_button_double_clicked(mouse_button_code code) const;
 		CITADEL_API CITADEL_GETTER bool is_mouse_button_held(mouse_button_code code) const;
 
 		CITADEL_API CITADEL_GETTER const std::string& get_character_buffer() const noexcept;
 		CITADEL_API CITADEL_INLINE void clear_character_buffer() noexcept;
 
-		CITADEL_API CITADEL_GETTER static scope<input> create();
+		CITADEL_API CITADEL_NODISCARD static scope<input> create();
 
 	protected:
 		CITADEL_API void press_key(key_code code);
@@ -62,6 +68,7 @@ namespace citadel {
 
 		CITADEL_API void press_mouse_button(mouse_button_code code);
 		CITADEL_API void release_mouse_button(mouse_button_code code);
+		CITADEL_API void double_click_mouse_button(mouse_button_code code);
 
 		CITADEL_API CITADEL_INLINE void push_character(char character);
 

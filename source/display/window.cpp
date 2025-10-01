@@ -23,6 +23,11 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
+	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
+		: x_(x), y_(y), width_(width), height_(height), title_(title), input_(input::create()) {
+		CITADEL_ASSERT(input_, "Failed to create input");
+	}
+
 	window::~window() {
 		close();
 	}
@@ -72,6 +77,7 @@ namespace citadel {
 	}
 
 	void window::update() {
+		input_->update();
 		_update();
 	}
 
@@ -140,7 +146,7 @@ namespace citadel {
 #if CITADEL_PLATFORM_WINDOWS
 		return make_scoped<windows_window>(x, y, width, height, title);
 #else
-		CITADEL_ASSERT(false, "Citadel does not support your window system yet");
+		#error Citadel does not support your window system yet
 		return nullptr;
 #endif
 	}

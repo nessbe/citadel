@@ -34,8 +34,7 @@ namespace citadel {
 		using dimension = unsigned int;
 
 	public:
-		window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
-			: x_(x), y_(y), width_(width), height_(height), title_(title), input_(input::create()) { }
+		CITADEL_API window(dimension x, dimension y, dimension width, dimension height, const std::string& title);
 
 		window(dimension width, dimension height, const std::string& title)
 			: window(0, 0, width, height, title) { }
@@ -81,8 +80,8 @@ namespace citadel {
 
 		CITADEL_API CITADEL_GETTER input& get_input() const noexcept;
 
-		CITADEL_API CITADEL_GETTER static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		CITADEL_API CITADEL_GETTER static scope<window> create(dimension width, dimension y, const std::string& title);
+		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension width, dimension y, const std::string& title);
 
 	private:
 		std::string title_;

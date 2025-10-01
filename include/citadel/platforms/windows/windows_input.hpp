@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       windows_input.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,30 +19,23 @@
 
 #pragma once
 
-#include <cinttypes>
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/platforms.hpp"
 
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
-
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
-
 #if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-	#include <windowsx.h>
+
+#include "citadel/export.hpp"
+
+#include "citadel/input/input.hpp"
+
+namespace citadel {
+	class windows_input : public input {
+	public:
+		windows_input() = default;
+		virtual ~windows_input() override = default;
+
+	private:
+		CITADEL_API virtual void _update() override;
+	};
+}
+
 #endif
