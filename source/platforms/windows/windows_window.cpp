@@ -57,9 +57,9 @@ namespace citadel {
 		windows_window* window = reinterpret_cast<windows_window*>(GetWindowLongPtr(window_handle, GWLP_USERDATA));
 
 		switch (message) {
-		case WM_CREATE: {
+		case WM_CREATE:
 			instance_count_++;
-		} break;
+			break;
 
 		case WM_MOVE: {
 			int x = (int)(short)LOWORD(long_parameter);

@@ -26,6 +26,7 @@
 #include <cinttypes>
 #include <unordered_map>
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/input/key_code.hpp"
@@ -33,7 +34,7 @@
 namespace citadel {
 	CITADEL_API extern const std::unordered_map<std::uint16_t, key_code> windows_key_codes;
 
-	CITADEL_API key_code get_key_code_windows(std::uint16_t code);
+	CITADEL_API CITADEL_NODISCARD key_code get_key_code_windows(std::uint16_t code);
 }
 
 #endif

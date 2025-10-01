@@ -79,6 +79,10 @@ namespace citadel {
 		return is_open_;
 	}
 
+	input& window::get_input() const noexcept {
+		return *input_.get();
+	}
+
 	bool window::is_visible() const noexcept {
 		return is_visible_;
 	}

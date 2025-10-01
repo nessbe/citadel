@@ -24,6 +24,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/input/input.hpp"
+
 #include "citadel/memory/scope.hpp"
 
 namespace citadel {
@@ -33,7 +35,7 @@ namespace citadel {
 
 	public:
 		window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
-			: x_(x), y_(y), width_(width), height_(height), title_(title) { }
+			: x_(x), y_(y), width_(width), height_(height), title_(title), input_(input::create()) { }
 
 		window(dimension width, dimension height, const std::string& title)
 			: window(0, 0, width, height, title) { }
@@ -57,9 +59,6 @@ namespace citadel {
 
 		CITADEL_API void update();
 
-		CITADEL_API bool is_visible() const noexcept;
-		CITADEL_API bool is_open() const noexcept;
-
 		CITADEL_API CITADEL_GETTER void* get_native_handle() const;
 
 		CITADEL_API CITADEL_GETTER dimension get_x() const noexcept;
@@ -77,14 +76,21 @@ namespace citadel {
 		CITADEL_API CITADEL_GETTER const std::string& get_title() const noexcept;
 		CITADEL_API CITADEL_SETTER void set_title(const std::string& title);
 
-		CITADEL_API static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		CITADEL_API static scope<window> create(dimension width, dimension y, const std::string& title);
+		CITADEL_API CITADEL_GETTER bool is_visible() const noexcept;
+		CITADEL_API CITADEL_GETTER bool is_open() const noexcept;
+
+		CITADEL_API CITADEL_GETTER input& get_input() const noexcept;
+
+		CITADEL_API CITADEL_GETTER static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		CITADEL_API CITADEL_GETTER static scope<window> create(dimension width, dimension y, const std::string& title);
 
 	private:
 		std::string title_;
 
 		bool is_open_ = false;
 		bool is_visible_ = false;
+
+		scope<input> input_;
 
 	private:
 		virtual void _open() = 0;
