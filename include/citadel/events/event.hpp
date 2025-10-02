@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       event.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,31 +19,21 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
 
-#include "citadel/cli/command_line.hpp"
+namespace citadel {
+	class event {
+	public:
+		virtual ~event() = default;
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
+		CITADEL_API CITADEL_GETTER bool is_consumed() const noexcept;
+		CITADEL_API void consume();
 
-#include "citadel/display/window.hpp"
+	private:
+		bool is_consumed_ = false;
 
-#include "citadel/events/event.hpp"
-
-#include "citadel/input/input.hpp"
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
-
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
-
-#include "citadel/platforms/windows/windows_input.hpp"
-#include "citadel/platforms/windows/windows_key_code.hpp"
-#include "citadel/platforms/windows/windows_window.hpp"
+	private:
+		virtual void _consume() = 0;
+	};
+}
