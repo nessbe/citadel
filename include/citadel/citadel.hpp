@@ -34,6 +34,7 @@
 #include "citadel/display/window.hpp"
 
 #include "citadel/events/event.hpp"
+#include "citadel/events/key_event.hpp"
 
 #include "citadel/input/input.hpp"
 #include "citadel/input/key_code.hpp"
