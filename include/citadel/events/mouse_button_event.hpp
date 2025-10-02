@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       mouse_button_event.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,33 +19,34 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-
-#include "citadel/cli/command_line.hpp"
-
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
-
-#include "citadel/display/window.hpp"
 
 #include "citadel/events/event.hpp"
-#include "citadel/events/key_event.hpp"
-#include "citadel/events/mouse_button_event.hpp"
 
-#include "citadel/input/input.hpp"
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
 #include "citadel/input/mouse_button_code.hpp"
 #include "citadel/input/mouse_button_state.hpp"
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+namespace citadel {
+	class mouse_button_event : public event {
+	public:
+		mouse_button_event(mouse_button_code code, mouse_button_state state)
+			: code_(code), state_(state) { }
 
-#include "citadel/platforms/windows/windows_input.hpp"
-#include "citadel/platforms/windows/windows_key_code.hpp"
-#include "citadel/platforms/windows/windows_window.hpp"
+		virtual ~mouse_button_event() override = default;
+
+		CITADEL_API CITADEL_GETTER mouse_button_code get_code() const noexcept;
+		CITADEL_API CITADEL_GETTER mouse_button_state get_state() const noexcept;
+
+		CITADEL_API CITADEL_GETTER bool is_released() const noexcept;
+		CITADEL_API CITADEL_GETTER bool is_pressed() const noexcept;
+		CITADEL_API CITADEL_GETTER bool is_held() const noexcept;
+		CITADEL_API CITADEL_GETTER bool is_double_clicked() const noexcept;
+
+	private:
+		mouse_button_code code_;
+		mouse_button_state state_;
+
+	private:
+		CITADEL_API virtual void _consume();
+	};
+}
