@@ -44,6 +44,8 @@
 #include "citadel/input/mouse_button_code.hpp"
 #include "citadel/input/mouse_button_state.hpp"
 
+#include "citadel/layers/layer.hpp"
+
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
 
