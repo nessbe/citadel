@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       event_dispatcher.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,33 +19,38 @@
 
 #pragma once
 
-#include <cinttypes>
-#include <csignal>
-#include <cstdlib>
 #include <functional>
 #include <initializer_list>
-#include <iostream>
-#include <memory>
-#include <string>
 #include <type_traits>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
+#include "citadel/events/event.hpp"
 
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
+namespace citadel {
+	template <typename T>
+	requires std::is_base_of_v<event, T>
+	class event_dispatcher {
+	public:
+		using callback = std::function<bool(const T&)>;
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+	public:
+		event_dispatcher() = default;
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-	#include <windowsx.h>
-#endif
+		event_dispatcher(std::initializer_list<callback> callbacks)
+			: callbacks_(callbacks) { }
+
+		~event_dispatcher() = default;
+
+		bool dispatch_event(T& event);
+
+		CITADEL_SETTER void push_callback(const callback& callback);
+		CITADEL_SETTER void push_callback(callback&& callback);
+
+		CITADEL_GETTER callback pop_callback();
+
+	private:
+		std::vector<callback> callbacks_;
+	};
+}
+
+#include "citadel/events/event_dispatcher.inl"

@@ -32,7 +32,7 @@
 namespace citadel {
 	class windows_window : public window {
 	public:
-		static constexpr wchar_t* class_name = L"citadel_window";
+		static constexpr const wchar_t* class_name = L"citadel_window";
 
 	public:
 		CITADEL_API windows_window(dimension x, dimension y, dimension width, dimension height, const std::string& title);

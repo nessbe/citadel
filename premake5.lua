@@ -32,7 +32,7 @@ project "citadel"
 	staticruntime "Off"
 
 	language "C++"
-	cppdialect(cpp_dialect)
+	cppdialect "C++20"
 
 	targetdir(root_dir .. target_dir .. output_dir .. "%{prj.name}")
 	objdir(root_dir .. obj_dir .. output_dir .. "%{prj.name}")

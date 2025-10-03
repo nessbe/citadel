@@ -34,6 +34,7 @@
 #include "citadel/display/window.hpp"
 
 #include "citadel/events/event.hpp"
+#include "citadel/events/event_dispatcher.hpp"
 #include "citadel/events/key_event.hpp"
 #include "citadel/events/mouse_button_event.hpp"
 

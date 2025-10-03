@@ -57,7 +57,6 @@ namespace citadel {
 		}
 
 		windows_window* window = reinterpret_cast<windows_window*>(GetWindowLongPtr(window_handle, GWLP_USERDATA));
-		CITADEL_ASSERT("The given window is null");
 
 		switch (message) {
 		case WM_CREATE:
