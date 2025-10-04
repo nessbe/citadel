@@ -20,12 +20,15 @@
 #pragma once
 
 #include <cinttypes>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+
+#include "citadel/export.hpp"
 
 namespace citadel {
 	enum class mouse_button_code : std::uint8_t {
 		none =          0,
-
-		// Buttons
 		left_button   = 1,
 		right_button  = 2,
 		middle_button = 3,
@@ -34,11 +37,9 @@ namespace citadel {
 		button_6      = 6,
 		button_7      = 7,
 		button_8      = 8,
-
-		// Scroll
-		wheel_up      = 20,
-		wheel_down    = 21,
-		wheel_left    = 22,
-		wheel_right   = 23,
 	};
+
+	CITADEL_API extern const std::unordered_map<mouse_button_code, std::string> mouse_button_names;
+	CITADEL_API std::string get_mouse_button_name(mouse_button_code code) noexcept;
+	CITADEL_API std::ostream& operator<<(std::ostream& out, mouse_button_code value);
 }
