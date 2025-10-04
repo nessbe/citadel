@@ -20,6 +20,11 @@
 #pragma once
 
 #include <cinttypes>
+#include <ostream>
+#include <string>
+#include <unordered_map>
+
+#include "citadel/export.hpp"
 
 namespace citadel {
 	enum class key_code : std::uint16_t {
@@ -207,6 +212,19 @@ namespace citadel {
 		media_stop           = 257,
 		media_next           = 258,
 		media_previous       = 259,
+	};
+
+	CITADEL_API extern const std::unordered_map<key_code, std::string> key_names;
+	CITADEL_API std::string get_key_name(key_code code) noexcept;
+	CITADEL_API std::ostream& operator<<(std::ostream& out, key_code value);
+}
+
+namespace std {
+	template <>
+	struct hash<citadel::key_code> {
+		size_t operator()(const citadel::key_code& value) const noexcept {
+			return static_cast<size_t>(value);
+		}
 	};
 }
 
