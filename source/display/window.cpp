@@ -24,8 +24,16 @@
 
 namespace citadel {
 	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
-		: x_(x), y_(y), width_(width), height_(height), title_(title), input_(input::create()) {
+		:
+			x_(x),
+			y_(y),
+			width_(width),
+			height_(height),
+			title_(title),
+			input_(input::create()),
+			layer_stack_(make_scoped<layer_stack>()) {
 		CITADEL_ASSERT(input_, "Failed to create input");
+		CITADEL_ASSERT(layer_stack_, "Failed to create layer stack");
 	}
 
 	window::~window() {
@@ -87,6 +95,10 @@ namespace citadel {
 
 	input& window::get_input() const noexcept {
 		return *input_.get();
+	}
+
+	layer_stack& window::get_layer_stack() const noexcept {
+		return *layer_stack_.get();
 	}
 
 	bool window::is_visible() const noexcept {

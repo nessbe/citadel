@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       layer_stack.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,37 +19,36 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
+#include <initializer_list>
+#include <vector>
+
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-
-#include "citadel/cli/command_line.hpp"
-
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
-
-#include "citadel/display/window.hpp"
 
 #include "citadel/events/event.hpp"
-#include "citadel/events/event_dispatcher.hpp"
-#include "citadel/events/key_event.hpp"
-#include "citadel/events/mouse_button_event.hpp"
-
-#include "citadel/input/input.hpp"
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
 
 #include "citadel/layers/layer.hpp"
-#include "citadel/layers/layer_stack.hpp"
 
 #include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
 
-#include "citadel/platforms/windows/windows_input.hpp"
-#include "citadel/platforms/windows/windows_key_code.hpp"
-#include "citadel/platforms/windows/windows_window.hpp"
+namespace citadel {
+	class layer_stack {
+	public:
+		layer_stack() = default;
+
+		CITADEL_API layer_stack(std::initializer_list<reference<layer>> layers);
+
+		CITADEL_API ~layer_stack();
+
+		CITADEL_API void update();
+		CITADEL_API void render();
+
+		CITADEL_API bool propagate_event(const reference<event>& event);
+
+		CITADEL_API CITADEL_SETTER void push_layer(const reference<layer>& layer);
+		CITADEL_API reference<layer> pop_layer();
+
+	private:
+		std::vector<reference<layer>> layers_;
+	};
+}
