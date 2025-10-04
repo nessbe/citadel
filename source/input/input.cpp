@@ -135,18 +135,24 @@ namespace citadel {
 	}
 
 	reference<key_event> input::press_key(key_code code) {
-		if (keys_.find(code) != keys_.end()) {
-			if (keys_.at(code) == key_state::pressed) {
+		if (repeat_counts_.find(code) != repeat_counts_.end()) {
+			std::uint32_t& repeat_count = repeat_counts_[code];
+			repeat_count++;
+
+			if (repeat_count > 1) {
 				keys_[code] = key_state::held;
-				return make_referenced<key_event>(code, key_state::held);
+				return make_referenced<key_event>(code, key_state::held, repeat_counts_.at(code));
 			}
+		} else {
+			repeat_counts_[code] = 1;
 		}
 
 		keys_[code] = key_state::pressed;
-		return make_referenced<key_event>(code, key_state::pressed);
+		return make_referenced<key_event>(code, key_state::pressed, repeat_counts_.at(code));
 	}
 
 	reference<key_event> input::release_key(key_code code) {
+		repeat_counts_.erase(code);
 		keys_[code] = key_state::released;
 		return make_referenced<key_event>(code, key_state::released);
 	}

@@ -81,6 +81,8 @@ namespace citadel {
 		std::unordered_map<key_code, key_state> keys_;
 		std::unordered_map<mouse_button_code, mouse_button_state> mouse_buttons_;
 
+		std::unordered_map<key_code, std::uint32_t> repeat_counts_;
+
 	private:
 		virtual void _update() = 0;
 		virtual void _give_context(const input_context& context) = 0;
