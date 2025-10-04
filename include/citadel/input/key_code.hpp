@@ -34,7 +34,7 @@ namespace citadel {
 		space                =  32,
 		exclamation_mark     =  33, // !
 		quote                =  34, // "
-		hashtag              =  35, // #
+		hash                 =  35, // #
 		dollar_sign          =  36, // $
 		percent              =  37, // %
 		ampersand            =  38, // &
@@ -44,7 +44,7 @@ namespace citadel {
 		asterisk             =  42, // *
 		plus                 =  43, // +
 		comma                =  44, // ,
-		hyphen               =  45, // -
+		minus                =  45, // -
 		period               =  46, // .
 		slash                =  47, // /
 		zero                 =  48, // 0
@@ -59,11 +59,11 @@ namespace citadel {
 		nine                 =  57, // 9
 		colon                =  58, // :
 		semicolon            =  59, // ;
-		open_angle_bracket   =  60, // <
+		less_than            =  60, // <
 		equal                =  61, // =
-		close_angle_bracket  =  62, // >
+		greater_than         =  62, // >
 		question_mark        =  63, // ?
-		ampersat             =  64, // @
+		at                   =  64, // @
 		A                    =  65, // A
 		B                    =  66, // B
 		C                    =  67, // C
@@ -90,12 +90,12 @@ namespace citadel {
 		X                    =  88, // X
 		Y                    =  89, // Y
 		Z                    =  90, // Z
-		open_square_bracket  =  91, // [
+		open_bracket         =  91, // [
 		backslash            =  92,
-		close_square_bracket =  93, // ]
+		close_bracket        =  93, // ]
 		caret                =  94, // ^
 		underscore           =  95, // _
-		backquote            =  96, // `
+		backtick             =  96, // `
 		a                    =  97, // a
 		b                    =  98, // b
 		c                    =  99, // c
@@ -122,9 +122,9 @@ namespace citadel {
 		x                    = 120, // x
 		y                    = 121, // y
 		z                    = 122, // z
-		open_curly_bracket   = 123, // {
+		open_brace           = 123, // {
 		pipe                 = 124, // |
-		close_curly_bracket  = 125, // }
+		close_brace          = 125, // }
 		tilde                = 126, // ~
 		del                  = 127,
 
@@ -154,7 +154,7 @@ namespace citadel {
 		page_up              = 166,
 		page_down            = 167,
 		insert               = 168,
-		del_key              = 169,
+		delete_key           = 169,
 
 		// Numeric Pad
 		num_lock             = 190,
