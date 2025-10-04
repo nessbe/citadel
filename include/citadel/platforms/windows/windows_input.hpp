@@ -26,6 +26,7 @@
 #include "citadel/export.hpp"
 
 #include "citadel/input/input.hpp"
+#include "citadel/input/input_context.hpp"
 
 namespace citadel {
 	class windows_input : public input {
@@ -35,6 +36,7 @@ namespace citadel {
 
 	private:
 		CITADEL_API virtual void _update() override;
+		CITADEL_API virtual void _give_context(const input_context& context);
 	};
 }
 

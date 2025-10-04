@@ -24,10 +24,14 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/events/event.hpp"
+
 #include "citadel/input/input.hpp"
+#include "citadel/input/input_context.hpp"
 
 #include "citadel/layers/layer_stack.hpp"
 
+#include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
 
 namespace citadel {
@@ -59,6 +63,7 @@ namespace citadel {
 		CITADEL_API void minimize();
 
 		CITADEL_API void update();
+		CITADEL_API void render();
 
 		CITADEL_API CITADEL_GETTER void* get_native_handle() const;
 
@@ -81,10 +86,13 @@ namespace citadel {
 		CITADEL_API CITADEL_GETTER bool is_open() const noexcept;
 
 		CITADEL_API CITADEL_GETTER input& get_input() const noexcept;
-		CITADEL_API CITADEL_GETTER layer_stack& get_layer_stack() const noexcept;
+		CITADEL_API CITADEL_GETTER layer_stack& get_layer_stack() noexcept;
 
 		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension width, dimension y, const std::string& title);
+
+	protected:
+		CITADEL_API reference<event> propagate_input_context(const input_context& context);
 
 	private:
 		std::string title_;
@@ -93,7 +101,7 @@ namespace citadel {
 		bool is_visible_ = false;
 
 		scope<input> input_;
-		scope<layer_stack> layer_stack_;
+		layer_stack layer_stack_;
 
 	private:
 		virtual void _open() = 0;
@@ -106,6 +114,7 @@ namespace citadel {
 		virtual void _minimize() = 0;
 
 		virtual void _update() = 0;
+		virtual void _render() = 0;
 
 		virtual void* _get_native_handle() const = 0;
 

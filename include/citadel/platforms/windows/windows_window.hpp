@@ -64,6 +64,7 @@ namespace citadel {
 		CITADEL_API virtual void _minimize() override;
 
 		CITADEL_API virtual void _update() override;
+		CITADEL_API virtual void _render() override;
 
 		CITADEL_API CITADEL_GETTER virtual void* _get_native_handle() const override;
 

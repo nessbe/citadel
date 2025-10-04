@@ -33,6 +33,42 @@ namespace citadel {
 		_update();
 	}
 
+	reference<event> input::give_context(const input_context& context) {
+		_give_context(context);
+
+		if (context.is_key_code() && context.is_key_state()) {
+			key_code code = context.as_key_code();
+			key_state state = context.as_key_state();
+
+			switch (state) {
+			case key_state::pressed:
+				return press_key(code);
+
+			case key_state::released:
+				return release_key(code);
+
+			case key_state::repeated:
+				return repeat_key(code);
+			}
+		} else if (context.is_mouse_button_code() && context.is_mouse_button_state()) {
+			mouse_button_code code = context.as_mouse_button_code();
+			mouse_button_state state = context.as_mouse_button_state();
+
+			switch (state) {
+			case mouse_button_state::pressed:
+				return press_mouse_button(code);
+
+			case mouse_button_state::released:
+				return release_mouse_button(code);
+
+			case mouse_button_state::double_clicked:
+				return double_click_mouse_button(code);
+			}
+		}
+
+		return nullptr;
+	}
+
 	key_state input::get_key_state(key_code code) const {
 		if (keys_.find(code) == keys_.end()) {
 			return key_state::none;
@@ -98,42 +134,48 @@ namespace citadel {
 #endif
 	}
 
-	void input::press_key(key_code code) {
+	reference<key_event> input::press_key(key_code code) {
 		if (keys_.find(code) != keys_.end()) {
 			if (keys_.at(code) == key_state::pressed) {
 				keys_[code] = key_state::held;
-				return;
+				return make_referenced<key_event>(code, key_state::held);
 			}
 		}
 
 		keys_[code] = key_state::pressed;
+		return make_referenced<key_event>(code, key_state::pressed);
 	}
 
-	void input::release_key(key_code code) {
+	reference<key_event> input::release_key(key_code code) {
 		keys_[code] = key_state::released;
+		return make_referenced<key_event>(code, key_state::released);
 	}
 
-	void input::repeat_key(key_code code) {
+	reference<key_event> input::repeat_key(key_code code) {
 		keys_[code] = key_state::repeated;
+		return make_referenced<key_event>(code, key_state::repeated);
 	}
 
-	void input::press_mouse_button(mouse_button_code code) {
+	reference<mouse_button_event> input::press_mouse_button(mouse_button_code code) {
 		if (mouse_buttons_.find(code) != mouse_buttons_.end()) {
 			if (mouse_buttons_.at(code) == mouse_button_state::pressed) {
 				mouse_buttons_[code] = mouse_button_state::held;
-				return;
+				return make_referenced<mouse_button_event>(code, mouse_button_state::held);
 			}
 		}
 
 		mouse_buttons_[code] = mouse_button_state::pressed;
+		return make_referenced<mouse_button_event>(code, mouse_button_state::pressed);
 	}
 
-	void input::release_mouse_button(mouse_button_code code) {
+	reference<mouse_button_event> input::release_mouse_button(mouse_button_code code) {
 		mouse_buttons_[code] = mouse_button_state::released;
+		return make_referenced<mouse_button_event>(code, mouse_button_state::released);
 	}
 
-	void input::double_click_mouse_button(mouse_button_code code) {
+	reference<mouse_button_event> input::double_click_mouse_button(mouse_button_code code) {
 		mouse_buttons_[code] = mouse_button_state::double_clicked;
+		return make_referenced<mouse_button_event>(code, mouse_button_state::double_clicked);
 	}
 
 	void input::push_character(char character) {

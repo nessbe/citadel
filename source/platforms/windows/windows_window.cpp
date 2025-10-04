@@ -22,6 +22,8 @@
 
 #if CITADEL_PLATFORM_WINDOWS
 
+#include "citadel/input/input_context.hpp"
+
 #include "citadel/platforms/windows/windows_key_code.hpp"
 
 namespace citadel {
@@ -67,6 +69,8 @@ namespace citadel {
 			int x = GET_X_LPARAM(long_parameter);
 			int y = GET_Y_LPARAM(long_parameter);
 
+			CITADEL_ASSERT(window, "The given window is null");
+
 			if (window) {
 				window->x_ = x;
 				window->y_ = y;
@@ -77,6 +81,8 @@ namespace citadel {
 			int width = GET_X_LPARAM(long_parameter);
 			int height = GET_Y_LPARAM(long_parameter);
 
+			CITADEL_ASSERT(window, "The given window is null");
+
 			if (window) {
 				window->width_ = width;
 				window->height_ = height;
@@ -84,6 +90,8 @@ namespace citadel {
 		} break;
 
 		case WM_CLOSE:
+			CITADEL_ASSERT(window, "The given window is null");
+
 			if (window) {
 				window->close();
 			}
@@ -101,62 +109,123 @@ namespace citadel {
 
 		case WM_CHAR: {
 			char character = static_cast<char>(wide_parameter);
-			window->get_input().push_character(character);
-			
 		} break;
 
 		case WM_KEYDOWN: {
 			key_code key_code = get_key_code_windows(static_cast<std::uint16_t>(wide_parameter));
-			std::uint32_t repeat_count = long_parameter & 0xFFFF;
+			std::uint32_t repeat_count = static_cast<std::uint32_t>(long_parameter) & 0xFFFF;
 
-			if (repeat_count > 0) {
-				window->get_input().repeat_key(key_code);
-			} else {
-				window->get_input().press_key(key_code);
+			input_context context(key_code, repeat_count > 1 ? key_state::repeated : key_state::pressed, repeat_count);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
 			}
-
 		} break;
 
 		case WM_KEYUP: {
 			key_code key_code = get_key_code_windows(static_cast<std::uint16_t>(wide_parameter));
-			window->get_input().release_key(key_code);
+			std::uint32_t repeat_count = static_cast<std::uint32_t>(long_parameter);
+
+			input_context context(key_code, key_state::released, repeat_count);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
 		} break;
 
-		case WM_LBUTTONDOWN:
-			window->get_input().press_mouse_button(mouse_button_code::left_button);
-			break;
+		case WM_LBUTTONDOWN: {
+			input_context context(mouse_button_code::left_button, mouse_button_state::pressed);
 
-		case WM_LBUTTONUP:
-			window->get_input().release_mouse_button(mouse_button_code::left_button);
-			break;
+			CITADEL_ASSERT(window, "The given window is null");
 
-		case WM_LBUTTONDBLCLK:
-			window->get_input().double_click_mouse_button(mouse_button_code::left_button);
-			break;
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
 
-		case WM_RBUTTONDOWN:
-			window->get_input().press_mouse_button(mouse_button_code::right_button);
-			break;
+		case WM_LBUTTONUP: {
+			input_context context(mouse_button_code::left_button, mouse_button_state::released);
 
-		case WM_RBUTTONUP:
-			window->get_input().release_mouse_button(mouse_button_code::right_button);
-			break;
+			CITADEL_ASSERT(window, "The given window is null");
 
-		case WM_RBUTTONDBLCLK:
-			window->get_input().double_click_mouse_button(mouse_button_code::right_button);
-			break;
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
 
-		case WM_MBUTTONDOWN:
-			window->get_input().press_mouse_button(mouse_button_code::middle_button);
-			break;
+		case WM_LBUTTONDBLCLK: {
+			input_context context(mouse_button_code::left_button, mouse_button_state::double_clicked);
 
-		case WM_MBUTTONUP:
-			window->get_input().release_mouse_button(mouse_button_code::middle_button);
-			break;
+			CITADEL_ASSERT(window, "The given window is null");
 
-		case WM_MBUTTONDBLCLK:
-			window->get_input().double_click_mouse_button(mouse_button_code::middle_button);
-			break;
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_RBUTTONDOWN: {
+			input_context context(mouse_button_code::right_button, mouse_button_state::pressed);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_RBUTTONUP: {
+			input_context context(mouse_button_code::right_button, mouse_button_state::released);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_RBUTTONDBLCLK: {
+			input_context context(mouse_button_code::right_button, mouse_button_state::double_clicked);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_MBUTTONDOWN: {
+			input_context context(mouse_button_code::middle_button, mouse_button_state::pressed);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_MBUTTONUP: {
+			input_context context(mouse_button_code::middle_button, mouse_button_state::released);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
+
+		case WM_MBUTTONDBLCLK: {
+			input_context context(mouse_button_code::middle_button, mouse_button_state::double_clicked);
+
+			CITADEL_ASSERT(window, "The given window is null");
+
+			if (window) {
+				window->propagate_input_context(context);
+			}
+		} break;
 
 		case WM_MOUSEMOVE: {
 			int x = GET_X_LPARAM(long_parameter);
@@ -300,6 +369,9 @@ namespace citadel {
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
+	}
+
+	void windows_window::_render() {
 	}
 
 	void* windows_window::_get_native_handle() const {

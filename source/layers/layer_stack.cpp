@@ -61,11 +61,24 @@ namespace citadel {
 	}
 
 	void layer_stack::push_layer(const reference<layer>& layer) {
+		CITADEL_ASSERT(layer, "Layer is null");
+
+		if (layer) {
+			layer->attach();
+		}
+
 		layers_.push_back(layer);
 	}
 
 	reference<layer> layer_stack::pop_layer() {
 		reference<layer> layer = layers_.back();
+
+		CITADEL_ASSERT(layer, "Layer is null");
+
+		if (layer) {
+			layer->detach();
+		}
+
 		layers_.pop_back();
 		return layer;
 	}

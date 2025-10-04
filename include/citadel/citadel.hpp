@@ -39,6 +39,7 @@
 #include "citadel/events/mouse_button_event.hpp"
 
 #include "citadel/input/input.hpp"
+#include "citadel/input/input_context.hpp"
 #include "citadel/input/key_code.hpp"
 #include "citadel/input/key_state.hpp"
 #include "citadel/input/mouse_button_code.hpp"

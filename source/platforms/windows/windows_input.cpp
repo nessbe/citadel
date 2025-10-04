@@ -28,6 +28,10 @@ namespace citadel {
 	void windows_input::_update() {
 
 	}
+
+	void windows_input::_give_context(const input_context& context) {
+
+	}
 }
 
 #endif

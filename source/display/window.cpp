@@ -30,10 +30,8 @@ namespace citadel {
 			width_(width),
 			height_(height),
 			title_(title),
-			input_(input::create()),
-			layer_stack_(make_scoped<layer_stack>()) {
+			input_(input::create()) {
 		CITADEL_ASSERT(input_, "Failed to create input");
-		CITADEL_ASSERT(layer_stack_, "Failed to create layer stack");
 	}
 
 	window::~window() {
@@ -85,8 +83,20 @@ namespace citadel {
 	}
 
 	void window::update() {
-		input_->update();
+		CITADEL_ASSERT(input_, "Input is null");
+
+		if (input_) {
+			input_->update();
+		}
+
+		layer_stack_.update();
+
 		_update();
+	}
+
+	void window::render() {
+		layer_stack_.render();
+		_render();
 	}
 
 	bool window::is_open() const noexcept {
@@ -97,8 +107,8 @@ namespace citadel {
 		return *input_.get();
 	}
 
-	layer_stack& window::get_layer_stack() const noexcept {
-		return *layer_stack_.get();
+	layer_stack& window::get_layer_stack() noexcept {
+		return layer_stack_;
 	}
 
 	bool window::is_visible() const noexcept {
@@ -165,5 +175,11 @@ namespace citadel {
 
 	scope<window> window::create(dimension width, dimension height, const std::string& title) {
 		return create(0, 0, width, height, title);
+	}
+
+	reference<event> window::propagate_input_context(const input_context& context) {
+		reference<event> event = input_->give_context(context);
+		layer_stack_.propagate_event(event);
+		return event;
 	}
 }

@@ -25,24 +25,27 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/events/event.hpp"
+#include "citadel/events/key_event.hpp"
+#include "citadel/events/mouse_button_event.hpp"
+
+#include "citadel/input/input_context.hpp"
 #include "citadel/input/key_code.hpp"
 #include "citadel/input/key_state.hpp"
 #include "citadel/input/mouse_button_code.hpp"
 #include "citadel/input/mouse_button_state.hpp"
 
+#include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
 
 namespace citadel {
 	class input {
-#if CITADEL_PLATFORM_WINDOWS
-	public:
-		friend class windows_window;
-#endif
-
 	public:
 		virtual ~input() = default;
 
 		CITADEL_API void update();
+
+		CITADEL_API reference<event> give_context(const input_context& context);
 
 		CITADEL_API CITADEL_NODISCARD key_state get_key_state(key_code code) const;
 		CITADEL_API CITADEL_GETTER bool is_key_pressed(key_code code) const;
@@ -62,13 +65,13 @@ namespace citadel {
 		CITADEL_API CITADEL_NODISCARD static scope<input> create();
 
 	protected:
-		CITADEL_API void press_key(key_code code);
-		CITADEL_API void release_key(key_code code);
-		CITADEL_API void repeat_key(key_code code);
+		CITADEL_API reference<key_event> press_key(key_code code);
+		CITADEL_API reference<key_event> release_key(key_code code);
+		CITADEL_API reference<key_event> repeat_key(key_code code);
 
-		CITADEL_API void press_mouse_button(mouse_button_code code);
-		CITADEL_API void release_mouse_button(mouse_button_code code);
-		CITADEL_API void double_click_mouse_button(mouse_button_code code);
+		CITADEL_API reference<mouse_button_event> press_mouse_button(mouse_button_code code);
+		CITADEL_API reference<mouse_button_event> release_mouse_button(mouse_button_code code);
+		CITADEL_API reference<mouse_button_event> double_click_mouse_button(mouse_button_code code);
 
 		CITADEL_API CITADEL_INLINE void push_character(char character);
 
@@ -80,5 +83,6 @@ namespace citadel {
 
 	private:
 		virtual void _update() = 0;
+		virtual void _give_context(const input_context& context) = 0;
 	};
 }
