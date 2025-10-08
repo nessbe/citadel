@@ -49,6 +49,10 @@ namespace citadel {
 
 			case key_state::repeated:
 				return repeat_key(code);
+
+			case key_state::none:
+			case key_state::held:
+				return nullptr;
 			}
 		} else if (context.is_mouse_button_code() && context.is_mouse_button_state()) {
 			mouse_button_code code = context.as_mouse_button_code();
@@ -63,6 +67,10 @@ namespace citadel {
 
 			case mouse_button_state::double_clicked:
 				return double_click_mouse_button(code);
+
+			case mouse_button_state::none:
+			case mouse_button_state::held:
+				return nullptr;
 			}
 		}
 

@@ -22,6 +22,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#pragma warning(disable : 4820)
 namespace citadel {
 	class event {
 	public:

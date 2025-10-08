@@ -92,6 +92,9 @@ namespace citadel {
 		CITADEL_NODISCARD CITADEL_API static scope<window> create(dimension width, dimension y, const std::string& title);
 
 	protected:
+		dimension x_, y_, width_, height_;
+
+	protected:
 		CITADEL_API reference<event> propagate_input_context(const input_context& context);
 
 	private:
@@ -125,8 +128,5 @@ namespace citadel {
 		virtual void _set_height(dimension height) = 0;
 
 		virtual void _set_title(const std::string& title) = 0;
-
-	protected:
-		dimension x_, y_, width_, height_;
 	};
 }

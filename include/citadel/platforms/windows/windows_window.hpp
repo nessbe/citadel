@@ -38,6 +38,12 @@ namespace citadel {
 		CITADEL_API windows_window(dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		CITADEL_API windows_window(dimension width, dimension height, const std::string& title);
 
+		windows_window(const windows_window&) = delete;
+		windows_window& operator=(const windows_window&) = delete;
+
+		windows_window(windows_window&&) = delete;
+		windows_window& operator=(windows_window&&) = delete;
+
 		CITADEL_API static std::string get_class_name();
 
 	private:
