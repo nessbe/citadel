@@ -24,6 +24,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/display/viewport.hpp"
+
 #include "citadel/events/event.hpp"
 
 #include "citadel/input/input.hpp"
