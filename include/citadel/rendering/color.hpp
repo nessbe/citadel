@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       color.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -20,36 +20,30 @@
 #pragma once
 
 #include <cinttypes>
-#include <csignal>
-#include <cstdlib>
-#include <functional>
-#include <initializer_list>
-#include <iostream>
 #include <limits>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <type_traits>
-#include <unordered_map>
-#include <utility>
-#include <variant>
-#include <vector>
-#include <xhash>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/platforms.hpp"
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 
-#include "citadel/input/key_code.hpp"
-#include "citadel/input/key_state.hpp"
-#include "citadel/input/mouse_button_code.hpp"
-#include "citadel/input/mouse_button_state.hpp"
+#undef max
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+namespace citadel {
+	struct color {
+	public:
+		using channel = std::uint8_t;
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-	#include <windowsx.h>
-#endif
+	public:
+		CITADEL_API static channel max_value;
+
+		channel red, green, blue, alpha;
+
+	public:
+		CITADEL_API color(channel red, channel green, channel blue, channel alpha);
+		CITADEL_API color(channel red, channel green, channel blue);
+
+		~color() = default;
+
+		CITADEL_NODISCARD CITADEL_API static color from_rgba(channel red, channel green, channel blue, channel alpha);
+		CITADEL_NODISCARD CITADEL_API static color from_rgb(channel red, channel green, channel blue);
+	};
+}
