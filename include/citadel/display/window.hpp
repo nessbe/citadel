@@ -65,31 +65,31 @@ namespace citadel {
 		CITADEL_API void update();
 		CITADEL_API void render();
 
-		CITADEL_API CITADEL_GETTER void* get_native_handle() const;
+		CITADEL_GETTER CITADEL_API void* get_native_handle() const;
 
-		CITADEL_API CITADEL_GETTER dimension get_x() const noexcept;
-		CITADEL_API CITADEL_GETTER void set_x(dimension x) noexcept;
+		CITADEL_GETTER CITADEL_API dimension get_x() const noexcept;
+		CITADEL_GETTER CITADEL_API void set_x(dimension x) noexcept;
 
-		CITADEL_API CITADEL_GETTER dimension get_y() const noexcept;
-		CITADEL_API CITADEL_GETTER void set_y(dimension y) noexcept;
+		CITADEL_GETTER CITADEL_API dimension get_y() const noexcept;
+		CITADEL_GETTER CITADEL_API void set_y(dimension y) noexcept;
 
-		CITADEL_API CITADEL_GETTER dimension get_width() const noexcept;
-		CITADEL_API CITADEL_SETTER void set_width(dimension width) noexcept;
+		CITADEL_GETTER CITADEL_API dimension get_width() const noexcept;
+		CITADEL_SETTER CITADEL_API void set_width(dimension width) noexcept;
 
-		CITADEL_API CITADEL_GETTER dimension get_height() const noexcept;
-		CITADEL_API CITADEL_SETTER void set_height(dimension height) noexcept;
+		CITADEL_GETTER CITADEL_API dimension get_height() const noexcept;
+		CITADEL_SETTER CITADEL_API void set_height(dimension height) noexcept;
 
-		CITADEL_API CITADEL_GETTER const std::string& get_title() const noexcept;
-		CITADEL_API CITADEL_SETTER void set_title(const std::string& title);
+		CITADEL_GETTER CITADEL_API const std::string& get_title() const noexcept;
+		CITADEL_SETTER CITADEL_API void set_title(const std::string& title);
 
-		CITADEL_API CITADEL_GETTER bool is_visible() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_open() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_visible() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_open() const noexcept;
 
-		CITADEL_API CITADEL_GETTER input& get_input() const noexcept;
-		CITADEL_API CITADEL_GETTER layer_stack& get_layer_stack() noexcept;
+		CITADEL_GETTER CITADEL_API input& get_input() const noexcept;
+		CITADEL_GETTER CITADEL_API layer_stack& get_layer_stack() noexcept;
 
-		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		CITADEL_API CITADEL_NODISCARD static scope<window> create(dimension width, dimension y, const std::string& title);
+		CITADEL_NODISCARD CITADEL_API static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		CITADEL_NODISCARD CITADEL_API static scope<window> create(dimension width, dimension y, const std::string& title);
 
 	protected:
 		CITADEL_API reference<event> propagate_input_context(const input_context& context);

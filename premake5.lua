@@ -50,6 +50,12 @@ project "citadel"
 		"include"
 	}
 
+	filter "action:vs*"
+		buildoptions {
+			"/Wall",
+			"/FC"
+		}
+
 	filter "kind:StaticLib"
 		defines {
 			"CITADEL_LINKAGE_STATIC"

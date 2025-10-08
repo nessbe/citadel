@@ -39,15 +39,15 @@ namespace citadel {
 
 		virtual ~key_event() override = default;
 
-		CITADEL_API CITADEL_GETTER key_code get_code() const noexcept;
-		CITADEL_API CITADEL_GETTER key_state get_state() const noexcept;
+		CITADEL_GETTER CITADEL_API key_code get_code() const noexcept;
+		CITADEL_GETTER CITADEL_API key_state get_state() const noexcept;
 
-		CITADEL_API CITADEL_GETTER bool is_released() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_pressed() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_held() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_repeated() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_released() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_pressed() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_held() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_repeated() const noexcept;
 
-		CITADEL_API CITADEL_GETTER std::uint32_t get_repeat_count() const noexcept;
+		CITADEL_GETTER CITADEL_API std::uint32_t get_repeat_count() const noexcept;
 
 	private:
 		key_code code_;

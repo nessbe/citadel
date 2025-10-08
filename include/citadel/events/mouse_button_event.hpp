@@ -34,13 +34,13 @@ namespace citadel {
 
 		virtual ~mouse_button_event() override = default;
 
-		CITADEL_API CITADEL_GETTER mouse_button_code get_code() const noexcept;
-		CITADEL_API CITADEL_GETTER mouse_button_state get_state() const noexcept;
+		CITADEL_GETTER CITADEL_API mouse_button_code get_code() const noexcept;
+		CITADEL_GETTER CITADEL_API mouse_button_state get_state() const noexcept;
 
-		CITADEL_API CITADEL_GETTER bool is_released() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_pressed() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_held() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_double_clicked() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_released() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_pressed() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_held() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_double_clicked() const noexcept;
 
 	private:
 		mouse_button_code code_;

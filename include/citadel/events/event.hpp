@@ -27,7 +27,7 @@ namespace citadel {
 	public:
 		virtual ~event() = default;
 
-		CITADEL_API CITADEL_GETTER bool is_consumed() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_consumed() const noexcept;
 		CITADEL_API void consume();
 
 	private:

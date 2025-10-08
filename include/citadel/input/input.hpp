@@ -47,22 +47,22 @@ namespace citadel {
 
 		CITADEL_API reference<event> give_context(const input_context& context);
 
-		CITADEL_API CITADEL_NODISCARD key_state get_key_state(key_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_key_pressed(key_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_key_released(key_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_key_repeated(key_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_key_held(key_code code) const;
+		CITADEL_NODISCARD CITADEL_API key_state get_key_state(key_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_key_pressed(key_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_key_released(key_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_key_repeated(key_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_key_held(key_code code) const;
 
-		CITADEL_API CITADEL_NODISCARD mouse_button_state get_mouse_button_state(mouse_button_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_pressed(mouse_button_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_released(mouse_button_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_double_clicked(mouse_button_code code) const;
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_held(mouse_button_code code) const;
+		CITADEL_NODISCARD CITADEL_API mouse_button_state get_mouse_button_state(mouse_button_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_pressed(mouse_button_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_released(mouse_button_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_double_clicked(mouse_button_code code) const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_held(mouse_button_code code) const;
 
-		CITADEL_API CITADEL_GETTER const std::string& get_character_buffer() const noexcept;
-		CITADEL_API CITADEL_INLINE void clear_character_buffer() noexcept;
+		CITADEL_GETTER CITADEL_API const std::string& get_character_buffer() const noexcept;
+		CITADEL_INLINE CITADEL_API void clear_character_buffer() noexcept;
 
-		CITADEL_API CITADEL_NODISCARD static scope<input> create();
+		CITADEL_NODISCARD CITADEL_API static scope<input> create();
 
 	protected:
 		CITADEL_API reference<key_event> press_key(key_code code);
@@ -73,7 +73,7 @@ namespace citadel {
 		CITADEL_API reference<mouse_button_event> release_mouse_button(mouse_button_code code);
 		CITADEL_API reference<mouse_button_event> double_click_mouse_button(mouse_button_code code);
 
-		CITADEL_API CITADEL_INLINE void push_character(char character);
+		CITADEL_INLINE CITADEL_API void push_character(char character);
 
 	private:
 		std::string character_buffer_;

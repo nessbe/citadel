@@ -51,16 +51,16 @@ namespace citadel {
 
 		~input_context() = default;
 
-		CITADEL_API CITADEL_GETTER bool is_key_code() const noexcept;
-		CITADEL_API CITADEL_GETTER key_code as_key_code() const;
+		CITADEL_GETTER CITADEL_API bool is_key_code() const noexcept;
+		CITADEL_GETTER CITADEL_API key_code as_key_code() const;
 
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_code() const noexcept;
-		CITADEL_API CITADEL_GETTER mouse_button_code as_mouse_button_code() const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_code() const noexcept;
+		CITADEL_GETTER CITADEL_API mouse_button_code as_mouse_button_code() const;
 
-		CITADEL_API CITADEL_GETTER bool is_key_state() const noexcept;
-		CITADEL_API CITADEL_GETTER key_state as_key_state() const;
+		CITADEL_GETTER CITADEL_API bool is_key_state() const noexcept;
+		CITADEL_GETTER CITADEL_API key_state as_key_state() const;
 
-		CITADEL_API CITADEL_GETTER bool is_mouse_button_state() const noexcept;
-		CITADEL_API CITADEL_GETTER mouse_button_state as_mouse_button_state() const;
+		CITADEL_GETTER CITADEL_API bool is_mouse_button_state() const noexcept;
+		CITADEL_GETTER CITADEL_API mouse_button_state as_mouse_button_state() const;
 	};
 }

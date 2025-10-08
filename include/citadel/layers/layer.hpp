@@ -44,8 +44,8 @@ namespace citadel {
 
 		CITADEL_API bool propagate_event(const reference<event>& event);
 
-		CITADEL_API CITADEL_GETTER const std::string& get_name() const noexcept;
-		CITADEL_API CITADEL_GETTER bool is_attached() const noexcept;
+		CITADEL_GETTER CITADEL_API const std::string& get_name() const noexcept;
+		CITADEL_GETTER CITADEL_API bool is_attached() const noexcept;
 
 	private:
 		std::string name_;

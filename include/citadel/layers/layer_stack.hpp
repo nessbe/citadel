@@ -45,7 +45,7 @@ namespace citadel {
 
 		CITADEL_API bool propagate_event(const reference<event>& event);
 
-		CITADEL_API CITADEL_SETTER void push_layer(const reference<layer>& layer);
+		CITADEL_SETTER CITADEL_API void push_layer(const reference<layer>& layer);
 		CITADEL_API reference<layer> pop_layer();
 
 	private:

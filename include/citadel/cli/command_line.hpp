@@ -31,14 +31,14 @@ namespace citadel {
 		CITADEL_API command_line(int argc, char* argv[]);
 		~command_line() = default;
 
-		CITADEL_API CITADEL_GETTER const std::string& get_program_name() const noexcept;
+		CITADEL_GETTER CITADEL_API const std::string& get_program_name() const noexcept;
 
-		CITADEL_API CITADEL_GETTER const std::vector<std::string>& get_arguments() const noexcept;
-		CITADEL_API CITADEL_GETTER std::size_t get_argument_count() const noexcept;
+		CITADEL_GETTER CITADEL_API const std::vector<std::string>& get_arguments() const noexcept;
+		CITADEL_GETTER CITADEL_API std::size_t get_argument_count() const noexcept;
 
-		CITADEL_API CITADEL_GETTER std::size_t size() const noexcept;
+		CITADEL_GETTER CITADEL_API std::size_t size() const noexcept;
 
-		CITADEL_API CITADEL_GETTER const std::string& operator[](std::size_t index) const noexcept;
+		CITADEL_GETTER CITADEL_API const std::string& operator[](std::size_t index) const noexcept;
 
 	private:
 		std::string program_name_;
