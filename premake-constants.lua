@@ -1,4 +1,4 @@
--- File:       citadel-workspace.lua
+-- File:       premake-constants.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -17,12 +17,9 @@
 --
 -- For more details, see the LICENSE file at the root of the project.
 
-include "premake-constants.lua"
+root_dir = "%{wks.location}/"
 
-workspace "citadel-workspace"
-	architecture "x86_64"
+target_dir = root_dir .. "build/bin/"
+obj_dir    = root_dir .. "build/obj/"
 
-	configurations {
-		"Debug",
-		"Release"
-	}
+output_path = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}/"
