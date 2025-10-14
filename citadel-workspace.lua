@@ -1,4 +1,4 @@
--- File:       premake5.lua
+-- File:       citadel-workspace.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -17,4 +17,10 @@
 --
 -- For more details, see the LICENSE file at the root of the project.
 
-include "citadel-workspace"
+workspace "citadel-workspace"
+	architecture "x86_64"
+
+	configurations {
+		"Debug",
+		"Release"
+	}
