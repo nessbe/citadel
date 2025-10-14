@@ -1,4 +1,4 @@
--- File:       citadel-workspace.lua
+-- File:       citadel.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -17,14 +17,21 @@
 --
 -- For more details, see the LICENSE file at the root of the project.
 
-include "premake-constants.lua"
+project "citadel"
+	kind "StaticLib"
 
-workspace "citadel-workspace"
-	architecture "x86_64"
+	language "C++"
+	cppdialect "C++20"
 
-	configurations {
-		"Debug",
-		"Release"
+	targetdir(target_dir .. output_path .. "%{prj.name}")
+	objdir(obj_dir .. output_path .. "%{prj.name}")
+
+	files {
+		"include/**.hpp",
+		"include/**.inl",
+		"source/**.cpp"
 	}
 
-include "citadel/citadel.lua"
+	includedirs {
+		"include"
+	}
