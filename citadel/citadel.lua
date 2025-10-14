@@ -35,3 +35,9 @@ project "citadel"
 	includedirs {
 		"include"
 	}
+
+	filter "action:gmake"
+		buildoptions(gmake_build_arguments())
+
+	filter "action:vs*"
+		buildoptions(vc_build_arguments())

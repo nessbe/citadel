@@ -23,3 +23,25 @@ target_dir = root_dir .. "build/bin/"
 obj_dir    = root_dir .. "build/obj/"
 
 output_path = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}/"
+
+build_arguments = {
+	"Wall"
+}
+
+function format_build_arguments(prefix)
+	result = {}
+
+	for i, argument in ipairs(build_arguments) do
+		result[i] = prefix .. argument
+	end
+
+	return result
+end
+
+function gmake_build_arguments()
+	return format_build_arguments("-")
+end
+
+function vc_build_arguments()
+	return format_build_arguments("/")
+end
