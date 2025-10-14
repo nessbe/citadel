@@ -18,3 +18,7 @@
 # For more details, see the LICENSE file at the root of the project.
 
 build/
+
+Makefile
+GNUMakefile
+*.mk
