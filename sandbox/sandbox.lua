@@ -1,4 +1,4 @@
--- File:       citadel-workspace.lua
+-- File:       sandbox.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -17,17 +17,31 @@
 --
 -- For more details, see the LICENSE file at the root of the project.
 
-include "premake-constants.lua"
+project "sandbox"
+	kind "ConsoleApp"
 
-workspace "citadel-workspace"
-	architecture "x86_64"
+	language "C++"
+	cppdialect "C++20"
 
-	configurations {
-		"Debug",
-		"Release"
+	targetdir(target_dir .. output_path .. "%{prj.name}")
+	objdir(obj_dir .. output_path .. "%{prj.name}")
+
+	links {
+		"citadel"
 	}
 
-	startproject "sandbox"
+	files {
+		"include/**.hpp",
+		"include/**.inl",
+		"source/**.cpp"
+	}
 
-include "citadel/citadel.lua"
-include "sandbox/sandbox.lua"
+	includedirs {
+		"include"
+	}
+
+	filter "action:gmake"
+		buildoptions(gmake_build_arguments())
+
+	filter "action:vs*"
+		buildoptions(vc_build_arguments())
