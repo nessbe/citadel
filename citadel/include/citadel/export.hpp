@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       export.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,4 +19,26 @@
 
 #pragma once
 
-#include "citadel/export.hpp"
+#ifdef _WIN32
+	#define CITADEL_EXPORT     __declspec(dllexport)
+	#define CITADEL_IMPORT     __declspec(dllimport)
+	#define CITADEL_NO_EXPORT
+	#define CITADEL_DEPRECATED __declspec(deprecated)
+#else
+	#define CITADEL_EXPORT     __attribute__((visibility("default")))
+	#define CITADEL_IMPORT     __attribute__((visibility("default")))
+	#define CITADEL_NO_EXPORT  __attribute__((visibility("hidden")))
+	#define CITADEL_DEPRECATED __attribute__((deprecated))
+#endif
+
+#ifdef CITADEL_LINKAGE_STATIC
+	#define CITADEL_API
+#elif defined(CITADEL_LINKAGE_DYNAMIC)
+	#ifdef CITADEL_BUILD_DLL
+		#define CITADEL_API CITADEL_EXPORT
+	#else
+		#define CITADEL_API CITADEL_IMPORT
+	#endif
+#else
+	#define CITADEL_API CITADEL_NO_EXPORT
+#endif
