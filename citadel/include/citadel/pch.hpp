@@ -20,3 +20,4 @@
 #pragma once
 
 #include "citadel/export.hpp"
+#include "citadel/platforms.hpp"
