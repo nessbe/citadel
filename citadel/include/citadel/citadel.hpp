@@ -19,5 +19,6 @@
 
 #pragma once
 
+#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
