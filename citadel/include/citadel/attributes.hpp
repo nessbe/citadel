@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       attributes.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,8 +19,25 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+
+#ifndef CITADEL_NODISCARD
+	#define CITADEL_NODISCARD [[nodiscard]]
+#endif
+
+#ifndef CITADEL_INLINE
+	#define CITADEL_INLINE inline
+#endif
+
+#ifndef CITADEL_FORCE_INLINE
+	#if CITADEL_COMPILER_MSVC
+		#define CITADEL_FORCE_INLINE __forceinline
+	#elif CITADEL_COMPILER_CLANG || CITADEL_COMPILER_GCC
+		#define CITADEL_FORCE_INLINE __attribute__((always_inline))
+	#else
+		#define CITADEL_FORCE_INLINE
+	#endif
+#endif
+
+#define CITADEL_GETTER CITADEL_NODISCARD CITADEL_INLINE
+#define CITADEL_SETTER CITADEL_INLINE
