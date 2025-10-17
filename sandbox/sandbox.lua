@@ -46,3 +46,19 @@ project "sandbox"
 
 	filter "action:vs*"
 		buildoptions(msvc_build_options)
+
+	filter "configurations:Debug"
+		defines "SANDBOX_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "SANDBOX_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Distribution"
+		defines "SANDBOX_DISTRIBUTION"
+		runtime "Release"
+		optimize "Full"
+		staticruntime "On"

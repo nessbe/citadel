@@ -24,7 +24,8 @@ workspace "citadel-workspace"
 
 	configurations {
 		"Debug",
-		"Release"
+		"Release",
+		"Distribution"
 	}
 
 	startproject "sandbox"

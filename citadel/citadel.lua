@@ -44,3 +44,19 @@ project "citadel"
 
 	filter "action:vs*"
 		buildoptions(msvc_build_options)
+
+	filter "configurations:Debug"
+		defines "CITADEL_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "CITADEL_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Distribution"
+		defines "CITADEL_DISTRIBUTION"
+		runtime "Release"
+		optimize "Full"
+		staticruntime "On"
