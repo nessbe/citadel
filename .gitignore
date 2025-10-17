@@ -24,3 +24,9 @@ GNUMakefile
 *.mk
 
 .vscode/
+
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
