@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       application.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,12 +17,21 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include "citadel/architectures.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-
+#include "citadel/pch.hpp"
 #include "citadel/core/application.hpp"
+
+namespace citadel {
+	void application::initialize() {
+		_initialize();
+		is_running_ = true;
+	}
+
+	int application::run() {
+		return _run();
+	}
+
+	void application::shutdown() {
+		_shutdown();
+		is_running_ = false;
+	}
+}

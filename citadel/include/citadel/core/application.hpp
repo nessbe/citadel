@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       application.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,10 +19,24 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
 
-#include "citadel/core/application.hpp"
+namespace citadel {
+	class CITADEL_API application {
+	public:
+		virtual ~application() = default;
+
+		void initialize();
+		int run();
+		void shutdown();
+
+	private:
+		bool is_running_ = false;
+
+	private:
+		virtual void _initialize() = 0;
+		virtual int _run() = 0;
+		virtual void _shutdown() = 0;
+	};
+}
