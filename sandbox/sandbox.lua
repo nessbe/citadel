@@ -37,7 +37,8 @@ project "sandbox"
 	}
 
 	includedirs {
-		"include"
+		"include",
+		root_dir .. "citadel/include"
 	}
 
 	filter "action:gmake"
