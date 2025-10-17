@@ -42,7 +42,7 @@ project "sandbox"
 	}
 
 	filter "action:gmake"
-		buildoptions(gmake_build_arguments())
+		buildoptions(gcc_build_options)
 
 	filter "action:vs*"
-		buildoptions(vc_build_arguments())
+		buildoptions(msvc_build_options)
