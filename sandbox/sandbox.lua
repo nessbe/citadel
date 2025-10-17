@@ -37,7 +37,10 @@ project "sandbox"
 	}
 
 	includedirs {
-		"include",
+		"include"
+	}
+
+	externalincludedirs {
 		root_dir .. "citadel/include"
 	}
 
