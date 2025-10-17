@@ -47,6 +47,9 @@ project "sandbox"
 	filter "action:vs*"
 		buildoptions(msvc_build_options)
 
+	filter "system:windows"
+		systemversion "latest"
+
 	filter "configurations:Debug"
 		defines "SANDBOX_DEBUG"
 		runtime "Debug"
