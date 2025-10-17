@@ -23,16 +23,20 @@
 
 namespace citadel {
 	extern application* create_application();
+
+	int main(int argc, char** argv) {
+		application* application = create_application();
+		application->initialize();
+
+		int exit_code = application->run();
+
+		application->shutdown();
+		delete application;
+
+		return exit_code;
+	}
 }
 
 int main(int argc, char** argv) {
-	citadel::application* application = citadel::create_application();
-	application->initialize();
-
-	int exit_code = application->run();
-
-	application->shutdown();
-	delete application;
-
-	return exit_code;
+	return citadel::main(argc, argv);
 }
