@@ -17,6 +17,8 @@
 #
 # For more details, see the LICENSE file at the root of the project.
 
+#!/bin/bash
+
 chmod +x generate-makefiles.sh
 ./generate-makefiles.sh
 
