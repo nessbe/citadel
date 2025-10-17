@@ -1,4 +1,4 @@
-// File:       main.cpp
+// File:       sandbox_application.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,8 +17,23 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
+#include "sandbox/sandbox_application.hpp"
+
 #include <iostream>
 
-int main(int argc, char** argv) {
-	std::cout << "Hello, World" << std::endl;
+namespace sandbox {
+	void sandbox_application::_initialize() { }
+
+	int sandbox_application::_run() {
+		std::cout << "Hello, World!" << std::endl;
+		return 0;
+	}
+
+	void sandbox_application::_shutdown() { }
+}
+
+namespace citadel {
+	application* create_application() {
+		return new sandbox::sandbox_application();
+	}
 }
