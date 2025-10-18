@@ -18,7 +18,13 @@
 -- For more details, see the LICENSE file at the root of the project.
 
 project "citadel"
-	kind "StaticLib"
+	if citadel_linkage == LINKAGE_STATIC then
+		kind "StaticLib"
+	elseif citadel_linkage == LINKAGE_DYNAMIC then
+		kind "SharedLib"
+	else
+		kind "None"
+	end
 
 	language "C++"
 	cppdialect "C++20"
@@ -38,6 +44,15 @@ project "citadel"
 	includedirs {
 		"include"
 	}
+
+	filter "kind:StaticLib"
+		defines "CITADEL_LINKAGE_STATIC"
+
+	filter "kind:SharedLib"
+		defines {
+			"CITADEL_LINKAGE_DYNAMIC",
+			"CITADEL_BUILD_DLL"
+		}
 
 	filter "action:gmake"
 		buildoptions(gcc_build_options)

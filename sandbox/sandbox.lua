@@ -30,6 +30,10 @@ project "sandbox"
 		"citadel"
 	}
 
+	libdirs {
+		target_dir .. output_path .. "citadel"
+	}
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",
@@ -43,6 +47,16 @@ project "sandbox"
 	externalincludedirs {
 		root_dir .. "citadel/include"
 	}
+
+	if citadel_linkage == LINKAGE_STATIC then
+		defines "CITADEL_LINKAGE_STATIC"
+	elseif citadel_linkage == LINKAGE_DYNAMIC then
+		defines "CITADEL_LINKAGE_DYNAMIC"
+
+		prebuildcommands {
+			"{COPY} " .. target_dir .. output_path .. "citadel/citadel.dll %{cfg.targetdir}"
+		}
+	end
 
 	filter "action:gmake"
 		buildoptions(gcc_build_options)
@@ -58,6 +72,7 @@ project "sandbox"
 			"SANDBOX_DEBUG",
 			"CITADEL_DEBUG"
 		}
+
 		runtime "Debug"
 		symbols "On"
 
@@ -66,6 +81,7 @@ project "sandbox"
 			"SANDBOX_RELEASE",
 			"CITADEL_RELEASE"
 		}
+
 		runtime "Release"
 		optimize "On"
 
@@ -74,6 +90,7 @@ project "sandbox"
 			"SANDBOX_DISTRIBUTION",
 			"CITADEL_DISTRIBUTION"
 		}
+
 		runtime "Release"
 		optimize "Full"
 		staticruntime "On"

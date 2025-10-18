@@ -17,10 +17,15 @@
 --
 -- For more details, see the LICENSE file at the root of the project.
 
+LINKAGE_NONE    = 0
+LINKAGE_STATIC  = 1
+LINKAGE_DYNAMIC = 2
+
 root_dir = "%{wks.location}/"
 
-target_dir = root_dir .. "build/bin/"
-obj_dir    = root_dir .. "build/obj/"
+build_dir  = root_dir .. "build/"
+target_dir = build_dir .. "bin/"
+obj_dir    = build_dir .. "obj/"
 
 output_path = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}/"
 
@@ -33,3 +38,5 @@ msvc_build_options = {
 	"/Wall",
 	"/wd4820"
 }
+
+citadel_linkage = LINKAGE_DYNAMIC
