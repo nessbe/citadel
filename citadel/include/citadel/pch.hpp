@@ -19,11 +19,17 @@
 
 #pragma once
 
+#include <memory>
+#include <utility>
+
 #include "citadel/architectures.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
 	#include <windows.h>

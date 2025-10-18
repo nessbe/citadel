@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       reference.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,14 +19,17 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
+#include <memory>
+#include <utility>
+
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/entry_point.hpp"
+namespace citadel {
+	template <typename T>
+	using reference = std::shared_ptr<T>;
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+	template <typename T, typename... Arguments>
+	CITADEL_NODISCARD reference<T> make_referenced(Arguments&&... arguments);
+}
+
+#include "citadel/memory/reference.inl"
