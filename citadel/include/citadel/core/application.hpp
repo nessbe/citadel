@@ -22,6 +22,10 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/core/engine.hpp"
+
+#include "citadel/memory/scope.hpp"
+
 namespace citadel {
 	class CITADEL_API application {
 	public:
@@ -31,8 +35,12 @@ namespace citadel {
 		int run();
 		void shutdown();
 
+		CITADEL_GETTER engine& get_engine() const;
+
 	private:
 		bool is_running_ = false;
+
+		scope<engine> engine_ = nullptr;
 
 	private:
 		virtual void _initialize() = 0;

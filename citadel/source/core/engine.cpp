@@ -1,4 +1,4 @@
-// File:       application.cpp
+// File:       engine.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -18,33 +18,14 @@
 // For more details, see the LICENSE file at the root of the project.
 
 #include "citadel/pch.hpp"
-#include "citadel/core/application.hpp"
+#include "citadel/core/engine.hpp"
 
 namespace citadel {
-	void application::initialize() {
-		engine_ = make_scoped<engine>();
-		engine_->initialize();
+	void engine::initialize() { }
 
-		_initialize();
-		is_running_ = true;
+	int engine::run() {
+		return 0;
 	}
 
-	int application::run() {
-		int virtual_exit_code = _run();
-		int engine_exit_code = engine_->run();
-
-		return virtual_exit_code | engine_exit_code;
-	}
-
-	void application::shutdown() {
-		_shutdown();
-		is_running_ = false;
-
-		engine_->shutdown();
-		engine_ = nullptr;
-	}
-
-	engine& application::get_engine() const {
-		return *engine_;
-	}
+	void engine::shutdown() { }
 }
