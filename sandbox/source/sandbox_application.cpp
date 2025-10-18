@@ -26,6 +26,7 @@ namespace sandbox {
 
 	int sandbox_application::_run() {
 		std::cout << "Hello, World!" << std::endl;
+		while (true);
 		return 0;
 	}
 

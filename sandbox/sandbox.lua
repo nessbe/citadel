@@ -54,17 +54,26 @@ project "sandbox"
 		systemversion "latest"
 
 	filter "configurations:Debug"
-		defines "SANDBOX_DEBUG"
+		defines {
+			"SANDBOX_DEBUG",
+			"CITADEL_DEBUG"
+		}
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "SANDBOX_RELEASE"
+		defines {
+			"SANDBOX_RELEASE",
+			"CITADEL_RELEASE"
+		}
 		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Distribution"
-		defines "SANDBOX_DISTRIBUTION"
+		defines {
+			"SANDBOX_DISTRIBUTION",
+			"CITADEL_DISTRIBUTION"
+		}
 		runtime "Release"
 		optimize "Full"
 		staticruntime "On"

@@ -19,12 +19,14 @@
 
 #pragma once
 
+#include "citadel/platforms.hpp"
+
 #include "citadel/core/application.hpp"
 
 namespace citadel {
 	extern application* create_application();
 
-	int main(int argc, char** argv) {
+	int run_application(int argc, char** argv) {
 		application* application = create_application();
 		application->initialize();
 
@@ -37,6 +39,18 @@ namespace citadel {
 	}
 }
 
-int main(int argc, char** argv) {
-	return citadel::main(argc, argv);
+#if CITADEL_PLATFORM_WINDOWS && defined(CITADEL_DISTRIBUTION)
+
+#include <windows.h>
+
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR command_line, int command_show) {
+	return citadel::run_application(__argc, __argv);
 }
+
+#else
+
+int main(int argc, char** argv) {
+	return citadel::run_application(argc, argv);
+}
+
+#endif
