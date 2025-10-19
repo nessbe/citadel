@@ -39,3 +39,5 @@ namespace citadel {
 	#define CITADEL_PANIC(message)
 	#define CITADEL_ASSERT(condition, message)
 #endif
+
+#define CITADEL_STATIC_ASSERT(condition, message) static_assert(condition, message)
