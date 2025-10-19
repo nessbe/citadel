@@ -30,13 +30,11 @@ obj_dir    = build_dir .. "obj/"
 output_path = "%{cfg.system}/%{cfg.architecture}/%{cfg.buildcfg}/"
 
 gcc_build_options = {
-	"-Wall",
-	"-Wno-padded"
+	"-Wall"
 }
 
 msvc_build_options = {
-	"/Wall",
-	"/wd4820"
+	"/Wall"
 }
 
 citadel_linkage = LINKAGE_DYNAMIC

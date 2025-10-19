@@ -24,6 +24,7 @@
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/core/application.hpp"
 #include "citadel/core/engine.hpp"

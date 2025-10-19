@@ -42,6 +42,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"

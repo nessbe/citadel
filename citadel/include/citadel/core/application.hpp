@@ -21,6 +21,7 @@
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/core/engine.hpp"
 
