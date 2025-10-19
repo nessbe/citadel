@@ -33,13 +33,19 @@
 #endif
 
 #ifdef CITADEL_LINKAGE_STATIC
+	#pragma message("Linking Citadel statically")
 	#define api
 #elif defined(CITADEL_LINKAGE_DYNAMIC)
+	#pragma message("Linking Citadel dynamically")
+
 	#ifdef CITADEL_BUILD_DLL
+		#pragma message("Exporting Citadel symbols")
 		#define api apiexport
 	#else
+		#pragma message("Importing Citadel symbols")
 		#define api apiimport
 	#endif
 #else
+	#pragma message("Citadel is not linking")
 	#define api apinoexport
 #endif
