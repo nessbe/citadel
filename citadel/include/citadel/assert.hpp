@@ -31,3 +31,11 @@ namespace citadel {
 	api void assert(bool condition) noexcept;
 	api void assert(bool condition, const std::string& message);
 }
+
+#ifdef CITADEL_DEBUG
+	#define CITADEL_PANIC(message)             ::citadel::panic(message)
+	#define CITADEL_ASSERT(condition, message) ::citadel::assert(condition, "(" #condition ") " ## message)
+#else
+	#define CITADEL_PANIC(message)
+	#define CITADEL_ASSERT(condition, message)
+#endif
