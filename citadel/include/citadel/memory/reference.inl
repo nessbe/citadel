@@ -20,8 +20,90 @@
 #pragma once
 
 namespace citadel {
+	template <typename T>
+	reference<T>::reference() noexcept
+		: handle_(nullptr) { }
+
+	template <typename T>
+	reference<T>::reference(std::nullptr_t) noexcept
+		: handle_(nullptr) { }
+
+	template <typename T>
+	reference<T>::reference(T* handle) noexcept
+		: handle_(handle) { }
+
+	template <typename T>
+	reference<T>::reference(std::shared_ptr<T> handle) noexcept
+		: handle_(handle) { }
+
+	template <typename T>
+	template <typename U>
+	reference<T>::reference(const std::shared_ptr<U>& other) noexcept
+		: handle_(std::static_pointer_cast<T>(other)) { }
+
+	template <typename T>
+	T* reference<T>::get() noexcept {
+		return handle_.get();
+	}
+
+	template <typename T>
+	T* reference<T>::operator->() noexcept {
+		return handle_.get();
+	}
+
+	template <typename T>
+	const T* reference<T>::operator->() const noexcept {
+		return handle_.get();
+	}
+
+	template <typename T>
+	T& reference<T>::operator*() noexcept {
+		return *handle_;
+	}
+
+	template <typename T>
+	const T& reference<T>::operator*() const noexcept {
+		return *handle_;
+	}
+
+	template <typename T>
+	void reference<T>::reset() noexcept {
+		handle_.reset();
+	}
+
+	template <typename T>
+	void reference<T>::reset(T* handle) noexcept {
+		handle_.reset(handle);
+	}
+
+	template <typename T>
+	reference<T>::operator bool() const noexcept {
+		return static_cast<bool>(handle_);
+	}
+
+	template <typename T>
+	long reference<T>::use_count() const noexcept {
+		return handle_.use_count();
+	}
+
+	template <typename T>
+	std::shared_ptr<T>& reference<T>::raw() noexcept {
+		return handle_;
+	}
+
+	template <typename T>
+	const std::shared_ptr<T>& reference<T>::raw() const noexcept {
+		return handle_;
+	}
+
+	template <typename T>
+	template <typename... Arguments>
+	reference<T> reference<T>::create(Arguments&&... arguments) {
+		return reference(std::make_shared<T>(std::forward<Arguments>(arguments)...));
+	}
+
 	template <typename T, typename... Arguments>
 	reference<T> make_referenced(Arguments&&... arguments) {
-		return std::make_shared<T>(std::forward<Arguments>(arguments)...);
+		return reference<T>::create(std::forward<T>(arguments)...);
 	}
 }

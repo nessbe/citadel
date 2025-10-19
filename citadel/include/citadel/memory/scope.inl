@@ -20,8 +20,76 @@
 #pragma once
 
 namespace citadel {
+	template <typename T>
+	constexpr scope<T>::scope(std::nullptr_t) noexcept
+		: handle_(nullptr) { }
+
+	template <typename T>
+	constexpr scope<T>::scope(pointer handle) noexcept
+		: handle_(std::move(handle)) { }
+
+	template <typename T>
+	constexpr scope<T>::scope(std::unique_ptr<T>&& handle) noexcept
+		: handle_(std::move(handle)) { }
+
+	template <typename T>
+	constexpr T* scope<T>::get() const noexcept {
+		return handle_.get();
+	}
+
+	template <typename T>
+	constexpr T* scope<T>::operator->() const noexcept {
+		return handle_.get();
+	}
+
+	template <typename T>
+	constexpr T& scope<T>::operator*() const noexcept {
+		return *handle_;
+	}
+
+	template <typename T>
+	constexpr scope<T>::operator bool() const noexcept {
+		return static_cast<bool>(handle_);
+	}
+
+	template <typename T>
+	constexpr void scope<T>::reset() noexcept {
+		handle_.reset();
+	}
+
+	template <typename T>
+	constexpr void scope<T>::reset(pointer handle) noexcept {
+		handle_.reset(handle);
+	}
+
+	template <typename T>
+	constexpr typename scope<T>::pointer scope<T>::release() noexcept {
+		return handle_.release();
+	}
+
+	template <typename T>
+	constexpr void scope<T>::swap(scope& other) noexcept {
+		handle_.swap(other.handle_);
+	}
+
+	template <typename T>
+	constexpr typename scope<T>::deleter_type& scope<T>::get_deleter() noexcept {
+		return handle_.get_deleter();
+	}
+
+	template <typename T>
+	constexpr const typename scope<T>::deleter_type& scope<T>::get_deleter() const noexcept {
+		return handle_.get_deleter();
+	}
+
+	template <typename T>
+	template <typename... Arguments>
+	constexpr scope<T> scope<T>::create(Arguments&&... arguments) {
+		return scope(std::forward<Arguments>(arguments)...);
+	}
+
 	template <typename T, typename... Arguments>
-	scope<T> make_scoped(Arguments&&... arguments) {
-		return std::make_unique<T>(std::forward<Arguments>(arguments)...);
+	constexpr scope<T> make_scoped(Arguments&&... arguments) {
+		return scope<T>::create(std::forward<Arguments>(arguments)...);
 	}
 }

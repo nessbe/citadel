@@ -20,16 +20,55 @@
 #pragma once
 
 #include <memory>
+#include <type_traits>
 #include <utility>
 
 #include "citadel/attributes.hpp"
 
 namespace citadel {
 	template <typename T>
-	using reference = std::shared_ptr<T>;
+	class reference {
+	public:
+		reference() noexcept;
+		reference(std::nullptr_t) noexcept;
+
+		explicit reference(T* handle) noexcept;
+		explicit reference(std::shared_ptr<T> handle) noexcept;
+
+		template <typename U>
+		explicit reference(const std::shared_ptr<U>& other) noexcept;
+
+		reference(const reference&) noexcept = default;
+		reference& operator=(const reference&) = default;
+
+		reference(reference&&) noexcept = default;
+		reference& operator=(reference&&) = default;
+
+		nodisc T* get() noexcept;
+		nodisc T* operator->() noexcept;
+		nodisc const T* operator->() const noexcept;
+
+		nodisc T& operator*() noexcept;
+		nodisc const T& operator*() const noexcept;
+
+		void reset() noexcept;
+		void reset(T* handle) noexcept;
+
+		nodisc operator bool() const noexcept;
+		nodisc long use_count() const noexcept;
+
+		nodisc std::shared_ptr<T>& raw() noexcept;
+		nodisc const std::shared_ptr<T>& raw() const noexcept;
+
+		template <typename... Arguments>
+		nodisc static reference create(Arguments&&... arguments);
+
+	private:
+		std::shared_ptr<T> handle_;
+	};
 
 	template <typename T, typename... Arguments>
-	CITADEL_NODISCARD reference<T> make_referenced(Arguments&&... arguments);
+	nodisc reference<T> make_referenced(Arguments&&... arguments);
 }
 
 #include "citadel/memory/reference.inl"
