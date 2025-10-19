@@ -31,6 +31,16 @@
 	#endif
 #endif
 
+#ifndef noret
+	#if CITADEL_COMPILER_MSVC
+		#define noret __declspec(noreturn)
+	#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define noret __attribute__((noreturn))
+	#else
+		#define noret [[noreturn]]
+	#endif
+#endif
+
 #ifndef deprec
 	#if CITADEL_COMPILER_MSVC
 		#define deprec                  __declspec(deprecated)

@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       assert.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,17 +19,15 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
+#include <string>
+
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-#include "citadel/warnings.hpp"
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/engine.hpp"
-#include "citadel/core/entry_point.hpp"
+namespace citadel {
+	noret api void panic() noexcept;
+	noret api void panic(const std::string& message);
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+	api void assert(bool condition) noexcept;
+	api void assert(bool condition, const std::string& message);
+}

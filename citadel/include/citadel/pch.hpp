@@ -19,7 +19,10 @@
 
 #pragma once
 
+#include <cstdlib>
+#include <iostream>
 #include <memory>
+#include <string>
 #include <type_traits>
 #include <utility>
 
@@ -39,6 +42,7 @@
 #endif
 
 #include "citadel/architectures.hpp"
+#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"

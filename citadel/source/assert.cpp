@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       assert.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,19 +17,35 @@
 //
 // For more details, see the LICENSE file at the root of the project.
 
-#pragma once
-
-#include "citadel/architectures.hpp"
+#include "citadel/pch.hpp"
 #include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-#include "citadel/warnings.hpp"
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/engine.hpp"
-#include "citadel/core/entry_point.hpp"
+namespace citadel {
+	void panic() noexcept {
+#if CITADEL_COMPILER_MSVC
+		__debugbreak();
+#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		__builtin_trap();
+#else
+		std::abort();
+#endif
+	}
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+	void panic(const std::string& message) {
+		std::cout << "Program panicked: " << message << std::endl;
+		panic();
+	}
+
+	void assert(bool condition) noexcept {
+		if (unlikely(!condition)) {
+			panic();
+		}
+	}
+
+	void assert(bool condition, const std::string& message) {
+		if (unlikely(!condition)) {
+			std::cout << "Assertion failed: " << message << std::endl;
+			panic();
+		}
+	}
+}
