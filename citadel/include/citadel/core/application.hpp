@@ -27,7 +27,7 @@
 #include "citadel/memory/scope.hpp"
 
 namespace citadel {
-	class CITADEL_API application {
+	class api application {
 	public:
 		virtual ~application() = default;
 
@@ -35,7 +35,7 @@ namespace citadel {
 		int run();
 		void shutdown();
 
-		CITADEL_GETTER engine& get_engine() const;
+		nodisc engine& get_engine() const;
 
 	private:
 		bool is_running_ = false;

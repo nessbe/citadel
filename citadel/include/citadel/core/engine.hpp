@@ -22,7 +22,7 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	class CITADEL_API engine {
+	class api engine {
 	public:
 		engine() = default;
 		~engine() = default;
