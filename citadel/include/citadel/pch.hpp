@@ -22,15 +22,25 @@
 #include <memory>
 #include <utility>
 
+#include "citadel/platforms.hpp"
+
+#if CITADEL_PLATFORM_WINDOWS
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif
+
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
+
+	#include <windows.h>
+	#include <windef.h>
+#endif
+
 #include "citadel/architectures.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
 
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
-
-#if CITADEL_PLATFORM_WINDOWS
-	#include <windows.h>
-#endif

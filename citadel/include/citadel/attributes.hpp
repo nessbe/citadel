@@ -21,23 +21,59 @@
 
 #include "citadel/compilers.hpp"
 
-#ifndef CITADEL_NODISCARD
-	#define CITADEL_NODISCARD [[nodiscard]]
-#endif
-
-#ifndef CITADEL_INLINE
-	#define CITADEL_INLINE inline
-#endif
-
-#ifndef CITADEL_FORCE_INLINE
+#ifndef nodisc
 	#if CITADEL_COMPILER_MSVC
-		#define CITADEL_FORCE_INLINE __forceinline
-	#elif CITADEL_COMPILER_CLANG || CITADEL_COMPILER_GCC
-		#define CITADEL_FORCE_INLINE __attribute__((always_inline))
+		#define nodisc _Check_return_
+	#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define nodisc __attribute__((warn_unused_result))
 	#else
-		#define CITADEL_FORCE_INLINE
+		#define nodisc [[nodiscard]]
 	#endif
 #endif
 
-#define CITADEL_GETTER CITADEL_NODISCARD CITADEL_INLINE
-#define CITADEL_SETTER CITADEL_INLINE
+#ifndef deprec
+	#if CITADEL_COMPILER_MSVC
+		#define deprec                  __declspec(deprecated)
+		#define deprec_message(message) __declspec(deprecated(message))
+	#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define deprec                  __attribute__((deprecated))
+		#define deprec_message(message) __attribute__((deprecated(message)))
+	#else
+		#define deprec                  [[deprecated]]
+		#define deprec_message(message) [[deprecated(message)]]
+	#endif
+#endif
+
+#ifndef unused
+	#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define unused __attribute__((unused))
+	#else
+		#define unused [[maybe_unused]]
+	#endif
+#endif
+
+#ifndef likely
+	#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define likely(x) __builtin_expect(!!(x), 1)
+	#else
+		#define likely(x) (x)
+	#endif
+#endif
+
+#ifndef unlikely
+	#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define unlikely(x) __builtin_expect(!!(x), 0)
+	#else
+		#define unlikely(x) (x)
+	#endif
+#endif
+
+#ifndef forceinline
+	#if CITADEL_COMPILER_MSVC
+		#define forceinl __forceinline
+	#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
+		#define forceinl inline __attribute__((always_inline))
+	#else
+		#define forceinl inline
+	#endif
+#endif

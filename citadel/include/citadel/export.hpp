@@ -1,4 +1,4 @@
-// File:       export.hpp
+// File:       apiexport.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -22,25 +22,24 @@
 #include "citadel/platforms.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
-	#define CITADEL_EXPORT     __declspec(dllexport)
-	#define CITADEL_IMPORT     __declspec(dllimport)
-	#define CITADEL_NO_EXPORT
-	#define CITADEL_DEPRECATED __declspec(deprecated)
+	#define apiexport   __declspec(dllexport)
+	#define apiimport   __declspec(dllimport)
+	#define apinoexport
 #else
-	#define CITADEL_EXPORT     __attribute__((visibility("default")))
-	#define CITADEL_IMPORT     __attribute__((visibility("default")))
-	#define CITADEL_NO_EXPORT  __attribute__((visibility("hidden")))
-	#define CITADEL_DEPRECATED __attribute__((deprecated))
+	#define apiexport   __attribute__((visibility("default")))
+	#define apiimport   __attribute__((visibility("default")))
+	#define apinoexport __attribute__((visibility("hidden")))
+
 #endif
 
 #ifdef CITADEL_LINKAGE_STATIC
-	#define CITADEL_API
+	#define api
 #elif defined(CITADEL_LINKAGE_DYNAMIC)
 	#ifdef CITADEL_BUILD_DLL
-		#define CITADEL_API CITADEL_EXPORT
+		#define api apiexport
 	#else
-		#define CITADEL_API CITADEL_IMPORT
+		#define api apiimport
 	#endif
 #else
-	#define CITADEL_API CITADEL_NO_EXPORT
+	#define api apinoexport
 #endif
