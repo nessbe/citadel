@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       max_digits.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -19,42 +19,22 @@
 
 #pragma once
 
-#include <array>
 #include <cstddef>
-#include <cstdlib>
-#include <iostream>
 #include <limits>
-#include <memory>
-#include <ostream>
-#include <sstream>
-#include <string>
-#include <string_view>
 #include <type_traits>
-#include <utility>
 
-#include "citadel/platforms.hpp"
+namespace citadel {
+	template <typename T>
+	struct max_digits {
+	public:
+		static_assert(std::is_arithmetic_v<T>, "T must be arithmetic");
 
-#if CITADEL_PLATFORM_WINDOWS
-	#ifndef WIN32_LEAN_AND_MEAN
-		#define WIN32_LEAN_AND_MEAN
-	#endif
+		static constexpr std::size_t value_integral = std::is_integral_v<T> ? std::numeric_limits<T>::digits10 + 1 : 0;
+		static constexpr std::size_t value_floating = std::is_integral_v<T> ? std::numeric_limits<T>::digits10 : 0;
 
-	#ifndef NOMINMAX
-		#define NOMINMAX
-	#endif
+		static constexpr std::size_t value = std::is_integral_v<T> ? value_integral : value_floating;
+	};
 
-	#include <windows.h>
-	#include <windef.h>
-#endif
-
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/warnings.hpp"
-
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
-
-#include "citadel/string/max_digits.hpp"
+	template <typename T>
+	inline constexpr std::size_t max_digits_v = max_digits<T>::value;
+}

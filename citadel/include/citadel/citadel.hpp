@@ -34,5 +34,6 @@
 #include "citadel/memory/reference.hpp"
 #include "citadel/memory/scope.hpp"
 
+#include "citadel/string/max_digits.hpp"
 #include "citadel/string/static_string.hpp"
 #include "citadel/string/stringifier.hpp"
