@@ -19,10 +19,14 @@
 
 #pragma once
 
+#include <array>
+#include <cstddef>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
+#include <ostream>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 
