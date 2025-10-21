@@ -23,6 +23,10 @@
 
 namespace citadel {
 	template <typename Char, std::size_t N>
+	constexpr basic_static_string<Char, N>::basic_static_string()
+		: data_{ } { }
+
+	template <typename Char, std::size_t N>
 	constexpr basic_static_string<Char, N>::basic_static_string(const Char (&data)[N]) {
 		for (std::size_t i = 0; i < N; i++) {
 			data_[i] = data[i];

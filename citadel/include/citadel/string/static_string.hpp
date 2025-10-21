@@ -29,6 +29,7 @@ namespace citadel {
 	template <typename Char, std::size_t N>
 	class basic_static_string {
 	public:
+		constexpr basic_static_string();
 		constexpr basic_static_string(const Char (&data)[N]);
 
 		template <std::size_t M>
