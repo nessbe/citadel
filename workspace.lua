@@ -1,4 +1,4 @@
--- File:       premake5.lua
+-- File:       workspace.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -12,4 +12,10 @@
 -- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the LICENSE file for details.
 
-include "workspace.lua"
+workspace "citadel"
+	architecture "x86_64"
+
+	configurations {
+		"debug",
+		"release"
+	}
