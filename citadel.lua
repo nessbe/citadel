@@ -1,4 +1,4 @@
--- File:       premake5.lua
+-- File:       citadel.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -12,5 +12,30 @@
 -- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the LICENSE file for details.
 
-include "workspace.lua"
-include "citadel.lua"
+project "citadel"
+	kind "StaticLib"
+	language "C++"
+	cppdialect "C++11"
+
+	targetdir("build/bin")
+	objdir("build/obj")
+
+	files {
+		"include/**.hpp",
+		"include/**.inl",
+		"source/**.cpp"
+	}
+
+	includedirs {
+		"include"
+	}
+
+	filter "configurations:debug"
+		defines "CITADEL_DEBUG"
+		symbols "On"
+		runtime "Debug"
+
+	filter "configurations:release"
+		defines "CITADEL_RELEASE"
+		optimize "On"
+		runtime "Release"
