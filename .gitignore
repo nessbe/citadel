@@ -13,3 +13,6 @@
 # See the LICENSE file for details.
 
 build/
+
+Makefile
+*.make
