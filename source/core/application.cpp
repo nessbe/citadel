@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       application.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,14 +12,19 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
-
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-
+#include "citadel/pch.hpp"
 #include "citadel/core/application.hpp"
+
+namespace citadel {
+	void application::initialize() {
+		_initialize();
+	}
+
+	int application::run() {
+		return _run();
+	}
+
+	void application::shutdown() {
+		_shutdown();
+	}
+}
