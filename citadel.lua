@@ -20,6 +20,9 @@ project "citadel"
 	targetdir("build/bin")
 	objdir("build/obj")
 
+	pchheader "citadel/pch.hpp"
+	pchsource "source/pch.cpp"
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",
