@@ -17,4 +17,5 @@
 #include "citadel/architectures.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
+#include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
