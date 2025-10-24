@@ -26,3 +26,11 @@ namespace citadel {
 	api void assert(bool condition);
 	api void assert(bool condition, const std::string& message);
 }
+
+#ifdef CITADEL_DEBUG
+	#define CITADEL_PANIC(message) ::citadel::panic("Program panicked: " message)
+	#define CITADEL_ASSERT(condition, message) ::citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message)
+#else
+	#define CITADEL_PANIC(message)
+	#define CITADEL_ASSERT(condition, message)
+#endif
