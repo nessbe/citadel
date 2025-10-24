@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       assert.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,13 +14,15 @@
 
 #pragma once
 
-#include <cstdlib>
-#include <iostream>
 #include <string>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+
+namespace citadel {
+	noret api void panic();
+	noret api void panic(const std::string& message);
+
+	api void assert(bool condition);
+	api void assert(bool condition, const std::string& message);
+}
