@@ -14,5 +14,6 @@
 
 #pragma once
 
+#include "citadel/architectures.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/platforms.hpp"
