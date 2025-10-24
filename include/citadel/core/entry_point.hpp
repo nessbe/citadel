@@ -1,4 +1,4 @@
-// File:       application.hpp
+// File:       entry_point.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,23 +14,29 @@
 
 #pragma once
 
+#include "citadel/assert.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/core/application.hpp"
+
 namespace citadel {
-	class api application {
-	public:
-		application() = default;
-		virtual ~application() = default;
+	extern application* create_application();
 
-		void initialize();
-		int run();
-		void shutdown();
+	int run_application(int argc, char** argv) {
+		application* application = create_application();
+		CITADEL_ASSERT(application, "Failed to create application");
 
-	private:
-		virtual void _initialize() = 0;
-		virtual int _run() = 0;
-		virtual void _shutdown() = 0;
-	};
+		application->initialize();
 
-	application* create_application();
+		int exit_code = application->run();
+
+		application->shutdown();
+		delete application;
+
+		return exit_code;
+	}
+}
+
+int main(int argc, char** argv) {
+	return citadel::run_application(argc, argv);
 }
