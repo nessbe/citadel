@@ -27,13 +27,15 @@ namespace citadel {
 		_initialize();
 	}
 
-	int application::run() {
+	exit_code::enumeration application::run() {
 		CITADEL_ASSERT(engine_, "Engine pointer is null");
 
-		int engine_exit_code = engine_ ? engine_->run() : 0;
-		int application_exit_code = _run();
+		exit_code::enumeration engine_exit_code = engine_ ? engine_->run() : exit_code::failure;
+		exit_code::enumeration application_exit_code = _run();
 
-		return engine_exit_code | application_exit_code;
+		exit_code::enumeration exit_code = static_cast<exit_code::enumeration>(engine_exit_code | application_exit_code);
+
+		return exit_code;
 	}
 
 	void application::shutdown() {

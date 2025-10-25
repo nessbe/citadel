@@ -20,6 +20,7 @@
 #include "citadel/export.hpp"
 
 #include "citadel/core/engine.hpp"
+#include "citadel/core/exit_code.hpp"
 
 namespace citadel {
 	class api application {
@@ -28,7 +29,7 @@ namespace citadel {
 		virtual ~application() = default;
 
 		void initialize();
-		int run();
+		exit_code::enumeration run();
 		void shutdown();
 
 		nodisc engine& get_engine() const;
@@ -38,7 +39,7 @@ namespace citadel {
 
 	private:
 		virtual void _initialize() = 0;
-		virtual int _run() = 0;
+		virtual exit_code::enumeration _run() = 0;
 		virtual void _shutdown() = 0;
 	};
 

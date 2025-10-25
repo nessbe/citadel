@@ -16,6 +16,8 @@
 
 #include "citadel/export.hpp"
 
+#include "citadel/core/exit_code.hpp"
+
 namespace citadel {
 	class api engine {
 	public:
@@ -23,7 +25,7 @@ namespace citadel {
 		~engine() = default;
 
 		void initialize();
-		int run();
+		exit_code::enumeration run();
 		void shutdown();
 	};
 }

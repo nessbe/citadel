@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <cinttypes>
 #include <cstdlib>
 #include <iostream>
 #include <memory>

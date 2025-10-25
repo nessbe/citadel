@@ -18,6 +18,7 @@
 #include "citadel/export.hpp"
 
 #include "citadel/core/application.hpp"
+#include "citadel/core/exit_code.hpp"
 
 namespace citadel {
 	extern application* create_application();
@@ -28,12 +29,12 @@ namespace citadel {
 
 		application->initialize();
 
-		int exit_code = application->run();
+		exit_code::enumeration exit_code = application->run();
 
 		application->shutdown();
 		delete application;
 
-		return exit_code;
+		return static_cast<int>(exit_code);
 	}
 }
 

@@ -1,4 +1,4 @@
-// File:       citadel.hpp
+// File:       exit_code.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,15 +14,15 @@
 
 #pragma once
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+#include <cinttypes>
 
-#include "citadel/core/application.hpp"
-#include "citadel/core/engine.hpp"
-#include "citadel/core/entry_point.hpp"
-#include "citadel/core/exit_code.hpp"
+namespace citadel {
+	namespace exit_code {
+		using type = std::uint8_t;
+
+		enum enumeration : type {
+			success = 0,
+			failure = 1,
+		};
+	}
+}

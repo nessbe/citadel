@@ -18,8 +18,8 @@
 namespace citadel {
 	void engine::initialize() { }
 
-	int engine::run() {
-		return 0;
+	exit_code::enumeration engine::run() {
+		return exit_code::success;
 	}
 
 	void engine::shutdown() { }
