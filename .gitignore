@@ -17,4 +17,9 @@ build/
 Makefile
 *.make
 
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
 .vscode/
