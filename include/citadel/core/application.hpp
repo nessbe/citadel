@@ -14,7 +14,12 @@
 
 #pragma once
 
+#include <memory>
+
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+
+#include "citadel/core/engine.hpp"
 
 namespace citadel {
 	class api application {
@@ -25,6 +30,11 @@ namespace citadel {
 		void initialize();
 		int run();
 		void shutdown();
+
+		nodisc engine& get_engine() const;
+
+	private:
+		std::unique_ptr<engine> engine_ = nullptr;
 
 	private:
 		virtual void _initialize() = 0;

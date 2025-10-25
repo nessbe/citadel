@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       engine.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,16 +12,15 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
+#include "citadel/pch.hpp"
+#include "citadel/core/engine.hpp"
 
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <string>
+namespace citadel {
+	void engine::initialize() { }
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
+	int engine::run() {
+		return 0;
+	}
+
+	void engine::shutdown() { }
+}

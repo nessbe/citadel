@@ -17,14 +17,39 @@
 
 namespace citadel {
 	void application::initialize() {
+		engine_ = std::make_unique<engine>();
+		CITADEL_ASSERT(engine_, "Failed to create engine");
+
+		if (engine_) {
+			engine_->initialize();
+		}
+
 		_initialize();
 	}
 
 	int application::run() {
-		return _run();
+		CITADEL_ASSERT(engine_, "Engine pointer is null");
+
+		int engine_exit_code = engine_ ? engine_->run() : 0;
+		int application_exit_code = _run();
+
+		return engine_exit_code | application_exit_code;
 	}
 
 	void application::shutdown() {
 		_shutdown();
+
+		CITADEL_ASSERT(engine_, "Engine pointer is null");
+
+		if (engine_) {
+			engine_->shutdown();
+		}
+
+		engine_ = nullptr;
+	}
+
+	engine& application::get_engine() const {
+		CITADEL_ASSERT(engine_, "Engine pointer is null");
+		return *engine_;
 	}
 }

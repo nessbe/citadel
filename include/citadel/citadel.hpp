@@ -23,4 +23,5 @@
 #include "citadel/platforms.hpp"
 
 #include "citadel/core/application.hpp"
+#include "citadel/core/engine.hpp"
 #include "citadel/core/entry_point.hpp"
