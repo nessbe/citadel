@@ -55,6 +55,14 @@ namespace citadel {
 		engine_ = nullptr;
 	}
 
+	std::size_t application::get_error_level() const noexcept {
+		return error_level_;
+	}
+
+	void application::notify_error() noexcept {
+		error_level_++;
+	}
+
 	engine& application::get_engine() const {
 		CITADEL_ASSERT(engine_, "Engine pointer is null");
 		return *engine_;

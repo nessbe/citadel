@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <memory>
 
 #include "citadel/attributes.hpp"
@@ -39,10 +40,15 @@ namespace citadel {
 		exit_code::enumeration run();
 		void shutdown();
 
+		nodisc std::size_t get_error_level() const noexcept;
+		void notify_error() noexcept;
+
 		nodisc engine& get_engine() const;
 
 	private:
 		static application* instance_;
+
+		std::size_t error_level_ = 0;
 
 		std::unique_ptr<engine> engine_ = nullptr;
 
