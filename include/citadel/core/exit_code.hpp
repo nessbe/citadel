@@ -15,14 +15,15 @@
 #pragma once
 
 #include <cinttypes>
+#include <cstdlib>
 
 namespace citadel {
 	namespace exit_code {
 		using type = std::uint8_t;
 
 		enum enumeration : type {
-			success = 0,
-			failure = 1,
+			success = EXIT_SUCCESS,
+			failure = EXIT_FAILURE,
 		};
 	}
 }

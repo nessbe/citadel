@@ -55,6 +55,11 @@ namespace citadel {
 		engine_ = nullptr;
 	}
 
+	void application::exit(exit_code::enumeration code) {
+		shutdown();
+		std::exit(static_cast<int>(code));
+	}
+
 	std::size_t application::get_error_level() const noexcept {
 		return error_level_;
 	}

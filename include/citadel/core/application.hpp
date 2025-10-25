@@ -40,6 +40,8 @@ namespace citadel {
 		exit_code::enumeration run();
 		void shutdown();
 
+		noret void exit(exit_code::enumeration code);
+
 		nodisc std::size_t get_error_level() const noexcept;
 		void notify_error() noexcept;
 
