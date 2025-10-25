@@ -23,8 +23,15 @@
 #include "citadel/core/exit_code.hpp"
 
 namespace citadel {
+	int run_application(int argc, char** argv);
+
 	class api application {
 	public:
+		friend int run_application(int argc, char** argv);
+
+	public:
+		nodisc static application& get();
+
 		application() = default;
 		virtual ~application() = default;
 
@@ -35,6 +42,8 @@ namespace citadel {
 		nodisc engine& get_engine() const;
 
 	private:
+		static application* instance_;
+
 		std::unique_ptr<engine> engine_ = nullptr;
 
 	private:

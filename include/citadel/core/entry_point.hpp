@@ -27,11 +27,19 @@ namespace citadel {
 		application* application = create_application();
 		CITADEL_ASSERT(application, "Failed to create application");
 
-		application->initialize();
+		application::instance_ = application;
 
-		exit_code::enumeration exit_code = application->run();
+		if (application) {
+			application->initialize();
+		}
 
-		application->shutdown();
+		exit_code::enumeration exit_code = application ? application->run() : exit_code::failure;
+
+		if (application) {
+			application->shutdown();
+		}
+
+		application::instance_ = nullptr;
 		delete application;
 
 		return static_cast<int>(exit_code);

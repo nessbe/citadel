@@ -16,6 +16,11 @@
 #include "citadel/core/application.hpp"
 
 namespace citadel {
+	application& application::get() {
+		CITADEL_ASSERT(instance_, "Application pointer is null");
+		return *instance_;
+	}
+
 	void application::initialize() {
 		engine_ = std::make_unique<engine>();
 		CITADEL_ASSERT(engine_, "Failed to create engine");
@@ -54,4 +59,6 @@ namespace citadel {
 		CITADEL_ASSERT(engine_, "Engine pointer is null");
 		return *engine_;
 	}
+
+	application* application::instance_ = nullptr;
 }
