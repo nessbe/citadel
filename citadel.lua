@@ -33,6 +33,12 @@ project "citadel"
 		"include"
 	}
 
+	filter "action:gmake"
+		buildoptions "-Wall"
+
+	filter "action:vs*"
+		buildoptions "/Wall"
+
 	filter "kind:StaticLib"
 		defines "CITADEL_LINKAGE_STATIC"
 
