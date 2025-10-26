@@ -18,6 +18,7 @@
 
 #ifndef nodisc
 	#if CITADEL_COMPILER_MSVC
+		#include <sal.h>
 		#define nodisc _Check_return_
 	#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
 		#define nodisc __attribute__((warn_unused_result))
