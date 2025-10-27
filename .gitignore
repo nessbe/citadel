@@ -22,4 +22,6 @@ Makefile
 *.vcxproj.filters
 *.vcxproj.user
 
+.vs/
+
 .vscode/
