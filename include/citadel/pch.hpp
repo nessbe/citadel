@@ -26,3 +26,7 @@
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+
+#if CITADEL_PLATFORM_WINDOWS
+	#include <Windows.h>
+#endif

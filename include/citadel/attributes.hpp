@@ -57,14 +57,6 @@
 	#endif
 #endif
 
-#ifndef unused
-	#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-		#define unused __attribute__((unused))
-	#else
-		#define unused [[maybe_unused]]
-	#endif
-#endif
-
 #ifndef likely
 	#if CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
 		#define likely(condition) __builtin_expect(!!(condition), 1)

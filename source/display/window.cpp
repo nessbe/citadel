@@ -15,7 +15,24 @@
 #include "citadel/pch.hpp"
 #include "citadel/display/window.hpp"
 
+#if CITADEL_PLATFORM_WINDOWS
+	#include "citadel/platforms/windows/windows_window.hpp"
+#endif
+
 namespace citadel {
+	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+#if CITADEL_PLATFORM_WINDOWS
+		return std::make_unique<windows_window>(x, y, width, height, title);
+#else
+	#error Citadel does not support your window system yet
+		return nullptr;
+#endif
+	}
+
+	std::unique_ptr<window> window::create(dimension width, dimension height, const std::string& title) {
+		return create(0, 0, width, height, title);
+	}
+
 	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
 		: x_(x), y_(y), width_(width), height_(height), title_(title) { }
 
@@ -63,7 +80,17 @@ namespace citadel {
 	}
 
 	bool window::update() {
-		return _update();
+		if (!is_open()) {
+			return false;
+		}
+
+		bool result = _update();
+
+		if (!result) {
+			close();
+		}
+
+		return result;
 	}
 
 	bool window::is_open() const noexcept {

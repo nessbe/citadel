@@ -15,6 +15,7 @@
 #pragma once
 
 #include <cinttypes>
+#include <memory>
 #include <string>
 
 #include "citadel/attributes.hpp"
@@ -26,6 +27,9 @@ namespace citadel {
 		using dimension = std::uint32_t;
 
 	public:
+		static std::unique_ptr<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		static std::unique_ptr<window> create(dimension width, dimension height, const std::string& title);
+
 		window(dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		window(dimension width, dimension height, const std::string& title);
 
