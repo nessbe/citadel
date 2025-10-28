@@ -17,6 +17,14 @@
 #include "citadel/rendering/color.hpp"
 
 namespace citadel {
+	color::channel_normalized color::normalize_channel(channel value) noexcept {
+		return value / static_cast<channel_normalized>(max_channel);
+	}
+
+	color::channel color::unnormalize_channel(channel_normalized value) noexcept {
+		return static_cast<channel>(value * max_channel + 0.5f);
+	}
+
 	color::color(channel red, channel green, channel blue, channel alpha)
 		: red_(red), green_(green), blue_(blue), alpha_(alpha) { }
 
@@ -31,12 +39,28 @@ namespace citadel {
 		red_ = value;
 	}
 
+	color::channel_normalized color::get_red_normalized() const noexcept {
+		return normalize_channel(red_);
+	}
+
+	void color::set_red_normalized(channel_normalized value) noexcept {
+		red_ = unnormalize_channel(value);
+	}
+
 	color::channel color::get_green() const noexcept {
 		return green_;
 	}
 
 	void color::set_green(channel value) noexcept {
 		green_ = value;
+	}
+
+	color::channel_normalized color::get_green_normalized() const noexcept {
+		return normalize_channel(green_);
+	}
+
+	void color::set_green_normalized(channel_normalized value) noexcept {
+		green_ = unnormalize_channel(value);
 	}
 
 	color::channel color::get_blue() const noexcept {
@@ -47,12 +71,28 @@ namespace citadel {
 		blue_ = value;
 	}
 
+	color::channel_normalized color::get_blue_normalized() const noexcept {
+		return normalize_channel(blue_);
+	}
+
+	void color::set_blue_normalized(channel_normalized value) noexcept {
+		blue_ = unnormalize_channel(value);
+	}
+
 	color::channel color::get_alpha() const noexcept {
 		return alpha_;
 	}
 
 	void color::set_alpha(channel value) noexcept {
 		alpha_ = value;
+	}
+
+	color::channel_normalized color::get_alpha_normalized() const noexcept {
+		return normalize_channel(alpha_);
+	}
+
+	void color::set_alpha_normalized(channel_normalized value) noexcept {
+		alpha_ = unnormalize_channel(value);
 	}
 
 	void color::get_channels(channel& red, channel& green, channel& blue, channel& alpha) const noexcept {
@@ -66,5 +106,18 @@ namespace citadel {
 		red = red_;
 		green = green_;
 		blue = blue_;
+	}
+
+	void color::get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue, channel_normalized& alpha) const noexcept {
+		red = get_red_normalized();
+		green = get_green_normalized();
+		blue = get_blue_normalized();
+		alpha = get_alpha_normalized();
+	}
+
+	void color::get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue) const noexcept {
+		red = get_red_normalized();
+		green = get_green_normalized();
+		blue = get_blue_normalized();
 	}
 }

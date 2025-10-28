@@ -24,14 +24,21 @@ namespace citadel {
 	class api color {
 	public:
 		using channel = std::uint8_t;
+		using channel_normalized = float;
 
 	public:
 #define TEMPORARY_MAX(a, b) max(a, b)
-#undef max
+#ifdef max
+	#undef max
+#endif
 		static constexpr channel max_channel = std::numeric_limits<channel>::max();
 #define max(a, b) TEMPORARY_MAX(a, b)
+#undef TEMPORARY_MAX
 
 	public:
+		static channel_normalized normalize_channel(channel value) noexcept;
+		static channel unnormalize_channel(channel_normalized value) noexcept;
+
 		color(channel red, channel green, channel blue, channel alpha);
 		color(channel red, channel green, channel blue);
 
@@ -40,17 +47,32 @@ namespace citadel {
 		nodisc channel get_red() const noexcept;
 		void set_red(channel value) noexcept;
 
+		nodisc channel_normalized get_red_normalized() const noexcept;
+		void set_red_normalized(channel_normalized value) noexcept;
+
 		nodisc channel get_green() const noexcept;
 		void set_green(channel value) noexcept;
+
+		nodisc channel_normalized get_green_normalized() const noexcept;
+		void set_green_normalized(channel_normalized value) noexcept;
 
 		nodisc channel get_blue() const noexcept;
 		void set_blue(channel value) noexcept;
 
+		nodisc channel_normalized get_blue_normalized() const noexcept;
+		void set_blue_normalized(channel_normalized value) noexcept;
+
 		nodisc channel get_alpha() const noexcept;
 		void set_alpha(channel value) noexcept;
 
+		nodisc channel_normalized get_alpha_normalized() const noexcept;
+		void set_alpha_normalized(channel_normalized value) noexcept;
+
 		void get_channels(channel& red, channel& green, channel& blue, channel& alpha) const noexcept;
 		void get_channels(channel& red, channel& green, channel& blue) const noexcept;
+
+		void get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue, channel_normalized& alpha) const noexcept;
+		void get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue) const noexcept;
 
 	private:
 		channel red_, green_, blue_, alpha_;
