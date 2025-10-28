@@ -30,3 +30,5 @@
 #include "citadel/display/window.hpp"
 
 #include "citadel/platforms/windows/windows_window.hpp"
+
+#include "citadel/rendering/color.hpp"
