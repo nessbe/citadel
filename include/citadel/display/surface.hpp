@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 

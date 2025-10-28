@@ -23,6 +23,8 @@
 
 #include "citadel/display/surface.hpp"
 
+#include "citadel/rendering/rendering_context.hpp"
+
 namespace citadel {
 	class api window {
 	public:
@@ -79,6 +81,7 @@ namespace citadel {
 		std::string title_;
 
 		std::unique_ptr<surface> surface_;
+		std::unique_ptr<rendering_context> rendering_context_;
 
 	private:
 		virtual void _open() = 0;
