@@ -64,6 +64,7 @@ namespace citadel {
 		virtual void _minimize() override;
 
 		virtual bool _update() override;
+		virtual void _render() override;
 
 		virtual void* _get_native_handle() const override;
 

@@ -33,8 +33,15 @@ namespace citadel {
 		return create(0, 0, width, height, title);
 	}
 
-	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title)
-		: x_(x), y_(y), width_(width), height_(height), title_(title) { }
+	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title) :
+		x_(x),
+		y_(y),
+		width_(width),
+		height_(height),
+		title_(title),
+		surface_(std::make_unique<surface>(x, y, width, height, color(255, 255, 255, 255))) {
+		CITADEL_ASSERT(surface_, "Failed to create surface");
+	}
 
 	window::window(dimension width, dimension height, const std::string& title)
 		: window(0, 0, width, height, title) { }
@@ -90,7 +97,23 @@ namespace citadel {
 			close();
 		}
 
+		if (is_visible()) {
+			render();
+		}
+
 		return result;
+	}
+
+	void window::render() {
+		CITADEL_ASSERT(surface_, "Surface is null");
+
+		surface_->bind();
+		surface_->clear();
+
+		_render();
+
+		surface_->present();
+		surface_->bind();
 	}
 
 	bool window::is_open() const noexcept {
@@ -148,5 +171,10 @@ namespace citadel {
 	void window::set_title(const std::string& value) {
 		_set_title(value);
 		title_ = value;
+	}
+
+	surface& window::get_surface() const {
+		CITADEL_ASSERT(surface_, "Surface is null");
+		return *surface_;
 	}
 }

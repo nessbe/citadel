@@ -178,6 +178,8 @@ namespace citadel {
 		return true;
 	}
 
+	void windows_window::_render() { }
+
 	void* windows_window::_get_native_handle() const {
 		return window_;
 	}

@@ -21,6 +21,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/display/surface.hpp"
+
 namespace citadel {
 	class api window {
 	public:
@@ -45,6 +47,7 @@ namespace citadel {
 		void minimize();
 
 		bool update();
+		void render();
 
 		nodisc bool is_open() const noexcept;
 		nodisc bool is_visible() const noexcept;
@@ -66,12 +69,16 @@ namespace citadel {
 		nodisc const std::string& get_title() const noexcept;
 		void set_title(const std::string& value);
 
+		nodisc surface& get_surface() const;
+
 	private:
 		bool is_open_ = false;
 		bool is_visible_ = false;
 
 		dimension x_, y_, width_, height_;
 		std::string title_;
+
+		std::unique_ptr<surface> surface_;
 
 	private:
 		virtual void _open() = 0;
@@ -84,6 +91,7 @@ namespace citadel {
 		virtual void _minimize() = 0;
 
 		virtual bool _update() = 0;
+		virtual void _render() = 0;
 
 		virtual void* _get_native_handle() const = 0;
 
