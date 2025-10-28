@@ -27,6 +27,7 @@
 #include "citadel/core/entry_point.hpp"
 #include "citadel/core/exit_code.hpp"
 
+#include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
 
 #include "citadel/platforms/windows/windows_window.hpp"
