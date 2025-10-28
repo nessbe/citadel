@@ -39,7 +39,7 @@ namespace citadel {
 		width_(width),
 		height_(height),
 		title_(title),
-		surface_(std::make_unique<surface>(x, y, width, height, color(255, 255, 255, 255))) {
+		surface_(surface::create(x, y, width, height, color(255, 255, 255, 255))) {
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 	}
 

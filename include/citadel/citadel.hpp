@@ -30,6 +30,8 @@
 #include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
 
+#include "citadel/drivers/opengl/opengl_surface.hpp"
+
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"

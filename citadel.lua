@@ -33,6 +33,10 @@ project "citadel"
 		"include"
 	}
 
+	links {
+		"opengl32"
+	}
+
 	filter "action:gmake"
 		buildoptions "-Wall"
 

@@ -15,7 +15,17 @@
 #include "citadel/pch.hpp"
 #include "citadel/display/surface.hpp"
 
+#include "citadel/drivers/opengl/opengl_surface.hpp"
+
 namespace citadel {
+	std::unique_ptr<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
+		return std::make_unique<opengl_surface>(x, y, width, height, clear_color);
+	}
+
+	std::unique_ptr<surface> surface::create(dimension width, dimension height, color clear_color) {
+		return create(0, 0, width, height, clear_color);
+	}
+
 	surface::surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
 		: x_(x), y_(y), width_(width), height_(height), clear_color_(clear_color) { }
 

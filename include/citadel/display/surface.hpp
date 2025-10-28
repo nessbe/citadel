@@ -25,6 +25,9 @@ namespace citadel {
 		using dimension = unsigned int;
 
 	public:
+		static std::unique_ptr<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
+		static std::unique_ptr<surface> create(dimension width, dimension height, color clear_color);
+
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);
 
