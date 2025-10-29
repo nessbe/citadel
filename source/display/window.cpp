@@ -15,9 +15,7 @@
 #include "citadel/pch.hpp"
 #include "citadel/display/window.hpp"
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include "citadel/platforms/windows/windows_window.hpp"
-#endif
+#include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
 	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
@@ -39,7 +37,7 @@ namespace citadel {
 		width_(width),
 		height_(height),
 		title_(title),
-		surface_(surface::create(x, y, width, height, color(255, 255, 255, 255))),
+		surface_(surface::create(x_, y_, width_, height_, color(255, 255, 255, 255))),
 		rendering_context_(rendering_context::create()) {
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
@@ -49,31 +47,31 @@ namespace citadel {
 		: window(0, 0, width, height, title) { }
 
 	void window::open() {
+		if (likely(!is_open_)) {
+			_open();
+		}
+
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
 		if (rendering_context_) {
 			rendering_context_->construct(this);
 		}
 
-		if (likely(!is_open_)) {
-			_open();
-		}
-
 		is_open_ = true;
 	}
 
 	void window::close() {
-		if (likely(is_open_)) {
-			_close();
-		}
-
-		is_open_ = false;
-
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
 		if (rendering_context_) {
 			rendering_context_->destroy();
 		}
+
+		if (likely(is_open_)) {
+			_close();
+		}
+
+		is_open_ = false;
 	}
 
 	void window::show() {
@@ -122,15 +120,20 @@ namespace citadel {
 		CITADEL_ASSERT(surface_, "Surface is null");
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
+		rendering_context_->bind();
+
 		surface_->bind();
 		surface_->clear();
 
 		_render();
 
+		
+
 		surface_->present();
 		rendering_context_->swap_buffers();
 
 		surface_->unbind();
+		rendering_context_->unbind();
 	}
 
 	bool window::is_open() const noexcept {
@@ -152,6 +155,12 @@ namespace citadel {
 	void window::set_x(dimension value) {
 		_set_x(value);
 		x_ = value;
+
+		CITADEL_ASSERT(surface_, "Surface is null");
+
+		if (surface_) {
+			surface_->set_x(value);
+		}
 	}
 
 	window::dimension window::get_y() const noexcept {
@@ -161,6 +170,12 @@ namespace citadel {
 	void window::set_y(dimension value) {
 		_set_y(value);
 		y_ = value;
+
+		CITADEL_ASSERT(surface_, "Surface is null");
+
+		if (surface_) {
+			surface_->set_y(value);
+		}
 	}
 
 	window::dimension window::get_width() const noexcept {
@@ -170,6 +185,12 @@ namespace citadel {
 	void window::set_width(dimension value) {
 		_set_width(value);
 		width_ = value;
+
+		CITADEL_ASSERT(surface_, "Surface is null");
+
+		if (surface_) {
+			surface_->set_width(value);
+		}
 	}
 
 	window::dimension window::get_height() const noexcept {
@@ -179,6 +200,12 @@ namespace citadel {
 	void window::set_height(dimension value) {
 		_set_height(value);
 		height_ = value;
+
+		CITADEL_ASSERT(surface_, "Surface is null");
+
+		if (surface_) {
+			surface_->set_height(value);
+		}
 	}
 
 	const std::string& window::get_title() const noexcept {
@@ -193,5 +220,10 @@ namespace citadel {
 	surface& window::get_surface() const {
 		CITADEL_ASSERT(surface_, "Surface is null");
 		return *surface_;
+	}
+
+	rendering_context& window::get_rendering_context() const {
+		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
+		return *rendering_context_;
 	}
 }

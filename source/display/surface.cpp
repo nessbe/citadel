@@ -34,10 +34,12 @@ namespace citadel {
 
 	void surface::bind() {
 		_bind();
+		is_bound_ = true;
 	}
 
 	void surface::unbind() {
 		_unbind();
+		is_bound_ = false;
 	}
 
 	void surface::clear() {
@@ -91,5 +93,9 @@ namespace citadel {
 	void surface::set_clear_color(color value) noexcept {
 		_set_clear_color(value);
 		clear_color_ = value;
+	}
+
+	bool surface::is_bound() const noexcept {
+		return is_bound_;
 	}
 }

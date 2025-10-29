@@ -72,6 +72,7 @@ namespace citadel {
 		void set_title(const std::string& value);
 
 		nodisc surface& get_surface() const;
+		nodisc rendering_context& get_rendering_context() const;
 
 	private:
 		bool is_open_ = false;

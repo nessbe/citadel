@@ -56,9 +56,13 @@ namespace citadel {
 		nodisc color get_clear_color() const noexcept;
 		void set_clear_color(color value) noexcept;
 
+		nodisc bool is_bound() const noexcept;
+
 	private:
 		dimension x_, y_, width_, height_;
 		color clear_color_;
+
+		bool is_bound_ = false;
 
 	private:
 		virtual void _bind() = 0;

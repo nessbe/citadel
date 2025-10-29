@@ -47,6 +47,8 @@ namespace citadel {
 			static_cast<GLclampf>(blue),
 			static_cast<GLclampf>(alpha)
 		);
+
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void opengl_surface::_present() { }

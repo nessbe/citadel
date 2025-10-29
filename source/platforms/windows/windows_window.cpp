@@ -18,7 +18,7 @@
 namespace citadel {
 	bool windows_window::register_class(const wchar_t* class_name) {
 		WNDCLASS window_class = { };
-
+		window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		window_class.lpszClassName = class_name;
 		window_class.hInstance = GetModuleHandle(NULL);
 		window_class.hIcon = LoadIcon(NULL, IDI_APPLICATION);

@@ -17,9 +17,11 @@
 
 #include "citadel/display/window.hpp"
 
+#include "citadel/drivers/opengl/opengl_context.hpp"
+
 namespace citadel {
 	std::unique_ptr<rendering_context> rendering_context::create() {
-		return nullptr;
+		return std::make_unique<opengl_context>();;
 	}
 
 	rendering_context::~rendering_context() {

@@ -14,10 +14,12 @@
 
 #pragma once
 
+#include "citadel/export.hpp"
+
 #include "citadel/display/surface.hpp"
 
 namespace citadel {
-	class opengl_surface : public surface {
+	class api opengl_surface : public surface {
 	public:
 		opengl_surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		opengl_surface(dimension width, dimension height, color clear_color);
