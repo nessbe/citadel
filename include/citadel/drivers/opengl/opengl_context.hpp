@@ -17,11 +17,9 @@
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 
-#include "citadel/rendering/rendering_context.hpp"
+#include "citadel/platforms/windows.hpp"
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include <Windows.h>
-#endif
+#include "citadel/rendering/rendering_context.hpp"
 
 namespace citadel {
 	class api opengl_context : public rendering_context {

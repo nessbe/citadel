@@ -15,8 +15,6 @@
 #include "citadel/pch.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
-#include <gl/GL.h>
-
 namespace citadel {
 	opengl_surface::opengl_surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
 		: surface(x, y, width, height, clear_color) { }

@@ -127,8 +127,6 @@ namespace citadel {
 
 		_render();
 
-		
-
 		surface_->present();
 		rendering_context_->swap_buffers();
 

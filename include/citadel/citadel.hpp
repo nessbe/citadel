@@ -33,6 +33,7 @@
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
+#include "citadel/platforms/windows.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"

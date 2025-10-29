@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       windows.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,20 +14,9 @@
 
 #pragma once
 
-#include <cinttypes>
-#include <cstdlib>
-#include <iostream>
-#include <limits>
-#include <memory>
-#include <string>
-
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
-#include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
-#include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 
-#include "citadel/drivers/opengl.hpp"
-
-#include "citadel/platforms/windows.hpp"
+#if CITADEL_PLATFORM_WINDOWS
+	#include <Windows.h>
+	#include <sal.h>
+#endif

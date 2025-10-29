@@ -18,11 +18,11 @@
 
 #if CITADEL_PLATFORM_WINDOWS
 
-#include <Windows.h>
-
 #include "citadel/export.hpp"
 
 #include "citadel/display/window.hpp"
+
+#include "citadel/platforms/windows.hpp"
 
 namespace citadel {
 	class api windows_window : public window {
