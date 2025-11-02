@@ -1,4 +1,4 @@
--- File:       premake5.lua
+-- File:       glad.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -12,7 +12,33 @@
 -- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the LICENSE file for details.
 
-include "workspace.lua"
-include "citadel.lua"
+project "glad"
+	kind "StaticLib"
+	language "C"
+	cdialect "C99"
 
-include "vendor/glad/glad.lua"
+	targetdir("%{wks.location}/build/bin")
+	objdir("%{wks.location}/build/obj")
+
+	files {
+		"include/**.h",
+		"src/**.c"
+	}
+
+	includedirs {
+		"include"
+	}
+
+	links {
+		"opengl32"
+	}
+
+	filter "configurations:debug"
+		defines "DEBUG"
+		symbols "On"
+		runtime "Debug"
+
+	filter "configurations:release"
+		defines "NDEBUG"
+		optimize "On"
+		runtime "Release"
