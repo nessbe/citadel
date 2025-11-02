@@ -16,7 +16,7 @@
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 
 namespace citadel {
-	void* opengl_loader::get_procedure_address(const char* name) {
+	void* opengl_loader::get_procedure_address(const char* name) noexcept {
 #if CITADEL_PLATFORM_WINDOWS
 		void* address = wglGetProcAddress(name);
 

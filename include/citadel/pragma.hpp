@@ -1,4 +1,4 @@
-// File:       opengl.hpp
+// File:       pragma.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,11 +14,12 @@
 
 #pragma once
 
-#include "citadel/platforms.hpp"
+#include "citadel/compilers.hpp"
 
-#if CITADEL_PLATFORM_WINDOWS
-	#include "citadel/platforms/windows.hpp"
-	#include <glad/glad_wgl.h>
+#if CITADEL_COMPILER_MSVC
+	#define CITADEL_PRAGMA(x) __pragma(x)
+#elif CITADEL_COMPILER_GCC ||CITADEL_COMPILER_CLANG
+	#define CITADEL_PRAGMA(x) _Pragma(#x)
+#else
+	#define CITADEL_PRAGMA(x)
 #endif
-
-#include <glad/glad.h>

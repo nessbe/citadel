@@ -26,7 +26,7 @@ namespace citadel {
 		static std::unique_ptr<rendering_context> create();
 
 		rendering_context() = default;
-		~rendering_context();
+		virtual ~rendering_context();
 
 		void construct(window* window);
 		void destroy();

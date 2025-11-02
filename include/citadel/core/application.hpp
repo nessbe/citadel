@@ -36,6 +36,9 @@ namespace citadel {
 		application() = default;
 		virtual ~application() = default;
 
+		application(const application&) = delete;
+		application & operator=(const application&) = delete;
+
 		void initialize();
 		exit_code::enumeration run();
 		void shutdown();

@@ -32,13 +32,13 @@ namespace citadel {
 	}
 
 	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title) :
+		title_(title),
+		surface_(surface::create(x_, y_, width_, height_, color(255, 255, 255, 255))),
+		rendering_context_(rendering_context::create()),
 		x_(x),
 		y_(y),
 		width_(width),
-		height_(height),
-		title_(title),
-		surface_(surface::create(x_, y_, width_, height_, color(255, 255, 255, 255))),
-		rendering_context_(rendering_context::create()) {
+		height_(height) {
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
 	}

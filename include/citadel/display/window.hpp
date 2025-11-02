@@ -20,10 +20,14 @@
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/display/surface.hpp"
 
 #include "citadel/rendering/rendering_context.hpp"
+
+CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class api window {
@@ -38,6 +42,9 @@ namespace citadel {
 		window(dimension width, dimension height, const std::string& title);
 
 		virtual ~window() = default;
+
+		window(const window&) = delete;
+		window& operator=(const window&) = delete;
 
 		void open();
 		void close();
@@ -75,14 +82,15 @@ namespace citadel {
 		nodisc rendering_context& get_rendering_context() const;
 
 	private:
-		bool is_open_ = false;
-		bool is_visible_ = false;
-
-		dimension x_, y_, width_, height_;
 		std::string title_;
 
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
+
+		dimension x_, y_, width_, height_;
+
+		bool is_open_ = false;
+		bool is_visible_ = false;
 
 	private:
 		virtual void _open() = 0;
@@ -106,3 +114,5 @@ namespace citadel {
 		virtual void _set_title(const std::string& value) = 0;
 	};
 }
+
+CITADEL_IGNORE_WARNING_POP
