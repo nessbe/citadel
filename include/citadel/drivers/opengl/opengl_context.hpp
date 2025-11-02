@@ -17,6 +17,8 @@
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 
+#include "citadel/drivers/opengl/opengl_loader.hpp"
+
 #include "citadel/platforms/windows.hpp"
 
 #include "citadel/rendering/rendering_context.hpp"
@@ -32,6 +34,8 @@ namespace citadel {
 		HDC device_context_ = nullptr;
 		HGLRC gl_rendering_context_ = nullptr;
 #endif
+
+		opengl_loader opengl_loader_;
 
 	private:
 		virtual void _construct(window* window) override;

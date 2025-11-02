@@ -31,6 +31,7 @@
 #include "citadel/display/window.hpp"
 
 #include "citadel/drivers/opengl/opengl_context.hpp"
+#include "citadel/drivers/opengl/opengl_loader.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 #include "citadel/platforms/windows.hpp"

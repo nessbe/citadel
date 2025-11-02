@@ -44,6 +44,12 @@ namespace citadel {
 
 			gl_rendering_context_ = wglCreateContext(device_context_);
 			CITADEL_ASSERT(gl_rendering_context_, "Failed to create OpenGL rendering context");
+
+			CITADEL_ASSERT(
+				opengl_loader_.load(),
+				"Failed to load OpenGL using Glad"
+			);
+
 		} else {
 			CITADEL_ASSERT(false, "The given window is not supported for Windows");
 		}
@@ -60,6 +66,8 @@ namespace citadel {
 		ReleaseDC(window_, device_context_);
 
 		gl_rendering_context_ = nullptr;
+
+		opengl_loader_.unload();
 #else
 	#error Rendering context does not support your window system yet
 #endif
