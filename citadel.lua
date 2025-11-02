@@ -43,10 +43,17 @@ project "citadel"
 	}
 
 	filter "action:gmake"
-		buildoptions "-Wall"
+		buildoptions {
+			"-Wall",
+			"-Wunused-parameter"
+		}
 
 	filter "action:vs*"
-		buildoptions "/Wall"
+		buildoptions {
+			"/Wall",
+			"/wd28251",
+			"/wd4100"
+		}
 
 	filter "kind:StaticLib"
 		defines "CITADEL_LINKAGE_STATIC"
