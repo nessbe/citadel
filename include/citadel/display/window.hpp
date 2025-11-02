@@ -23,6 +23,8 @@
 
 #include "citadel/display/surface.hpp"
 
+#include "citadel/drivers/opengl.hpp"
+
 #include "citadel/rendering/rendering_context.hpp"
 
 namespace citadel {
@@ -83,6 +85,11 @@ namespace citadel {
 
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
+
+		GLuint vao, vbo, vertex_shader, fragment_shader, shader_program;
+
+		HGLRC rendering_context;
+		HDC device_context;
 
 	private:
 		virtual void _open() = 0;

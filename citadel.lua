@@ -33,8 +33,13 @@ project "citadel"
 		"include"
 	}
 
+	externalincludedirs {
+		"vendor/glad/include"
+	}
+
 	links {
-		"opengl32"
+		"opengl32",
+		"glad"
 	}
 
 	filter "action:gmake"

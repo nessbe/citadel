@@ -21,6 +21,9 @@
 #include <memory>
 #include <string>
 
+#include <glad/glad.h>
+#include <glad/glad_wgl.h>
+
 #include "citadel/architectures.hpp"
 #include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"

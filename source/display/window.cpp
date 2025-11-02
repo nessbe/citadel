@@ -53,11 +53,194 @@ namespace citadel {
 
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
-		if (rendering_context_) {
-			rendering_context_->construct(this);
-		}
+		//if (rendering_context_) {
+		//	rendering_context_->construct(this);
+		//	rendering_context_->bind();
+		//}
 
 		is_open_ = true;
+
+		auto get_proc_address = [](const char* name) {
+			void* proc = wglGetProcAddress(name);
+
+			if (proc) {
+				return proc;
+			}
+
+			static HMODULE opengl32 = LoadLibrary(L"opengl32.dll");
+			return (void*)GetProcAddress(opengl32, name);
+		};
+
+		HWND native_window = reinterpret_cast<HWND>(get_native_handle());
+
+		HWND dummy_window = CreateWindowEx(
+			0,
+			L"CitadelWindow",
+			L"Dummy OpenGL Window",
+			NULL,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			NULL,
+			NULL,
+			GetModuleHandle(NULL),
+			NULL
+		);
+
+		CITADEL_ASSERT(dummy_window, "Failed to open dummy window");
+
+		HDC dummy_device_context = GetDC(dummy_window);
+
+		PIXELFORMATDESCRIPTOR dummy_pfd = { };
+		dummy_pfd.nSize = sizeof(dummy_pfd);
+		dummy_pfd.nVersion = 1;
+		dummy_pfd.iPixelType = PFD_TYPE_RGBA;
+		dummy_pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+		dummy_pfd.cColorBits = 32;
+		dummy_pfd.cAlphaBits = 8;
+		dummy_pfd.cDepthBits = 24;
+		dummy_pfd.cStencilBits = 8;
+		dummy_pfd.iLayerType = PFD_MAIN_PLANE;
+
+		int dummy_pixel_format = ChoosePixelFormat(dummy_device_context, &dummy_pfd);
+		CITADEL_ASSERT(dummy_pixel_format, "Failed to choose pixel format");
+
+		CITADEL_ASSERT(
+			SetPixelFormat(dummy_device_context, dummy_pixel_format, &dummy_pfd),
+			"Failed to set pixel format"
+		);
+
+		HGLRC dummy_rendering_context = wglCreateContext(dummy_device_context);
+		CITADEL_ASSERT(dummy_rendering_context, "Failed to create WGL rendering context");
+
+		CITADEL_ASSERT(
+			wglMakeCurrent(dummy_device_context, dummy_rendering_context),
+			"Failed to make WGL rendering context current"
+		);
+
+		CITADEL_ASSERT(
+			gladLoadWGLLoader((GLADloadproc)get_proc_address, dummy_device_context),
+			"Failed to load WGL using GLAD"
+		);
+
+		wglMakeCurrent(dummy_device_context, NULL);
+		wglDeleteContext(dummy_rendering_context);
+		ReleaseDC(dummy_window, dummy_device_context);
+
+		device_context = GetDC(native_window);
+
+		int pixel_format_attributes[] = {
+			WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+			WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+			WGL_DOUBLE_BUFFER_ARB,  GL_TRUE,
+			WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
+			WGL_PIXEL_TYPE_ARB,     WGL_TYPE_RGBA_ARB,
+			WGL_COLOR_BITS_ARB,     32,
+			WGL_DEPTH_BITS_ARB,     24,
+			WGL_STENCIL_BITS_ARB,   8,
+			0
+		};
+
+		int real_pixel_format;
+		UINT pixel_format_count;
+
+		wglChoosePixelFormatARB(device_context, pixel_format_attributes, NULL, 1, &real_pixel_format, &pixel_format_count);
+
+		CITADEL_ASSERT(pixel_format_count > 0, "Failed to set modern OpenGL pixel format");
+
+		int current_pixel_format = GetPixelFormat(device_context);
+		CITADEL_ASSERT(!current_pixel_format, "Pixel format is already set");
+
+		PIXELFORMATDESCRIPTOR real_pfd;
+		DescribePixelFormat(device_context, real_pixel_format, sizeof(real_pfd), &real_pfd);
+
+		CITADEL_ASSERT(
+			SetPixelFormat(device_context, real_pixel_format, &real_pfd),
+			"Failed to set modern OpenGL pixel format"
+		);
+
+		int opengl_attributes[] = {
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 6,
+			WGL_CONTEXT_PROFILE_MASK_ARB,  WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+			0
+		};
+
+		rendering_context = wglCreateContextAttribsARB(
+			device_context,
+			NULL,
+			opengl_attributes
+		);
+
+		wglMakeCurrent(device_context, rendering_context);
+
+		CITADEL_ASSERT(
+			gladLoadWGLLoader((GLADloadproc)get_proc_address, device_context),
+			"Failed to load WGL using GLAD"
+		);
+
+		CITADEL_ASSERT(
+			gladLoadGLLoader((GLADloadproc)get_proc_address),
+			"Failed to load modern OpenGL using GLAD"
+		);
+
+		float vertices[3 * 3] = {
+			0.0f, 0.5f, 0.0f,
+			-0.5f, -0.5, 0.0f,
+			0.5f, -0.5f, 0.0f,
+		};
+
+		glGenVertexArrays(1, &vao);
+		glGenBuffers(1, &vbo);
+
+		glBindVertexArray(vao);
+
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		glEnableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+
+		constexpr const char* vertex_shader_source = R"(
+			#version 330 core
+
+			layout (location = 0) in vec3 position;
+
+			void main() {
+				gl_Position = vec4(position, 1.0);
+			}
+		)";
+
+		constexpr const char* fragment_shader_source = R"(
+			#version 330 core
+
+			out vec4 fragment_color;
+
+			void main() {
+				fragment_color = vec4(0.0, 1.0, 0.0, 1.0);
+			}	
+		)";
+
+		GLuint vertex_shader;
+		vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertex_shader, 1, &vertex_shader_source, nullptr);
+		glCompileShader(vertex_shader);
+
+		GLuint fragment_shader;
+		fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragment_shader, 1, &fragment_shader_source, nullptr);
+		glCompileShader(fragment_shader);
+
+		GLuint shader_program;
+		shader_program = glCreateProgram();
+		glAttachShader(shader_program, vertex_shader);
+		glAttachShader(shader_program, fragment_shader);
+		glLinkProgram(shader_program);
+		glUseProgram(shader_program);
 	}
 
 	void window::close() {
@@ -72,6 +255,10 @@ namespace citadel {
 		}
 
 		is_open_ = false;
+
+		glDeleteProgram(shader_program);
+		glDeleteShader(vertex_shader);
+		glDeleteShader(fragment_shader);
 	}
 
 	void window::show() {
@@ -120,18 +307,24 @@ namespace citadel {
 		CITADEL_ASSERT(surface_, "Surface is null");
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
-		rendering_context_->bind();
+		//rendering_context_->bind();
 
 		surface_->bind();
 		surface_->clear();
 
 		_render();
 
+		glUseProgram(shader_program);
+		glBindVertexArray(vao);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
 		surface_->present();
-		rendering_context_->swap_buffers();
+
+		SwapBuffers(device_context);
+		//rendering_context_->swap_buffers();
 
 		surface_->unbind();
-		rendering_context_->unbind();
+		//rendering_context_->unbind();
 	}
 
 	bool window::is_open() const noexcept {
