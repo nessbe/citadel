@@ -18,7 +18,6 @@
 
 #if CITADEL_PLATFORM_WINDOWS
 	#include "citadel/platforms/windows.hpp"
-	#include <gl/GL.h>
-#else
-	#error Citadel does not support OpenGL for your platform yet
 #endif
+
+#include <glad/glad.h>
