@@ -1,4 +1,4 @@
-// File:       opengl_loader.hpp
+// File:       extension_loader.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,25 +12,27 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
-
-#include "citadel/attributes.hpp"
-#include "citadel/export.hpp"
-
+#include "citadel/pch.hpp"
 #include "citadel/core/extensions/extension_loader.hpp"
 
 namespace citadel {
-	class api opengl_loader : public extension_loader {
-	public:
-		static void* get_procedure_address(const char* name);
+	extension_loader::~extension_loader() {
+		unload();
+	}
 
-		opengl_loader() = default;
+	int extension_loader::load() {
+		return _load();
+	}
 
-	private:
-		virtual int _load() override;
-		virtual void _unload() override;
+	void extension_loader::unload() {
+		_unload();
+	}
 
-		virtual int _get_version_major() const override;
-		virtual int _get_version_minor() const override;
-	};
+	int extension_loader::get_version_major() const {
+		return _get_version_major();
+	}
+
+	int extension_loader::get_version_minor() const {
+		return _get_version_minor();
+	}
 }

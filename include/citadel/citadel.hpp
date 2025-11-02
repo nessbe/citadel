@@ -27,6 +27,8 @@
 #include "citadel/core/entry_point.hpp"
 #include "citadel/core/exit_code.hpp"
 
+#include "citadel/core/extensions/extension_loader.hpp"
+
 #include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
 

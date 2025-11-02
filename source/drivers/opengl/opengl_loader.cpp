@@ -29,25 +29,17 @@ namespace citadel {
 #endif
 	}
 
-	int opengl_loader::load() {
-		int status = gladLoadGLLoader((GLADloadproc)get_procedure_address);
-
-		version_major_ = GLVersion.major;
-		version_minor_ = GLVersion.minor;
-
-		return status;
+	int opengl_loader::_load() {
+		return gladLoadGLLoader((GLADloadproc)get_procedure_address);
 	}
 
-	void opengl_loader::unload() {
-		version_major_ = 0;
-		version_minor_ = 0;
+	void opengl_loader::_unload() { }
+
+	int opengl_loader::_get_version_major() const {
+		return GLVersion.major;
 	}
 
-	int opengl_loader::get_version_major() const noexcept {
-		return version_major_;
-	}
-
-	int opengl_loader::get_version_minor() const noexcept {
-		return version_minor_;
+	int opengl_loader::_get_version_minor() const {
+		return GLVersion.minor;
 	}
 }
