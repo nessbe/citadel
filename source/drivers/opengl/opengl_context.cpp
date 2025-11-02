@@ -18,40 +18,45 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
+#if CITADEL_PLATFORM_WINDOWS
+	void opengl_context::construct_windows(windows_window* window) {
+		window_ = reinterpret_cast<HWND>(window->get_native_handle());
+		device_context_ = GetDC(window_);
+
+		PIXELFORMATDESCRIPTOR pixel_format_descriptor = { };
+		pixel_format_descriptor.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+		pixel_format_descriptor.nVersion = 1;
+		pixel_format_descriptor.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+		pixel_format_descriptor.iPixelType = PFD_TYPE_RGBA;
+		pixel_format_descriptor.cColorBits = 32;
+		pixel_format_descriptor.cDepthBits = 24;
+		pixel_format_descriptor.cStencilBits = 8;
+		pixel_format_descriptor.iLayerType = PFD_MAIN_PLANE;
+
+		int pixel_format = ChoosePixelFormat(device_context_, &pixel_format_descriptor);
+		CITADEL_ASSERT(pixel_format != 0, "Failed to choose pixel format");
+
+		CITADEL_ASSERT(
+			SetPixelFormat(device_context_, pixel_format, &pixel_format_descriptor),
+			"Failed to set pixel format"
+		);
+
+		gl_rendering_context_ = wglCreateContext(device_context_);
+		CITADEL_ASSERT(gl_rendering_context_, "Failed to create OpenGL rendering context");
+
+		CITADEL_ASSERT(
+			opengl_loader_.load(),
+			"Failed to load OpenGL using Glad"
+		);
+	}
+#endif
+
 	void opengl_context::_construct(window* window) {
 #if CITADEL_PLATFORM_WINDOWS
-		if (windows_window* windows_window = reinterpret_cast<class windows_window*>(window)) {
-			window_ = reinterpret_cast<HWND>(windows_window->get_native_handle());
-			device_context_ = GetDC(window_);
-
-			PIXELFORMATDESCRIPTOR pixel_format_descriptor = { };
-			pixel_format_descriptor.nSize = sizeof(PPIXELFORMATDESCRIPTOR);
-			pixel_format_descriptor.nVersion = 1;
-			pixel_format_descriptor.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-			pixel_format_descriptor.iPixelType = PFD_TYPE_RGBA;
-			pixel_format_descriptor.cColorBits = 32;
-			pixel_format_descriptor.cDepthBits = 24;
-			pixel_format_descriptor.cStencilBits = 8;
-			pixel_format_descriptor.iLayerType = PFD_MAIN_PLANE;
-
-			int pixel_format = ChoosePixelFormat(device_context_, &pixel_format_descriptor);
-			CITADEL_ASSERT(pixel_format != 0, "Failed to choose pixel format");
-
-			CITADEL_ASSERT(
-				SetPixelFormat(device_context_, pixel_format, &pixel_format_descriptor),
-				"Failed to set pixel format"
-			);
-
-			gl_rendering_context_ = wglCreateContext(device_context_);
-			CITADEL_ASSERT(gl_rendering_context_, "Failed to create OpenGL rendering context");
-
-			CITADEL_ASSERT(
-				opengl_loader_.load(),
-				"Failed to load OpenGL using Glad"
-			);
-
+		if (windows_window* platform_window = dynamic_cast<windows_window*>(window)) {
+			construct_windows(platform_window);
 		} else {
-			CITADEL_ASSERT(false, "The given window is not supported for Windows");
+			CITADEL_PANIC("The given window is not supported for Windows");
 		}
 #else
 	#error Rendering context does not support your window system yet

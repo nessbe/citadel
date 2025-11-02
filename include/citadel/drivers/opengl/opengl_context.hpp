@@ -20,6 +20,7 @@
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 
 #include "citadel/platforms/windows.hpp"
+#include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/rendering_context.hpp"
 
@@ -38,6 +39,10 @@ namespace citadel {
 		opengl_loader opengl_loader_;
 
 	private:
+#if CITADEL_PLATFORM_WINDOWS
+		void construct_windows(windows_window* window);
+#endif
+
 		virtual void _construct(window* window) override;
 		virtual void _destroy() override;
 
