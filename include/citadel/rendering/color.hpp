@@ -42,8 +42,6 @@ namespace citadel {
 		color(channel red, channel green, channel blue, channel alpha);
 		color(channel red, channel green, channel blue);
 
-		~color() = default;
-
 		nodisc channel get_red() const noexcept;
 		void set_red(channel value) noexcept;
 

@@ -22,7 +22,7 @@
 namespace citadel {
 	class api opengl_loader : public extension_loader {
 	public:
-		static void* get_procedure_address(const char* name);
+		static void* get_procedure_address(const char* name) noexcept;
 
 		opengl_loader() = default;
 

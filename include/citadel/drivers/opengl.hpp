@@ -16,9 +16,9 @@
 
 #include "citadel/platforms.hpp"
 
-#include <glad/glad.h>
-
 #if CITADEL_PLATFORM_WINDOWS
 	#include "citadel/platforms/windows.hpp"
 	#include <glad/glad_wgl.h>
 #endif
+
+#include <glad/glad.h>

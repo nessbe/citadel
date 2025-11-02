@@ -21,7 +21,7 @@ namespace citadel {
 	class extension_loader {
 	public:
 		extension_loader() = default;
-		~extension_loader();
+		virtual ~extension_loader();
 
 		int load();
 		void unload();

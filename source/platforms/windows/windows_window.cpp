@@ -16,10 +16,10 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	bool windows_window::register_class(const wchar_t* class_name) {
+	bool windows_window::register_class(const wchar_t* name) {
 		WNDCLASS window_class = { };
 		window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		window_class.lpszClassName = class_name;
+		window_class.lpszClassName = name;
 		window_class.hInstance = GetModuleHandle(NULL);
 		window_class.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 		window_class.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -29,8 +29,8 @@ namespace citadel {
 		return static_cast<bool>(result);
 	}
 
-	bool windows_window::unregister_class(const wchar_t* class_name) {
-		BOOL result = UnregisterClass(class_name, GetModuleHandle(NULL));
+	bool windows_window::unregister_class(const wchar_t* name) {
+		BOOL result = UnregisterClass(name, GetModuleHandle(NULL));
 		return static_cast<bool>(result);
 	}
 

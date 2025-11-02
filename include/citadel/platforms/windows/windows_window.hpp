@@ -19,10 +19,14 @@
 #if CITADEL_PLATFORM_WINDOWS
 
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/display/window.hpp"
 
 #include "citadel/platforms/windows.hpp"
+
+CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class api windows_window : public window {
@@ -30,11 +34,14 @@ namespace citadel {
 		static constexpr const wchar_t* class_name = L"CitadelWindow";
 
 	public:
-		static bool register_class(const wchar_t* class_name);
-		static bool unregister_class(const wchar_t* class_name);
+		static bool register_class(const wchar_t* name);
+		static bool unregister_class(const wchar_t* name);
 
 		windows_window(dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		windows_window(dimension width, dimension height, const std::string& title);
+
+		windows_window(const windows_window&) = delete;
+		windows_window& operator=(const windows_window&) = delete;
 
 		virtual ~windows_window() override;
 
@@ -75,5 +82,7 @@ namespace citadel {
 		virtual void _set_title(const std::string& value) override;
 	};
 }
+
+CITADEL_IGNORE_WARNING_POP
 
 #endif

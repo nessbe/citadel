@@ -18,8 +18,12 @@
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/rendering/color.hpp"
+
+CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class api surface {
@@ -78,3 +82,5 @@ namespace citadel {
 		virtual void _set_clear_color(color value) = 0;
 	};
 }
+
+CITADEL_IGNORE_WARNING_POP
