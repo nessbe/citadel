@@ -16,13 +16,19 @@
 
 #include <string>
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 namespace citadel {
 	class exported logger {
 	public:
-		logger() = default;
+		logger(const std::string& name);
 
-		void log(const std::string& message);
+		void log(const std::string& message) const;
+
+		nodisc const std::string& get_name() const noexcept;
+
+	private:
+		std::string name_;
 	};
 }
