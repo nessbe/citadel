@@ -27,6 +27,8 @@
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+#include "citadel/pragma.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
