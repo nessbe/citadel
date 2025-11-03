@@ -1,4 +1,4 @@
-// File:       pch.hpp
+// File:       log_level.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,23 +14,24 @@
 
 #pragma once
 
-#include <cinttypes>
-#include <cstdlib>
-#include <iostream>
-#include <limits>
-#include <memory>
 #include <sstream>
 #include <string>
 
-#include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
-#include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-#include "citadel/pragma.hpp"
-#include "citadel/warnings.hpp"
 
-#include "citadel/drivers/opengl.hpp"
+namespace citadel {
+	enum class log_level {
+		debug = 0,
+		trace,
+		info,
+		warning,
+		error,
+		fatal,
+		off,
+	};
 
-#include "citadel/platforms/windows.hpp"
+	nodisc api std::string to_string(log_level value);
+
+	api std::ostream& operator<<(std::ostream& out, log_level value);
+}

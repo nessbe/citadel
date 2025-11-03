@@ -16,15 +16,43 @@
 #include "citadel/logging/logger.hpp"
 
 namespace citadel {
-	logger::logger(const std::string& name)
-		: name_(name) { }
+	logger::logger(const std::string& name, log_level level)
+		: name_(name), level_(level) { }
 
-	void logger::log(const std::string& message) const {
+	logger::logger(const std::string& name)
+		: logger(name, log_level::debug) { }
+
+	void logger::log(const std::string& message, log_level level) const {
+		if (is_off()) {
+			return;
+		}
+
+		if (!is_level_valid(level)) {
+			return;
+		}
+
 		std::cout << "[" << name_ << "] ";
+		std::cout << "[" << level << "] ";
 		std::cout << message << std::endl;
 	}
 
-	const std::string& logger::get_name() const {
+	bool logger::is_level_valid(log_level value) const noexcept {
+		return value >= level_;
+	}
+
+	bool logger::is_off() const noexcept {
+		return level_ >= log_level::off;
+	}
+
+	const std::string& logger::get_name() const noexcept {
 		return name_;
+	}
+
+	log_level logger::get_level() const noexcept {
+		return level_;
+	}
+
+	void logger::set_level(log_level value) noexcept {
+		level_ = value;
 	}
 }
