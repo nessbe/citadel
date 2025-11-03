@@ -84,6 +84,7 @@
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
 
+#include "citadel/logging/log_level.hpp"
 #include "citadel/logging/logger.hpp"
 
 #include "citadel/math/angles.hpp"
