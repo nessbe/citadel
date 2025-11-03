@@ -16,7 +16,15 @@
 #include "citadel/logging/logger.hpp"
 
 namespace citadel {
-	void logger::log(const std::string& message) {
+	logger::logger(const std::string& name)
+		: name_(name) { }
+
+	void logger::log(const std::string& message) const {
+		std::cout << "[" << name_ << "] ";
 		std::cout << message << std::endl;
+	}
+
+	const std::string& logger::get_name() const {
+		return name_;
 	}
 }
