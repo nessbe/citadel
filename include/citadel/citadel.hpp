@@ -34,6 +34,8 @@
 #include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
 
+#include "citadel/logging/logger.hpp"
+
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
