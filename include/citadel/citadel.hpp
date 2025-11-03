@@ -43,6 +43,7 @@
 #include "citadel/debug/exceptions/assertion_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
+
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
@@ -82,6 +83,8 @@
 #include "citadel/io/text/string_stream.hpp"
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
+
+#include "citadel/logging/logger.hpp"
 
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"
