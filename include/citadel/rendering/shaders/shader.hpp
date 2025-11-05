@@ -21,17 +21,19 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/rendering/shaders/shader_type.hpp"
+
 CITADEL_IGNORE_WARNING_PUSH
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class api shader {
 	public:
-		static std::unique_ptr<shader> create(const std::string& name, const std::string& source);
-		static std::unique_ptr<shader> create(const std::string& name);
+		static std::unique_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
+		static std::unique_ptr<shader> create(const std::string& name, shader_type type);
 
-		shader(const std::string& name, const std::string& source);
-		shader(const std::string& name);
+		shader(const std::string& name, shader_type type, const std::string& source);
+		shader(const std::string& name, shader_type type);
 
 		virtual ~shader() = default;
 
@@ -46,11 +48,15 @@ namespace citadel {
 		nodisc const std::string& get_source() const noexcept;
 		void set_source(const std::string& value);
 
+		nodisc shader_type get_type() const noexcept;
+
 		nodisc bool is_compiled() const noexcept;
 
 	private:
 		std::string name_;
 		std::string source_;
+
+		shader_type type_;
 
 		bool is_compiled_ = false;
 

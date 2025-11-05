@@ -16,19 +16,19 @@
 #include "citadel/rendering/shaders/shader.hpp"
 
 namespace citadel {
-	std::unique_ptr<shader> shader::create(const std::string& name, const std::string& source) {
+	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
 		return nullptr;
 	}
 
-	std::unique_ptr<shader> shader::create(const std::string& name) {
-		return create(name, "");
+	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type) {
+		return create(name, type, "");
 	}
 
-	shader::shader(const std::string& name, const std::string& source)
-		: name_(name), source_(source) { }
+	shader::shader(const std::string& name, shader_type type, const std::string& source)
+		: name_(name), type_(type), source_(source) { }
 
-	shader::shader(const std::string& name)
-		: shader(name, "") { }
+	shader::shader(const std::string& name, shader_type type)
+		: shader(name, type, "") { }
 
 	bool shader::compile() {
 		bool result = _compile();
@@ -51,6 +51,10 @@ namespace citadel {
 	void shader::set_source(const std::string& value) {
 		source_ = value;
 		is_compiled_ = false;
+	}
+
+	shader_type shader::get_type() const noexcept {
+		return type_;
 	}
 
 	bool shader::is_compiled() const noexcept {
