@@ -33,3 +33,6 @@
 #include "citadel/drivers/opengl.hpp"
 
 #include "citadel/platforms/windows.hpp"
+
+#include <glad/glad.h>
+#include <glad/glad_wgl.h>

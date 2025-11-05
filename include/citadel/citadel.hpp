@@ -16,7 +16,6 @@
 
 #include "citadel/architectures.hpp"
 #include "citadel/assert.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/export.hpp"
@@ -34,11 +33,13 @@
 #include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
 
+#include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 #include "citadel/platforms/windows.hpp"
+#include "citadel/platforms/windows/wgl_loader.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"

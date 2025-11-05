@@ -27,13 +27,7 @@ namespace citadel {
 		using channel_normalized = float;
 
 	public:
-#define TEMPORARY_MAX(a, b) max(a, b)
-#ifdef max
-	#undef max
-#endif
 		static constexpr channel max_channel = std::numeric_limits<channel>::max();
-#define max(a, b) TEMPORARY_MAX(a, b)
-#undef TEMPORARY_MAX
 
 	public:
 		static channel_normalized normalize_channel(channel value) noexcept;

@@ -17,6 +17,10 @@
 #include "citadel/platforms.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX 1
+	#endif
+
 	#include <Windows.h>
 	#include <sal.h>
 #endif

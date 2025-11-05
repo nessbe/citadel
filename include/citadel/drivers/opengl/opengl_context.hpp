@@ -20,6 +20,7 @@
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 
 #include "citadel/platforms/windows.hpp"
+#include "citadel/platforms/windows/wgl_loader.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/rendering_context.hpp"
@@ -30,13 +31,15 @@ namespace citadel {
 		opengl_context() = default;
 
 	private:
+		opengl_loader opengl_loader_;
+
 #if CITADEL_PLATFORM_WINDOWS
+		wgl_loader wgl_loader_;
+
 		HWND window_ = nullptr;
 		HDC device_context_ = nullptr;
-		HGLRC gl_rendering_context_ = nullptr;
+		HGLRC rendering_context_ = nullptr;
 #endif
-
-		opengl_loader opengl_loader_;
 
 	private:
 #if CITADEL_PLATFORM_WINDOWS

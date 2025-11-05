@@ -1,4 +1,4 @@
-// File:       opengl_loader.hpp
+// File:       wgl_loader.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,17 +14,21 @@
 
 #pragma once
 
+#include "citadel/platforms.hpp"
+
+#if CITADEL_PLATFORM_WINDOWS
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/core/extensions/extension_loader.hpp"
 
 namespace citadel {
-	class api opengl_loader : public extension_loader {
+	class api wgl_loader : public extension_loader {
 	public:
 		static void* get_procedure_address(const char* name) noexcept;
 
-		opengl_loader() = default;
+		wgl_loader() = default;
 
 	private:
 		virtual int _load() override;
@@ -34,3 +38,5 @@ namespace citadel {
 		nodisc virtual int _get_version_minor() const override;
 	};
 }
+
+#endif
