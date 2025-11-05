@@ -25,10 +25,14 @@ namespace citadel {
 	}
 
 	shader::shader(const std::string& name, shader_type type, const std::string& source)
-		: name_(name), type_(type), source_(source) { }
+		: name_(name), source_(source), type_(type) { }
 
 	shader::shader(const std::string& name, shader_type type)
 		: shader(name, type, "") { }
+
+	shader::~shader() {
+		destroy();
+	}
 
 	bool shader::compile() {
 		bool result = _compile();

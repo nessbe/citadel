@@ -35,7 +35,7 @@ namespace citadel {
 		shader(const std::string& name, shader_type type, const std::string& source);
 		shader(const std::string& name, shader_type type);
 
-		virtual ~shader() = default;
+		virtual ~shader();
 
 		shader(const shader&) = delete;
 		shader& operator=(const shader&) = delete;

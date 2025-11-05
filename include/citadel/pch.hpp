@@ -14,12 +14,14 @@
 
 #pragma once
 
+#include <algorithm>
 #include <cinttypes>
 #include <cstdlib>
 #include <iostream>
 #include <limits>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "citadel/architectures.hpp"
 #include "citadel/assert.hpp"
