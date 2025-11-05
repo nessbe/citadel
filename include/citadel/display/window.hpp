@@ -15,6 +15,7 @@
 #pragma once
 
 #include <cinttypes>
+#include <functional>
 #include <memory>
 #include <string>
 

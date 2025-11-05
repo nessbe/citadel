@@ -40,8 +40,10 @@ namespace citadel {
 		shader(const shader&) = delete;
 		shader& operator=(const shader&) = delete;
 
+		void construct();
+		void destroy() noexcept;
+
 		bool compile();
-		void destroy();
 
 		nodisc const std::string& get_name() const noexcept;
 
@@ -61,8 +63,12 @@ namespace citadel {
 		bool is_compiled_ = false;
 
 	private:
+		virtual void _construct() = 0;
+		virtual void _destroy() noexcept = 0;
+
 		virtual bool _compile() = 0;
-		virtual void _destroy() = 0;
+
+		virtual void _set_source(const std::string& value) = 0;
 	};
 }
 

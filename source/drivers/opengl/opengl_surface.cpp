@@ -31,9 +31,7 @@ namespace citadel {
 		);
 	}
 
-	void opengl_surface::_unbind() {
-		glViewport(0, 0, 0, 0);
-	}
+	void opengl_surface::_unbind() { }
 
 	void opengl_surface::_clear() {
 		color::channel_normalized red, green, blue, alpha;

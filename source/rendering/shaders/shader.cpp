@@ -15,9 +15,11 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/shaders/shader.hpp"
 
+#include "citadel/drivers/opengl/opengl_shader.hpp"
+
 namespace citadel {
 	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
-		return nullptr;
+		return std::make_unique<opengl_shader>(name, type, source);
 	}
 
 	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type) {
@@ -34,14 +36,18 @@ namespace citadel {
 		destroy();
 	}
 
+	void shader::construct() {
+		_construct();
+	}
+
+	void shader::destroy() noexcept {
+		_destroy();
+	}
+
 	bool shader::compile() {
 		bool result = _compile();
 		is_compiled_ = result ? result : is_compiled_;
 		return result;
-	}
-
-	void shader::destroy() {
-		_destroy();
 	}
 
 	const std::string& shader::get_name() const noexcept {
@@ -53,6 +59,7 @@ namespace citadel {
 	}
 
 	void shader::set_source(const std::string& value) {
+		_set_source(value);
 		source_ = value;
 		is_compiled_ = false;
 	}

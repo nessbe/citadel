@@ -30,7 +30,29 @@ namespace citadel {
 	}
 
 	int opengl_loader::_load() {
-		return gladLoadGLLoader((GLADloadproc)get_procedure_address);
+		int status = gladLoadGLLoader((GLADloadproc)get_procedure_address);
+
+		if (status) {
+			std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+			std::cout << "OpenGL Renderer Version: " << glGetString(GL_RENDERER) << std::endl;
+			std::cout << "OpenGL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
+			int profile_mask = 0;
+			glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile_mask);
+			std::cout << "OpenGL Profile: ";
+
+			if (profile_mask & GL_CONTEXT_CORE_PROFILE_BIT) {
+				std::cout << "Core" << std::endl;
+			}
+			else if (profile_mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) {
+				std::cout << "Compatibility" << std::endl;
+			}
+			else {
+				std::cout << "Unknown" << std::endl;
+			}
+		}
+
+		return status;
 	}
 
 	void opengl_loader::_unload() { }
