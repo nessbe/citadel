@@ -44,3 +44,5 @@
 
 #include "citadel/rendering/color.hpp"
 #include "citadel/rendering/rendering_context.hpp"
+
+#include "citadel/rendering/shaders/shader.hpp"
