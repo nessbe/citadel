@@ -179,9 +179,17 @@ namespace citadel {
 	}
 
 	void windows_window::_render() { }
+	void windows_window::_begin_frame() { }
+	void windows_window::_end_frame() { }
 
 	void* windows_window::_get_native_handle() const {
 		return window_;
+	}
+
+	void windows_window::_set_title(const std::string& value) {
+		CITADEL_ASSERT(window_, "Window handle is null");
+		std::wstring wide_title(value.begin(), value.end());
+		SetWindowText(window_, wide_title.c_str());
 	}
 
 	void windows_window::_set_x(dimension value) {
@@ -218,11 +226,5 @@ namespace citadel {
 			get_width(),
 			get_height()
 		);
-	}
-
-	void windows_window::_set_title(const std::string& value) {
-		CITADEL_ASSERT(window_, "Window handle is null");
-		std::wstring wide_title(value.begin(), value.end());
-		SetWindowText(window_, wide_title.c_str());
 	}
 }

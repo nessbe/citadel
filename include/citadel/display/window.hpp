@@ -59,10 +59,16 @@ namespace citadel {
 		bool update();
 		void render();
 
-		nodisc bool is_open() const noexcept;
-		nodisc bool is_visible() const noexcept;
+		void begin_frame();
+		void end_frame();
 
 		nodisc void* get_native_handle() const;
+
+		nodisc const std::string& get_title() const noexcept;
+		void set_title(const std::string& value);
+
+		nodisc surface& get_surface() const;
+		nodisc rendering_context& get_rendering_context() const;
 
 		nodisc dimension get_x() const noexcept;
 		void set_x(dimension value);
@@ -76,11 +82,8 @@ namespace citadel {
 		nodisc dimension get_height() const noexcept;
 		void set_height(dimension value);
 
-		nodisc const std::string& get_title() const noexcept;
-		void set_title(const std::string& value);
-
-		nodisc surface& get_surface() const;
-		nodisc rendering_context& get_rendering_context() const;
+		nodisc bool is_open() const noexcept;
+		nodisc bool is_visible() const noexcept;
 
 	private:
 		std::string title_;
@@ -106,13 +109,16 @@ namespace citadel {
 		virtual bool _update() = 0;
 		virtual void _render() = 0;
 
+		virtual void _begin_frame() = 0;
+		virtual void _end_frame() = 0;
+
 		virtual void* _get_native_handle() const = 0;
+		virtual void _set_title(const std::string& value) = 0;
 
 		virtual void _set_x(dimension value) = 0;
 		virtual void _set_y(dimension value) = 0;
 		virtual void _set_width(dimension value) = 0;
 		virtual void _set_height(dimension value) = 0;
-		virtual void _set_title(const std::string& value) = 0;
 	};
 }
 

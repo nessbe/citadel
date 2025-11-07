@@ -109,14 +109,14 @@ namespace citadel {
 			close();
 		}
 
-		if (is_visible()) {
-			render();
-		}
-
 		return result;
 	}
 
 	void window::render() {
+		_render();
+	}
+
+	void window::begin_frame() {
 		CITADEL_ASSERT(surface_, "Surface is null");
 		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
 
@@ -125,7 +125,14 @@ namespace citadel {
 		surface_->bind();
 		surface_->clear();
 
-		_render();
+		_begin_frame();
+	}
+
+	void window::end_frame() {
+		CITADEL_ASSERT(surface_, "Surface is null");
+		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
+
+		_end_frame();
 
 		surface_->present();
 		rendering_context_->swap_buffers();
@@ -134,16 +141,27 @@ namespace citadel {
 		rendering_context_->unbind();
 	}
 
-	bool window::is_open() const noexcept {
-		return is_open_;
-	}
-
-	bool window::is_visible() const noexcept {
-		return is_visible_;
-	}
-
 	void* window::get_native_handle() const {
 		return _get_native_handle();
+	}
+
+	const std::string& window::get_title() const noexcept {
+		return title_;
+	}
+
+	void window::set_title(const std::string& value) {
+		_set_title(value);
+		title_ = value;
+	}
+
+	surface& window::get_surface() const {
+		CITADEL_ASSERT(surface_, "Surface is null");
+		return *surface_;
+	}
+
+	rendering_context& window::get_rendering_context() const {
+		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
+		return *rendering_context_;
 	}
 
 	window::dimension window::get_x() const noexcept {
@@ -206,22 +224,11 @@ namespace citadel {
 		}
 	}
 
-	const std::string& window::get_title() const noexcept {
-		return title_;
+	bool window::is_open() const noexcept {
+		return is_open_;
 	}
 
-	void window::set_title(const std::string& value) {
-		_set_title(value);
-		title_ = value;
-	}
-
-	surface& window::get_surface() const {
-		CITADEL_ASSERT(surface_, "Surface is null");
-		return *surface_;
-	}
-
-	rendering_context& window::get_rendering_context() const {
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
-		return *rendering_context_;
+	bool window::is_visible() const noexcept {
+		return is_visible_;
 	}
 }
