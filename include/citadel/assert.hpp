@@ -20,10 +20,10 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	noret api void panic();
+	noret api void panic() noexcept;
 	noret api void panic(const std::string& message);
 
-	api void assert(bool condition);
+	api void assert(bool condition) noexcept;
 	api void assert(bool condition, const std::string& message);
 }
 

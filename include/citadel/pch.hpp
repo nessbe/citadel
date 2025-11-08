@@ -21,6 +21,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 
 #include "citadel/architectures.hpp"
@@ -30,9 +31,12 @@
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 #include "citadel/pragma.hpp"
+#include "citadel/type_traits.hpp"
 #include "citadel/warnings.hpp"
 
 #include "citadel/drivers/opengl.hpp"
+
+#include "citadel/math/vectors/vec2.hpp"
 
 #include "citadel/platforms/windows.hpp"
 

@@ -21,6 +21,7 @@
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 #include "citadel/pragma.hpp"
+#include "citadel/type_traits.hpp"
 #include "citadel/warnings.hpp"
 
 #include "citadel/core/application.hpp"
@@ -39,6 +40,8 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
+
+#include "citadel/math/vectors/vec2.hpp"
 
 #include "citadel/platforms/windows.hpp"
 #include "citadel/platforms/windows/wgl_loader.hpp"

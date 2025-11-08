@@ -16,7 +16,7 @@
 #include "citadel/assert.hpp"
 
 namespace citadel {
-	void panic() {
+	void panic() noexcept {
 #if CITADEL_COMPILER_MSVC
 		__debugbreak();
 #elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
@@ -31,7 +31,7 @@ namespace citadel {
 		panic();
 	}
 
-	void assert(bool condition) {
+	void assert(bool condition) noexcept {
 		if (unlikely(!condition)) {
 			panic();
 		}
