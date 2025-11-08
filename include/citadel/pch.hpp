@@ -23,6 +23,7 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <vector>
 
 #include "citadel/architectures.hpp"
 #include "citadel/assert.hpp"

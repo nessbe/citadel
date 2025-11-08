@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <type_traits>
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
@@ -25,15 +27,20 @@ namespace citadel {
 	struct api vertex {
 	public:
 		vec2 position;
-		color color;
+		vec3 color;
 
 	public:
-		vertex(const vec2& position, const class color& color);
+		vertex(const vec2& position, const vec3& color);
+
+		nodisc const void* data() const noexcept;
 
 		nodisc vec2 get_position() const noexcept;
 		void set_position(const vec2& value) noexcept;
 
-		nodisc class color get_color() const noexcept;
-		void set_color(const class color& value) noexcept;
+		nodisc vec3 get_color() const noexcept;
+		void set_color(const vec3& value) noexcept;
 	};
+
+	static_assert(std::is_trivially_copyable_v<vertex>, "Vertex struct is not trivially copyable");
+	static_assert(std::is_standard_layout_v<vertex>, "Vertex struct layout is not standard");
 }
