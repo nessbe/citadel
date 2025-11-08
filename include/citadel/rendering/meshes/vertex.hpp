@@ -14,8 +14,26 @@
 
 #pragma once
 
-namespace citadel {
-	struct vertex {
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 
+#include "citadel/math/vectors/vec2.hpp"
+
+#include "citadel/rendering/color.hpp"
+
+namespace citadel {
+	struct api vertex {
+	public:
+		vec2 position;
+		color color;
+
+	public:
+		vertex(const vec2& position, const class color& color);
+
+		nodisc vec2 get_position() const noexcept;
+		void set_position(const vec2& value) noexcept;
+
+		nodisc class color get_color() const noexcept;
+		void set_color(const class color& value) noexcept;
 	};
 }

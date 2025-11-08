@@ -26,98 +26,98 @@ namespace citadel {
 	}
 
 	color::color(channel red, channel green, channel blue, channel alpha)
-		: red_(red), green_(green), blue_(blue), alpha_(alpha) { }
+		: red(red), green(green), blue(blue), alpha(alpha) { }
 
 	color::color(channel red, channel green, channel blue)
 		: color(red, green, blue, max_channel) { }
 
 	color::channel color::get_red() const noexcept {
-		return red_;
+		return red;
 	}
 
 	void color::set_red(channel value) noexcept {
-		red_ = value;
+		red = value;
 	}
 
 	color::channel_normalized color::get_red_normalized() const noexcept {
-		return normalize_channel(red_);
+		return normalize_channel(red);
 	}
 
 	void color::set_red_normalized(channel_normalized value) noexcept {
-		red_ = unnormalize_channel(value);
+		red = unnormalize_channel(value);
 	}
 
 	color::channel color::get_green() const noexcept {
-		return green_;
+		return green;
 	}
 
 	void color::set_green(channel value) noexcept {
-		green_ = value;
+		green = value;
 	}
 
 	color::channel_normalized color::get_green_normalized() const noexcept {
-		return normalize_channel(green_);
+		return normalize_channel(green);
 	}
 
 	void color::set_green_normalized(channel_normalized value) noexcept {
-		green_ = unnormalize_channel(value);
+		green = unnormalize_channel(value);
 	}
 
 	color::channel color::get_blue() const noexcept {
-		return blue_;
+		return blue;
 	}
 
 	void color::set_blue(channel value) noexcept {
-		blue_ = value;
+		blue = value;
 	}
 
 	color::channel_normalized color::get_blue_normalized() const noexcept {
-		return normalize_channel(blue_);
+		return normalize_channel(blue);
 	}
 
 	void color::set_blue_normalized(channel_normalized value) noexcept {
-		blue_ = unnormalize_channel(value);
+		blue = unnormalize_channel(value);
 	}
 
 	color::channel color::get_alpha() const noexcept {
-		return alpha_;
+		return alpha;
 	}
 
 	void color::set_alpha(channel value) noexcept {
-		alpha_ = value;
+		alpha = value;
 	}
 
 	color::channel_normalized color::get_alpha_normalized() const noexcept {
-		return normalize_channel(alpha_);
+		return normalize_channel(alpha);
 	}
 
 	void color::set_alpha_normalized(channel_normalized value) noexcept {
-		alpha_ = unnormalize_channel(value);
+		alpha = unnormalize_channel(value);
 	}
 
-	void color::get_channels(channel& red, channel& green, channel& blue, channel& alpha) const noexcept {
-		red = red_;
-		green = green_;
-		blue = blue_;
-		alpha = alpha_;
+	void color::get_channels(channel& out_red, channel& out_green, channel& out_blue, channel& out_alpha) const noexcept {
+		out_red = red;
+		out_green = green;
+		out_blue = blue;
+		out_alpha = alpha;
 	}
 
-	void color::get_channels(channel& red, channel& green, channel& blue) const noexcept {
-		red = red_;
-		green = green_;
-		blue = blue_;
+	void color::get_channels(channel& out_red, channel& out_green, channel& out_blue) const noexcept {
+		out_red = red;
+		out_green = green;
+		out_blue = blue;
 	}
 
-	void color::get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue, channel_normalized& alpha) const noexcept {
-		red = get_red_normalized();
-		green = get_green_normalized();
-		blue = get_blue_normalized();
-		alpha = get_alpha_normalized();
+	void color::get_channels_normalized(channel_normalized& out_red, channel_normalized& out_green, channel_normalized& out_blue, channel_normalized& out_alpha) const noexcept {
+		out_red = get_red_normalized();
+		out_green = get_green_normalized();
+		out_blue = get_blue_normalized();
+		out_alpha = get_alpha_normalized();
 	}
 
-	void color::get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue) const noexcept {
-		red = get_red_normalized();
-		green = get_green_normalized();
-		blue = get_blue_normalized();
+	void color::get_channels_normalized(channel_normalized& out_red, channel_normalized& out_green, channel_normalized& out_blue) const noexcept {
+		out_red = get_red_normalized();
+		out_green = get_green_normalized();
+		out_blue = get_blue_normalized();
 	}
 }

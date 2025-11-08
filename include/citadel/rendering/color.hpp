@@ -29,6 +29,8 @@ namespace citadel {
 	public:
 		static constexpr channel max_channel = std::numeric_limits<channel>::max();
 
+		channel red, green, blue, alpha;
+
 	public:
 		static channel_normalized normalize_channel(channel value) noexcept;
 		static channel unnormalize_channel(channel_normalized value) noexcept;
@@ -60,13 +62,10 @@ namespace citadel {
 		nodisc channel_normalized get_alpha_normalized() const noexcept;
 		void set_alpha_normalized(channel_normalized value) noexcept;
 
-		void get_channels(channel& red, channel& green, channel& blue, channel& alpha) const noexcept;
-		void get_channels(channel& red, channel& green, channel& blue) const noexcept;
+		void get_channels(channel& out_red, channel& out_green, channel& out_blue, channel& out_alpha) const noexcept;
+		void get_channels(channel& out_red, channel& out_green, channel& out_blue) const noexcept;
 
-		void get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue, channel_normalized& alpha) const noexcept;
-		void get_channels_normalized(channel_normalized& red, channel_normalized& green, channel_normalized& blue) const noexcept;
-
-	private:
-		channel red_, green_, blue_, alpha_;
+		void get_channels_normalized(channel_normalized& out_red, channel_normalized& out_green, channel_normalized& out_blue, channel_normalized& out_alpha) const noexcept;
+		void get_channels_normalized(channel_normalized& out_red, channel_normalized& out_green, channel_normalized& out_blue) const noexcept;
 	};
 }
