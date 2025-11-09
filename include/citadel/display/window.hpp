@@ -85,13 +85,14 @@ namespace citadel {
 		nodisc bool is_open() const noexcept;
 		nodisc bool is_visible() const noexcept;
 
+	protected:
+		dimension x_, y_, width_, height_;
+
 	private:
 		std::string title_;
 
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
-
-		dimension x_, y_, width_, height_;
 
 		bool is_open_ = false;
 		bool is_visible_ = false;

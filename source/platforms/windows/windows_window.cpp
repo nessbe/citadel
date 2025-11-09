@@ -49,9 +49,51 @@ namespace citadel {
 	std::size_t windows_window::instance_count_ = 0;
 
 	LRESULT windows_window::window_procedure(HWND handle, UINT message, WPARAM wide_parameter, LPARAM long_parameter) {
-		CITADEL_ASSERT(handle, "Window handle is null");
+		CITADEL_ASSERT(handle, "The given window handle is null");
+
+		if (message == WM_CREATE) {
+			CREATESTRUCT* create_struct = reinterpret_cast<CREATESTRUCT*>(long_parameter);
+			CITADEL_ASSERT(create_struct, "Failed to retrieve create struct");
+
+			void* raw_pointer = create_struct->lpCreateParams;
+			LONG_PTR long_pointer = reinterpret_cast<LONG_PTR>(raw_pointer);
+
+			SetWindowLongPtr(handle, GWLP_USERDATA, long_pointer);
+		}
+
+		windows_window* window = reinterpret_cast<windows_window*>(GetWindowLongPtr(handle, GWLP_USERDATA));
 
 		switch (message) {
+		case WM_MOVE: {
+			int x = GET_X_LPARAM(long_parameter);
+			int y = GET_Y_LPARAM(long_parameter);
+
+			CITADEL_ASSERT(window, "Failed to retrieve Windows window");
+
+			if (window) {
+				window->x_ = static_cast<dimension>(x);
+				window->y_ = static_cast<dimension>(y);
+
+				window->get_surface().set_x(static_cast<dimension>(x));
+				window->get_surface().set_y(static_cast<dimension>(y));
+			}
+		} break;
+
+		case WM_SIZE: {
+			int width = GET_X_LPARAM(long_parameter);
+			int height = GET_Y_LPARAM(long_parameter);
+
+			CITADEL_ASSERT(window, "Failed to retrieve Windows window");
+
+			if (window) {
+				window->width_ = static_cast<dimension>(width);
+				window->height_ = static_cast<dimension>(height);
+
+				window->get_surface().set_width(static_cast<dimension>(width));
+				window->get_surface().set_height(static_cast<dimension>(height));
+			}
+		} break;
+
 		case WM_CREATE:
 			instance_count_++;
 			break;
@@ -125,7 +167,7 @@ namespace citadel {
 			NULL,
 			NULL,
 			instance_,
-			NULL
+			this
 		);
 
 		CITADEL_ASSERT(window_, "Failed to create window");

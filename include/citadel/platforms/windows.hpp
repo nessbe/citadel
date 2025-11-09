@@ -22,5 +22,6 @@
 	#endif
 
 	#include <Windows.h>
+	#include <Windowsx.h>
 	#include <sal.h>
 #endif
