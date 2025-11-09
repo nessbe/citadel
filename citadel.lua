@@ -51,6 +51,7 @@ project "citadel"
 	filter "action:vs*"
 		buildoptions {
 			"/Wall",
+			"/Qspectre",
 			"/wd28251",
 			"/wd4100"
 		}

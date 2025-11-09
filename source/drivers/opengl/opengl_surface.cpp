@@ -22,14 +22,32 @@ namespace citadel {
 	opengl_surface::opengl_surface(dimension width, dimension height, color clear_color)
 		: surface(width, height, clear_color) { }
 
+CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 	void opengl_surface::_bind() {
-		glViewport(
-			0,
-			0,
-			static_cast<GLint>(get_width()),
-			static_cast<GLint>(get_height())
-		);
+		dimension width = get_width();
+		dimension height = get_height();
+
+		if (width == 0 || height == 0) {
+			return;
+		}
+
+		glViewport(0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+
+		double aspect_ratio = static_cast<double>(width) / static_cast<double>(height);
+
+		double half_width = 1.0;
+		double half_height = 1.0 / aspect_ratio;
+
+		glOrtho(-half_width, half_width, -half_height, half_height, -1.0, 1.0);
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 	}
+CITADEL_IGNORE_WARNING_POP
 
 	void opengl_surface::_unbind() { }
 
@@ -44,7 +62,7 @@ namespace citadel {
 			static_cast<GLclampf>(alpha)
 		);
 
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void opengl_surface::_present() { }
