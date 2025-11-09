@@ -41,6 +41,8 @@
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
+#include "citadel/math/matrices/mat4.hpp"
+
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"

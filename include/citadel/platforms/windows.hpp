@@ -24,4 +24,7 @@
 	#include <Windows.h>
 	#include <Windowsx.h>
 	#include <sal.h>
+
+	#undef near
+	#undef far
 #endif
