@@ -38,6 +38,16 @@ namespace citadel {
 		: x(xx, xy, xz, xw), y(yx, yy, yz, yw), z(zx, zy, zz, zw), w(wx, wy, wz, ww) { }
 
 	template <typename T>
+	T* basic_mat4<T>::data() noexcept {
+		return &x;
+	}
+
+	template <typename T>
+	const T* basic_mat4<T>::data() const noexcept {
+		return &x;
+	}
+
+	template <typename T>
 	const basic_vec4<T>& basic_mat4<T>::get_x() const noexcept {
 		return x;
 	}

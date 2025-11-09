@@ -43,6 +43,9 @@ namespace citadel {
 		basic_mat4(const basic_vec4<T>& x, const basic_vec4<T>& y, const basic_vec4<T>& z, const basic_vec4<T>& w);
 		basic_mat4(T xx, T xy, T xz, T xw, T yx, T yy, T yz, T yw, T zx, T zy, T zz, T zw, T wx, T wy, T wz, T ww);
 
+		nodisc T* data() noexcept;
+		nodisc const T* data() const noexcept;
+
 		nodisc const basic_vec4<T>& get_x() const noexcept;
 		void set_x(const basic_vec4<T>& value) noexcept;
 

@@ -38,6 +38,9 @@ namespace citadel {
 	public:
 		basic_vec4(T x, T y, T z, T w);
 
+		nodisc T* data() noexcept;
+		nodisc const T* data() const noexcept;
+
 		nodisc T get_x() const noexcept;
 		void set_x(T value) noexcept;
 

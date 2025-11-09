@@ -23,6 +23,16 @@ namespace citadel {
 	}
 
 	template <typename T>
+	T* basic_vec4<T>::data() noexcept {
+		return &x;
+	}
+
+	template <typename T>
+	const T* basic_vec4<T>::data() const noexcept {
+		return &x;
+	}
+
+	template <typename T>
 	T basic_vec4<T>::get_x() const noexcept {
 		return x;
 	}

@@ -36,6 +36,9 @@ namespace citadel {
 	public:
 		basic_vec2(T x, T y);
 
+		nodisc T* data() noexcept;
+		nodisc const T* data() const noexcept;
+
 		nodisc T get_x() const noexcept;
 		void set_x(T value) noexcept;
 
