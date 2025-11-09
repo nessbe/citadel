@@ -32,7 +32,8 @@ namespace citadel {
 		using id = GLuint;
 
 	public:
-		opengl_vertex_array() = default;
+		opengl_vertex_array();
+		virtual ~opengl_vertex_array() override;
 
 		opengl_vertex_array(const opengl_vertex_array&) = delete;
 		opengl_vertex_array& operator=(const opengl_vertex_array&) = delete;
@@ -46,9 +47,6 @@ namespace citadel {
 		id id_ = 0;
 
 	private:
-		virtual void _construct() override;
-		virtual void _destroy() noexcept override;
-
 		virtual void _bind() override;
 		virtual void _unbind() override;
 

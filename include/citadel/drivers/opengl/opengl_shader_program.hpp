@@ -34,6 +34,7 @@ namespace citadel {
 
 	public:
 		opengl_shader_program(const std::string& name);
+		virtual ~opengl_shader_program() override;
 
 		opengl_shader_program(const opengl_shader_program&) = delete;
 		opengl_shader_program& operator=(const opengl_shader_program&) = delete;
@@ -47,14 +48,11 @@ namespace citadel {
 		id id_ = 0;
 
 	private:
-		virtual void _construct() override;
-		virtual void _destroy() noexcept override;
-
 		virtual bool _link() override;
 		virtual void _use() override;
 
-		virtual void _attach(shader* shader);
-		virtual void _detach(shader* shader);
+		virtual void _attach(const std::shared_ptr<shader>& shader) override;
+		virtual void _detach(const std::shared_ptr<shader>& shader) override;
 	};
 }
 

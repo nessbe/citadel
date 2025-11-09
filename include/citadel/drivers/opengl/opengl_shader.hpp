@@ -37,6 +37,8 @@ namespace citadel {
 		opengl_shader(const std::string& name, shader_type type, const std::string& source);
 		opengl_shader(const std::string& name, shader_type type);
 
+		virtual ~opengl_shader() override;
+
 		opengl_shader(const opengl_shader&) = delete;
 		opengl_shader& operator=(const opengl_shader&) = delete;
 
@@ -50,9 +52,6 @@ namespace citadel {
 		id id_ = 0;
 
 	private:
-		virtual void _construct() override;
-		virtual void _destroy() noexcept override;
-
 		virtual bool _compile() override;
 
 		virtual void _set_source(const std::string& value) override;

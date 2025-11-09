@@ -34,39 +34,33 @@ namespace citadel {
 		static std::unique_ptr<shader_program> create(const std::string& name);
 
 		shader_program(const std::string& name);
-		virtual ~shader_program();
+		virtual ~shader_program() = default;
 
 		shader_program(const shader_program&) = delete;
 		shader_program& operator=(const shader_program&) = delete;
 
-		void construct();
-		void destroy() noexcept;
-
 		bool link();
 		void use();
 
-		bool attach(shader* shader);
+		bool attach(const std::shared_ptr<shader>& shader);
 		void detach(shader_type type);
 
-		nodisc std::vector<shader*> get_shaders() const;
+		nodisc std::vector<std::shared_ptr<shader>> get_shaders() const;
 		nodisc bool has_shader(shader_type type) const;
-		nodisc shader* get_shader(shader_type type) const;
+		nodisc std::shared_ptr<shader> get_shader(shader_type type) const;
 
 		nodisc const std::string& get_name() const noexcept;
 
 	private:
-		std::unordered_map<shader_type, shader*> shaders_;
+		std::unordered_map<shader_type, std::shared_ptr<shader>> shaders_;
 		std::string name_;
 
 	private:
-		virtual void _construct() = 0;
-		virtual void _destroy() noexcept = 0;
-
 		virtual bool _link() = 0;
 		virtual void _use() = 0;
 
-		virtual void _attach(shader* shader) = 0;
-		virtual void _detach(shader* shader) = 0;
+		virtual void _attach(const std::shared_ptr<shader>& shader) = 0;
+		virtual void _detach(const std::shared_ptr<shader>& shader) = 0;
 	};
 }
 

@@ -22,21 +22,16 @@ namespace citadel {
 		return std::make_unique<opengl_vertex_buffer>(size);
 	}
 
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(const std::vector<vertex>& vertices) {
+		return std::make_unique<opengl_vertex_buffer>(vertices);
+	}
+
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size) {
+		return std::make_unique<opengl_vertex_buffer>(data, size);
+	}
+
 	vertex_buffer::vertex_buffer(std::size_t size)
 		: size_(size) { }
-
-	vertex_buffer::~vertex_buffer() {
-		destroy();
-	}
-
-	void vertex_buffer::construct() {
-		destroy();
-		_construct();
-	}
-
-	void vertex_buffer::destroy() noexcept {
-		_destroy();
-	}
 
 	void vertex_buffer::bind() {
 		_bind();

@@ -22,18 +22,6 @@ namespace citadel {
 		return std::make_unique<opengl_vertex_array>();
 	}
 
-	vertex_array::~vertex_array() {
-		destroy();
-	}
-
-	void vertex_array::construct() {
-		_construct();
-	}
-
-	void vertex_array::destroy() noexcept {
-		_destroy();
-	}
-
 	void vertex_array::bind() {
 		_bind();
 	}

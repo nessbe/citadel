@@ -18,6 +18,15 @@
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 namespace citadel {
+	opengl_vertex_array::opengl_vertex_array() {
+		glGenVertexArrays(1, &id_);
+		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex array");
+	}
+
+	opengl_vertex_array::~opengl_vertex_array() {
+		glDeleteVertexArrays(1, &id_);
+	}
+
 	opengl_vertex_array::opengl_vertex_array(opengl_vertex_array&& other) noexcept {
 		id_ = other.id_;
 		other.id_ = 0;
@@ -25,7 +34,7 @@ namespace citadel {
 
 	opengl_vertex_array& opengl_vertex_array::operator=(opengl_vertex_array&& other) noexcept {
 		if (this != &other) {
-			destroy();
+			glDeleteVertexArrays(1, &id_);
 
 			id_ = other.id_;
 			other.id_ = 0;
@@ -36,17 +45,6 @@ namespace citadel {
 
 	opengl_vertex_array::id opengl_vertex_array::get_id() const noexcept {
 		return id_;
-	}
-
-	void opengl_vertex_array::_construct() {
-		glGenVertexArrays(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to create OpenGL vertex array");
-	}
-
-	void opengl_vertex_array::_destroy() noexcept {
-		if (id_) {
-			glDeleteVertexArrays(1, &id_);
-		}
 	}
 
 	void opengl_vertex_array::_bind() {

@@ -29,19 +29,16 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class api shader {
 	public:
-		static std::unique_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
-		static std::unique_ptr<shader> create(const std::string& name, shader_type type);
+		static std::shared_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
+		static std::shared_ptr<shader> create(const std::string& name, shader_type type);
 
 		shader(const std::string& name, shader_type type, const std::string& source);
 		shader(const std::string& name, shader_type type);
 
-		virtual ~shader();
+		virtual ~shader() = default;
 
 		shader(const shader&) = delete;
 		shader& operator=(const shader&) = delete;
-
-		void construct();
-		void destroy() noexcept;
 
 		bool compile();
 
@@ -63,9 +60,6 @@ namespace citadel {
 		bool is_compiled_ = false;
 
 	private:
-		virtual void _construct() = 0;
-		virtual void _destroy() noexcept = 0;
-
 		virtual bool _compile() = 0;
 
 		virtual void _set_source(const std::string& value) = 0;

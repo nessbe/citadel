@@ -18,12 +18,12 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
-	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
-		return std::make_unique<opengl_shader>(name, type, source);
+	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
+		return std::make_shared<opengl_shader>(name, type, source);
 	}
 
-	std::unique_ptr<shader> shader::create(const std::string& name, shader_type type) {
-		return create(name, type, "");
+	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type) {
+		return std::make_shared<opengl_shader>(name, type);
 	}
 
 	shader::shader(const std::string& name, shader_type type, const std::string& source)
@@ -31,18 +31,6 @@ namespace citadel {
 
 	shader::shader(const std::string& name, shader_type type)
 		: shader(name, type, "") { }
-
-	shader::~shader() {
-		destroy();
-	}
-
-	void shader::construct() {
-		_construct();
-	}
-
-	void shader::destroy() noexcept {
-		_destroy();
-	}
 
 	bool shader::compile() {
 		bool result = _compile();

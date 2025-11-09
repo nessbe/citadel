@@ -25,18 +25,6 @@ namespace citadel {
 	shader_program::shader_program(const std::string& name)
 		: name_(name) { }
 
-	shader_program::~shader_program() {
-		destroy();
-	}
-
-	void shader_program::construct() {
-		_construct();
-	}
-
-	void shader_program::destroy() noexcept {
-		_destroy();
-	}
-
 	bool shader_program::link() {
 		return _link();
 	}
@@ -45,7 +33,7 @@ namespace citadel {
 		_use();
 	}
 
-	bool shader_program::attach(shader* shader) {
+	bool shader_program::attach(const std::shared_ptr<shader>& shader) {
 		CITADEL_ASSERT(shader, "The given shader is null");
 
 		shader_type type = shader->get_type();
@@ -65,17 +53,17 @@ namespace citadel {
 			return;
 		}
 
-		shader* shader = shaders_.at(type);
+		const std::shared_ptr<shader>& shader = shaders_.at(type);
 		_detach(shader);
 
 		shaders_.erase(type);
 	}
 
-	std::vector<shader*> shader_program::get_shaders() const {
-		std::vector<shader*> shaders;
+	std::vector<std::shared_ptr<shader>> shader_program::get_shaders() const {
+		std::vector<std::shared_ptr<shader>> shaders;
 		shaders.reserve(shaders_.size());
 
-		std::transform(shaders_.begin(), shaders_.end(), std::back_inserter(shaders), [](const std::pair<shader_type, shader*> shader) {
+		std::transform(shaders_.begin(), shaders_.end(), std::back_inserter(shaders), [](const std::pair<shader_type, std::shared_ptr<shader>> shader) {
 			return shader.second;
 		});
 
@@ -86,7 +74,7 @@ namespace citadel {
 		return shaders_.find(type) != shaders_.end();
 	}
 
-	shader* shader_program::get_shader(shader_type type) const {
+	std::shared_ptr<shader> shader_program::get_shader(shader_type type) const {
 		if (!has_shader(type)) {
 			return nullptr;
 		}

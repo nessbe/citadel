@@ -26,15 +26,14 @@ namespace citadel {
 	class api vertex_buffer {
 	public:
 		static std::unique_ptr<vertex_buffer> create(std::size_t size);
+		static std::unique_ptr<vertex_buffer> create(const std::vector<vertex>& vertices);
+		static std::unique_ptr<vertex_buffer> create(const void* data, std::size_t size);
 
 		vertex_buffer(std::size_t size);
-		virtual ~vertex_buffer();
+		virtual ~vertex_buffer() = default;
 
 		vertex_buffer(const vertex_buffer&) = delete;
 		vertex_buffer& operator=(const vertex_buffer&) = delete;
-
-		void construct();
-		void destroy() noexcept;
 
 		void bind();
 		void unbind();
@@ -47,9 +46,6 @@ namespace citadel {
 		std::size_t size_;
 
 	private:
-		virtual void _construct() = 0;
-		virtual void _destroy() noexcept = 0;
-
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 

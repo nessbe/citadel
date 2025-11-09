@@ -19,7 +19,14 @@
 
 namespace citadel {
 	opengl_shader_program::opengl_shader_program(const std::string& name)
-		: shader_program(name) { }
+		: shader_program(name) {
+		id_ = glCreateProgram();
+		CITADEL_ASSERT(id_, "Failed to create OpenGL shader program");
+	}
+
+	opengl_shader_program::~opengl_shader_program() {
+		glDeleteProgram(id_);
+	}
 
 	opengl_shader_program::opengl_shader_program(opengl_shader_program&& other) noexcept
 		: opengl_shader_program(other.get_name()) {
@@ -29,8 +36,6 @@ namespace citadel {
 
 	opengl_shader_program& opengl_shader_program::operator=(opengl_shader_program&& other) noexcept {
 		if (this != &other) {
-			destroy();
-
 			id_ = other.id_;
 			other.id_ = 0;
 		}
@@ -42,21 +47,8 @@ namespace citadel {
 		return id_;
 	}
 
-	void opengl_shader_program::_construct() {
-		destroy();
-		id_ = glCreateProgram();
-		CITADEL_ASSERT(id_, "Failed to create OpenGL shader program");
-	}
-
-	void opengl_shader_program::_destroy() noexcept {
-		if (id_) {
-			glDeleteProgram(id_);
-			id_ = 0;
-		}
-	}
-
 	bool opengl_shader_program::_link() {
-		CITADEL_ASSERT(id_, "Shader program is not yet constructed");
+		CITADEL_ASSERT(id_, "Shader program is not yet created");
 		glLinkProgram(id_);
 
 		GLint success = 0;
@@ -77,32 +69,32 @@ namespace citadel {
 	}
 
 	void opengl_shader_program::_use() {
-		CITADEL_ASSERT(id_, "Shader program is not yet constructed");
+		CITADEL_ASSERT(id_, "Shader program is not yet created");
 		glUseProgram(id_);
 	}
 
-	void opengl_shader_program::_attach(shader* shader) {
-		opengl_shader* driver_shader = dynamic_cast<opengl_shader*>(shader);
+	void opengl_shader_program::_attach(const std::shared_ptr<shader>& shader) {
+		std::shared_ptr<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
 		CITADEL_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {
 			opengl_shader::id shader_id = driver_shader->get_id();
-			CITADEL_ASSERT(shader_id, "The given shader is not yet constructed");
+			CITADEL_ASSERT(shader_id, "The given shader is not yet created");
 
-			CITADEL_ASSERT(id_, "Shader program is not yet constructed");
+			CITADEL_ASSERT(id_, "Shader program is not yet created");
 			glAttachShader(id_, shader_id);
 		}
 	}
 
-	void opengl_shader_program::_detach(shader* shader) {
-		opengl_shader* driver_shader = dynamic_cast<opengl_shader*>(shader);
+	void opengl_shader_program::_detach(const std::shared_ptr<shader>& shader) {
+		std::shared_ptr<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
 		CITADEL_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {
 			opengl_shader::id shader_id = driver_shader->get_id();
-			CITADEL_ASSERT(shader_id, "The given shader is not yet constructed");
+			CITADEL_ASSERT(shader_id, "The given shader is not yet created");
 
-			CITADEL_ASSERT(id_, "Shader program is not yet constructed");
+			CITADEL_ASSERT(id_, "Shader program is not yet created");
 			glDetachShader(id_, shader_id);
 		}
 	}

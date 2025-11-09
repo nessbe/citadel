@@ -24,13 +24,10 @@ namespace citadel {
 		static std::unique_ptr<vertex_array> create();
 
 		vertex_array() = default;
-		virtual ~vertex_array();
+		virtual ~vertex_array() = default;
 
 		vertex_array(const vertex_array&) = delete;
 		vertex_array& operator=(const vertex_array&) = delete;
-
-		void construct();
-		void destroy() noexcept;
 
 		void bind();
 		void unbind();
@@ -38,9 +35,6 @@ namespace citadel {
 		void add_buffer(const std::unique_ptr<vertex_buffer>& buffer);
 
 	private:
-		virtual void _construct() = 0;
-		virtual void _destroy() noexcept = 0;
-
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 

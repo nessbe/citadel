@@ -35,7 +35,10 @@ namespace citadel {
 	CITADEL_IGNORE_WARNING_POP
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type, const std::string& source)
-		: shader(name, type, source) { }
+		: shader(name, type, source) {
+		id_ = glCreateShader(get_native_type());
+		CITADEL_ASSERT(id_, "Failed to create OpenGL shader");
+	}
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type)
 		: opengl_shader(name, type, "") { }
@@ -46,9 +49,13 @@ namespace citadel {
 		other.id_ = 0;
 	}
 
+	opengl_shader::~opengl_shader() {
+		glDeleteBuffers(1, &id_);
+	}
+
 	opengl_shader& opengl_shader::operator=(opengl_shader&& other) noexcept {
 		if (this != &other) {
-			destroy();
+			glDeleteBuffers(1, &id_);
 
 			id_ = other.id_;
 			other.id_ = 0;
@@ -65,21 +72,8 @@ namespace citadel {
 		return to_native_type(get_type());
 	}
 
-	void opengl_shader::_construct() {
-		destroy();
-		id_ = glCreateShader(get_native_type());
-		CITADEL_ASSERT(id_, "Failed to create OpenGL shader");
-	}
-
-	void opengl_shader::_destroy() noexcept {
-		if (id_) {
-			glDeleteShader(id_);
-			id_ = 0;
-		}
-	}
-
 	bool opengl_shader::_compile() {
-		CITADEL_ASSERT(id_, "Shader is not yet constructed");
+		CITADEL_ASSERT(id_, "Shader is not yet created");
 
 		glCompileShader(id_);
 
@@ -101,7 +95,7 @@ namespace citadel {
 	}
 
 	void opengl_shader::_set_source(const std::string& value) {
-		CITADEL_ASSERT(id_, "Shader is not yet constructed");
+		CITADEL_ASSERT(id_, "Shader is not yet created");
 		const char* source = value.c_str();
 		glShaderSource(id_, 1, &source, nullptr);
 	}

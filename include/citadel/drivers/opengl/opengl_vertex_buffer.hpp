@@ -35,6 +35,10 @@ namespace citadel {
 
 	public:
 		opengl_vertex_buffer(std::size_t size);
+		opengl_vertex_buffer(const std::vector<vertex>& vertices);
+		opengl_vertex_buffer(const void* data, std::size_t size);
+
+		virtual ~opengl_vertex_buffer() override;
 
 		opengl_vertex_buffer(const opengl_vertex_buffer&) = delete;
 		opengl_vertex_buffer& operator=(const opengl_vertex_buffer&) = delete;
@@ -48,9 +52,6 @@ namespace citadel {
 		id id_ = 0;
 
 	private:
-		virtual void _construct() override;
-		virtual void _destroy() noexcept override;
-
 		virtual void _bind() override;
 		virtual void _unbind() override;
 
