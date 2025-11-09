@@ -43,6 +43,7 @@
 
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
+#include "citadel/math/vectors/vec4.hpp"
 
 #include "citadel/platforms/windows.hpp"
 #include "citadel/platforms/windows/wgl_loader.hpp"

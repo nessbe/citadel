@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "citadel/assert.hpp"
+
 namespace citadel {
 	template <typename T>
 	basic_vec2<T>::basic_vec2(T x, T y)

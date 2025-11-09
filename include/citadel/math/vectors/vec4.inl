@@ -1,4 +1,4 @@
-// File:       vec3.inl
+// File:       vec4.inl
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -18,47 +18,58 @@
 
 namespace citadel {
 	template <typename T>
-	basic_vec3<T>::basic_vec3(T x, T y, T z)
-		: x(x), y(y), z(z) { }
+	basic_vec4<T>::basic_vec4(T x, T y, T z, T w)
+		: x(x), y(y), z(z), w(w) {
+	}
 
 	template <typename T>
-	T basic_vec3<T>::get_x() const noexcept {
+	T basic_vec4<T>::get_x() const noexcept {
 		return x;
 	}
 
 	template <typename T>
-	void basic_vec3<T>::set_x(T value) noexcept {
+	void basic_vec4<T>::set_x(T value) noexcept {
 		x = value;
 	}
 
 	template <typename T>
-	T basic_vec3<T>::get_y() const noexcept {
+	T basic_vec4<T>::get_y() const noexcept {
 		return y;
 	}
 
 	template <typename T>
-	void basic_vec3<T>::set_y(T value) noexcept {
+	void basic_vec4<T>::set_y(T value) noexcept {
 		y = value;
 	}
 
 	template <typename T>
-	T basic_vec3<T>::get_z() const noexcept {
+	T basic_vec4<T>::get_z() const noexcept {
 		return z;
 	}
 
 	template <typename T>
-	void basic_vec3<T>::set_z(T value) noexcept {
+	void basic_vec4<T>::set_z(T value) noexcept {
 		z = value;
 	}
 
 	template <typename T>
-	T& basic_vec3<T>::operator[](std::size_t index) noexcept {
+	T basic_vec4<T>::get_w() const noexcept {
+		return w;
+	}
+
+	template <typename T>
+	void basic_vec4<T>::set_w(T value) noexcept {
+		w = value;
+	}
+
+	template <typename T>
+	T& basic_vec4<T>::operator[](std::size_t index) noexcept {
 		CITADEL_ASSERT(index < max_index, "Index is out of range");
 		return (&x)[index];
 	}
 
 	template <typename T>
-	const T& basic_vec3<T>::operator[](std::size_t index) const noexcept {
+	const T& basic_vec4<T>::operator[](std::size_t index) const noexcept {
 		CITADEL_ASSERT(index < max_index, "Index is out of range");
 		return (&x)[index];
 	}
