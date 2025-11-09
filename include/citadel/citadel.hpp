@@ -59,5 +59,6 @@
 #include "citadel/rendering/meshes/vertex_buffer.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
+#include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_program.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
