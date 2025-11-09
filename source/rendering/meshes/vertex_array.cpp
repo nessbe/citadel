@@ -15,7 +15,13 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/meshes/vertex_array.hpp"
 
+#include "citadel/drivers/opengl/opengl_vertex_array.hpp"
+
 namespace citadel {
+	std::unique_ptr<vertex_array> vertex_array::create() {
+		return std::make_unique<opengl_vertex_array>();
+	}
+
 	vertex_array::~vertex_array() {
 		destroy();
 	}
@@ -24,7 +30,7 @@ namespace citadel {
 		_construct();
 	}
 
-	void vertex_array::destroy() {
+	void vertex_array::destroy() noexcept {
 		_destroy();
 	}
 

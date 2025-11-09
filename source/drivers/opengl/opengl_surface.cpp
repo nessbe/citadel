@@ -24,8 +24,8 @@ namespace citadel {
 
 	void opengl_surface::_bind() {
 		glViewport(
-			static_cast<GLint>(get_x()),
-			static_cast<GLint>(get_y()),
+			0,
+			0,
 			static_cast<GLint>(get_width()),
 			static_cast<GLint>(get_height())
 		);

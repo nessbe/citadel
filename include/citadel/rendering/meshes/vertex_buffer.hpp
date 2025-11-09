@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "citadel/attributes.hpp"
@@ -24,11 +25,16 @@
 namespace citadel {
 	class api vertex_buffer {
 	public:
+		static std::unique_ptr<vertex_buffer> create(std::size_t size);
+
 		vertex_buffer(std::size_t size);
 		virtual ~vertex_buffer();
 
+		vertex_buffer(const vertex_buffer&) = delete;
+		vertex_buffer& operator=(const vertex_buffer&) = delete;
+
 		void construct();
-		void destroy();
+		void destroy() noexcept;
 
 		void bind();
 		void unbind();
@@ -42,7 +48,7 @@ namespace citadel {
 
 	private:
 		virtual void _construct() = 0;
-		virtual void _destroy() = 0;
+		virtual void _destroy() noexcept = 0;
 
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;

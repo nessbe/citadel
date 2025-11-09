@@ -24,12 +24,15 @@ namespace citadel {
 	opengl_shader_program::opengl_shader_program(opengl_shader_program&& other) noexcept
 		: opengl_shader_program(other.get_name()) {
 		id_ = other.id_;
-		other.id_ = id_;
+		other.id_ = 0;
 	}
 
 	opengl_shader_program& opengl_shader_program::operator=(opengl_shader_program&& other) noexcept {
 		if (this != &other) {
 			destroy();
+
+			id_ = other.id_;
+			other.id_ = 0;
 		}
 
 		return *this;

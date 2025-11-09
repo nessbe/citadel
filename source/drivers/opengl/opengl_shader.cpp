@@ -29,7 +29,6 @@ namespace citadel {
 
 		default:
 			CITADEL_PANIC("The given is shader type is not yet supported for OpenGL");
-			return NULL;
 		}
 	}
 

@@ -15,7 +15,13 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/meshes/vertex_buffer.hpp"
 
+#include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
+
 namespace citadel {
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(std::size_t size) {
+		return std::make_unique<opengl_vertex_buffer>(size);
+	}
+
 	vertex_buffer::vertex_buffer(std::size_t size)
 		: size_(size) { }
 
@@ -24,10 +30,11 @@ namespace citadel {
 	}
 
 	void vertex_buffer::construct() {
+		destroy();
 		_construct();
 	}
 
-	void vertex_buffer::destroy() {
+	void vertex_buffer::destroy() noexcept {
 		_destroy();
 	}
 
@@ -40,7 +47,7 @@ namespace citadel {
 	}
 
 	void vertex_buffer::set_data(const std::vector<vertex>& vertices) {
-		_set_data(vertices.data(), vertices.size());
+		_set_data(vertices.data(), vertices.size() * sizeof(vertex));
 	}
 
 	std::size_t vertex_buffer::size() const noexcept {
