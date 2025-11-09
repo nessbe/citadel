@@ -24,7 +24,7 @@ namespace citadel {
 			return address;
 		}
 
-		static HMODULE opengl32_module = LoadLibraryA("opengl32");
+		static HMODULE opengl32_module = LoadLibraryA("opengl32.dll");
 		return GetProcAddress(opengl32_module, name);
 #endif
 	}

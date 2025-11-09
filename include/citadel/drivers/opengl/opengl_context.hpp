@@ -17,6 +17,7 @@
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 
+#include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
 
 #include "citadel/platforms/windows.hpp"
@@ -28,6 +29,8 @@
 namespace citadel {
 	class api opengl_context : public rendering_context {
 	public:
+		static void APIENTRY opengl_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_parameters);
+
 		opengl_context() = default;
 
 	private:
@@ -45,6 +48,8 @@ namespace citadel {
 #if CITADEL_PLATFORM_WINDOWS
 		void construct_windows(windows_window* window);
 #endif
+
+		void enable_debug();
 
 		virtual void _construct(window* window) override;
 		virtual void _destroy() override;

@@ -18,6 +18,43 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
+	void APIENTRY opengl_context::opengl_debug_callback(
+		GLenum source,
+		GLenum type,
+		GLuint id,
+		GLenum severity,
+		GLsizei length,
+		const GLchar* message,
+		const void* user_parameters
+	) {
+		if (severity == GL_DEBUG_SEVERITY_NOTIFICATION) {
+			return;
+		}
+
+		std::cerr << "[CITADEL][ERROR][OPENGL] "
+			<< "Source: " << source
+			<< ", Type: " << type
+			<< ", ID: " << id
+			<< ", Severity: " << severity
+			<< ",\n Message: " << message
+			<< std::endl;
+	}
+
+	void opengl_context::enable_debug() {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+		glDebugMessageCallback(opengl_debug_callback, nullptr);
+		glDebugMessageControl(
+			GL_DONT_CARE,
+			GL_DONT_CARE,
+			GL_DONT_CARE,
+			0,
+			NULL,
+			GL_TRUE
+		);
+	}
+
 #if CITADEL_PLATFORM_WINDOWS
 	void opengl_context::construct_windows(windows_window* window) {
 		CITADEL_ASSERT(
@@ -58,6 +95,7 @@ namespace citadel {
 			WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
 			WGL_CONTEXT_MINOR_VERSION_ARB, 6,
 			WGL_CONTEXT_PROFILE_MASK_ARB,  WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+			WGL_CONTEXT_FLAGS_ARB,         WGL_CONTEXT_DEBUG_BIT_ARB,
 			NULL
 		};
 
@@ -75,13 +113,18 @@ namespace citadel {
 
 	void opengl_context::_construct(window* window) {
 #if CITADEL_PLATFORM_WINDOWS
-		if (windows_window* platform_window = dynamic_cast<windows_window*>(window)) {
+		windows_window* platform_window = dynamic_cast<windows_window*>(window);
+		CITADEL_ASSERT(platform_window, "The given window is not supported for Windows");
+
+		if (platform_window) {
 			construct_windows(platform_window);
-		} else {
-			CITADEL_PANIC("The given window is not supported for Windows");
 		}
 #else
 	#error Rendering context does not support your window system yet
+#endif
+
+#if CITADEL_DEBUG
+		enable_debug();
 #endif
 	}
 
@@ -96,6 +139,8 @@ namespace citadel {
 		ReleaseDC(window_, device_context_);
 
 		rendering_context_ = nullptr;
+		device_context_ = nullptr;
+		window_ = nullptr;
 
 		opengl_loader_.unload();
 		wgl_loader_.unload();
