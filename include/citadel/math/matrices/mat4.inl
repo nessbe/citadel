@@ -39,12 +39,12 @@ namespace citadel {
 
 	template <typename T>
 	T* basic_mat4<T>::data() noexcept {
-		return &x;
+		return x.data();
 	}
 
 	template <typename T>
 	const T* basic_mat4<T>::data() const noexcept {
-		return &x;
+		return x.data();
 	}
 
 	template <typename T>

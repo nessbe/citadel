@@ -21,6 +21,14 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/math/matrices/mat3.hpp"
+#include "citadel/math/matrices/mat4.hpp"
+
+#include "citadel/math/vectors/vec2.hpp"
+#include "citadel/math/vectors/vec3.hpp"
+#include "citadel/math/vectors/vec4.hpp"
+
+#include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH

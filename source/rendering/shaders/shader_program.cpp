@@ -59,6 +59,50 @@ namespace citadel {
 		shaders_.erase(type);
 	}
 
+	void shader_program::set_uniform_boolean(const std::string& name, bool value) {
+		_set_uniform_boolean(name, value);
+	}
+
+	void shader_program::set_uniform_int1(const std::string& name, int value) {
+		_set_uniform_int1(name, value);
+	}
+
+	void shader_program::set_uniform_int2(const std::string& name, const ivec2& value) {
+		_set_uniform_int2(name, value);
+	}
+
+	void shader_program::set_uniform_int3(const std::string& name, const ivec3& value) {
+		_set_uniform_int3(name, value);
+	}
+
+	void shader_program::set_uniform_int4(const std::string& name, const ivec4& value) {
+		_set_uniform_int4(name, value);
+	}
+
+	void shader_program::set_uniform_float1(const std::string& name, float value) {
+		_set_uniform_float1(name, value);
+	}
+
+	void shader_program::set_uniform_float2(const std::string& name, const vec2& value) {
+		_set_uniform_float2(name, value);
+	}
+
+	void shader_program::set_uniform_float3(const std::string& name, const vec3& value) {
+		_set_uniform_float3(name, value);
+	}
+
+	void shader_program::set_uniform_float4(const std::string& name, const vec4& value) {
+		_set_uniform_float4(name, value);
+	}
+
+	void shader_program::set_uniform_mat3(const std::string& name, const mat3& value) {
+		_set_uniform_mat3(name, value);
+	}
+
+	void shader_program::set_uniform_mat4(const std::string& name, const mat4& value) {
+		_set_uniform_mat4(name, value);
+	}
+
 	std::vector<std::shared_ptr<shader>> shader_program::get_shaders() const {
 		std::vector<std::shared_ptr<shader>> shaders;
 		shaders.reserve(shaders_.size());

@@ -45,6 +45,21 @@ namespace citadel {
 		bool attach(const std::shared_ptr<shader>& shader);
 		void detach(shader_type type);
 
+		void set_uniform_boolean(const std::string& name, bool value);
+
+		void set_uniform_int1(const std::string& name, int value);
+		void set_uniform_int2(const std::string& name, const ivec2& value);
+		void set_uniform_int3(const std::string& name, const ivec3& value);
+		void set_uniform_int4(const std::string& name, const ivec4& value);
+
+		void set_uniform_float1(const std::string& name, float value);
+		void set_uniform_float2(const std::string& name, const vec2& value);
+		void set_uniform_float3(const std::string& name, const vec3& value);
+		void set_uniform_float4(const std::string& name, const vec4& value);
+
+		void set_uniform_mat3(const std::string& name, const mat3& value);
+		void set_uniform_mat4(const std::string& name, const mat4& value);
+
 		nodisc std::vector<std::shared_ptr<shader>> get_shaders() const;
 		nodisc bool has_shader(shader_type type) const;
 		nodisc std::shared_ptr<shader> get_shader(shader_type type) const;
@@ -61,6 +76,21 @@ namespace citadel {
 
 		virtual void _attach(const std::shared_ptr<shader>& shader) = 0;
 		virtual void _detach(const std::shared_ptr<shader>& shader) = 0;
+
+		virtual void _set_uniform_boolean(const std::string& name, bool value) = 0;
+
+		virtual void _set_uniform_int1(const std::string& name, int value) = 0;
+		virtual void _set_uniform_int2(const std::string& name, const ivec2& value) = 0;
+		virtual void _set_uniform_int3(const std::string& name, const ivec3& value) = 0;
+		virtual void _set_uniform_int4(const std::string& name, const ivec4& value) = 0;
+
+		virtual void _set_uniform_float1(const std::string& name, float value) = 0;
+		virtual void _set_uniform_float2(const std::string& name, const vec2& value) = 0;
+		virtual void _set_uniform_float3(const std::string& name, const vec3& value) = 0;
+		virtual void _set_uniform_float4(const std::string& name, const vec4& value) = 0;
+
+		virtual void _set_uniform_mat3(const std::string& name, const mat3& value) = 0;
+		virtual void _set_uniform_mat4(const std::string& name, const mat4& value) = 0;
 	};
 }
 

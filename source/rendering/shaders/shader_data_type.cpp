@@ -17,7 +17,10 @@
 
 namespace citadel {
 	namespace shader_data_type {
-		std::size_t size(enumeration value) {
+		CITADEL_IGNORE_WARNING_PUSH
+		CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+
+		std::size_t size(enumeration value) noexcept {
 			switch (value) {
 			case boolean:
 				return sizeof(bool);
@@ -58,7 +61,7 @@ namespace citadel {
 			}
 		}
 
-		std::size_t component_count(enumeration value) {
+		std::size_t component_count(enumeration value) noexcept {
 			switch (value) {
 			case boolean:
 				return 1;
@@ -98,5 +101,7 @@ namespace citadel {
 				return 0;
 			}
 		}
+
+		CITADEL_IGNORE_WARNING_POP
 	}
 }
