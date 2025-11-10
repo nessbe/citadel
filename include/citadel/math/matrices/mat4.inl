@@ -25,7 +25,7 @@ namespace citadel {
 			2.0f / x_delta,            0.0f,                      0.0f,                    0.0f,
 			0.0f,                      2.0f / y_delta,            0.0f,                    0.0f,
 			0.0f,                      0.0f,                      -2.0f / z_delta,         0.0f,
-			-(right + left) / x_delta, -(top + bottom) / y_delta, -(far + near) / z_delta, 1.0f,
+			-(right + left) / x_delta, -(top + bottom) / y_delta, -(far + near) / z_delta, 1.0f
 		);
 	}
 
