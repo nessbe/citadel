@@ -62,4 +62,88 @@ namespace citadel {
 		CITADEL_ASSERT(index < max_index, "Index is out of range");
 		return (&x)[index];
 	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator+(const basic_vec2<T>& other) const {
+		return basic_vec2<T>(
+			x + other.x,
+			y + other.y
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator+=(const basic_vec2<T>& other) {
+		*this = *this + other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator-(const basic_vec2<T>& other) const {
+		return basic_vec2<T>(
+			x - other.x,
+			y - other.y
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator-=(const basic_vec2<T>& other) {
+		*this = *this - other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator*(const basic_vec2<T>& other) const {
+		return basic_vec2<T>(
+			x * other.x,
+			y * other.y
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator*=(const basic_vec2<T>& other) {
+		*this = *this * other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator*(T scalar) const {
+		return basic_vec2<T>(
+			x * scalar,
+			y * scalar
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator*=(T scalar) {
+		*this = *this * scalar;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator/(const basic_vec2<T>& other) const {
+		return basic_vec2<T>(
+			x / other.x,
+			y / other.y
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator/=(const basic_vec2<T>& other) {
+		*this = *this / other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec2<T> basic_vec2<T>::operator/(T scalar) const {
+		return basic_vec2<T>(
+			x / scalar,
+			y / scalar
+		);
+	}
+
+	template <typename T>
+	basic_vec2<T>& basic_vec2<T>::operator/=(T scalar) {
+		*this = *this / scalar;
+		return *this;
+	}
 }

@@ -38,10 +38,14 @@ namespace citadel {
 		basic_vec4<T> x, y, z, w;
 
 	public:
+		static basic_mat4<T> identity();
+
 		static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
 
 		basic_mat4(const basic_vec4<T>& x, const basic_vec4<T>& y, const basic_vec4<T>& z, const basic_vec4<T>& w);
 		basic_mat4(T xx, T xy, T xz, T xw, T yx, T yy, T yz, T yw, T zx, T zy, T zz, T zw, T wx, T wy, T wz, T ww);
+
+		nodisc basic_mat4<T> inverse() const;
 
 		nodisc T* data() noexcept;
 		nodisc const T* data() const noexcept;
@@ -60,6 +64,20 @@ namespace citadel {
 
 		nodisc basic_vec4<T>& operator[](std::size_t index) noexcept;
 		nodisc const basic_vec4<T>& operator[](std::size_t index) const noexcept;
+
+		nodisc basic_mat4<T> operator+(const basic_mat4<T>& other) const;
+		nodisc basic_mat4<T>& operator+=(const basic_mat4<T>& other);
+
+		nodisc basic_mat4<T> operator-(const basic_mat4<T>& other) const;
+		nodisc basic_mat4<T>& operator-=(const basic_mat4<T>& other);
+
+		nodisc basic_mat4<T> operator*(const basic_mat4<T>& other) const;
+		nodisc basic_mat4<T>& operator*=(const basic_mat4<T>& other);
+
+		nodisc basic_vec4<T> operator*(const basic_vec4<T>& vector) const;
+
+		nodisc basic_mat4<T> operator*(T scalar) const;
+		nodisc basic_mat4<T>& operator*=(T scalar);
 	};
 
 	using mat4 = basic_mat4<float>;

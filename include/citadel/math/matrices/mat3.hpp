@@ -37,8 +37,12 @@ namespace citadel {
 		basic_vec3<T> x, y, z;
 
 	public:
+		static basic_mat3<T> identity();
+
 		basic_mat3(const basic_vec3<T>& x, const basic_vec3<T>& y, const basic_vec3<T>& z);
 		basic_mat3(T xx, T xy, T xz, T yx, T yy, T yz, T zx, T zy, T zz);
+
+		nodisc basic_mat3<T> inverse() const;
 
 		nodisc T* data() noexcept;
 		nodisc const T* data() const noexcept;
@@ -54,6 +58,20 @@ namespace citadel {
 
 		nodisc basic_vec3<T>& operator[](std::size_t index) noexcept;
 		nodisc const basic_vec3<T>& operator[](std::size_t index) const noexcept;
+
+		nodisc basic_mat3<T> operator+(const basic_mat3<T>& other) const;
+		nodisc basic_mat3<T>& operator+=(const basic_mat3<T>& other);
+
+		nodisc basic_mat3<T> operator-(const basic_mat3<T>& other) const;
+		nodisc basic_mat3<T>& operator-=(const basic_mat3<T>& other);
+
+		nodisc basic_mat3<T> operator*(const basic_mat3<T>& other) const;
+		nodisc basic_mat3<T>& operator*=(const basic_mat3<T>& other);
+
+		nodisc basic_vec3<T> operator*(const basic_vec3<T>& vector) const;
+
+		nodisc basic_mat3<T> operator*(T scalar) const;
+		nodisc basic_mat3<T>& operator*=(T scalar);
 	};
 
 	using mat3 = basic_mat3<float>;

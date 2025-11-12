@@ -14,7 +14,18 @@
 
 #pragma once
 
+#include "citadel/assert.hpp"
+
 namespace citadel {
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::identity() {
+		return basic_mat3<T>(
+			1, 0, 0,
+			0, 1, 0,
+			0, 0, 1
+		);
+	}
+
 	template <typename T>
 	basic_mat3<T>::basic_mat3(const basic_vec3<T>& x, const basic_vec3<T>& y, const basic_vec3<T>& z)
 		: x(x), y(y), z(z) { }
@@ -22,6 +33,37 @@ namespace citadel {
 	template <typename T>
 	basic_mat3<T>::basic_mat3(T xx, T xy, T xz, T yx, T yy, T yz, T zx, T zy, T zz)
 		: x(xx, xy, xz), y(yx, yy, yz), z(zx, zy, zz) { }
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::inverse() const {
+		T determinant =
+			x.x * (y.y * z.z - y.z * z.y) -
+			y.x * (x.y * z.z - x.z * z.y) +
+			z.x * (x.y * y.z - x.z * y.y);
+
+		if (determinant == T(0)) {
+			CITADEL_PANIC("Matrix is not invertible");
+			return basic_mat3<T>::identity();
+		}
+
+		T inverted_determinant = T(1) / determinant;
+
+		T determinant_yz = y.y * z.z - y.z * z.y;
+		T determinant_xz = x.y * z.z - x.z * z.y;
+		T determinant_xy = x.y * y.z - x.z * y.y;
+		T determinant_yz_x = y.x * z.z - y.z * z.x;
+		T determinant_xz_x = x.x * z.z - x.z * z.x;
+		T determinant_xy_x = x.x * y.z - x.z * y.x;
+		T determinant_yz_y = y.x * z.y - y.y * z.x;
+		T determinant_xz_y = x.x * z.y - x.y * z.x;
+		T determinant_xy_y = x.x * y.y - x.y * y.x;
+
+		return basic_mat3<T>(
+			determinant_yz, -determinant_xz, determinant_xy,
+			-determinant_yz_x, determinant_xz_x, -determinant_xy_x,
+			determinant_yz_y, -determinant_xz_y, determinant_xy_y
+		) * inverted_determinant;
+	}
 
 	template <typename T>
 	T* basic_mat3<T>::data() noexcept {
@@ -61,5 +103,82 @@ namespace citadel {
 	template <typename T>
 	void basic_mat3<T>::set_z(const basic_vec3<T>& value) noexcept {
 		z = value;
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::operator+(const basic_mat3<T>& other) const {
+		return basic_mat3<T>(
+			x + other.x,
+			y + other.y,
+			z + other.z
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T>& basic_mat3<T>::operator+=(const basic_mat3<T>& other) {
+		*this = *this + other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::operator-(const basic_mat3<T>& other) const {
+		return basic_mat3<T>(
+			x - other.x,
+			y - other.y,
+			z - other.z
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T>& basic_mat3<T>::operator-=(const basic_mat3<T>& other) {
+		*this = *this - other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::operator*(const basic_mat3<T>& other) const {
+		return basic_mat3<T>(
+			x.x * other.x.x + y.x * other.x.y + z.x * other.x.z,
+			x.y * other.x.x + y.y * other.x.y + z.y * other.x.z,
+			x.z * other.x.x + y.z * other.x.y + z.z * other.x.z,
+
+			x.x * other.y.x + y.x * other.y.y + z.x * other.y.z,
+			x.y * other.y.x + y.y * other.y.y + z.y * other.y.z,
+			x.z * other.y.x + y.z * other.y.y + z.z * other.y.z,
+
+			x.x * other.z.x + y.x * other.z.y + z.x * other.z.z,
+			x.y * other.z.x + y.y * other.z.y + z.y * other.z.z,
+			x.z * other.z.x + y.z * other.z.y + z.z * other.z.z
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T>& basic_mat3<T>::operator*=(const basic_mat3<T>& other) {
+		*this = *this * other;
+		return *this;
+	}
+
+	template <typename T>
+	basic_vec3<T> basic_mat3<T>::operator*(const basic_vec3<T>& vector) const {
+		return basic_vec3<T>(
+			x.x * vector.x + y.x * vector.y + z.x * vector.z,
+			x.y * vector.x + y.y * vector.y + z.y * vector.z,
+			x.z * vector.x + y.z * vector.y + z.z * vector.z
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::operator*(T scalar) const {
+		return basic_mat3<T>(
+			x * scalar,
+			y * scalar,
+			z * scalar
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T>& basic_mat3<T>::operator*=(T scalar) {
+		*this = *this * other;
+		return *this;
 	}
 }
