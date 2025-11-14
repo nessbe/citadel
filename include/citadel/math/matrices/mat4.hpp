@@ -41,7 +41,9 @@ namespace citadel {
 	public:
 		nodisc static basic_mat4<T> identity();
 
+		nodisc static basic_mat4<T> view(const basic_vec3<T>& eye, const basic_vec3<T>& center, const basic_vec3<T>& up);
 		nodisc static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
+		nodisc static basic_mat4<T> perspective(T fov, T aspect, T near, T far);
 
 		nodisc static basic_mat4<T> translated(const basic_vec3<T>& translation);
 

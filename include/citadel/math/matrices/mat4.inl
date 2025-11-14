@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <cmath>
+
 namespace citadel {
 	template <typename T>
 	basic_mat4<T> basic_mat4<T>::identity() {
@@ -22,6 +24,20 @@ namespace citadel {
 			0, 1, 0, 0,
 			0, 0, 1, 0,
 			0, 0, 0, 1
+		);
+	}
+
+	template <typename T>
+	basic_mat4<T> basic_mat4<T>::view(const basic_vec3<T>& eye, const basic_vec3<T>& center, const basic_vec3<T>& up) {
+		basic_vec3<T> forward = (center - eye).normalized();
+		basic_vec3<T> right = forward.cross(up).normalized();
+		basic_vec3<T> camera_up = right.cross(forward);
+
+		return basic_mat4<T>(
+			right.x,         camera_up.x,         -forward.x,       0,
+			right.y,         camera_up.y,         -forward.y,       0,
+			right.z,         camera_up.z,         -forward.z,       0,
+			-right.dot(eye), -camera_up.dot(eye), forward.dot(eye), 1
 		);
 	}
 
@@ -36,6 +52,18 @@ namespace citadel {
 			0.0f,                      2.0f / y_delta,            0.0f,                    0.0f,
 			0.0f,                      0.0f,                      -2.0f / z_delta,         0.0f,
 			-(right + left) / x_delta, -(top + bottom) / y_delta, -(far + near) / z_delta, 1.0f
+		);
+	}
+
+	template <typename T>
+	basic_mat4<T> basic_mat4<T>::perspective(T fov, T aspect, T near, T far) {
+		T tan_half_fov = std::tan(fov / T(2));
+
+		return basic_mat4<T>(
+			1 / (aspect * tan_half_fov), 0,                0,                                0,
+			0,                           1 / tan_half_fov, 0,                                0,
+			0,                           0,                -(far + near) / (far - near),     -1,
+			0,                           0,                -(2 * far * near) / (far - near), 0
 		);
 	}
 
@@ -86,10 +114,10 @@ namespace citadel {
 		T sinus = std::sin(angle);
 
 		return basic_mat4<T>(
-			cosinus, 0, -sinus, 0,
-			0,       1, 0,      0,
-			sinus,   0, cosinus 0,
-			0,       0, 0,      1
+			cosinus, 0, -sinus,  0,
+			0,       1, 0,       0,
+			sinus,   0, cosinus, 0,
+			0,       0, 0,       1
 		);
 	}
 

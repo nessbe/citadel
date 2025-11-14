@@ -20,6 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/type_traits.hpp"
 
+#include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
 
 namespace citadel {
