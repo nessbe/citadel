@@ -66,21 +66,21 @@ namespace citadel {
 			glEnableVertexArrayAttrib(id_, 0);
 			glVertexAttribPointer(
 				0,
-				2,
+				3,
 				GL_FLOAT,
 				GL_FALSE,
-				static_cast<GLsizei>(5 * sizeof(float)),
+				static_cast<GLsizei>(7 * sizeof(float)),
 				reinterpret_cast<void*>(0)
 			);
 
 			glEnableVertexArrayAttrib(id_, 1);
 			glVertexAttribPointer(
 				1,
-				3,
+				4,
 				GL_FLOAT,
 				GL_FALSE,
-				static_cast<GLsizei>(5 * sizeof(float)),
-				reinterpret_cast<void*>(2 * sizeof(float))
+				static_cast<GLsizei>(7 * sizeof(float)),
+				reinterpret_cast<void*>(3 * sizeof(float))
 			);
 
 			buffer->unbind();

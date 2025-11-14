@@ -16,26 +16,30 @@
 #include "citadel/rendering/meshes/vertex.hpp"
 
 namespace citadel {
-	vertex::vertex(const vec2& position, const vec3& color)
+	vertex::vertex(const vec3& position, const vec4& color)
 		: position(position), color(color) { }
 
-	const void* vertex::data() const noexcept {
-		return static_cast<const void*>(this);
+	void* vertex::data() noexcept {
+		return &position;
 	}
 
-	vec2 vertex::get_position() const noexcept {
+	const void* vertex::data() const noexcept {
+		return &position;
+	}
+
+	vec3 vertex::get_position() const noexcept {
 		return position;
 	}
 
-	void vertex::set_position(const vec2& value) noexcept {
+	void vertex::set_position(const vec3& value) noexcept {
 		position = value;
 	}
 
-	vec3 vertex::get_color() const noexcept {
+	vec4 vertex::get_color() const noexcept {
 		return color;
 	}
 
-	void vertex::set_color(const vec3& value) noexcept {
+	void vertex::set_color(const vec4& value) noexcept {
 		color = value;
 	}
 }
