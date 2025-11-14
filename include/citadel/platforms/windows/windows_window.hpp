@@ -77,12 +77,15 @@ namespace citadel {
 		virtual void _end_frame() override;
 
 		virtual void* _get_native_handle() const override;
+
 		virtual void _set_title(const std::string& value) override;
 
 		virtual void _set_x(dimension value) override;
 		virtual void _set_y(dimension value) override;
 		virtual void _set_width(dimension value) override;
 		virtual void _set_height(dimension value) override;
+
+		virtual void _set_vsync(bool value) override;
 	};
 }
 

@@ -269,4 +269,10 @@ namespace citadel {
 			get_height()
 		);
 	}
+
+	void windows_window::_set_vsync(bool value) {
+		if (is_open()) {
+			wglSwapIntervalEXT(static_cast<int>(value));
+		}
+	}
 }

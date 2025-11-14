@@ -82,6 +82,9 @@ namespace citadel {
 		nodisc dimension get_height() const noexcept;
 		void set_height(dimension value);
 
+		nodisc bool is_vsync() const noexcept;
+		void set_vsync(bool value);
+
 		nodisc bool is_open() const noexcept;
 		nodisc bool is_visible() const noexcept;
 
@@ -93,6 +96,8 @@ namespace citadel {
 
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
+
+		bool is_vsync_ = false;
 
 		bool is_open_ = false;
 		bool is_visible_ = false;
@@ -114,12 +119,15 @@ namespace citadel {
 		virtual void _end_frame() = 0;
 
 		virtual void* _get_native_handle() const = 0;
+
 		virtual void _set_title(const std::string& value) = 0;
 
 		virtual void _set_x(dimension value) = 0;
 		virtual void _set_y(dimension value) = 0;
 		virtual void _set_width(dimension value) = 0;
 		virtual void _set_height(dimension value) = 0;
+
+		virtual void _set_vsync(bool value) = 0;
 	};
 }
 

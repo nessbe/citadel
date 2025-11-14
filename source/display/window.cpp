@@ -224,6 +224,15 @@ namespace citadel {
 		}
 	}
 
+	bool window::is_vsync() const noexcept {
+		return is_vsync_;
+	}
+
+	void window::set_vsync(bool value) {
+		_set_vsync(value);
+		is_vsync_ = value;
+	}
+
 	bool window::is_open() const noexcept {
 		return is_open_;
 	}
