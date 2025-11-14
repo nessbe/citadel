@@ -14,12 +14,34 @@
 
 #pragma once
 
+#include <cmath>
+
 #include "citadel/assert.hpp"
 
 namespace citadel {
 	template <typename T>
 	basic_vec4<T>::basic_vec4(T x, T y, T z, T w)
 		: x(x), y(y), z(z), w(w) {
+	}
+
+	template <typename T>
+	T basic_vec4<T>::length() const {
+		return std::sqrt(x * x + y * y + z * z + w * w);
+	}
+
+	template <typename T>
+	basic_vec4<T> basic_vec4<T>::normalized() const {
+		return (*this) / length();
+	}
+
+	template <typename T>
+	T basic_vec4<T>::distance(const basic_vec4<T>& other) const {
+		return (*this - other).length();
+	}
+
+	template <typename T>
+	T basic_vec4<T>::dot(const basic_vec4<T>& other) const {
+		return x * other.x + y * other.y + z * other.z + w * other.w;
 	}
 
 	template <typename T>

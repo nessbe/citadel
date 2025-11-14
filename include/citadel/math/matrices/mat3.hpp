@@ -37,12 +37,32 @@ namespace citadel {
 		basic_vec3<T> x, y, z;
 
 	public:
-		static basic_mat3<T> identity();
+		nodisc static basic_mat3<T> identity();
+
+		nodisc static basic_mat3<T> translated(const basic_vec2<T>& translation);
+
+		nodisc static basic_mat3<T> rotated(const basic_vec3<T>& axis, T angle);
+		nodisc static basic_mat3<T> rotated_x(T angle);
+		nodisc static basic_mat3<T> rotated_y(T angle);
+		nodisc static basic_mat3<T> rotated_z(T angle);
+
+		nodisc static basic_mat3<T> scaled(const basic_vec3<T>& scale);
 
 		basic_mat3(const basic_vec3<T>& x, const basic_vec3<T>& y, const basic_vec3<T>& z);
 		basic_mat3(T xx, T xy, T xz, T yx, T yy, T yz, T zx, T zy, T zz);
 
+		nodisc T determinant() const;
+		nodisc basic_mat3<T> transpose() const;
 		nodisc basic_mat3<T> inverse() const;
+
+		nodisc basic_mat3<T> translate(const basic_vec2<T>& translation) const;
+
+		nodisc basic_mat3<T> rotate(const basic_vec3<T>& axis, T angle) const;
+		nodisc basic_mat3<T> rotate_x(T angle) const;
+		nodisc basic_mat3<T> rotate_y(T angle) const;
+		nodisc basic_mat3<T> rotate_z(T angle) const;
+
+		nodisc basic_mat3<T> scale(const basic_vec3<T>& scale) const;
 
 		nodisc T* data() noexcept;
 		nodisc const T* data() const noexcept;

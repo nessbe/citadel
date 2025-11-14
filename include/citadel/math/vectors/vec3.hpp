@@ -34,6 +34,14 @@ namespace citadel {
 	public:
 		basic_vec3(T x, T y, T z);
 
+		nodisc T length() const;
+		nodisc basic_vec3<T> normalized() const;
+
+		nodisc T distance(const basic_vec3<T>& other) const;
+
+		nodisc T dot(const basic_vec3<T>& other) const;
+		nodisc basic_vec3<T> cross(const basic_vec3<T>& other) const;
+
 		nodisc T* data() noexcept;
 		nodisc const T* data() const noexcept;
 

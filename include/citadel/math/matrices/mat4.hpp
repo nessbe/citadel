@@ -20,6 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/type_traits.hpp"
 
+#include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
 namespace citadel {
@@ -38,14 +39,34 @@ namespace citadel {
 		basic_vec4<T> x, y, z, w;
 
 	public:
-		static basic_mat4<T> identity();
+		nodisc static basic_mat4<T> identity();
 
-		static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
+		nodisc static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
+
+		nodisc static basic_mat4<T> translated(const basic_vec3<T>& translation);
+
+		nodisc static basic_mat4<T> rotated(const basic_vec3<T>& axis, T angle);
+		nodisc static basic_mat4<T> rotated_x(T angle);
+		nodisc static basic_mat4<T> rotated_y(T angle);
+		nodisc static basic_mat4<T> rotated_z(T angle);
+
+		nodisc static basic_mat4<T> scaled(const basic_vec3<T>& scale);
 
 		basic_mat4(const basic_vec4<T>& x, const basic_vec4<T>& y, const basic_vec4<T>& z, const basic_vec4<T>& w);
 		basic_mat4(T xx, T xy, T xz, T xw, T yx, T yy, T yz, T yw, T zx, T zy, T zz, T zw, T wx, T wy, T wz, T ww);
 
+		nodisc T determinant() const;
+		nodisc basic_mat4<T> transpose() const;
 		nodisc basic_mat4<T> inverse() const;
+
+		nodisc basic_mat4<T> translate(const basic_vec3<T>& translation) const;
+
+		nodisc basic_mat4<T> rotate(const basic_vec3<T>& axis, T angle) const;
+		nodisc basic_mat4<T> rotate_x(T angle) const;
+		nodisc basic_mat4<T> rotate_y(T angle) const;
+		nodisc basic_mat4<T> rotate_z(T angle) const;
+
+		nodisc basic_mat4<T> scale(const basic_vec3<T>& scale) const;
 
 		nodisc T* data() noexcept;
 		nodisc const T* data() const noexcept;

@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <cmath>
+
 #include "citadel/assert.hpp"
 
 namespace citadel {
@@ -27,6 +29,85 @@ namespace citadel {
 	}
 
 	template <typename T>
+	basic_mat3<T> basic_mat3<T>::translated(const basic_vec2<T>& translation) {
+		return basic_mat3<T>(
+			1,             0,             0,
+			0,             1,             0,
+			translation.x, translation.y, 1
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotated(const basic_vec3<T>& axis, T angle) {
+		basic_vec3<T> normalized_axis = axis.normalized();
+
+		T cosinus = std::cos(angle);
+		T sinus = std::sin(angle);
+		T term = T(1) - cosinus;
+
+		T x = normalized_axis.x, y = normalized_axis.y, z = normalized_axis.z;
+
+		return basic_mat3<T>(
+			term * x * x + cosinus,
+			term * x * y + sinus * z,
+			term * x * z - sinus * y,
+
+			term * x * y - sinus * z,
+			term * y * y + cosinus,
+			term * y * z + sinus * x,
+
+			term * x * z + sinus * y,
+			term * y * z - sinus * x,
+			term * z * z + cosinus
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotated_x(T angle) {
+		T cosinus = std::cos(angle);
+		T sinus = std::sin(angle);
+
+		return basic_mat3<T>(
+			1, 0,       0,
+			0, cosinus, sinus,
+			0, -sinus,  cosinus
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotated_y(T angle) {
+		T cosinus = std::cos(angle);
+		T sinus = std::sin(angle);
+
+		return basic_mat3<T>(
+			cosinus, 0, sinus,
+			0,       1, 0,
+			sinus,   0, cosinus
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotated_z(T angle) {
+		T cosinus = std::cos(angle);
+		T sinus = std::sin(angle);
+
+		return basic_mat3<T>(
+			cosinus, sinus,   0,
+			-sinus,  cosinus, 0,
+			0,       0,       1
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::scaled(const basic_vec3<T>& scale) {
+		return basic_mat3<T>(
+			scale.x, 0,       0,
+			0,       scale.y, 0,
+			0,       0,       scale.z
+		);
+	}
+
+	template <typename T>
 	basic_mat3<T>::basic_mat3(const basic_vec3<T>& x, const basic_vec3<T>& y, const basic_vec3<T>& z)
 		: x(x), y(y), z(z) { }
 
@@ -35,15 +116,29 @@ namespace citadel {
 		: x(xx, xy, xz), y(yx, yy, yz), z(zx, zy, zz) { }
 
 	template <typename T>
-	basic_mat3<T> basic_mat3<T>::inverse() const {
-		T determinant =
+	T basic_mat3<T>::determinant() const {
+		return
 			x.x * (y.y * z.z - y.z * z.y) -
 			y.x * (x.y * z.z - x.z * z.y) +
 			z.x * (x.y * y.z - x.z * y.y);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::transpose() const {
+		return basic_mat3<T>(
+			x.x, y.x, z.x,
+			x.y, y.y, z.y,
+			x.z, y.z, z.z
+		);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::inverse() const {
+		T determinant = this->determinant();
 
 		if (determinant == T(0)) {
 			CITADEL_PANIC("Matrix is not invertible");
-			return basic_mat3<T>::identity();
+			return identity();
 		}
 
 		T inverted_determinant = T(1) / determinant;
@@ -63,6 +158,36 @@ namespace citadel {
 			-determinant_yz_x, determinant_xz_x, -determinant_xy_x,
 			determinant_yz_y, -determinant_xz_y, determinant_xy_y
 		) * inverted_determinant;
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::translate(const basic_vec2<T>& translation) const {
+		return *this * translated(translation);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotate(const basic_vec3<T>& axis, T angle) const {
+		return *this * rotated(axis, angle);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotate_x(T angle) const {
+		return *this * rotated_x(angle);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotate_y(T angle) const {
+		return *this * rotated_y(angle);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::rotate_z(T angle) const {
+		return *this * rotated_z(angle);
+	}
+
+	template <typename T>
+	basic_mat3<T> basic_mat3<T>::scale(const basic_vec3<T>& scale) const {
+		return *this * scaled(scale);
 	}
 
 	template <typename T>
