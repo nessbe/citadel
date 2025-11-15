@@ -59,6 +59,7 @@
 
 #include "citadel/rendering/cameras/camera.hpp"
 #include "citadel/rendering/cameras/orthographic_camera.hpp"
+#include "citadel/rendering/cameras/perspective_camera.hpp"
 
 #include "citadel/rendering/meshes/vertex.hpp"
 #include "citadel/rendering/meshes/vertex_array.hpp"
