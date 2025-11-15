@@ -39,8 +39,14 @@
 
 #include "citadel/drivers/opengl.hpp"
 
+#include "citadel/math/angles.hpp"
+
+#include "citadel/math/matrices/mat3.hpp"
+#include "citadel/math/matrices/mat4.hpp"
+
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
+#include "citadel/math/vectors/vec4.hpp"
 
 #include "citadel/platforms/windows.hpp"
 
