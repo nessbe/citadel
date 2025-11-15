@@ -57,6 +57,8 @@
 #include "citadel/rendering/color.hpp"
 #include "citadel/rendering/rendering_context.hpp"
 
+#include "citadel/rendering/cameras/camera.hpp"
+
 #include "citadel/rendering/meshes/vertex.hpp"
 #include "citadel/rendering/meshes/vertex_array.hpp"
 #include "citadel/rendering/meshes/vertex_buffer.hpp"
