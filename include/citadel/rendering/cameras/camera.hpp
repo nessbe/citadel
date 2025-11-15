@@ -24,10 +24,15 @@
 namespace citadel {
 	class api camera {
 	public:
+		using dimension = std::uint32_t;
+
+	public:
 		camera() = default;
 		virtual ~camera() = default;
 
 		nodisc mat4 get_view() const;
+
+		void set_projection(dimension width, dimension height);
 		nodisc mat4 get_projection() const;
 
 		nodisc const vec3& get_position() const noexcept;
@@ -41,6 +46,7 @@ namespace citadel {
 		vec3 rotation_;
 
 	private:
+		virtual void _set_projection(dimension width, dimension height) = 0;
 		nodisc virtual mat4 _get_projection() const = 0;
 	};
 }

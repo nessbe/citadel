@@ -26,6 +26,10 @@ namespace citadel {
 		return transform.inverse();
 	}
 
+	void camera::set_projection(dimension width, dimension height) {
+		_set_projection(width, height);
+	}
+
 	mat4 camera::get_projection() const {
 		return _get_projection();
 	}

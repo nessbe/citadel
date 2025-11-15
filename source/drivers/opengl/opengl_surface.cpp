@@ -24,6 +24,7 @@ namespace citadel {
 
 CITADEL_IGNORE_WARNING_PUSH
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+
 	void opengl_surface::_bind() {
 		dimension width = get_width();
 		dimension height = get_height();
@@ -47,6 +48,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}
+
 CITADEL_IGNORE_WARNING_POP
 
 	void opengl_surface::_unbind() { }
