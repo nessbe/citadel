@@ -1,4 +1,4 @@
-// File:       layer.cpp
+// File:       layer_stack.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,23 +12,30 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
+#pragma once
+
+#include <memory>
+#include <vector>
+
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
+
 #include "citadel/core/layers/layer.hpp"
 
 namespace citadel {
-	void layer::attach() {
-		_attach();
-	}
+	class api layer_stack {
+	public:
+		layer_stack() = default;
+		~layer_stack();
 
-	void layer::detach() {
-		_detach();
-	}
+		void update();
+		void render(const std::unique_ptr<surface>& surface);
 
-	bool layer::update() {
-		return _update();
-	}
+		void push(const std::shared_ptr<layer>& layer);
+		std::shared_ptr<layer> pop();
 
-	bool layer::render(const std::unique_ptr<surface>& surface) {
-		return _render(surface);
-	}
+	private:
+		std::vector<std::shared_ptr<layer>> layers_;
+	};
 }
+

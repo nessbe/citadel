@@ -23,6 +23,8 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/core/layers/layer_stack.hpp"
+
 #include "citadel/display/surface.hpp"
 
 #include "citadel/rendering/rendering_context.hpp"
@@ -67,6 +69,7 @@ namespace citadel {
 		nodisc const std::string& get_title() const noexcept;
 		void set_title(const std::string& value);
 
+		nodisc layer_stack& get_layer_stack();
 		nodisc surface& get_surface() const;
 		nodisc rendering_context& get_rendering_context() const;
 
@@ -94,6 +97,7 @@ namespace citadel {
 	private:
 		std::string title_;
 
+		layer_stack layer_stack_;
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
 

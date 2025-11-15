@@ -105,6 +105,8 @@ namespace citadel {
 
 		bool result = _update();
 
+		layer_stack_.update();
+
 		if (!result) {
 			close();
 		}
@@ -114,6 +116,7 @@ namespace citadel {
 
 	void window::render() {
 		_render();
+		layer_stack_.render(surface_);
 	}
 
 	void window::begin_frame() {
@@ -152,6 +155,10 @@ namespace citadel {
 	void window::set_title(const std::string& value) {
 		_set_title(value);
 		title_ = value;
+	}
+
+	layer_stack& window::get_layer_stack() {
+		return layer_stack_;
 	}
 
 	surface& window::get_surface() const {

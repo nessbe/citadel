@@ -76,7 +76,6 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 	void orthographic_camera::_set_projection(dimension width, dimension height) {
 		float aspect = static_cast<float>(width) / static_cast<float>(height);
 
-
 		if (aspect >= 1.0) {
 			set_sides(-aspect, aspect, -1.0f, 1.0f);
 		} else {

@@ -14,8 +14,12 @@
 
 #pragma once
 
+#include <memory>
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+
+#include "citadel/display/surface.hpp"
 
 namespace citadel {
 	class api layer {
@@ -26,13 +30,13 @@ namespace citadel {
 		void detach();
 
 		bool update();
-		void render();
+		bool render(const std::unique_ptr<surface>& surface);
 
 	private:
 		virtual void _attach() = 0;
 		virtual void _detach() = 0;
 
 		virtual bool _update() = 0;
-		virtual void _render() = 0;
+		virtual bool _render(const std::unique_ptr<surface>& surface) = 0;
 	};
 }

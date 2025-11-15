@@ -32,6 +32,7 @@
 #include "citadel/core/extensions/extension_loader.hpp"
 
 #include "citadel/core/layers/layer.hpp"
+#include "citadel/core/layers/layer_stack.hpp"
 
 #include "citadel/display/surface.hpp"
 #include "citadel/display/window.hpp"
