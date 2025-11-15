@@ -20,6 +20,10 @@
 
 namespace citadel {
 	template <typename T>
+	basic_vec2<T>::basic_vec2()
+		: x(0), y(0) { }
+
+	template <typename T>
 	basic_vec2<T>::basic_vec2(T x, T y)
 		: x(x), y(y) { }
 

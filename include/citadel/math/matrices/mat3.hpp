@@ -49,6 +49,9 @@ namespace citadel {
 
 		nodisc static basic_mat3<T> scaled(const basic_vec3<T>& scale);
 
+		basic_mat3(T unit);
+		basic_mat3();
+
 		basic_mat3(const basic_vec3<T>& x, const basic_vec3<T>& y, const basic_vec3<T>& z);
 		basic_mat3(T xx, T xy, T xz, T yx, T yy, T yz, T zx, T zy, T zz);
 

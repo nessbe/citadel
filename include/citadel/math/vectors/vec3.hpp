@@ -32,6 +32,7 @@ namespace citadel {
 		T x, y, z;
 
 	public:
+		basic_vec3();
 		basic_vec3(T x, T y, T z);
 
 		nodisc T length() const;

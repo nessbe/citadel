@@ -145,6 +145,18 @@ namespace citadel {
 	}
 
 	template <typename T>
+	basic_mat4<T>::basic_mat4(T unit) :
+		x(unit, 0,    0,    0   ),
+		y(0,    unit, 0,    0   ),
+		z(0,    0,    unit, 0   ),
+		w(0,    0,    0,    unit)
+	{ }
+
+	template <typename T>
+	basic_mat4<T>::basic_mat4()
+		: basic_mat4(1) { }
+
+	template <typename T>
 	basic_mat4<T>::basic_mat4(const basic_vec4<T>& x, const basic_vec4<T>& y, const basic_vec4<T>& z, const basic_vec4<T>& w)
 		: x(x), y(y), z(z), w(w) { }
 
@@ -174,11 +186,7 @@ namespace citadel {
 	template <typename T>
 	basic_mat4<T> basic_mat4<T>::inverse() const {
 		T determinant = this->determinant();
-
-		if (determinant == T(0)) {
-			CITADEL_PANIC("Matrix is not invertible");
-			return identity();
-		}
+		CITADEL_ASSERT(determinant != T(0), "Matrix is not invertible");
 
 		T inverted_determinant = T(1) / determinant;
 

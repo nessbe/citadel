@@ -17,8 +17,13 @@
 #include <cmath>
 
 #include "citadel/assert.hpp"
+#include "vec3.hpp"
 
 namespace citadel {
+	template<typename T>
+	basic_vec3<T>::basic_vec3()
+		: x(0), y(0), z(0) { }
+
 	template <typename T>
 	basic_vec3<T>::basic_vec3(T x, T y, T z)
 		: x(x), y(y), z(z) { }
