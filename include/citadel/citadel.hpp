@@ -71,6 +71,7 @@
 #include "citadel/rendering/shaders/shader_program.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 
+#include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
