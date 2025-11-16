@@ -30,7 +30,11 @@ namespace citadel {
 		_unbind();
 	}
 
-	void vertex_array::add_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
-		_add_buffer(buffer);
+	void vertex_array::add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
+		_add_vertex_buffer(buffer);
+	}
+
+	void vertex_array::set_index_buffer(const std::unique_ptr<index_buffer>& buffer) {
+		_set_index_buffer(buffer);
 	}
 }

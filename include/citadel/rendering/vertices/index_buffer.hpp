@@ -15,6 +15,7 @@
 #pragma once
 
 #include <cinttypes>
+#include <memory>
 #include <vector>
 
 #include "citadel/attributes.hpp"
@@ -26,19 +27,35 @@ namespace citadel {
 		using index = std::uint32_t;
 
 	public:
-		index_buffer(std::size_t size);
+		nodisc static std::unique_ptr<index_buffer> create(const std::vector<index>& indices);
+		nodisc static std::unique_ptr<index_buffer> create(const index* data, std::size_t size);
+
+		index_buffer(const std::vector<index>& indices);
+		index_buffer(const index* data, std::size_t size);
+
 		virtual ~index_buffer() = default;
+
+		index_buffer(const index_buffer&) = delete;
+		index_buffer& operator=(const index_buffer&) = delete;
 
 		void bind();
 		void unbind();
 
+		void set_data(const std::vector<index>& indices);
+		void set_data(const index* data, std::size_t size);
+
+		nodisc index* data() noexcept;
+		nodisc const index* data() const noexcept;
+
 		nodisc std::size_t size() const noexcept;
 
 	private:
-		std::size_t size_;
+		std::vector<index> indices_;
 
 	private:
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
+
+		virtual void _set_data(const index* data, std::size_t size) = 0;
 	};
 }

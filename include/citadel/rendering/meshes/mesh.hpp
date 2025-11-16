@@ -20,6 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
@@ -27,8 +28,8 @@
 namespace citadel {
 	class api mesh {
 	public:
-		mesh(const std::vector<vertex>& vertices);
-		mesh(const void* data, std::size_t length);
+		mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
+		mesh(const void* data, std::size_t size, const std::vector<index_buffer::index>& indices);
 
 		~mesh();
 
@@ -38,11 +39,15 @@ namespace citadel {
 		void bind();
 		void unbind();
 
+		void render();
+
 		nodisc vertex_array& get_vertex_array() const;
 		nodisc vertex_buffer& get_vertex_buffer() const;
+		nodisc index_buffer& get_index_buffer() const;
 
 	private:
 		std::unique_ptr<vertex_array> vertex_array_;
 		std::unique_ptr<vertex_buffer> vertex_buffer_;
+		std::unique_ptr<index_buffer> index_buffer_;
 	};
 }

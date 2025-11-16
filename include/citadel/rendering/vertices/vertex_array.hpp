@@ -16,6 +16,7 @@
 
 #include <memory>
 
+#include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
@@ -32,12 +33,14 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void add_buffer(const std::unique_ptr<vertex_buffer>& buffer);
+		void add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer);
+		void set_index_buffer(const std::unique_ptr<index_buffer>& buffer);
 
 	private:
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 
-		virtual void _add_buffer(const std::unique_ptr<vertex_buffer>& buffer) = 0;
+		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) = 0;
+		virtual void _set_index_buffer(const std::unique_ptr<index_buffer>& buffer) = 0;
 	};
 }

@@ -48,7 +48,6 @@ namespace citadel {
 	}
 
 	void opengl_vertex_array::_bind() {
-		CITADEL_ASSERT(id_, "Vertex array is not yet constructed");
 		glBindVertexArray(id_);
 	}
 
@@ -56,8 +55,8 @@ namespace citadel {
 		glBindVertexArray(0);
 	}
 
-	void opengl_vertex_array::_add_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
-		CITADEL_ASSERT(buffer, "The given buffer is null");
+	void opengl_vertex_array::_add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
+		CITADEL_ASSERT(buffer, "The given vertex buffer is null");
 
 		if (buffer) {
 			bind();
@@ -84,7 +83,15 @@ namespace citadel {
 			);
 
 			buffer->unbind();
-			unbind();
+		}
+	}
+
+	void opengl_vertex_array::_set_index_buffer(const std::unique_ptr<index_buffer>& buffer) {
+		CITADEL_ASSERT(buffer, "The given index buffer is null");
+
+		if (buffer) {
+			bind();
+			buffer->bind();
 		}
 	}
 }

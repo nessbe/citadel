@@ -74,7 +74,6 @@ namespace citadel {
 	}
 
 	void opengl_vertex_buffer::_bind() {
-		CITADEL_ASSERT(id_, "Vertex buffer is not yet constructed");
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 	}
 

@@ -1,4 +1,4 @@
-// File:       opengl_vertex_array.hpp
+// File:       opengl_index_buffer.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,34 +14,34 @@
 
 #pragma once
 
-#include "citadel/attributes.hpp"
+#include <vector>
+
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
-#include "citadel/rendering/vertices/vertex_array.hpp"
-#include "citadel/rendering/vertices/vertex_buffer.hpp"
+#include "citadel/rendering/vertices/index_buffer.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api opengl_vertex_array : public vertex_array {
+	class api opengl_index_buffer : public index_buffer {
 	public:
 		using id = GLuint;
 
 	public:
-		opengl_vertex_array();
-		virtual ~opengl_vertex_array() override;
+		opengl_index_buffer(const std::vector<index>& indices);
+		opengl_index_buffer(const index* data, std::size_t size);
 
-		opengl_vertex_array(const opengl_vertex_array&) = delete;
-		opengl_vertex_array& operator=(const opengl_vertex_array&) = delete;
+		virtual ~opengl_index_buffer() override;
 
-		opengl_vertex_array(opengl_vertex_array&& other) noexcept;
-		opengl_vertex_array& operator=(opengl_vertex_array&& other) noexcept;
+		opengl_index_buffer(const opengl_index_buffer&) = delete;
+		opengl_index_buffer& operator=(const opengl_index_buffer&) = delete;
 
-		nodisc id get_id() const noexcept;
+		opengl_index_buffer(opengl_index_buffer&& other) noexcept;
+		opengl_index_buffer& operator=(opengl_index_buffer&& other) noexcept;
 
 	private:
 		id id_ = 0;
@@ -50,8 +50,7 @@ namespace citadel {
 		virtual void _bind() override;
 		virtual void _unbind() override;
 
-		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) override;
-		virtual void _set_index_buffer(const std::unique_ptr<index_buffer>& buffer) override;
+		virtual void _set_data(const index* data, std::size_t size) override;
 	};
 }
 

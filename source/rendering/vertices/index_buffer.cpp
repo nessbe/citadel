@@ -15,9 +15,22 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/vertices/index_buffer.hpp"
 
+#include "citadel/drivers/opengl/opengl_index_buffer.hpp"
+
 namespace citadel {
-	index_buffer::index_buffer(std::size_t size)
-		: size_(size) { }
+	std::unique_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
+		return std::make_unique<opengl_index_buffer>(indices);
+	}
+
+	std::unique_ptr<index_buffer> index_buffer::create(const index* data, std::size_t size) {
+		return std::make_unique<opengl_index_buffer>(data, size);
+	}
+
+	index_buffer::index_buffer(const std::vector<index>& indices)
+		: indices_(indices) { }
+
+	index_buffer::index_buffer(const index* data, std::size_t size)
+		: indices_(data, data + size) { }
 
 	void index_buffer::bind() {
 		_bind();
@@ -27,7 +40,25 @@ namespace citadel {
 		_unbind();
 	}
 
+	void index_buffer::set_data(const std::vector<index>& indices) {
+		_set_data(indices.data(), indices.size());
+		indices_ = indices;
+	}
+
+	void index_buffer::set_data(const index* data, std::size_t size) {
+		_set_data(data, size);
+		indices_.assign(data, data + size);
+	}
+
+	index_buffer::index* index_buffer::data() noexcept {
+		return indices_.data();
+	}
+
+	const index_buffer::index* index_buffer::data() const noexcept {
+		return indices_.data();
+	}
+
 	std::size_t index_buffer::size() const noexcept {
-		return size_;
+		return indices_.size();
 	}
 }

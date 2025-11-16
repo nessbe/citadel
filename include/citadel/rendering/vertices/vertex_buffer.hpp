@@ -25,9 +25,9 @@
 namespace citadel {
 	class api vertex_buffer {
 	public:
-		static std::unique_ptr<vertex_buffer> create(std::size_t size);
-		static std::unique_ptr<vertex_buffer> create(const std::vector<vertex>& vertices);
-		static std::unique_ptr<vertex_buffer> create(const void* data, std::size_t size);
+		nodisc static std::unique_ptr<vertex_buffer> create(std::size_t size);
+		nodisc static std::unique_ptr<vertex_buffer> create(const std::vector<vertex>& vertices);
+		nodisc static std::unique_ptr<vertex_buffer> create(const void* data, std::size_t size);
 
 		vertex_buffer(std::size_t size);
 		virtual ~vertex_buffer() = default;
