@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/rendering/meshes/vertex.hpp"
+#include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
 	vertex::vertex(const vec3& position, const vec4& color)

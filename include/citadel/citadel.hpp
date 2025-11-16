@@ -64,11 +64,13 @@
 #include "citadel/rendering/cameras/orthographic_camera.hpp"
 #include "citadel/rendering/cameras/perspective_camera.hpp"
 
-#include "citadel/rendering/meshes/vertex.hpp"
-#include "citadel/rendering/meshes/vertex_array.hpp"
-#include "citadel/rendering/meshes/vertex_buffer.hpp"
+#include "citadel/rendering/meshes/mesh.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_program.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
+
+#include "citadel/rendering/vertices/vertex.hpp"
+#include "citadel/rendering/vertices/vertex_array.hpp"
+#include "citadel/rendering/vertices/vertex_buffer.hpp"

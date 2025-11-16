@@ -16,7 +16,7 @@
 
 #include <memory>
 
-#include "citadel/rendering/meshes/vertex_buffer.hpp"
+#include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
 	class vertex_array {

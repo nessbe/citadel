@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/rendering/meshes/vertex_array.hpp"
+#include "citadel/rendering/vertices/vertex_array.hpp"
 
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 

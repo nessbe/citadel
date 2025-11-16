@@ -20,7 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/rendering/meshes/vertex.hpp"
+#include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
 	class api vertex_buffer {

@@ -20,8 +20,8 @@
 
 #include "citadel/drivers/opengl.hpp"
 
-#include "citadel/rendering/meshes/vertex_array.hpp"
-#include "citadel/rendering/meshes/vertex_buffer.hpp"
+#include "citadel/rendering/vertices/vertex_array.hpp"
+#include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
