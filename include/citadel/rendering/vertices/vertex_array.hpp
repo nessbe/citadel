@@ -19,13 +19,15 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
+
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
 	class exported vertex_array {
 	public:
-		static std::unique_ptr<vertex_array> create();
+		nodisc static std::unique_ptr<vertex_array> create(rendering_api::api api);
 
 		vertex_array() = default;
 		virtual ~vertex_array() = default;

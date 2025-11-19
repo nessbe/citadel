@@ -20,23 +20,23 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/rendering/vertices/vertex_array.hpp"
-
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
+	class vertex_array;
+
 	class exported rendering_api {
 	public:
-		enum class type {
+		enum class api {
 			none = 0,
 			opengl
 		};
 
 	public:
-		nodisc static std::unique_ptr<rendering_api> create(type type);
+		nodisc static std::unique_ptr<rendering_api> create(api api);
 
-		rendering_api(type type);
+		rendering_api(api api);
 		virtual ~rendering_api() = default;
 
 		void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
@@ -48,7 +48,7 @@ namespace citadel {
 		void set_line_width(float value);
 
 	private:
-		type type_;
+		api api_;
 
 	private:
 		virtual void _draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) = 0;

@@ -16,10 +16,10 @@
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
-	mesh::mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices) :
-		vertex_array_(vertex_array::create()),
-		vertex_buffer_(vertex_buffer::create(vertices)),
-		index_buffer_(index_buffer::create(indices))
+	mesh::mesh(rendering_api::api api, const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices) :
+		vertex_array_(vertex_array::create(api)),
+		vertex_buffer_(vertex_buffer::create(api, vertices)),
+		index_buffer_(index_buffer::create(api, indices))
 	{
 		CITADEL_ASSERT(vertex_array_, "Failed to create vertex array");
 		CITADEL_ASSERT(vertex_buffer_, "Failed to create vertex buffer");
@@ -33,10 +33,10 @@ namespace citadel {
 		}
 	}
 
-	mesh::mesh(const void* data, std::size_t size, const std::vector<index_buffer::index>& indices) :
-		vertex_array_(vertex_array::create()),
-		vertex_buffer_(vertex_buffer::create(data, size)),
-		index_buffer_(index_buffer::create(indices))
+	mesh::mesh(rendering_api::api api, const void* data, std::size_t size, const std::vector<index_buffer::index>& indices) :
+		vertex_array_(vertex_array::create(api)),
+		vertex_buffer_(vertex_buffer::create(api, data, size)),
+		index_buffer_(index_buffer::create(api, indices))
 	{
 		CITADEL_ASSERT(vertex_array_, "Failed to create vertex array");
 		CITADEL_ASSERT(vertex_buffer_, "Failed to create vertex buffer");

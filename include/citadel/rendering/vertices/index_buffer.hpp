@@ -21,14 +21,16 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
+
 namespace citadel {
 	class exported index_buffer {
 	public:
 		using index = std::uint32_t;
 
 	public:
-		nodisc static std::shared_ptr<index_buffer> create(const std::vector<index>& indices);
-		nodisc static std::shared_ptr<index_buffer> create(const index* data, std::size_t size);
+		nodisc static std::shared_ptr<index_buffer> create(rendering_api::api api, const std::vector<index>& indices);
+		nodisc static std::shared_ptr<index_buffer> create(rendering_api::api api, const index* data, std::size_t size);
 
 		index_buffer(const std::vector<index>& indices);
 		index_buffer(const index* data, std::size_t size);

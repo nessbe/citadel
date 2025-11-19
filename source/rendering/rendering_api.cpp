@@ -15,17 +15,19 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/rendering_api.hpp"
 
+#include "citadel/rendering/vertices/vertex_array.hpp"
+
 namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<rendering_api> rendering_api::create(type type) {
-		switch (type) {
-		case type::none:
-			CITADEL_PANIC("Rendering API type cannot be none");
+	std::unique_ptr<rendering_api> rendering_api::create(api api) {
+		switch (api) {
+		case api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case type::opengl:
+		case api::opengl:
 			return nullptr;
 		}
 
@@ -35,8 +37,8 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_IGNORE_WARNING_POP()
 
-	rendering_api::rendering_api(type type)
-		: type_(type) { }
+	rendering_api::rendering_api(api api)
+		: api_(api) { }
 
 	void rendering_api::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		CITADEL_ASSERT(vertex_array, "The given vertex array is null");

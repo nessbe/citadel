@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <cinttypes>
 #include <memory>
 
 #include "citadel/attributes.hpp"
@@ -21,6 +22,7 @@
 #include "citadel/warnings.hpp"
 
 #include "citadel/rendering/color.hpp"
+#include "citadel/rendering/rendering_api.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
@@ -28,11 +30,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported surface {
 	public:
-		using dimension = unsigned int;
+		using dimension = std::uint32_t;
 
 	public:
-		static std::unique_ptr<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		static std::unique_ptr<surface> create(dimension width, dimension height, color clear_color);
+		nodisc static std::unique_ptr<surface> create(rendering_api::api api, dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static std::unique_ptr<surface> create(rendering_api::api api, dimension width, dimension height, color clear_color);
 
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);

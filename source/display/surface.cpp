@@ -18,13 +18,38 @@
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 namespace citadel {
-	std::unique_ptr<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
-		return std::make_unique<opengl_surface>(x, y, width, height, clear_color);
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+
+	std::unique_ptr<surface> surface::create(rendering_api::api api, dimension x, dimension y, dimension width, dimension height, color clear_color) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_surface>(x, y, width, height, clear_color);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
 
-	std::unique_ptr<surface> surface::create(dimension width, dimension height, color clear_color) {
-		return create(0, 0, width, height, clear_color);
+	std::unique_ptr<surface> surface::create(rendering_api::api api, dimension width, dimension height, color clear_color) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_surface>(width, height, clear_color);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
+
+CITADEL_IGNORE_WARNING_POP()
 
 	surface::surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
 		: x_(x), y_(y), width_(width), height_(height), clear_color_(clear_color) { }

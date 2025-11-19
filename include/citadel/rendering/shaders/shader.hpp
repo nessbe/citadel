@@ -39,8 +39,8 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported shader {
 	public:
-		static std::shared_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
-		static std::shared_ptr<shader> create(const std::string& name, shader_type type);
+		nodisc static std::shared_ptr<shader> create(rendering_api::api api, const std::string& name, shader_type type, const std::string& source);
+		nodisc static std::shared_ptr<shader> create(rendering_api::api api, const std::string& name, shader_type type);
 
 		shader(const std::string& name, shader_type type, const std::string& source);
 		shader(const std::string& name, shader_type type);

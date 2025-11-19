@@ -16,14 +16,17 @@
 
 #include <memory>
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+
+#include "citadel/rendering/rendering_api.hpp"
 
 namespace citadel {
 	class window;
 
 	class exported rendering_context {
 	public:
-		static std::unique_ptr<rendering_context> create();
+		nodisc static std::unique_ptr<rendering_context> create(rendering_api::api api);
 
 		rendering_context() = default;
 		virtual ~rendering_context();

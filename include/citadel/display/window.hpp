@@ -27,6 +27,7 @@
 
 #include "citadel/display/surface.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_context.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH()
@@ -38,11 +39,11 @@ namespace citadel {
 		using dimension = std::uint32_t;
 
 	public:
-		static std::unique_ptr<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		static std::unique_ptr<window> create(dimension width, dimension height, const std::string& title);
+		static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
 
-		window(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		window(dimension width, dimension height, const std::string& title);
+		window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
 
 		virtual ~window() = default;
 

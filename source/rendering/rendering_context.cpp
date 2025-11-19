@@ -20,9 +20,24 @@
 #include "citadel/drivers/opengl/opengl_context.hpp"
 
 namespace citadel {
-	std::unique_ptr<rendering_context> rendering_context::create() {
-		return std::make_unique<opengl_context>();;
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+
+	std::unique_ptr<rendering_context> rendering_context::create(rendering_api::api api) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_context>();
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
+
+CITADEL_IGNORE_WARNING_POP()
 
 	rendering_context::~rendering_context() {
 		destroy();

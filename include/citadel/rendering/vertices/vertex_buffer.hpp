@@ -20,14 +20,16 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
+
 #include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
 	class exported vertex_buffer {
 	public:
-		nodisc static std::unique_ptr<vertex_buffer> create(std::size_t size);
-		nodisc static std::unique_ptr<vertex_buffer> create(const std::vector<vertex>& vertices);
-		nodisc static std::unique_ptr<vertex_buffer> create(const void* data, std::size_t size);
+		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, std::size_t size);
+		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, const std::vector<vertex>& vertices);
+		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, const void* data, std::size_t size);
 
 		vertex_buffer(std::size_t size);
 		virtual ~vertex_buffer() = default;

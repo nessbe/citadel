@@ -18,13 +18,38 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
-	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
-		return std::make_shared<opengl_shader>(name, type, source);
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+
+	std::shared_ptr<shader> shader::create(rendering_api::api api, const std::string& name, shader_type type, const std::string& source) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_shared<opengl_shader>(name, type, source);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
 
-	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type) {
-		return std::make_shared<opengl_shader>(name, type);
+	std::shared_ptr<shader> shader::create(rendering_api::api api, const std::string& name, shader_type type) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_shared<opengl_shader>(name, type);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
+
+CITADEL_IGNORE_WARNING_POP()
 
 	shader::shader(const std::string& name, shader_type type, const std::string& source)
 		: name_(name), source_(source), type_(type) { }

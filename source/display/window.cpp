@@ -18,33 +18,38 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	std::unique_ptr<window> window::create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		return std::make_unique<windows_window>(x, y, width, height, title);
+		return std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
 #else
 	#error Citadel does not support your window system yet
 		return nullptr;
 #endif
 	}
 
-	std::unique_ptr<window> window::create(dimension width, dimension height, const std::string& title) {
-		return create(0, 0, width, height, title);
+	std::unique_ptr<window> window::create(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title) {
+#if CITADEL_PLATFORM_WINDOWS
+		return std::make_unique<windows_window>(rendering_api, width, height, title);
+#else
+#error Citadel does not support your window system yet
+		return nullptr;
+#endif
 	}
 
-	window::window(dimension x, dimension y, dimension width, dimension height, const std::string& title) :
+	window::window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) :
 		x_(x),
 		y_(y),
 		width_(width),
 		height_(height),
 		title_(title),
-		surface_(surface::create(x_, y_, width_, height_, color(255, 255, 255, 255))),
-		rendering_context_(rendering_context::create()) {
+		surface_(surface::create(rendering_api, x, y, width, height, color(255, 255, 255, 255))),
+		rendering_context_(rendering_context::create(rendering_api)) {
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
 	}
 
-	window::window(dimension width, dimension height, const std::string& title)
-		: window(0, 0, width, height, title) { }
+	window::window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title)
+		: window(rendering_api, 0, 0, width, height, title) { }
 
 	void window::open() {
 		if (likely(!is_open_)) {

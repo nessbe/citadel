@@ -18,17 +18,52 @@
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 namespace citadel {
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(std::size_t size) {
-		return std::make_unique<opengl_vertex_buffer>(size);
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, std::size_t size) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_vertex_buffer>(size);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(const std::vector<vertex>& vertices) {
-		return std::make_unique<opengl_vertex_buffer>(vertices);
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, const std::vector<vertex>& vertices) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_vertex_buffer>(vertices);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size) {
-		return std::make_unique<opengl_vertex_buffer>(data, size);
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, const void* data, std::size_t size) {
+		switch (api) {
+		case rendering_api::api::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api::api::opengl:
+			return std::make_unique<opengl_vertex_buffer>(data, size);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
+		return nullptr;
 	}
+
+CITADEL_IGNORE_WARNING_POP()
 
 	vertex_buffer::vertex_buffer(std::size_t size)
 		: size_(size) { }
