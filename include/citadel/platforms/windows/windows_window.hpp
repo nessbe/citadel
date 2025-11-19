@@ -67,7 +67,7 @@ namespace citadel {
 		virtual void _maximize() override;
 		virtual void _minimize() override;
 
-		virtual bool _update() override;
+		virtual bool _update(double delta) override;
 		virtual void _render() override;
 
 		virtual void _begin_frame() override;

@@ -19,7 +19,7 @@
 
 namespace citadel {
 	template <typename T>
-	class basic_vec3 {
+	struct basic_vec3 {
 	public:
 		static_assert(is_numeric_v<T>, "T must be numeric");
 

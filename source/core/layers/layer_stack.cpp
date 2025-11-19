@@ -22,9 +22,9 @@ namespace citadel {
 		}
 	}
 
-	void layer_stack::update() {
+	void layer_stack::update(double delta) {
 		for (const std::shared_ptr<layer>& layer : layers_) {
-			if (!layer->update()) {
+			if (!layer->update(delta)) {
 				break;
 			}
 		}

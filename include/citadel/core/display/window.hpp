@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <chrono>
 #include <cinttypes>
 #include <functional>
 #include <memory>
@@ -38,9 +39,11 @@ namespace citadel {
 	public:
 		using dimension = std::uint32_t;
 
+		using clock = std::chrono::high_resolution_clock;
+
 	public:
-		static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
+		nodisc static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		nodisc static std::unique_ptr<window> create(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
 
 		window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
@@ -99,6 +102,8 @@ namespace citadel {
 		std::unique_ptr<surface> surface_;
 		std::unique_ptr<rendering_context> rendering_context_;
 
+		clock::time_point last_frame_;
+
 		bool is_vsync_ = false;
 
 		bool should_close_ = false;
@@ -113,7 +118,7 @@ namespace citadel {
 		virtual void _maximize() = 0;
 		virtual void _minimize() = 0;
 
-		virtual bool _update() = 0;
+		virtual bool _update(double delta) = 0;
 		virtual void _render() = 0;
 
 		virtual void _begin_frame() = 0;

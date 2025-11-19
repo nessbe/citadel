@@ -198,7 +198,7 @@ namespace citadel {
 		ShowWindow(window_, SW_MINIMIZE);
 	}
 
-	bool windows_window::_update() {
+	bool windows_window::_update(double delta) {
 		CITADEL_ASSERT(window_, "Window handle is null");
 
 		MSG message = { };

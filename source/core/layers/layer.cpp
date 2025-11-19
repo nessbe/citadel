@@ -24,8 +24,8 @@ namespace citadel {
 		_detach();
 	}
 
-	bool layer::update() {
-		return _update();
+	bool layer::update(double delta) {
+		return _update(delta);
 	}
 
 	bool layer::render(const std::unique_ptr<surface>& surface) {

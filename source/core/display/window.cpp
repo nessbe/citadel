@@ -81,12 +81,18 @@ namespace citadel {
 	}
 
 	bool window::update() {
-		bool result = _update();
-		layer_stack_.update();
+		clock::time_point now = clock::now();
+		std::chrono::duration<double> elasped_time = now - last_frame_;
+		double delta_time = elasped_time.count();
+
+		bool result = _update(delta_time);
+		layer_stack_.update(delta_time);
 
 		if (!result) {
 			should_close_ = true;
 		}
+
+		last_frame_ = clock::now();
 
 		return result;
 	}

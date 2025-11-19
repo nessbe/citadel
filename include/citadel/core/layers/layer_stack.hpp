@@ -28,7 +28,7 @@ namespace citadel {
 		layer_stack() = default;
 		~layer_stack();
 
-		void update();
+		void update(double delta);
 		void render(const std::unique_ptr<surface>& surface);
 
 		void push(const std::shared_ptr<layer>& layer);

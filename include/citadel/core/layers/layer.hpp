@@ -29,14 +29,14 @@ namespace citadel {
 		void attach();
 		void detach();
 
-		bool update();
+		bool update(double delta);
 		bool render(const std::unique_ptr<surface>& surface);
 
 	private:
 		virtual void _attach() = 0;
 		virtual void _detach() = 0;
 
-		virtual bool _update() = 0;
+		virtual bool _update(double delta) = 0;
 		virtual bool _render(const std::unique_ptr<surface>& surface) = 0;
 	};
 }
