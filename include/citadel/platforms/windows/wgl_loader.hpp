@@ -24,7 +24,7 @@
 #include "citadel/core/extensions/extension_loader.hpp"
 
 namespace citadel {
-	class api wgl_loader : public extension_loader {
+	class exported wgl_loader : public extension_loader {
 	public:
 		static void* get_procedure_address(const char* name) noexcept;
 

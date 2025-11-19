@@ -21,7 +21,7 @@
 namespace citadel {
 	class window;
 
-	class api rendering_context {
+	class exported rendering_context {
 	public:
 		static std::unique_ptr<rendering_context> create();
 

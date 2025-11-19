@@ -25,7 +25,7 @@
 #include "citadel/rendering/color.hpp"
 
 namespace citadel {
-	struct api vertex {
+	struct exported vertex {
 	public:
 		vec3 position;
 		vec4 color;

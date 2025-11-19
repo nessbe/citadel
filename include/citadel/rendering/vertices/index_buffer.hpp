@@ -22,7 +22,7 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	class api index_buffer {
+	class exported index_buffer {
 	public:
 		using index = std::uint32_t;
 

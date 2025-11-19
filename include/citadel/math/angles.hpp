@@ -28,6 +28,6 @@ namespace citadel {
 	constexpr float degrees_to_radians = static_cast<float>(pi) / half_circle;
 	constexpr float radians_to_degrees = half_circle / static_cast<float>(pi);
 
-	nodisc api float radians(float degrees) noexcept;
-	nodisc api float degrees(float radians) noexcept;
+	nodisc exported float radians(float degrees) noexcept;
+	nodisc exported float degrees(float radians) noexcept;
 }

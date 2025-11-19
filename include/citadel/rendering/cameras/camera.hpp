@@ -22,7 +22,7 @@
 #include "citadel/math/vectors/vec3.hpp"
 
 namespace citadel {
-	class api camera {
+	class exported camera {
 	public:
 		using dimension = std::uint32_t;
 

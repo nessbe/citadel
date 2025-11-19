@@ -26,7 +26,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api opengl_shader : public shader {
+	class exported opengl_shader : public shader {
 	public:
 		using id = GLuint;
 		using native_type = GLenum;

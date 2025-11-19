@@ -33,7 +33,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api window {
+	class exported window {
 	public:
 		using dimension = std::uint32_t;
 

@@ -28,7 +28,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api opengl_shader_program : public shader_program {
+	class exported opengl_shader_program : public shader_program {
 	public:
 		using id = GLuint;
 

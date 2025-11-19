@@ -21,7 +21,7 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	class api color {
+	class exported color {
 	public:
 		using channel = std::uint8_t;
 		using channel_normalized = float;

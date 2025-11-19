@@ -22,7 +22,7 @@
 #include "citadel/display/surface.hpp"
 
 namespace citadel {
-	class api layer {
+	class exported layer {
 	public:
 		virtual ~layer() = default;
 

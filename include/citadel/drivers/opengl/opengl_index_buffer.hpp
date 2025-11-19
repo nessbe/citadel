@@ -27,7 +27,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api opengl_index_buffer : public index_buffer {
+	class exported opengl_index_buffer : public index_buffer {
 	public:
 		using id = GLuint;
 

@@ -29,7 +29,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api shader_program {
+	class exported shader_program {
 	public:
 		static std::unique_ptr<shader_program> create(const std::string& name);
 

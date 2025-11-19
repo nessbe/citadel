@@ -19,7 +19,7 @@
 #include "citadel/core/exit_code.hpp"
 
 namespace citadel {
-	class api engine {
+	class exported engine {
 	public:
 		engine() = default;
 		~engine() = default;

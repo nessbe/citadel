@@ -27,7 +27,7 @@
 #include "citadel/rendering/rendering_context.hpp"
 
 namespace citadel {
-	class api opengl_context : public rendering_context {
+	class exported opengl_context : public rendering_context {
 	public:
 		static void APIENTRY opengl_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_parameters);
 

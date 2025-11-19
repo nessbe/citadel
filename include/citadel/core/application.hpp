@@ -26,7 +26,7 @@
 namespace citadel {
 	int run_application(int argc, char** argv);
 
-	class api application {
+	class exported application {
 	public:
 		friend int run_application(int argc, char** argv);
 

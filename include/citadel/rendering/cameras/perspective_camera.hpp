@@ -24,7 +24,7 @@
 #include "citadel/rendering/cameras/camera.hpp"
 
 namespace citadel {
-	class api perspective_camera : public camera {
+	class exported perspective_camera : public camera {
 	public:
 		perspective_camera(float fov, float aspect, float near, float far);
 		perspective_camera(float fov, dimension width, dimension height, float near, float far);

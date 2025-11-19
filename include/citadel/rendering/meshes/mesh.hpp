@@ -26,7 +26,7 @@
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
-	class api mesh {
+	class exported mesh {
 	public:
 		mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
 		mesh(const void* data, std::size_t size, const std::vector<index_buffer::index>& indices);

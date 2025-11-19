@@ -24,7 +24,7 @@
 #include "citadel/rendering/cameras/camera.hpp"
 
 namespace citadel {
-	class api orthographic_camera : public camera {
+	class exported orthographic_camera : public camera {
 	public:
 		using dimension = std::uint32_t;
 

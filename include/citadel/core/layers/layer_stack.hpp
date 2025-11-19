@@ -23,7 +23,7 @@
 #include "citadel/core/layers/layer.hpp"
 
 namespace citadel {
-	class api layer_stack {
+	class exported layer_stack {
 	public:
 		layer_stack() = default;
 		~layer_stack();

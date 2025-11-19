@@ -23,7 +23,7 @@
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
-	class api vertex_array {
+	class exported vertex_array {
 	public:
 		static std::unique_ptr<vertex_array> create();
 

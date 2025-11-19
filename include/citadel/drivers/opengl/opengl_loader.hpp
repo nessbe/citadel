@@ -20,7 +20,7 @@
 #include "citadel/core/extensions/extension_loader.hpp"
 
 namespace citadel {
-	class api opengl_loader : public extension_loader {
+	class exported opengl_loader : public extension_loader {
 	public:
 		static void* get_procedure_address(const char* name) noexcept;
 

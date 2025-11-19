@@ -38,7 +38,7 @@ namespace citadel {
 			mat4,
 		};
 
-		nodisc api std::size_t size(enumeration value) noexcept;
-		nodisc api std::size_t component_count(enumeration value) noexcept;
+		nodisc exported std::size_t size(enumeration value) noexcept;
+		nodisc exported std::size_t component_count(enumeration value) noexcept;
 	}
 }

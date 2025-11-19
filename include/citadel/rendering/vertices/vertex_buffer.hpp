@@ -23,7 +23,7 @@
 #include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
-	class api vertex_buffer {
+	class exported vertex_buffer {
 	public:
 		nodisc static std::unique_ptr<vertex_buffer> create(std::size_t size);
 		nodisc static std::unique_ptr<vertex_buffer> create(const std::vector<vertex>& vertices);

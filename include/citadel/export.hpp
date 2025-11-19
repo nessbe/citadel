@@ -17,27 +17,27 @@
 #include "citadel/compilers.hpp"
 
 #if CITADEL_COMPILER_MSVC
-	#define api_export   __declspec(dllexport)
-	#define api_import   __declspec(dllimport)
-	#define api_noexport
+	#define export_attribute   __declspec(dllexport)
+	#define import_attribute   __declspec(dllimport)
+	#define noexport_attribute
 #elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-	#define api_export   __attribute__((visibility("default")))
-	#define api_import   __attribute__((visibility("default")))
-	#define api_noexport __attribute__((visibility("hidden")))
+	#define export_attribute   __attribute__((visibility("default")))
+	#define import_attribute   __attribute__((visibility("default")))
+	#define noexport_attribute __attribute__((visibility("hidden")))
 #else
-	#define api_export
-	#define api_import
-	#define api_noexport
+	#define export_attribute
+	#define import_attribute
+	#define noexport_attribute
 #endif
 
 #ifdef CITADEL_LINKAGE_STATIC
-	#define api
+	#define exported
 #elif defined(CITADEL_LINKAGE_DYNAMIC)
 	#ifdef CITADEL_BUILD_DLL
-		#define api api_export
+		#define exported export_attribute
 	#else
-		#define api api_import
+		#define exported import_attribute
 	#endif
 #else
-	#define api api_noexport
+	#define exported noexport_attribute
 #endif

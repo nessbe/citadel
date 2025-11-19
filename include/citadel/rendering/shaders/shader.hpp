@@ -28,6 +28,8 @@
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
+
 #include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 
@@ -35,7 +37,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api shader {
+	class exported shader {
 	public:
 		static std::shared_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
 		static std::shared_ptr<shader> create(const std::string& name, shader_type type);

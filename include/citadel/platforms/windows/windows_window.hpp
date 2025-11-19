@@ -29,7 +29,7 @@ CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class api windows_window : public window {
+	class exported windows_window : public window {
 	public:
 		static constexpr const wchar_t* class_name = L"CitadelWindow";
 
