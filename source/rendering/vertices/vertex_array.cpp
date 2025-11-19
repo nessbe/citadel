@@ -34,7 +34,12 @@ namespace citadel {
 		_add_vertex_buffer(buffer);
 	}
 
-	void vertex_array::set_index_buffer(const std::unique_ptr<index_buffer>& buffer) {
+	index_buffer& vertex_array::get_index_buffer() const {
+		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
+		return *index_buffer_;
+	}
+
+	void vertex_array::set_index_buffer(const std::shared_ptr<index_buffer>& buffer) {
 		_set_index_buffer(buffer);
 	}
 }

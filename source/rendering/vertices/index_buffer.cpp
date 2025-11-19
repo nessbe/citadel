@@ -18,12 +18,12 @@
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 
 namespace citadel {
-	std::unique_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
-		return std::make_unique<opengl_index_buffer>(indices);
+	std::shared_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
+		return std::make_shared<opengl_index_buffer>(indices);
 	}
 
-	std::unique_ptr<index_buffer> index_buffer::create(const index* data, std::size_t size) {
-		return std::make_unique<opengl_index_buffer>(data, size);
+	std::shared_ptr<index_buffer> index_buffer::create(const index* data, std::size_t size) {
+		return std::make_shared<opengl_index_buffer>(data, size);
 	}
 
 	index_buffer::index_buffer(const std::vector<index>& indices)

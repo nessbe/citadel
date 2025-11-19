@@ -48,6 +48,6 @@ namespace citadel {
 	private:
 		std::unique_ptr<vertex_array> vertex_array_;
 		std::unique_ptr<vertex_buffer> vertex_buffer_;
-		std::unique_ptr<index_buffer> index_buffer_;
+		std::shared_ptr<index_buffer> index_buffer_;
 	};
 }

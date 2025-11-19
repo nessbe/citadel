@@ -16,11 +16,14 @@
 
 #include <memory>
 
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
+
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
-	class vertex_array {
+	class api vertex_array {
 	public:
 		static std::unique_ptr<vertex_array> create();
 
@@ -34,13 +37,18 @@ namespace citadel {
 		void unbind();
 
 		void add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer);
-		void set_index_buffer(const std::unique_ptr<index_buffer>& buffer);
+
+		nodisc index_buffer& get_index_buffer() const;
+		void set_index_buffer(const std::shared_ptr<index_buffer>& buffer);
+
+	private:
+		std::shared_ptr<index_buffer> index_buffer_;
 
 	private:
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 
 		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) = 0;
-		virtual void _set_index_buffer(const std::unique_ptr<index_buffer>& buffer) = 0;
+		virtual void _set_index_buffer(const std::shared_ptr<index_buffer>& buffer) = 0;
 	};
 }

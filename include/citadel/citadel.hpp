@@ -58,6 +58,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"
+#include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_context.hpp"
 
 #include "citadel/rendering/cameras/camera.hpp"

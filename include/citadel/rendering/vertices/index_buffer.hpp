@@ -27,8 +27,8 @@ namespace citadel {
 		using index = std::uint32_t;
 
 	public:
-		nodisc static std::unique_ptr<index_buffer> create(const std::vector<index>& indices);
-		nodisc static std::unique_ptr<index_buffer> create(const index* data, std::size_t size);
+		nodisc static std::shared_ptr<index_buffer> create(const std::vector<index>& indices);
+		nodisc static std::shared_ptr<index_buffer> create(const index* data, std::size_t size);
 
 		index_buffer(const std::vector<index>& indices);
 		index_buffer(const index* data, std::size_t size);
