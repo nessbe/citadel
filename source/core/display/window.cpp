@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/display/window.hpp"
+#include "citadel/core/display/window.hpp"
 
 #include "citadel/platforms/windows/windows_window.hpp"
 

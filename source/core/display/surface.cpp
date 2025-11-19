@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/display/surface.hpp"
+#include "citadel/core/display/surface.hpp"
 
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 

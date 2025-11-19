@@ -23,9 +23,9 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/core/layers/layer_stack.hpp"
+#include "citadel/core/display/surface.hpp"
 
-#include "citadel/display/surface.hpp"
+#include "citadel/core/layers/layer_stack.hpp"
 
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_context.hpp"

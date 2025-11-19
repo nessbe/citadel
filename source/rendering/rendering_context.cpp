@@ -15,7 +15,7 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/rendering_context.hpp"
 
-#include "citadel/display/window.hpp"
+#include "citadel/core/display/window.hpp"
 
 #include "citadel/drivers/opengl/opengl_context.hpp"
 

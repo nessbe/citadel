@@ -29,13 +29,13 @@
 #include "citadel/core/entry_point.hpp"
 #include "citadel/core/exit_code.hpp"
 
+#include "citadel/core/display/surface.hpp"
+#include "citadel/core/display/window.hpp"
+
 #include "citadel/core/extensions/extension_loader.hpp"
 
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
-
-#include "citadel/display/surface.hpp"
-#include "citadel/display/window.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_context.hpp"

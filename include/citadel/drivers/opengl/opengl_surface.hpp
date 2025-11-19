@@ -16,7 +16,7 @@
 
 #include "citadel/export.hpp"
 
-#include "citadel/display/surface.hpp"
+#include "citadel/core/display/surface.hpp"
 
 namespace citadel {
 	class exported opengl_surface : public surface {

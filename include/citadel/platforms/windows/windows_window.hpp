@@ -21,7 +21,7 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/display/window.hpp"
+#include "citadel/core/display/window.hpp"
 
 #include "citadel/platforms/windows.hpp"
 
