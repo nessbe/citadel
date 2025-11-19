@@ -70,7 +70,7 @@ namespace citadel {
 		top_ = top;
 	}
 
-CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 
 	void orthographic_camera::_set_projection(dimension width, dimension height) {
@@ -84,7 +84,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 
 	}
 
-CITADEL_IGNORE_WARNING_POP
+CITADEL_IGNORE_WARNING_POP()
 
 	mat4 orthographic_camera::_get_projection() const {
 		return mat4::ortho(left_, right_, bottom_, top_, -1.0f, 1.0f);

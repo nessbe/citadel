@@ -22,7 +22,7 @@
 
 #include "citadel/rendering/color.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
@@ -83,4 +83,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP
+CITADEL_IGNORE_WARNING_POP()

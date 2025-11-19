@@ -16,7 +16,7 @@
 #include "citadel/rendering/rendering_api.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	std::unique_ptr<rendering_api> rendering_api::create(type type) {
@@ -33,7 +33,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP
+CITADEL_IGNORE_WARNING_POP()
 
 	rendering_api::rendering_api(type type)
 		: type_(type) { }

@@ -31,7 +31,7 @@
 #include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
@@ -74,4 +74,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP
+CITADEL_IGNORE_WARNING_POP()

@@ -17,7 +17,7 @@
 
 namespace citadel {
 	namespace shader_data_type {
-		CITADEL_IGNORE_WARNING_PUSH
+		CITADEL_IGNORE_WARNING_PUSH()
 		CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		std::size_t size(enumeration value) noexcept {
@@ -102,6 +102,6 @@ namespace citadel {
 			}
 		}
 
-		CITADEL_IGNORE_WARNING_POP
+		CITADEL_IGNORE_WARNING_POP()
 	}
 }

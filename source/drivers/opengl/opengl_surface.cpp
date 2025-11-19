@@ -22,7 +22,7 @@ namespace citadel {
 	opengl_surface::opengl_surface(dimension width, dimension height, color clear_color)
 		: surface(width, height, clear_color) { }
 
-CITADEL_IGNORE_WARNING_PUSH
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 
 	void opengl_surface::_bind() {
@@ -49,7 +49,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 		glLoadIdentity();
 	}
 
-CITADEL_IGNORE_WARNING_POP
+CITADEL_IGNORE_WARNING_POP()
 
 	void opengl_surface::_unbind() { }
 
