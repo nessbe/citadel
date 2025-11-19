@@ -20,7 +20,14 @@
 namespace citadel {
 	std::unique_ptr<window> window::create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		return std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
+		std::unique_ptr<windows_window> window = std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
+
+		if (window) {
+			window->initialize(rendering_api);
+		}
+
+		return window;
+
 #else
 	#error Citadel does not support your window system yet
 		return nullptr;
@@ -42,42 +49,12 @@ namespace citadel {
 		width_(width),
 		height_(height),
 		title_(title),
-		surface_(surface::create(rendering_api, x, y, width, height, color(255, 255, 255, 255))),
-		rendering_context_(rendering_context::create(rendering_api)) {
-		CITADEL_ASSERT(surface_, "Failed to create surface");
-		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
-	}
+		surface_(nullptr),
+		rendering_context_(nullptr)
+	{ }
 
 	window::window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title)
 		: window(rendering_api, 0, 0, width, height, title) { }
-
-	void window::open() {
-		if (likely(!is_open_)) {
-			_open();
-		}
-
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
-
-		if (rendering_context_) {
-			rendering_context_->construct(this);
-		}
-
-		is_open_ = true;
-	}
-
-	void window::close() {
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
-
-		if (rendering_context_) {
-			rendering_context_->destroy();
-		}
-
-		if (likely(is_open_)) {
-			_close();
-		}
-
-		is_open_ = false;
-	}
 
 	void window::show() {
 		if (likely(!is_visible_)) {
@@ -104,16 +81,11 @@ namespace citadel {
 	}
 
 	bool window::update() {
-		if (!is_open()) {
-			return false;
-		}
-
 		bool result = _update();
-
 		layer_stack_.update();
 
 		if (!result) {
-			close();
+			should_close_ = true;
 		}
 
 		return result;
@@ -245,11 +217,19 @@ namespace citadel {
 		is_vsync_ = value;
 	}
 
-	bool window::is_open() const noexcept {
-		return is_open_;
+	bool window::should_close() const noexcept {
+		return should_close_;
 	}
 
 	bool window::is_visible() const noexcept {
 		return is_visible_;
+	}
+
+	void window::initialize(rendering_api::api rendering_api) {
+		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_channel, color::max_channel, color::max_channel, color::max_channel));
+		CITADEL_ASSERT(surface_, "Failed to create surface");
+
+		rendering_context_ = rendering_context::create(rendering_api, this);
+		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
 	}
 }

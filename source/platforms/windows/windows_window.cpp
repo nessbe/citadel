@@ -35,17 +35,52 @@ namespace citadel {
 	}
 
 	windows_window::windows_window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title)
-		: window(rendering_api, x, y, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL)) {
+		: window(rendering_api, x, y, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL))
+	{
 		CITADEL_ASSERT(instance_, "Failed to get module handle");
+
+		if (instance_count_ <= 0) {
+			register_class(class_name);
+		}
+
+		RECT rect = calculate_rect(
+			get_x(),
+			get_y(),
+			get_width(),
+			get_height()
+		);
+
+		std::wstring wide_title = get_wide_title();
+
+		window_ = CreateWindowEx(
+			0,
+			class_name,
+			wide_title.c_str(),
+			style_,
+			rect.left,
+			rect.top,
+			rect.right - rect.left,
+			rect.bottom - rect.top,
+			NULL,
+			NULL,
+			instance_,
+			this
+		);
+
+		CITADEL_ASSERT(window_, "Failed to create window");
 	}
 
 	windows_window::windows_window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title)
-		: window(rendering_api, 0, 0, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL)) {
-		CITADEL_ASSERT(instance_, "Failed to get module handle");
-	}
+		: windows_window(rendering_api, 0, 0, width, height, title) { }
 
 	windows_window::~windows_window() {
-		close();
+		CITADEL_ASSERT(window_, "Window handle is null");
+
+		DestroyWindow(window_);
+
+		if (instance_count_ <= 0) {
+			unregister_class(class_name);
+		}
 	}
 
 	std::size_t windows_window::instance_count_ = 0;
@@ -143,48 +178,6 @@ namespace citadel {
 		return std::wstring(get_title().begin(), get_title().end());
 	}
 
-	void windows_window::_open() {
-		if (instance_count_ <= 0) {
-			register_class(class_name);
-		}
-
-		RECT rect = calculate_rect(
-			get_x(),
-			get_y(),
-			get_width(),
-			get_height()
-		);
-
-		std::wstring wide_title = get_wide_title();
-
-		window_ = CreateWindowEx(
-			0,
-			class_name,
-			wide_title.c_str(),
-			style_,
-			rect.left,
-			rect.top,
-			rect.right - rect.left,
-			rect.bottom - rect.top,
-			NULL,
-			NULL,
-			instance_,
-			this
-		);
-
-		CITADEL_ASSERT(window_, "Failed to create window");
-	}
-
-	void windows_window::_close() {
-		CITADEL_ASSERT(window_, "Window handle is null");
-
-		DestroyWindow(window_);
-
-		if (instance_count_ <= 0) {
-			unregister_class(class_name);
-		}
-	}
-
 	void windows_window::_show() {
 		CITADEL_ASSERT(window_, "Window handle is null");
 		ShowWindow(window_, SW_SHOW);
@@ -273,8 +266,6 @@ namespace citadel {
 	}
 
 	void windows_window::_set_vsync(bool value) {
-		if (is_open()) {
-			wglSwapIntervalEXT(static_cast<int>(value));
-		}
+		wglSwapIntervalEXT(static_cast<int>(value));
 	}
 }

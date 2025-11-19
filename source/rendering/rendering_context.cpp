@@ -23,14 +23,14 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<rendering_context> rendering_context::create(rendering_api::api api) {
+	std::unique_ptr<rendering_context> rendering_context::create(rendering_api::api api, window* window) {
 		switch (api) {
 		case rendering_api::api::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api::api::opengl:
-			return std::make_unique<opengl_context>();
+			return std::make_unique<opengl_context>(window);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -38,18 +38,6 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
-
-	rendering_context::~rendering_context() {
-		destroy();
-	}
-
-	void rendering_context::construct(window* window) {
-		_construct(window);
-	}
-
-	void rendering_context::destroy() {
-		_destroy();
-	}
 
 	void rendering_context::bind() {
 		_bind();

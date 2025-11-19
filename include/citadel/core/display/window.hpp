@@ -50,9 +50,6 @@ namespace citadel {
 		window(const window&) = delete;
 		window& operator=(const window&) = delete;
 
-		void open();
-		void close();
-
 		void show();
 		void hide();
 
@@ -89,11 +86,11 @@ namespace citadel {
 		nodisc bool is_vsync() const noexcept;
 		void set_vsync(bool value);
 
-		nodisc bool is_open() const noexcept;
+		nodisc bool should_close() const noexcept;
 		nodisc bool is_visible() const noexcept;
 
 	protected:
-		dimension x_, y_, width_, height_;
+		dimension x_, y_, width_, height_;		
 
 	private:
 		std::string title_;
@@ -104,12 +101,11 @@ namespace citadel {
 
 		bool is_vsync_ = false;
 
-		bool is_open_ = false;
+		bool should_close_ = false;
 		bool is_visible_ = false;
 
 	private:
-		virtual void _open() = 0;
-		virtual void _close() = 0;
+		void initialize(rendering_api::api rendering_api);
 
 		virtual void _show() = 0;
 		virtual void _hide() = 0;

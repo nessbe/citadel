@@ -61,9 +61,6 @@ namespace citadel {
 
 		std::wstring get_wide_title() const;
 
-		virtual void _open() override;
-		virtual void _close() override;
-
 		virtual void _show() override;
 		virtual void _hide() override;
 

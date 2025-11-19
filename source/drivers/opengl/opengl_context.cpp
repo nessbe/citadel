@@ -40,23 +40,8 @@ namespace citadel {
 			<< std::endl;
 	}
 
-	void opengl_context::enable_debug() {
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-
-		glDebugMessageCallback(opengl_debug_callback, nullptr);
-		glDebugMessageControl(
-			GL_DONT_CARE,
-			GL_DONT_CARE,
-			GL_DONT_CARE,
-			0,
-			NULL,
-			GL_TRUE
-		);
-	}
-
+	opengl_context::opengl_context(window* window) {
 #if CITADEL_PLATFORM_WINDOWS
-	void opengl_context::construct_windows(windows_window* window) {
 		CITADEL_ASSERT(
 			wgl_loader_.load(),
 			"Failed to load WGL using Glad"
@@ -108,17 +93,7 @@ namespace citadel {
 			opengl_loader_.load(),
 			"Failed to load OpenGL using Glad"
 		);
-	}
-#endif
 
-	void opengl_context::_construct(window* window) {
-#if CITADEL_PLATFORM_WINDOWS
-		windows_window* platform_window = dynamic_cast<windows_window*>(window);
-		CITADEL_ASSERT(platform_window, "The given window is not supported for Windows");
-
-		if (platform_window) {
-			construct_windows(platform_window);
-		}
 #else
 	#error Rendering context does not support your window system yet
 #endif
@@ -128,7 +103,7 @@ namespace citadel {
 #endif
 	}
 
-	void opengl_context::_destroy() {
+	opengl_context::~opengl_context() {
 #if CITADEL_PLATFORM_WINDOWS
 		CITADEL_ASSERT(device_context_, "Device context is null");
 		CITADEL_ASSERT(rendering_context_, "OpenGL rendering context is null");
@@ -147,6 +122,21 @@ namespace citadel {
 #else
 	#error Rendering context does not support your window system yet
 #endif
+	}
+
+	void opengl_context::enable_debug() {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+		glDebugMessageCallback(opengl_debug_callback, nullptr);
+		glDebugMessageControl(
+			GL_DONT_CARE,
+			GL_DONT_CARE,
+			GL_DONT_CARE,
+			0,
+			NULL,
+			GL_TRUE
+		);
 	}
 
 	void opengl_context::_bind() {

@@ -26,13 +26,9 @@ namespace citadel {
 
 	class exported rendering_context {
 	public:
-		nodisc static std::unique_ptr<rendering_context> create(rendering_api::api api);
+		nodisc static std::unique_ptr<rendering_context> create(rendering_api::api api, window* window);
 
-		rendering_context() = default;
-		virtual ~rendering_context();
-
-		void construct(window* window);
-		void destroy();
+		virtual ~rendering_context() = default;
 
 		void bind();
 		void unbind();
@@ -40,9 +36,6 @@ namespace citadel {
 		void swap_buffers();
 
 	private:
-		virtual void _construct(window* window) = 0;
-		virtual void _destroy() = 0;
-
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 
