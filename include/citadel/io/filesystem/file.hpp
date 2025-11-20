@@ -26,9 +26,9 @@
 namespace citadel {
 	class exported file {
 	public:
-		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode mode);
+		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode::enumeration mode);
 
-		file(const std::string& path, file_open_mode mode);
+		file(const std::string& path, file_open_mode::enumeration mode);
 		virtual ~file() = default;
 
 		std::size_t read(void* buffer, std::size_t size);

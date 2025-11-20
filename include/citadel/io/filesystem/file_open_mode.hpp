@@ -15,12 +15,22 @@
 #pragma once
 
 #include <cinttypes>
+#include <ios>
+
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 
 namespace citadel {
-	enum class file_open_mode : std::uint8_t {
-		read = 0,
-		write,
-		read_write,
-		write_read,
-	};
+	namespace file_open_mode {
+		using type = std::uint8_t;
+
+		enum enumeration : type {
+			read = 0,
+			write,
+			read_write,
+			write_read,
+		};
+
+		nodisc exported std::ios::openmode to_stl(enumeration value);
+	}
 }
