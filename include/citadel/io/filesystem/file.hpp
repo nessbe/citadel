@@ -15,15 +15,20 @@
 #pragma once
 
 #include <cstddef>
+#include <memory>
 #include <string>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/io/filesystem/file_open_mode.hpp"
+
 namespace citadel {
 	class exported file {
 	public:
-		explicit file(const std::string& path);
+		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode mode);
+
+		file(const std::string& path, file_open_mode mode);
 		virtual ~file() = default;
 
 		std::size_t read(void* buffer, std::size_t size);
