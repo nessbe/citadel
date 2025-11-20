@@ -46,6 +46,7 @@
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 #include "citadel/io/filesystem/file.hpp"
+#include "citadel/io/filesystem/file_open_mode.hpp"
 
 #include "citadel/math/angles.hpp"
 
