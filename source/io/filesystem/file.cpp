@@ -16,11 +16,11 @@
 #include "citadel/io/filesystem/file.hpp"
 
 namespace citadel {
-	std::unique_ptr<file> file::create(const std::string& path, file_open_mode mode) {
+	std::unique_ptr<file> file::create(const std::string& path, file_open_mode::enumeration mode) {
 		return nullptr;
 	}
 
-	file::file(const std::string& path, file_open_mode mode)
+	file::file(const std::string& path, file_open_mode::enumeration mode)
 		: path_(path) { }
 
 	std::size_t file::read(void* buffer, std::size_t size) {
