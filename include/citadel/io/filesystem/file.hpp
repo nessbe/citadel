@@ -31,7 +31,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported file {
 	public:
-		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode::enumeration open_mode);
+		nodisc static std::shared_ptr<file> create(const std::string& path, file_open_mode::enumeration open_mode);
 
 		file(const std::string& path, file_open_mode::enumeration open_mode);
 		virtual ~file() = default;
