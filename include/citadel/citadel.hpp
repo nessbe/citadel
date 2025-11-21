@@ -57,6 +57,8 @@
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
+#include "citadel/platforms/stl/stl_file.hpp"
+
 #include "citadel/platforms/windows.hpp"
 #include "citadel/platforms/windows/wgl_loader.hpp"
 #include "citadel/platforms/windows/windows_window.hpp"
