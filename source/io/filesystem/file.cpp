@@ -18,8 +18,8 @@
 #include "citadel/platforms/stl/stl_file.hpp"
 
 namespace citadel {
-	std::unique_ptr<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
-		return std::make_unique<stl_file>(path, open_mode);
+	std::shared_ptr<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
+		return std::make_shared<stl_file>(path, open_mode);
 	}
 
 	file::file(const std::string& path, file_open_mode::enumeration open_mode)
