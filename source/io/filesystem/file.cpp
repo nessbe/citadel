@@ -15,31 +15,33 @@
 #include "citadel/pch.hpp"
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/platforms/stl/stl_file.hpp"
+
 namespace citadel {
-	std::unique_ptr<file> file::create(const std::string& path, file_open_mode::enumeration mode) {
-		return nullptr;
+	std::unique_ptr<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
+		return std::make_unique<stl_file>(path, open_mode);
 	}
 
-	file::file(const std::string& path, file_open_mode::enumeration mode)
-		: path_(path) { }
+	file::file(const std::string& path, file_open_mode::enumeration open_mode)
+		: path_(path), open_mode_(open_mode){ }
 
-	std::size_t file::read(void* buffer, std::size_t size) {
+	std::streamsize file::read(void* buffer, std::streamsize size) {
 		return _read(buffer, size);
 	}
 
-	std::size_t file::write(const void* buffer, std::size_t size) {
+	std::streamsize file::write(const void* buffer, std::streamsize size) {
 		return _write(buffer, size);
 	}
 
-	std::size_t file::tell() {
+	std::streampos file::tell() {
 		return _tell();
 	}
 
-	std::size_t file::size() {
+	std::streamsize file::size() {
 		return _size();
 	}
 
-	void file::seek(std::size_t position) {
+	void file::seek(std::streamoff position) {
 		_seek(position);
 	}
 
@@ -49,5 +51,9 @@ namespace citadel {
 
 	const std::string& file::get_path() const noexcept {
 		return path_;
+	}
+
+	file_open_mode::enumeration file::get_open_mode() const noexcept {
+		return open_mode_;
 	}
 }

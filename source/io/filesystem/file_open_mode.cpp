@@ -32,7 +32,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 				return std::ios::in | std::ios::out;
 
 			case write_read:
-				return std::ios::out | std::ios::in | std::ios::trunc;
+				return std::ios::in | std::ios::out | std::ios::trunc;
 
 			default:
 				CITADEL_PANIC("Unknown file open mode");
