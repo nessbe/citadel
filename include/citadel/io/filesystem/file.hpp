@@ -15,46 +15,55 @@
 #pragma once
 
 #include <cstddef>
+#include <iosfwd>
 #include <memory>
 #include <string>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/io/filesystem/file_open_mode.hpp"
+
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class exported file {
 	public:
-		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode::enumeration mode);
+		nodisc static std::unique_ptr<file> create(const std::string& path, file_open_mode::enumeration open_mode);
 
-		file(const std::string& path, file_open_mode::enumeration mode);
+		file(const std::string& path, file_open_mode::enumeration open_mode);
 		virtual ~file() = default;
 
-		std::size_t read(void* buffer, std::size_t size);
-		std::size_t write(const void* buffer, std::size_t size);
+		std::streamsize read(void* buffer, std::streamsize size);
+		std::streamsize write(const void* buffer, std::streamsize size);
 
-		std::size_t tell();
-		std::size_t size();
+		nodisc std::streampos tell();
+		nodisc std::streamoff size();
 
-		void seek(std::size_t position);
+		void seek(std::streamoff position);
 
 		nodisc void* get_native_handle() const;
 
 		nodisc const std::string& get_path() const noexcept;
+		nodisc file_open_mode::enumeration get_open_mode() const noexcept;
 
 	private:
 		std::string path_;
+		file_open_mode::enumeration open_mode_;
 
 	private:
-		virtual std::size_t _read(void* buffer, std::size_t size) = 0;
-		virtual std::size_t _write(const void* buffer, std::size_t size) = 0;
+		virtual std::streamsize _read(void* buffer, std::streamsize size) = 0;
+		virtual std::streamsize _write(const void* buffer, std::streamsize size) = 0;
 
-		virtual std::size_t _tell() = 0;
-		virtual std::size_t _size() = 0;
+		nodisc virtual std::streampos _tell() = 0;
+		nodisc virtual std::streamoff _size() = 0;
 
-		virtual void _seek(std::size_t position) = 0;
+		virtual void _seek(std::streamoff position) = 0;
 
 		nodisc virtual void* _get_native_handle() const = 0;
 	};
 }
+
+CITADEL_IGNORE_WARNING_POP()
