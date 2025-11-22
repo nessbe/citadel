@@ -78,3 +78,4 @@
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
+#include "citadel/rendering/vertices/vertex_buffer_layout.hpp"

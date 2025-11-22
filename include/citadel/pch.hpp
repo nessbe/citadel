@@ -20,6 +20,11 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdlib>
+#include <fstream>
+#include <initializer_list>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
 #include <iostream>
 #include <limits>
 #include <memory>
