@@ -101,6 +101,8 @@ namespace citadel {
 #if CITADEL_DEBUG
 		enable_debug();
 #endif
+
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	opengl_context::~opengl_context() {
