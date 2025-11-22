@@ -34,7 +34,7 @@ namespace citadel {
 		return static_cast<bool>(result);
 	}
 
-	windows_window::windows_window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title)
+	windows_window::windows_window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title)
 		: window(rendering_api, x, y, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL))
 	{
 		CITADEL_ASSERT(instance_, "Failed to get module handle");
@@ -70,7 +70,7 @@ namespace citadel {
 		CITADEL_ASSERT(window_, "Failed to create window");
 	}
 
-	windows_window::windows_window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title)
+	windows_window::windows_window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title)
 		: windows_window(rendering_api, 0, 0, width, height, title) { }
 
 	windows_window::~windows_window() {

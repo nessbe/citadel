@@ -21,13 +21,13 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::shared_ptr<shader> shader::create(rendering_api::api api, const std::string& name, shader_type type, const std::string& source) {
+	std::shared_ptr<shader> shader::create(rendering_api_type api, const std::string& name, shader_type type, const std::string& source) {
 		switch (api) {
-		case rendering_api::api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case rendering_api::api::opengl:
+		case rendering_api_type::opengl:
 			return std::make_shared<opengl_shader>(name, type, source);
 		}
 
@@ -35,13 +35,13 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-	std::shared_ptr<shader> shader::create(rendering_api::api api, const std::string& name, shader_type type) {
+	std::shared_ptr<shader> shader::create(rendering_api_type api, const std::string& name, shader_type type) {
 		switch (api) {
-		case rendering_api::api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case rendering_api::api::opengl:
+		case rendering_api_type::opengl:
 			return std::make_shared<opengl_shader>(name, type);
 		}
 

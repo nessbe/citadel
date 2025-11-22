@@ -22,7 +22,7 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/rendering/rendering_api.hpp"
+#include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
@@ -33,7 +33,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported shader_program {
 	public:
-		nodisc static std::unique_ptr<shader_program> create(rendering_api::api api, const std::string& name);
+		nodisc static std::unique_ptr<shader_program> create(rendering_api_type api, const std::string& name);
 
 		shader_program(const std::string& name);
 		virtual ~shader_program() = default;

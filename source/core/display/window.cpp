@@ -18,7 +18,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	std::unique_ptr<window> window::create(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
 		std::unique_ptr<windows_window> window = std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
 
@@ -34,7 +34,7 @@ namespace citadel {
 #endif
 	}
 
-	std::unique_ptr<window> window::create(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title) {
+	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
 		return std::make_unique<windows_window>(rendering_api, width, height, title);
 #else
@@ -43,7 +43,7 @@ namespace citadel {
 #endif
 	}
 
-	window::window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) :
+	window::window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) :
 		x_(x),
 		y_(y),
 		width_(width),
@@ -53,7 +53,7 @@ namespace citadel {
 		rendering_context_(nullptr)
 	{ }
 
-	window::window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title)
+	window::window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title)
 		: window(rendering_api, 0, 0, width, height, title) { }
 
 	void window::show() {
@@ -231,7 +231,7 @@ namespace citadel {
 		return is_visible_;
 	}
 
-	void window::initialize(rendering_api::api rendering_api) {
+	void window::initialize(rendering_api_type rendering_api) {
 		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_channel, color::max_channel, color::max_channel, color::max_channel));
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 

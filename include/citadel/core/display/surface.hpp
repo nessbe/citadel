@@ -22,7 +22,7 @@
 #include "citadel/warnings.hpp"
 
 #include "citadel/rendering/color.hpp"
-#include "citadel/rendering/rendering_api.hpp"
+#include "citadel/rendering/rendering_api_type.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
@@ -33,8 +33,8 @@ namespace citadel {
 		using dimension = std::uint32_t;
 
 	public:
-		nodisc static std::unique_ptr<surface> create(rendering_api::api api, dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static std::unique_ptr<surface> create(rendering_api::api api, dimension width, dimension height, color clear_color);
+		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
 
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);

@@ -15,20 +15,22 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/rendering_api.hpp"
 
+#include "citadel/drivers/opengl/opengl_rendering_api.hpp"
+
 #include "citadel/rendering/vertices/vertex_array.hpp"
 
 namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<rendering_api> rendering_api::create(api api) {
+	std::unique_ptr<rendering_api> rendering_api::create(rendering_api_type api) {
 		switch (api) {
-		case api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case api::opengl:
-			return nullptr;
+		case rendering_api_type::opengl:
+			return std::make_unique<opengl_rendering_api>();
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -37,7 +39,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_IGNORE_WARNING_POP()
 
-	rendering_api::rendering_api(api api)
+	rendering_api::rendering_api(rendering_api_type api)
 		: api_(api) { }
 
 	void rendering_api::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {

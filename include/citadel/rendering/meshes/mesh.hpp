@@ -20,7 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/rendering/rendering_api.hpp"
+#include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
@@ -30,7 +30,7 @@
 namespace citadel {
 	class exported mesh {
 	public:
-		mesh(rendering_api::api api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
+		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
 
 		~mesh();
 

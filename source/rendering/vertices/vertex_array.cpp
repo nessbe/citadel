@@ -21,13 +21,13 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<vertex_array> vertex_array::create(rendering_api::api api) {
+	std::unique_ptr<vertex_array> vertex_array::create(rendering_api_type api) {
 		switch (api) {
-		case rendering_api::api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case rendering_api::api::opengl:
+		case rendering_api_type::opengl:
 			return std::make_unique<opengl_vertex_array>();
 		}
 

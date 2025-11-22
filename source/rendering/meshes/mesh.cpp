@@ -16,7 +16,7 @@
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
-	mesh::mesh(rendering_api::api api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices) :
+	mesh::mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices) :
 		vertex_array_(vertex_array::create(api)),
 		vertex_buffer_(vertex_buffer::create(api, data, size, layout)),
 		index_buffer_(index_buffer::create(api, indices))

@@ -21,13 +21,13 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::shared_ptr<index_buffer> index_buffer::create(rendering_api::api api, const std::vector<index>& indices) {
+	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const std::vector<index>& indices) {
 		switch (api) {
-		case rendering_api::api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case rendering_api::api::opengl:
+		case rendering_api_type::opengl:
 			return std::make_unique<opengl_index_buffer>(indices);
 		}
 
@@ -35,13 +35,13 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-	std::shared_ptr<index_buffer> index_buffer::create(rendering_api::api api, const index* data, std::size_t size) {
+	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const index* data, std::size_t size) {
 		switch (api) {
-		case rendering_api::api::none:
+		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
-		case rendering_api::api::opengl:
+		case rendering_api_type::opengl:
 			return std::make_unique<opengl_index_buffer>(data, size);
 		}
 

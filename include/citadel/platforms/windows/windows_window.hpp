@@ -37,8 +37,8 @@ namespace citadel {
 		static bool register_class(const wchar_t* name);
 		static bool unregister_class(const wchar_t* name);
 
-		windows_window(rendering_api::api rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		windows_window(rendering_api::api rendering_api, dimension width, dimension height, const std::string& title);
+		windows_window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		windows_window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
 
 		windows_window(const windows_window&) = delete;
 		windows_window& operator=(const windows_window&) = delete;
