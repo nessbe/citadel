@@ -56,5 +56,6 @@ CITADEL_IGNORE_WARNING_POP()
 
 	void vertex_array::set_index_buffer(const std::shared_ptr<index_buffer>& buffer) {
 		_set_index_buffer(buffer);
+		index_buffer_ = buffer;
 	}
 }

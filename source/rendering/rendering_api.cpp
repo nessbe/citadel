@@ -30,7 +30,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_rendering_api>();
+			return std::make_unique<opengl_rendering_api>(api);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");

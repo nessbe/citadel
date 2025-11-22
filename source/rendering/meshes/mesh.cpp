@@ -52,10 +52,9 @@ namespace citadel {
 		vertex_array_->unbind();
 	}
 
-	void mesh::render() {
-		bind();
-		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
-		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(index_buffer_->size()), GL_UNSIGNED_INT, nullptr);
+	void mesh::render(const std::unique_ptr<rendering_api>& rendering_api) {
+		CITADEL_ASSERT(rendering_api, "The given rendering API is null");
+		rendering_api->draw_indexed(vertex_array_);
 	}
 
 	vertex_array& mesh::get_vertex_array() const {

@@ -52,7 +52,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 CITADEL_IGNORE_WARNING_POP()
 
 	vertex_buffer::vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)
-		: size_(size), layout_(layout) { }
+		: layout_(layout), size_(size) { }
 
 	void vertex_buffer::bind() {
 		_bind();

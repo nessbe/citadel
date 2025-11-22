@@ -20,6 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/vertices/index_buffer.hpp"
@@ -40,7 +41,7 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void render();
+		void render(const std::unique_ptr<rendering_api>& rendering_api);
 
 		nodisc vertex_array& get_vertex_array() const;
 		nodisc vertex_buffer& get_vertex_buffer() const;
