@@ -21,22 +21,23 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
+	enum shader_data_type_enumeration {
+		shader_data_type_bool = 0,
+		shader_data_type_int,
+		shader_data_type_ivec2,
+		shader_data_type_ivec3,
+		shader_data_type_ivec4,
+		shader_data_type_float,
+		shader_data_type_vec2,
+		shader_data_type_vec3,
+		shader_data_type_vec4,
+		shader_data_type_mat3,
+		shader_data_type_mat4,
+	};
+
 	namespace shader_data_type {
 		using type = std::uint8_t;
-
-		enum enumeration : type {
-			boolean = 0,
-			int1,
-			int2,
-			int3,
-			int4,
-			float1,
-			float2,
-			float3,
-			float4,
-			mat3,
-			mat4,
-		};
+		using enumeration = shader_data_type_enumeration;
 
 		nodisc exported std::size_t size(enumeration value) noexcept;
 		nodisc exported std::size_t component_count(enumeration value) noexcept;

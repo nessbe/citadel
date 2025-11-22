@@ -99,55 +99,55 @@ namespace citadel {
 		}
 	}
 
-	void opengl_shader_program::_set_uniform_boolean(const std::string& name, bool value) {
+	void opengl_shader_program::_set_uniform_bool(const std::string& name, bool value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform1i(location, value);
 	}
 
-	void opengl_shader_program::_set_uniform_int1(const std::string& name, int value) {
+	void opengl_shader_program::_set_uniform_int(const std::string& name, int value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform1i(location, value);
 	}
 
-	void opengl_shader_program::_set_uniform_int2(const std::string& name, const ivec2& value) {
+	void opengl_shader_program::_set_uniform_ivec2(const std::string& name, const ivec2& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform2i(location, value.x, value.y);
 	}
 
-	void opengl_shader_program::_set_uniform_int3(const std::string& name, const ivec3& value) {
+	void opengl_shader_program::_set_uniform_ivec3(const std::string& name, const ivec3& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform3i(location, value.x, value.y, value.z);
 	}
 
-	void opengl_shader_program::_set_uniform_int4(const std::string& name, const ivec4& value) {
+	void opengl_shader_program::_set_uniform_ivec4(const std::string& name, const ivec4& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform4i(location, value.x, value.y, value.z, value.w);
 	}
 
-	void opengl_shader_program::_set_uniform_float1(const std::string& name, float value) {
+	void opengl_shader_program::_set_uniform_float(const std::string& name, float value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform1f(location, value);
 	}
 
-	void opengl_shader_program::_set_uniform_float2(const std::string& name, const vec2& value) {
+	void opengl_shader_program::_set_uniform_vec2(const std::string& name, const vec2& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform2f(location, value.x, value.y);
 	}
 
-	void opengl_shader_program::_set_uniform_float3(const std::string& name, const vec3& value) {
+	void opengl_shader_program::_set_uniform_vec3(const std::string& name, const vec3& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
-	void opengl_shader_program::_set_uniform_float4(const std::string& name, const vec4& value) {
+	void opengl_shader_program::_set_uniform_vec4(const std::string& name, const vec4& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniform4f(location, value.x, value.y, value.z, value.w);

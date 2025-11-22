@@ -54,17 +54,17 @@ namespace citadel {
 		virtual void _attach(const std::shared_ptr<shader>& shader) override;
 		virtual void _detach(const std::shared_ptr<shader>& shader) override;
 
-		virtual void _set_uniform_boolean(const std::string& name, bool value) override;
+		virtual void _set_uniform_bool(const std::string& name, bool value) override;
 
-		virtual void _set_uniform_int1(const std::string& name, int value) override;
-		virtual void _set_uniform_int2(const std::string& name, const ivec2& value) override;
-		virtual void _set_uniform_int3(const std::string& name, const ivec3& value) override;
-		virtual void _set_uniform_int4(const std::string& name, const ivec4& value) override;
+		virtual void _set_uniform_int(const std::string& name, int value) override;
+		virtual void _set_uniform_ivec2(const std::string& name, const ivec2& value) override;
+		virtual void _set_uniform_ivec3(const std::string& name, const ivec3& value) override;
+		virtual void _set_uniform_ivec4(const std::string& name, const ivec4& value) override;
 
-		virtual void _set_uniform_float1(const std::string& name, float value) override;
-		virtual void _set_uniform_float2(const std::string& name, const vec2& value) override;
-		virtual void _set_uniform_float3(const std::string& name, const vec3& value) override;
-		virtual void _set_uniform_float4(const std::string& name, const vec4& value) override;
+		virtual void _set_uniform_float(const std::string& name, float value) override;
+		virtual void _set_uniform_vec2(const std::string& name, const vec2& value) override;
+		virtual void _set_uniform_vec3(const std::string& name, const vec3& value) override;
+		virtual void _set_uniform_vec4(const std::string& name, const vec4& value) override;
 
 		virtual void _set_uniform_mat3(const std::string& name, const mat3& value) override;
 		virtual void _set_uniform_mat4(const std::string& name, const mat4& value) override;

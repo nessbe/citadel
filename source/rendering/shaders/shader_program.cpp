@@ -74,40 +74,40 @@ CITADEL_IGNORE_WARNING_POP()
 		shaders_.erase(type);
 	}
 
-	void shader_program::set_uniform_boolean(const std::string& name, bool value) {
-		_set_uniform_boolean(name, value);
+	void shader_program::set_uniform_bool(const std::string& name, bool value) {
+		_set_uniform_bool(name, value);
 	}
 
-	void shader_program::set_uniform_int1(const std::string& name, int value) {
-		_set_uniform_int1(name, value);
+	void shader_program::set_uniform_int(const std::string& name, int value) {
+		_set_uniform_int(name, value);
 	}
 
-	void shader_program::set_uniform_int2(const std::string& name, const ivec2& value) {
-		_set_uniform_int2(name, value);
+	void shader_program::set_uniform_ivec2(const std::string& name, const ivec2& value) {
+		_set_uniform_ivec2(name, value);
 	}
 
-	void shader_program::set_uniform_int3(const std::string& name, const ivec3& value) {
-		_set_uniform_int3(name, value);
+	void shader_program::set_uniform_ivec3(const std::string& name, const ivec3& value) {
+		_set_uniform_ivec3(name, value);
 	}
 
-	void shader_program::set_uniform_int4(const std::string& name, const ivec4& value) {
-		_set_uniform_int4(name, value);
+	void shader_program::set_uniform_ivec4(const std::string& name, const ivec4& value) {
+		_set_uniform_ivec4(name, value);
 	}
 
-	void shader_program::set_uniform_float1(const std::string& name, float value) {
-		_set_uniform_float1(name, value);
+	void shader_program::set_uniform_float(const std::string& name, float value) {
+		_set_uniform_float(name, value);
 	}
 
-	void shader_program::set_uniform_float2(const std::string& name, const vec2& value) {
-		_set_uniform_float2(name, value);
+	void shader_program::set_uniform_vec2(const std::string& name, const vec2& value) {
+		_set_uniform_vec2(name, value);
 	}
 
-	void shader_program::set_uniform_float3(const std::string& name, const vec3& value) {
-		_set_uniform_float3(name, value);
+	void shader_program::set_uniform_vec3(const std::string& name, const vec3& value) {
+		_set_uniform_vec3(name, value);
 	}
 
-	void shader_program::set_uniform_float4(const std::string& name, const vec4& value) {
-		_set_uniform_float4(name, value);
+	void shader_program::set_uniform_vec4(const std::string& name, const vec4& value) {
+		_set_uniform_vec4(name, value);
 	}
 
 	void shader_program::set_uniform_mat3(const std::string& name, const mat3& value) {

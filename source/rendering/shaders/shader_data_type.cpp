@@ -22,37 +22,37 @@ namespace citadel {
 
 		std::size_t size(enumeration value) noexcept {
 			switch (value) {
-			case boolean:
+			case shader_data_type_bool:
 				return sizeof(bool);
 
-			case int1:
+			case shader_data_type_int:
 				return sizeof(int);
 
-			case int2:
+			case shader_data_type_ivec2:
 				return sizeof(int) * 2;
 
-			case int3:
+			case shader_data_type_ivec3:
 				return sizeof(int) * 3;
 
-			case int4:
+			case shader_data_type_ivec4:
 				return sizeof(int) * 4;
 
-			case float1:
+			case shader_data_type_float:
 				return sizeof(float);
 
-			case float2:
+			case shader_data_type_vec2:
 				return sizeof(float) * 2;
 
-			case float3:
+			case shader_data_type_vec3:
 				return sizeof(float) * 3;
 
-			case float4:
+			case shader_data_type_vec4:
 				return sizeof(float) * 4;
 
-			case mat3:
+			case shader_data_type_mat3:
 				return sizeof(float) * 3 * 3;
 
-			case mat4:
+			case shader_data_type_mat4:
 				return sizeof(float) * 4 * 4;
 
 			default:
@@ -63,37 +63,37 @@ namespace citadel {
 
 		std::size_t component_count(enumeration value) noexcept {
 			switch (value) {
-			case boolean:
+			case shader_data_type_bool:
 				return 1;
 
-			case int1:
+			case shader_data_type_int:
 				return 1;
 
-			case int2:
+			case shader_data_type_ivec2:
 				return 2;
 
-			case int3:
+			case shader_data_type_ivec3:
 				return 3;
 
-			case int4:
+			case shader_data_type_ivec4:
 				return 4;
 
-			case float1:
+			case shader_data_type_float:
 				return 1;
 
-			case float2:
+			case shader_data_type_vec2:
 				return 2;
 
-			case float3:
+			case shader_data_type_vec3:
 				return 3;
 
-			case float4:
+			case shader_data_type_vec4:
 				return 4;
 
-			case mat3:
+			case shader_data_type_mat3:
 				return 3;
 
-			case mat4:
+			case shader_data_type_mat4:
 				return 4;
 
 			default:
