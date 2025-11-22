@@ -102,6 +102,47 @@ namespace citadel {
 			}
 		}
 
+		GLenum to_opengl(enumeration value) noexcept {
+			switch (value) {
+			case shader_data_type_bool:
+				return GL_BOOL;
+
+			case shader_data_type_int:
+				return GL_INT;
+
+			case shader_data_type_ivec2:
+				return GL_INT;
+
+			case shader_data_type_ivec3:
+				return GL_INT;
+
+			case shader_data_type_ivec4:
+				return GL_INT;
+
+			case shader_data_type_float:
+				return GL_FLOAT;
+
+			case shader_data_type_vec2:
+				return GL_FLOAT;
+
+			case shader_data_type_vec3:
+				return GL_FLOAT;
+
+			case shader_data_type_vec4:
+				return GL_FLOAT;
+
+			case shader_data_type_mat3:
+				return GL_FLOAT;
+
+			case shader_data_type_mat4:
+				return GL_FLOAT;
+
+			default:
+				CITADEL_PANIC("Unknown shader data type");
+				return 0;
+			}
+		}
+
 		CITADEL_IGNORE_WARNING_POP()
 	}
 }

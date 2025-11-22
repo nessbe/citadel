@@ -16,8 +16,8 @@
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 namespace citadel {
-	opengl_vertex_buffer::opengl_vertex_buffer(std::size_t size)
-		: vertex_buffer(size) {
+	opengl_vertex_buffer::opengl_vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)
+		: vertex_buffer(size, layout) {
 		glGenBuffers(1, &id_);
 		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
 
@@ -25,22 +25,8 @@ namespace citadel {
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	opengl_vertex_buffer::opengl_vertex_buffer(const std::vector<vertex>& vertices)
-		: vertex_buffer(vertices.size()) {
-		glGenBuffers(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
-
-		glBindBuffer(GL_ARRAY_BUFFER, id_);
-		glBufferData(
-			GL_ARRAY_BUFFER,
-			static_cast<GLsizeiptr>(vertices.size() * sizeof(vertex)),
-			vertices.data(),
-			GL_STATIC_DRAW
-		);
-	}
-
-	opengl_vertex_buffer::opengl_vertex_buffer(const void* data, std::size_t size)
-		: vertex_buffer(size) {
+	opengl_vertex_buffer::opengl_vertex_buffer(const void* data, std::size_t size, const vertex_buffer_layout& layout)
+		: vertex_buffer(size, layout) {
 		glGenBuffers(1, &id_);
 		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
 
@@ -53,7 +39,7 @@ namespace citadel {
 	}
 
 	opengl_vertex_buffer::opengl_vertex_buffer(opengl_vertex_buffer&& other) noexcept
-		: opengl_vertex_buffer(other.size()) {
+		: opengl_vertex_buffer(other.size(), other.get_layout()) {
 		id_ = other.id_;
 		other.id_ = 0;
 	}

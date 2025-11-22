@@ -20,6 +20,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/drivers/opengl.hpp"
+
 namespace citadel {
 	enum shader_data_type_enumeration {
 		shader_data_type_bool = 0,
@@ -41,5 +43,6 @@ namespace citadel {
 
 		nodisc exported std::size_t size(enumeration value) noexcept;
 		nodisc exported std::size_t component_count(enumeration value) noexcept;
+		nodisc exported GLenum to_opengl(enumeration value) noexcept;
 	}
 }

@@ -22,8 +22,8 @@
 
 #include "citadel/drivers/opengl.hpp"
 
-#include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
+#include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
@@ -34,9 +34,8 @@ namespace citadel {
 		using id = GLuint;
 
 	public:
-		opengl_vertex_buffer(std::size_t size);
-		opengl_vertex_buffer(const std::vector<vertex>& vertices);
-		opengl_vertex_buffer(const void* data, std::size_t size);
+		opengl_vertex_buffer(std::size_t size, const vertex_buffer_layout& layout);
+		opengl_vertex_buffer(const void* data, std::size_t size, const vertex_buffer_layout& layout);
 
 		virtual ~opengl_vertex_buffer() override;
 

@@ -21,42 +21,28 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, std::size_t size) {
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api::api::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api::api::opengl:
-			return std::make_unique<opengl_vertex_buffer>(size);
+			return std::make_unique<opengl_vertex_buffer>(size, layout);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, const std::vector<vertex>& vertices) {
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, const void* data, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api::api::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api::api::opengl:
-			return std::make_unique<opengl_vertex_buffer>(vertices);
-		}
-
-		CITADEL_PANIC("Unknown rendering API");
-		return nullptr;
-	}
-
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api::api api, const void* data, std::size_t size) {
-		switch (api) {
-		case rendering_api::api::none:
-			CITADEL_PANIC("Rendering API cannot be none");
-			return nullptr;
-
-		case rendering_api::api::opengl:
-			return std::make_unique<opengl_vertex_buffer>(data, size);
+			return std::make_unique<opengl_vertex_buffer>(data, size, layout);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -65,8 +51,8 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_IGNORE_WARNING_POP()
 
-	vertex_buffer::vertex_buffer(std::size_t size)
-		: size_(size) { }
+	vertex_buffer::vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)
+		: size_(size), layout_(layout) { }
 
 	void vertex_buffer::bind() {
 		_bind();
@@ -76,8 +62,12 @@ CITADEL_IGNORE_WARNING_POP()
 		_unbind();
 	}
 
-	void vertex_buffer::set_data(const std::vector<vertex>& vertices) {
-		_set_data(vertices.data(), vertices.size() * sizeof(vertex));
+	void vertex_buffer::set_data(const void* data, std::size_t size) {
+		_set_data(data, size);
+	}
+
+	vertex_buffer_layout& vertex_buffer::get_layout() noexcept {
+		return layout_;
 	}
 
 	std::size_t vertex_buffer::size() const noexcept {

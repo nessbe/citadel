@@ -16,11 +16,15 @@
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
 
 namespace citadel {
-	vertex_buffer_element::vertex_buffer_element(const std::string& name, shader_data_type::enumeration data_type, bool is_normalized)
-		: name(name), data_type(data_type), is_normalized(is_normalized), offset_(0) { }
+	vertex_buffer_element::vertex_buffer_element(const std::string& name, shader_data_type::enumeration data_type, bool normalized)
+		: name(name), data_type(data_type), normalized(normalized), offset_(0) { }
 
 	std::size_t vertex_buffer_element::size() const noexcept {
 		return shader_data_type::size(data_type);
+	}
+
+	std::size_t vertex_buffer_element::component_count() const noexcept {
+		return shader_data_type::component_count(data_type);
 	}
 
 	std::size_t vertex_buffer_element::offset() const noexcept {

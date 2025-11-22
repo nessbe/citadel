@@ -44,6 +44,7 @@ namespace citadel {
 		nodisc id get_id() const noexcept;
 
 	private:
+		std::size_t vertex_buffer_index_;
 		id id_ = 0;
 
 	private:

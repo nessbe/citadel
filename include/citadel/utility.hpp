@@ -20,9 +20,13 @@
 
 #define CITADEL_VECTOR_ITERATOR_WRAPPER(type, property)                                                     \
 	::std::vector<type>::iterator begin() noexcept { return property.begin(); }                         \
+	::std::vector<type>::const_iterator begin() const noexcept { return property.begin(); }             \
 	::std::vector<type>::iterator end() noexcept { return property.end(); }                             \
+	::std::vector<type>::const_iterator end() const noexcept { return property.end(); }                 \
 	::std::vector<type>::reverse_iterator rbegin() noexcept { return property.rbegin(); }               \
+	::std::vector<type>::const_reverse_iterator rbegin() const noexcept { return property.rbegin(); }   \
 	::std::vector<type>::reverse_iterator rend() noexcept { return property.rend(); }                   \
+	::std::vector<type>::const_reverse_iterator rend() const noexcept { return property.rend(); }       \
 	::std::vector<type>::const_iterator cbegin() const noexcept { return property.cbegin(); }           \
 	::std::vector<type>::const_iterator cend() const noexcept { return property.cend(); }               \
 	::std::vector<type>::const_reverse_iterator crbegin() const noexcept { return property.crbegin(); } \

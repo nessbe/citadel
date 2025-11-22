@@ -26,6 +26,7 @@
 
 namespace citadel {
 	class exported vertex_buffer_layout {
+	public:
 		vertex_buffer_layout() = default;
 		vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements);
 
@@ -36,7 +37,7 @@ namespace citadel {
 
 	private:
 		std::vector<vertex_buffer_element> elements_;
-		std::size_t stride_;
+		std::size_t stride_ = 0;
 
 	private:
 		void update_layout();

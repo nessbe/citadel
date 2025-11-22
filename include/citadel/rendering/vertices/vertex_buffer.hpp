@@ -22,16 +22,15 @@
 
 #include "citadel/rendering/rendering_api.hpp"
 
-#include "citadel/rendering/vertices/vertex.hpp"
+#include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 namespace citadel {
 	class exported vertex_buffer {
 	public:
-		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, std::size_t size);
-		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, const std::vector<vertex>& vertices);
-		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, const void* data, std::size_t size);
+		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, std::size_t size, const vertex_buffer_layout& layout);
+		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api::api api, const void* data, std::size_t size, const vertex_buffer_layout& layout);
 
-		vertex_buffer(std::size_t size);
+		vertex_buffer(std::size_t size, const vertex_buffer_layout& layout);
 		virtual ~vertex_buffer() = default;
 
 		vertex_buffer(const vertex_buffer&) = delete;
@@ -40,11 +39,13 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void set_data(const std::vector<vertex>& vertices);
+		void set_data(const void* data, std::size_t size);
 
+		nodisc vertex_buffer_layout& get_layout() noexcept;
 		nodisc std::size_t size() const noexcept;
 
 	private:
+		vertex_buffer_layout layout_;
 		std::size_t size_;
 
 	private:

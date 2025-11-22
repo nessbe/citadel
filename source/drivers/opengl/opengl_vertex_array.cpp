@@ -18,7 +18,9 @@
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 namespace citadel {
-	opengl_vertex_array::opengl_vertex_array() {
+	opengl_vertex_array::opengl_vertex_array()
+		: vertex_buffer_index_(0)
+	{
 		glGenVertexArrays(1, &id_);
 		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex array");
 	}
@@ -27,7 +29,9 @@ namespace citadel {
 		glDeleteVertexArrays(1, &id_);
 	}
 
-	opengl_vertex_array::opengl_vertex_array(opengl_vertex_array&& other) noexcept {
+	opengl_vertex_array::opengl_vertex_array(opengl_vertex_array&& other) noexcept
+		: vertex_buffer_index_(0)
+	{
 		id_ = other.id_;
 		other.id_ = 0;
 	}
@@ -55,6 +59,9 @@ namespace citadel {
 		glBindVertexArray(0);
 	}
 
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+
 	void opengl_vertex_array::_add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
 		CITADEL_ASSERT(buffer, "The given vertex buffer is null");
 
@@ -62,29 +69,68 @@ namespace citadel {
 			bind();
 			buffer->bind();
 
-			glEnableVertexArrayAttrib(id_, 0);
-			glVertexAttribPointer(
-				0,
-				3,
-				GL_FLOAT,
-				GL_FALSE,
-				static_cast<GLsizei>(7 * sizeof(float)),
-				reinterpret_cast<void*>(0)
-			);
+			const vertex_buffer_layout& buffer_layout = buffer->get_layout();
+			std::size_t buffer_layout_stride = buffer_layout.get_stride();
 
-			glEnableVertexArrayAttrib(id_, 1);
-			glVertexAttribPointer(
-				1,
-				4,
-				GL_FLOAT,
-				GL_FALSE,
-				static_cast<GLsizei>(7 * sizeof(float)),
-				reinterpret_cast<void*>(3 * sizeof(float))
-			);
+			for (const vertex_buffer_element& buffer_element : buffer_layout) {
+				switch (buffer_element.data_type) {
+				case shader_data_type_bool:
+				case shader_data_type_int:
+				case shader_data_type_ivec2:
+				case shader_data_type_ivec3:
+				case shader_data_type_ivec4: {
+					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
+					glVertexAttribIPointer(
+						static_cast<GLuint>(vertex_buffer_index_),
+						static_cast<GLint>(buffer_element.component_count()),
+						shader_data_type::to_opengl(buffer_element.data_type),
+						static_cast<GLsizei>(buffer_layout_stride),
+						reinterpret_cast<const void*>(buffer_element.offset())
+					);
+					vertex_buffer_index_++;
+				} break;
 
-			buffer->unbind();
+				case shader_data_type_float:
+				case shader_data_type_vec2:
+				case shader_data_type_vec3:
+				case shader_data_type_vec4: {
+					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
+					glVertexAttribPointer(
+						static_cast<GLuint>(vertex_buffer_index_),
+						static_cast<GLint>(buffer_element.component_count()),
+						shader_data_type::to_opengl(buffer_element.data_type),
+						buffer_element.normalized ? GL_TRUE : GL_FALSE,
+						static_cast<GLsizei>(buffer_layout_stride),
+						reinterpret_cast<const void*>(buffer_element.offset())
+					);
+					vertex_buffer_index_++;
+				} break;
+
+				case shader_data_type_mat3:
+				case shader_data_type_mat4: {
+					std::size_t component_count = buffer_element.component_count();
+
+					for (std::size_t i = 0; i < component_count; i++) {
+						glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
+						glVertexAttribPointer(
+							static_cast<GLuint>(vertex_buffer_index_),
+							static_cast<GLint>(component_count),
+							shader_data_type::to_opengl(buffer_element.data_type),
+							buffer_element.normalized ? GL_TRUE : GL_FALSE,
+							static_cast<GLsizei>(buffer_layout_stride),
+							reinterpret_cast<const void*>(buffer_element.offset() + sizeof(float) * component_count * i)
+						);
+
+						glVertexAttribDivisor(static_cast<GLuint>(vertex_buffer_index_), 1);
+						vertex_buffer_index_++;
+					}
+				} break;
+				}
+			}
 		}
 	}
+
+CITADEL_IGNORE_WARNING_POP()
 
 	void opengl_vertex_array::_set_index_buffer(const std::shared_ptr<index_buffer>& buffer) {
 		CITADEL_ASSERT(buffer, "The given index buffer is null");
