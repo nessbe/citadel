@@ -35,9 +35,11 @@ namespace citadel {
 		stride_ = 0;
 
 		for (vertex_buffer_element& element : elements_) {
-			element.offset = 0;
-			offset += element.size;
-			stride_ += element.size;
+			element.offset_ = 0;
+			std::size_t element_size = element.size();
+
+			offset += element_size;
+			stride_ += element_size;
 		}
 	}
 }

@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <string>
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
@@ -28,16 +29,21 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
 namespace citadel {
 	struct exported vertex_buffer_element {
 	public:
-		std::string name;
-
-		std::size_t size;
-		std::size_t offset;
-
-		shader_data_type::enumeration data_type;
-		bool normalized;
+		friend class vertex_buffer_layout;
 
 	public:
-		vertex_buffer_element(const std::string& name, std::size_t size, std::size_t offset, shader_data_type::enumeration data_type, bool normalized);
+		std::string name;
+		shader_data_type::enumeration data_type;
+		bool is_normalized;
+
+	public:
+		vertex_buffer_element(const std::string& name, shader_data_type::enumeration data_type, bool is_normalized);
+
+		nodisc std::size_t size() const noexcept;
+		nodisc std::size_t offset() const noexcept;
+
+	private:
+		std::size_t offset_;
 	};
 }
 
