@@ -36,6 +36,9 @@ namespace citadel {
 		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
 		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
 
+		nodisc static std::unique_ptr<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static std::unique_ptr<surface> create(dimension width, dimension height, color clear_color);
+
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);
 

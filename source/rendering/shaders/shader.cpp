@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/shaders/shader.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
@@ -50,6 +52,14 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type, const std::string& source) {
+		return create(render_command::get_api(), name, type, source);
+	}
+
+	std::shared_ptr<shader> shader::create(const std::string& name, shader_type type) {
+		return create(render_command::get_api(), name, type);
+	}
 
 	shader::shader(const std::string& name, shader_type type, const std::string& source)
 		: name_(name), source_(source), type_(type) { }

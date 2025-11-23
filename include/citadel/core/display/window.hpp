@@ -45,6 +45,9 @@ namespace citadel {
 		nodisc static std::unique_ptr<window> create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		nodisc static std::unique_ptr<window> create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
 
+		nodisc static std::unique_ptr<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		nodisc static std::unique_ptr<window> create(dimension width, dimension height, const std::string& title);
+
 		window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
 

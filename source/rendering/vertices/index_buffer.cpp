@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/vertices/index_buffer.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 
 namespace citadel {
@@ -50,6 +52,14 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::shared_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
+		return create(render_command::get_api(), indices);
+	}
+
+	std::shared_ptr<index_buffer> index_buffer::create(const index* data, std::size_t size) {
+		return create(render_command::get_api(), data, size);
+	}
 
 	index_buffer::index_buffer(const std::vector<index>& indices)
 		: indices_(indices) { }

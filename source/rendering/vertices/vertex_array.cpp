@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 
 namespace citadel {
@@ -36,6 +38,10 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::unique_ptr<vertex_array> vertex_array::create() {
+		return create(render_command::get_api());	
+	}
 
 	void vertex_array::bind() {
 		_bind();

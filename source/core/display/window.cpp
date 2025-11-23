@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/core/display/window.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
@@ -41,6 +43,14 @@ namespace citadel {
 #error Citadel does not support your window system yet
 		return nullptr;
 #endif
+	}
+
+	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+		return create(render_command::get_api(), x, y, width, height, title);
+	}
+
+	std::unique_ptr<window> window::create(dimension width, dimension height, const std::string& title) {
+		return create(render_command::get_api(), width, height, title);
 	}
 
 	window::window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) :

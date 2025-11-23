@@ -27,6 +27,7 @@ namespace citadel {
 	class exported rendering_context {
 	public:
 		nodisc static std::unique_ptr<rendering_context> create(rendering_api_type api, window* window);
+		nodisc static std::unique_ptr<rendering_context> create(window* window);
 
 		virtual ~rendering_context() = default;
 

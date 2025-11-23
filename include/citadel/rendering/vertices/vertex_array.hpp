@@ -28,6 +28,7 @@ namespace citadel {
 	class exported vertex_array {
 	public:
 		nodisc static std::unique_ptr<vertex_array> create(rendering_api_type api);
+		nodisc static std::unique_ptr<vertex_array> create();
 
 		vertex_array() = default;
 		virtual ~vertex_array() = default;

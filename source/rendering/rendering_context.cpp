@@ -17,6 +17,8 @@
 
 #include "citadel/core/display/window.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_context.hpp"
 
 namespace citadel {
@@ -38,6 +40,10 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::unique_ptr<rendering_context> rendering_context::create(window* window) {
+		return create(render_command::get_api(), window);
+	}
 
 	void rendering_context::bind() {
 		_bind();

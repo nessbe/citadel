@@ -30,6 +30,9 @@ namespace citadel {
 		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout);
 		nodisc static std::unique_ptr<vertex_buffer> create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout);
 
+		nodisc static std::unique_ptr<vertex_buffer> create(std::size_t size, const vertex_buffer_layout& layout);
+		nodisc static std::unique_ptr<vertex_buffer> create(const void* data, std::size_t size, const vertex_buffer_layout& layout);
+
 		vertex_buffer(std::size_t size, const vertex_buffer_layout& layout);
 		virtual ~vertex_buffer() = default;
 

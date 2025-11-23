@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/core/display/surface.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 namespace citadel {
@@ -50,6 +52,14 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::unique_ptr<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
+		return create(render_command::get_api(), x, y, width, height, clear_color);
+	}
+
+	std::unique_ptr<surface> surface::create(dimension width, dimension height, color clear_color) {
+		return create(render_command::get_api(), width, height, clear_color);
+	}
 
 	surface::surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
 		: x_(x), y_(y), width_(width), height_(height), clear_color_(clear_color) { }

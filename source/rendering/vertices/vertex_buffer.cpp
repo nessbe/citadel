@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 namespace citadel {
@@ -50,6 +52,14 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 	}
 
 CITADEL_IGNORE_WARNING_POP()
+
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size, const vertex_buffer_layout& layout) {
+		return create(render_command::get_api(), data, size, layout);
+	}
+
+	std::unique_ptr<vertex_buffer> vertex_buffer::create(std::size_t size, const vertex_buffer_layout& layout) {
+		return create(render_command::get_api(), size, layout);
+	}
 
 	vertex_buffer::vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)
 		: layout_(layout), size_(size) { }

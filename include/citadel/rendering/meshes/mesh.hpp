@@ -32,6 +32,7 @@ namespace citadel {
 	class exported mesh {
 	public:
 		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
+		mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
 
 		~mesh();
 

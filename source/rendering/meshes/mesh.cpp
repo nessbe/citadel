@@ -35,6 +35,9 @@ namespace citadel {
 		}
 	}
 
+	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices)
+		: mesh(render_command::get_api(), data, size, layout, indices) { }
+
 	mesh::~mesh() {
 		CITADEL_ASSERT(vertex_buffer_, "Vertex buffer is null");
 		vertex_buffer_->unbind();
