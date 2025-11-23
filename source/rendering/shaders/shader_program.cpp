@@ -47,7 +47,13 @@ CITADEL_IGNORE_WARNING_POP()
 		: name_(name) { }
 
 	bool shader_program::link() {
-		return _link();
+		bool result = _link();
+
+		if (result) {
+			fetch_uniforms();
+		}
+
+		return result;
 	}
 
 	void shader_program::use() {
@@ -124,6 +130,23 @@ CITADEL_IGNORE_WARNING_POP()
 		_set_uniform_mat4(name, value);
 	}
 
+	bool shader_program::uniform_exists(const std::string& name) const {
+		return uniforms_.find(name) != uniforms_.end();
+	}
+
+	const uniform_info& shader_program::get_uniform(const std::string& name) const {
+		CITADEL_ASSERT(uniform_exists(name), "Uniform '" + name + "' does not exist");
+		return uniforms_.at(name);
+	}
+
+	const std::unordered_map<std::string, uniform_info>& shader_program::get_uniforms() const noexcept {
+		return uniforms_;
+	}
+
+	std::size_t shader_program::uniform_count() const noexcept {
+		return uniforms_.size();
+	}
+
 	std::vector<std::shared_ptr<shader>> shader_program::get_shaders() const {
 		std::vector<std::shared_ptr<shader>> shaders;
 		shaders.reserve(shaders_.size());
@@ -149,5 +172,16 @@ CITADEL_IGNORE_WARNING_POP()
 
 	const std::string& shader_program::get_name() const noexcept {
 		return name_;
+	}
+
+	void shader_program::add_uniform(const uniform_info& uniform) {
+		if (!uniform_exists(uniform.name)) {
+			uniforms_.emplace(uniform.name, uniform);
+		}
+	}
+
+	void shader_program::fetch_uniforms() {
+		uniforms_.clear();
+		_fetch_uniforms();
 	}
 }

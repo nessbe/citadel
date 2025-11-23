@@ -82,6 +82,7 @@
 #include "citadel/rendering/shaders/shader_data_type.hpp"
 #include "citadel/rendering/shaders/shader_program.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
+#include "citadel/rendering/shaders/uniform_info.hpp"
 
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"

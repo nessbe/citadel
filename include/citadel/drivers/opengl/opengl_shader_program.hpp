@@ -68,6 +68,8 @@ namespace citadel {
 
 		virtual void _set_uniform_mat3(const std::string& name, const mat3& value) override;
 		virtual void _set_uniform_mat4(const std::string& name, const mat4& value) override;
+
+		virtual void _fetch_uniforms() override;
 	};
 }
 

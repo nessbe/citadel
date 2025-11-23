@@ -17,8 +17,8 @@
 
 namespace citadel {
 	namespace shader_data_type {
-		CITADEL_IGNORE_WARNING_PUSH()
-		CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		std::size_t size(enumeration value) noexcept {
 			switch (value) {
@@ -102,6 +102,47 @@ namespace citadel {
 			}
 		}
 
+		enumeration from_opengl(GLenum value) noexcept {
+			switch (value) {
+			case GL_BOOL:
+				return shader_data_type_bool;
+
+			case GL_INT:
+				return shader_data_type_int;
+
+			case GL_INT_VEC2:
+				return shader_data_type_ivec2;
+
+			case GL_INT_VEC3:
+				return shader_data_type_ivec3;
+
+			case GL_INT_VEC4:
+				return shader_data_type_ivec4;
+
+			case GL_FLOAT:
+				return shader_data_type_float;
+
+			case GL_FLOAT_VEC2:
+				return shader_data_type_vec2;
+
+			case GL_FLOAT_VEC3:
+				return shader_data_type_vec3;
+
+			case GL_FLOAT_VEC4:
+				return shader_data_type_vec4;
+
+			case GL_FLOAT_MAT3:
+				return shader_data_type_mat3;
+
+			case GL_FLOAT_MAT4:
+				return shader_data_type_mat4;
+
+			default:
+				CITADEL_PANIC("The given OpenGL shader data type is not yet supported");
+				return shader_data_type_unknown;
+			}
+		}
+
 		GLenum to_opengl(enumeration value) noexcept {
 			switch (value) {
 			case shader_data_type_bool:
@@ -143,6 +184,6 @@ namespace citadel {
 			}
 		}
 
-		CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP()
 	}
 }

@@ -26,6 +26,7 @@
 
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
+#include "citadel/rendering/shaders/uniform_info.hpp"
 
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
@@ -63,17 +64,28 @@ namespace citadel {
 		void set_uniform_mat3(const std::string& name, const mat3& value);
 		void set_uniform_mat4(const std::string& name, const mat4& value);
 
+		nodisc bool uniform_exists(const std::string& name) const;
+		nodisc const uniform_info& get_uniform(const std::string& name) const;
+		nodisc const std::unordered_map<std::string, uniform_info>& get_uniforms() const noexcept;
+		nodisc std::size_t uniform_count() const noexcept;
+
 		nodisc std::vector<std::shared_ptr<shader>> get_shaders() const;
 		nodisc bool has_shader(shader_type type) const;
 		nodisc std::shared_ptr<shader> get_shader(shader_type type) const;
 
 		nodisc const std::string& get_name() const noexcept;
 
+	protected:
+		void add_uniform(const uniform_info& uniform);
+
 	private:
 		std::unordered_map<shader_type, std::shared_ptr<shader>> shaders_;
+		std::unordered_map<std::string, uniform_info> uniforms_;
 		std::string name_;
 
 	private:
+		void fetch_uniforms();
+
 		virtual bool _link() = 0;
 		virtual void _use() = 0;
 
@@ -94,6 +106,8 @@ namespace citadel {
 
 		virtual void _set_uniform_mat3(const std::string& name, const mat3& value) = 0;
 		virtual void _set_uniform_mat4(const std::string& name, const mat4& value) = 0;
+
+		virtual void _fetch_uniforms() = 0;
 	};
 }
 

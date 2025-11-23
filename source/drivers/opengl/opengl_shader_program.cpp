@@ -17,9 +17,12 @@
 
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
+#include "citadel/rendering/shaders/uniform_info.hpp"
+
 namespace citadel {
 	opengl_shader_program::opengl_shader_program(const std::string& name)
-		: shader_program(name) {
+		: shader_program(name)
+	{
 		id_ = glCreateProgram();
 		CITADEL_ASSERT(id_, "Failed to create OpenGL shader program");
 	}
@@ -29,7 +32,8 @@ namespace citadel {
 	}
 
 	opengl_shader_program::opengl_shader_program(opengl_shader_program&& other) noexcept
-		: opengl_shader_program(other.get_name()) {
+		: opengl_shader_program(other.get_name())
+	{
 		id_ = other.id_;
 		other.id_ = 0;
 	}
@@ -164,4 +168,46 @@ namespace citadel {
 		CITADEL_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
 		glUniformMatrix4fv(location, 1, GL_FALSE, value.data());
 	}
+
+CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+
+	void opengl_shader_program::_fetch_uniforms() {
+		GLint uniform_count;
+		glGetProgramiv(id_, GL_ACTIVE_UNIFORMS, &uniform_count);
+
+		GLint max_uniform_name_length;
+		glGetProgramiv(id_, GL_ACTIVE_UNIFORM_MAX_LENGTH, &max_uniform_name_length);
+
+		for (GLint i = 0; i < uniform_count; i++) {
+			GLchar uniform_name[256];
+			GLsizei uniform_name_length = 0;
+
+			GLint uniform_size = 0;
+			GLenum uniform_type = 0;
+
+			glGetActiveUniform(
+				id_,
+				static_cast<GLuint>(i),
+				256,
+				&uniform_name_length,
+				&uniform_size,
+				&uniform_type,
+				uniform_name
+			);
+
+			GLint uniform_location = glGetUniformLocation(id_, uniform_name);
+
+			uniform_info uniform = {
+				uniform_name,
+				shader_data_type::from_opengl(uniform_type),
+				static_cast<std::size_t>(uniform_size),
+				static_cast<std::uint32_t>(uniform_location)
+			};
+
+			add_uniform(uniform);
+		}
+	}
+
+CITADEL_IGNORE_WARNING_POP()
 }
