@@ -41,7 +41,7 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void render(const std::unique_ptr<rendering_api>& rendering_api);
+		void render();
 
 		nodisc vertex_array& get_vertex_array() const;
 		nodisc vertex_buffer& get_vertex_buffer() const;

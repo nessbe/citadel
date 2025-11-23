@@ -67,4 +67,8 @@ CITADEL_IGNORE_WARNING_POP()
 	void rendering_api::set_line_width(float value) {
 		_set_line_width(value);
 	}
+
+	rendering_api_type rendering_api::get_api() const noexcept {
+		return api_;
+	}
 }

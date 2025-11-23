@@ -43,6 +43,8 @@ namespace citadel {
 
 		void set_line_width(float value);
 
+		nodisc rendering_api_type get_api() const noexcept;
+
 	private:
 		rendering_api_type api_;
 

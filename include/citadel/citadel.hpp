@@ -67,6 +67,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"
+#include "citadel/rendering/render_command.hpp"
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 #include "citadel/rendering/rendering_context.hpp"

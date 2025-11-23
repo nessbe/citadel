@@ -15,6 +15,8 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/meshes/mesh.hpp"
 
+#include "citadel/rendering/render_command.hpp"
+
 namespace citadel {
 	mesh::mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices) :
 		vertex_array_(vertex_array::create(api)),
@@ -52,9 +54,8 @@ namespace citadel {
 		vertex_array_->unbind();
 	}
 
-	void mesh::render(const std::unique_ptr<rendering_api>& rendering_api) {
-		CITADEL_ASSERT(rendering_api, "The given rendering API is null");
-		rendering_api->draw_indexed(vertex_array_);
+	void mesh::render() {
+		render_command::draw_indexed(vertex_array_);
 	}
 
 	vertex_array& mesh::get_vertex_array() const {
