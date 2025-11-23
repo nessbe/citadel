@@ -35,16 +35,21 @@ namespace citadel {
 	CITADEL_IGNORE_WARNING_POP()
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type, const std::string& source)
-		: shader(name, type, source) {
+		: shader(name, type, source)
+	{
 		id_ = glCreateShader(get_native_type());
 		CITADEL_ASSERT(id_, "Failed to create OpenGL shader");
+
+		const char* raw_source = source.c_str();
+		glShaderSource(id_, 1, &raw_source, nullptr);
 	}
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type)
 		: opengl_shader(name, type, "") { }
 
 	opengl_shader::opengl_shader(opengl_shader&& other) noexcept
-		: opengl_shader(other.get_name(), other.get_type(), other.get_source()) {
+		: opengl_shader(other.get_name(), other.get_type(), other.get_source())
+	{
 		id_ = other.id_;
 		other.id_ = 0;
 	}

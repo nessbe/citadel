@@ -125,6 +125,9 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 						vertex_buffer_index_++;
 					}
 				} break;
+
+				case shader_data_type_unknown:
+					break;
 				}
 			}
 		}

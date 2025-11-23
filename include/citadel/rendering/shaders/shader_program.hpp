@@ -49,6 +49,8 @@ namespace citadel {
 		bool attach(const std::shared_ptr<shader>& shader);
 		void detach(shader_type type);
 
+		void fetch_uniforms();
+
 		void set_uniform_bool(const std::string& name, bool value);
 
 		void set_uniform_int(const std::string& name, int value);
@@ -84,7 +86,6 @@ namespace citadel {
 		std::string name_;
 
 	private:
-		void fetch_uniforms();
 
 		virtual bool _link() = 0;
 		virtual void _use() = 0;

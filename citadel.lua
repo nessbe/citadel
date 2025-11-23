@@ -15,7 +15,7 @@
 project "citadel"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++14"
+	cppdialect "C++17"
 
 	targetdir("build/bin")
 	objdir("build/obj")

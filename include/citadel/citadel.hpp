@@ -76,6 +76,8 @@
 #include "citadel/rendering/cameras/orthographic_camera.hpp"
 #include "citadel/rendering/cameras/perspective_camera.hpp"
 
+#include "citadel/rendering/materials/material.hpp"
+
 #include "citadel/rendering/meshes/mesh.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"

@@ -86,6 +86,11 @@ CITADEL_IGNORE_WARNING_POP()
 		shaders_.erase(type);
 	}
 
+	void shader_program::fetch_uniforms() {
+		uniforms_.clear();
+		_fetch_uniforms();
+	}
+
 	void shader_program::set_uniform_bool(const std::string& name, bool value) {
 		_set_uniform_bool(name, value);
 	}
@@ -178,10 +183,5 @@ CITADEL_IGNORE_WARNING_POP()
 		if (!uniform_exists(uniform.name)) {
 			uniforms_.emplace(uniform.name, uniform);
 		}
-	}
-
-	void shader_program::fetch_uniforms() {
-		uniforms_.clear();
-		_fetch_uniforms();
 	}
 }

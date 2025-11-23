@@ -55,6 +55,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 			case shader_data_type_mat4:
 				return sizeof(float) * 4 * 4;
 
+			case shader_data_type_unknown:
 			default:
 				CITADEL_PANIC("Unknown shader data type");
 				return 0;
@@ -96,6 +97,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 			case shader_data_type_mat4:
 				return 4;
 
+			case shader_data_type_unknown:
 			default:
 				CITADEL_PANIC("Unknown shader data type");
 				return 0;
@@ -137,6 +139,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 			case GL_FLOAT_MAT4:
 				return shader_data_type_mat4;
 
+			case shader_data_type_unknown:
 			default:
 				CITADEL_PANIC("The given OpenGL shader data type is not yet supported");
 				return shader_data_type_unknown;
@@ -178,6 +181,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 			case shader_data_type_mat4:
 				return GL_FLOAT;
 
+			case shader_data_type_unknown:
 			default:
 				CITADEL_PANIC("Unknown shader data type");
 				return 0;
