@@ -17,6 +17,8 @@
 
 #include "citadel/rendering/render_command.hpp"
 
+#include "citadel/rendering/shaders/shader_data_type.hpp"
+
 namespace citadel {
 	mesh::mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices) :
 		vertex_array_(vertex_array::create(api)),
@@ -37,6 +39,12 @@ namespace citadel {
 
 	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices)
 		: mesh(render_command::get_api(), data, size, layout, indices) { }
+
+	mesh::mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices)
+		: mesh(api, vertices.data(), vertices.size() * sizeof(vertex), default_layout_, indices) { }
+
+	mesh::mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices)
+		: mesh(vertices.data(), vertices.size() * sizeof(vertex), default_layout_, indices) { }
 
 	mesh::~mesh() {
 		CITADEL_ASSERT(vertex_buffer_, "Vertex buffer is null");
@@ -75,4 +83,9 @@ namespace citadel {
 		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
 		return *index_buffer_;
 	}
+
+	vertex_buffer_layout mesh::default_layout_ = {
+		{ "position", shader_data_type_vec3, false },
+		{ "color", shader_data_type_vec4, true },
+	};
 }

@@ -23,9 +23,8 @@
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
-#include "citadel/rendering/vertices/index_buffer.hpp"
+#include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
-#include "citadel/rendering/vertices/vertex_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 namespace citadel {
@@ -33,6 +32,9 @@ namespace citadel {
 	public:
 		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
 		mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
+
+		mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
+		mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
 
 		~mesh();
 
@@ -49,6 +51,8 @@ namespace citadel {
 		nodisc index_buffer& get_index_buffer() const;
 
 	private:
+		static vertex_buffer_layout default_layout_;
+
 		std::unique_ptr<vertex_array> vertex_array_;
 		std::unique_ptr<vertex_buffer> vertex_buffer_;
 		std::shared_ptr<index_buffer> index_buffer_;
