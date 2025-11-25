@@ -55,6 +55,7 @@
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
 #include "citadel/io/text/text_reader.hpp"
+#include "citadel/io/text/text_writer.hpp"
 
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"
