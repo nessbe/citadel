@@ -22,6 +22,8 @@ namespace citadel {
 	constexpr double tau = 6.283185307179586;
 	constexpr double half_pi = 1.5707963267948966;
 
+	constexpr float gimbal_lock = 1e-6f;
+
 	constexpr float full_circle = 360.0f;
 	constexpr float half_circle = 180.0f;
 

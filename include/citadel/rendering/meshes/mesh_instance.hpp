@@ -17,7 +17,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/math/matrices/mat4.hpp"
+#include "citadel/math/transforms/transform_3d.hpp"
 
 #include "citadel/rendering/rendering_api_type.hpp"
 
@@ -36,13 +36,13 @@ namespace citadel {
 		nodisc mesh& get_mesh() const noexcept;
 		nodisc material& get_material() const noexcept;
 
-		nodisc const mat4& get_transform() const noexcept;
-		void set_transform(const mat4& value) noexcept;
+		nodisc const transform_3d& get_transform() const noexcept;
+		void set_transform(const transform_3d& value) noexcept;
 
 	private:
 		std::shared_ptr<mesh>  mesh_;
 		std::shared_ptr<material> material_;
 
-		mat4 transform_;
+		transform_3d transform_;
 	};
 }

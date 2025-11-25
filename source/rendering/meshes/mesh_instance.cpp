@@ -49,11 +49,11 @@ namespace citadel {
 		return *material_;
 	}
 
-	const mat4& mesh_instance::get_transform() const noexcept {
+	const transform_3d& mesh_instance::get_transform() const noexcept {
 		return transform_;
 	}
 
-	void mesh_instance::set_transform(const mat4& value) noexcept {
+	void mesh_instance::set_transform(const transform_3d& value) noexcept {
 		transform_ = value;
 	}
 }
