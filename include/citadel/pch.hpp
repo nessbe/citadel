@@ -47,6 +47,7 @@
 #include "citadel/drivers/opengl.hpp"
 
 #include "citadel/math/angles.hpp"
+#include "citadel/math/epsilon.hpp"
 
 #include "citadel/math/matrices/mat3.hpp"
 #include "citadel/math/matrices/mat4.hpp"

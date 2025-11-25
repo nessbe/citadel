@@ -52,6 +52,7 @@
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
 #include "citadel/math/angles.hpp"
+#include "citadel/math/epsilon.hpp"
 
 #include "citadel/math/matrices/mat3.hpp"
 #include "citadel/math/matrices/mat4.hpp"
