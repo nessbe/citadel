@@ -41,10 +41,10 @@ namespace citadel {
 			shader_program_->attach(vertex_shader_);
 			shader_program_->attach(fragment_shader_);
 
-			shader_program_->link();
+			if (shader_program_->link()) {
+				fetch();
+			}
 		}
-
-		fetch();
 	}
 
 	material::material(const std::string& name, const std::string& vertex_source, const std::string& fragment_source)

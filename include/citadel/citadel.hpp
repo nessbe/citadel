@@ -79,6 +79,7 @@
 #include "citadel/rendering/materials/material.hpp"
 
 #include "citadel/rendering/meshes/mesh.hpp"
+#include "citadel/rendering/meshes/mesh_instance.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_data_type.hpp"

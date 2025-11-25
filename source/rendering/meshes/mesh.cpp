@@ -33,7 +33,6 @@ namespace citadel {
 			vertex_array_->bind();
 			vertex_array_->add_vertex_buffer(vertex_buffer_);
 			vertex_array_->set_index_buffer(index_buffer_);
-			vertex_array_->unbind();
 		}
 	}
 

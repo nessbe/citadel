@@ -55,7 +55,7 @@ namespace citadel {
 	}
 
 	void binary_writer::write_dynamic_buffer(const dynamic_buffer& buffer) {
-		file_->write(buffer.data(), buffer.size());
+		file_->write(buffer.data(), static_cast<std::streamsize>(buffer.size()));
 	}
 
 	file& binary_writer::get_file() const noexcept {
