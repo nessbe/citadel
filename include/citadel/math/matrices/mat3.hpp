@@ -84,18 +84,18 @@ namespace citadel {
 		nodisc const basic_vec3<T>& operator[](std::size_t index) const noexcept;
 
 		nodisc basic_mat3<T> operator+(const basic_mat3<T>& other) const;
-		nodisc basic_mat3<T>& operator+=(const basic_mat3<T>& other);
+		basic_mat3<T>& operator+=(const basic_mat3<T>& other);
 
 		nodisc basic_mat3<T> operator-(const basic_mat3<T>& other) const;
-		nodisc basic_mat3<T>& operator-=(const basic_mat3<T>& other);
+		basic_mat3<T>& operator-=(const basic_mat3<T>& other);
 
 		nodisc basic_mat3<T> operator*(const basic_mat3<T>& other) const;
-		nodisc basic_mat3<T>& operator*=(const basic_mat3<T>& other);
+		basic_mat3<T>& operator*=(const basic_mat3<T>& other);
 
 		nodisc basic_vec3<T> operator*(const basic_vec3<T>& vector) const;
 
 		nodisc basic_mat3<T> operator*(T scalar) const;
-		nodisc basic_mat3<T>& operator*=(T scalar);
+		basic_mat3<T>& operator*=(T scalar);
 	};
 
 	using mat3 = basic_mat3<float>;
