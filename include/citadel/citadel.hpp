@@ -45,6 +45,8 @@
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
+#include "citadel/io/reader.hpp"
+
 #include "citadel/io/binary/binary_reader.hpp"
 #include "citadel/io/binary/binary_writer.hpp"
 

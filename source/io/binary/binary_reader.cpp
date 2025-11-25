@@ -17,10 +17,7 @@
 
 namespace citadel {
 	binary_reader::binary_reader(const std::shared_ptr<file>& file)
-		: file_(file)
-	{
-		CITADEL_ASSERT(file_, "The given file is null");
-	}
+		: reader(file) { }
 
 	std::int8_t binary_reader::read_int8() {
 		std::int8_t value = 0;
@@ -74,9 +71,5 @@ namespace citadel {
 		std::vector<std::uint8_t> buffer(static_cast<std::size_t>(size));
 		file_->read(buffer.data(), size);
 		return buffer;
-	}
-
-	file& binary_reader::get_file() const noexcept {
-		return *file_;
 	}
 }
