@@ -17,10 +17,7 @@
 
 namespace citadel {
 	binary_writer::binary_writer(const std::shared_ptr<file>& file)
-		: file_(file)
-	{
-		CITADEL_ASSERT(file_, "The given file is null");
-	}
+		: writer(file) { }
 
 	void binary_writer::write_int8(std::int8_t value) {
 		file_->write(&value, sizeof(std::int8_t));
@@ -56,9 +53,5 @@ namespace citadel {
 
 	void binary_writer::write_dynamic_buffer(const dynamic_buffer& buffer) {
 		file_->write(buffer.data(), static_cast<std::streamsize>(buffer.size()));
-	}
-
-	file& binary_writer::get_file() const noexcept {
-		return *file_;
 	}
 }

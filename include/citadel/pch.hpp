@@ -21,6 +21,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdlib>
+#include <cstring>
 #include <fstream>
 #include <initializer_list>
 #include <iomanip>

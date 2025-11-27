@@ -45,11 +45,19 @@
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
+#include "citadel/io/reader.hpp"
+#include "citadel/io/writer.hpp"
+
 #include "citadel/io/binary/binary_reader.hpp"
 #include "citadel/io/binary/binary_writer.hpp"
 
 #include "citadel/io/filesystem/file.hpp"
 #include "citadel/io/filesystem/file_open_mode.hpp"
+
+#include "citadel/io/formats/meshes/mesh_reader.hpp"
+
+#include "citadel/io/text/text_reader.hpp"
+#include "citadel/io/text/text_writer.hpp"
 
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"

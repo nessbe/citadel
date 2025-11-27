@@ -23,10 +23,12 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/io/reader.hpp"
+
 #include "citadel/io/filesystem/file.hpp"
 
 namespace citadel {
-	class exported binary_reader {
+	class exported binary_reader : public reader {
 	public:
 		using dynamic_buffer = std::vector<std::uint8_t>;
 
@@ -52,11 +54,6 @@ namespace citadel {
 
 		template <std::streamsize N>
 		nodisc static_buffer<N> read_static_buffer();
-
-		nodisc file& get_file() const noexcept;
-
-	private:
-		std::shared_ptr<file> file_;
 	};
 }
 

@@ -23,10 +23,12 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/io/writer.hpp"
+
 #include "citadel/io/filesystem/file.hpp"
 
 namespace citadel {
-	class exported binary_writer {
+	class exported binary_writer : public writer {
 	public:
 		using dynamic_buffer = std::vector<std::uint8_t>;
 
@@ -52,11 +54,6 @@ namespace citadel {
 
 		template <std::streamsize N>
 		void write_static_buffer(const static_buffer<N>& buffer);
-
-		nodisc file& get_file() const noexcept;
-
-	private:
-		std::shared_ptr<file> file_;
 	};
 }
 
