@@ -42,23 +42,23 @@ CITADEL_IGNORE_WARNING_POP()
 	rendering_api::rendering_api(rendering_api_type api)
 		: api_(api) { }
 
-	void rendering_api::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void rendering_api::draw_indexed(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
 		_draw_indexed(vertex_array, vertex_count);
 	}
 
-	void rendering_api::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array) {
+	void rendering_api::draw_indexed(const std::shared_ptr<vertex_array>& vertex_array) {
 		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
 		const index_buffer& index_buffer = vertex_array->get_index_buffer();
 		_draw_indexed(vertex_array, index_buffer.size());
 	}
 
-	void rendering_api::draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void rendering_api::draw_lines(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
 		_draw_lines(vertex_array, vertex_count);
 	}
 
-	void rendering_api::draw_lines(const std::unique_ptr<vertex_array>& vertex_array) {
+	void rendering_api::draw_lines(const std::shared_ptr<vertex_array>& vertex_array) {
 		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
 		const index_buffer& index_buffer = vertex_array->get_index_buffer();
 		_draw_lines(vertex_array, index_buffer.size());

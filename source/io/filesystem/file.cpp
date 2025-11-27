@@ -41,8 +41,24 @@ namespace citadel {
 		return _size();
 	}
 
+	char file::peek() {
+		return _peek();
+	}
+
 	void file::seek(std::streamoff position) {
 		_seek(position);
+	}
+
+	bool file::is_good() const {
+		return _is_good();
+	}
+
+	bool file::is_eol() {
+		return peek() == '\n';
+	}
+
+	bool file::is_eof() const {
+		return _is_eof();
 	}
 
 	void* file::get_native_handle() const {

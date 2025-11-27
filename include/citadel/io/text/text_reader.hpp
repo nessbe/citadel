@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -29,9 +30,21 @@ namespace citadel {
 	public:
 		explicit text_reader(const std::shared_ptr<file>& file);
 
-		nodisc std::string read_c_string();
-		nodisc std::string read_string(std::size_t size);
+		char read_character();
 
-		nodisc std::string read_text();
+		std::string read_c_string();
+		std::string read_string(std::size_t size);
+
+		std::string read_word();
+		std::string read_integer();
+		std::string read_floating_point();
+
+		std::string read_group();
+		std::string read_whitespace();
+
+		std::string read_line();
+		std::string read_text();
+
+		std::string read_while(std::function<bool(char)> condition);
 	};
 }

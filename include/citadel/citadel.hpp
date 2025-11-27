@@ -56,6 +56,8 @@
 
 #include "citadel/io/formats/meshes/mesh_reader.hpp"
 
+#include "citadel/io/formats/meshes/obj/obj_reader.hpp"
+
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
 

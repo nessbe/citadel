@@ -30,7 +30,7 @@ namespace citadel {
 	public:
 		mesh_instance(const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material, const mat4 transform);
 
-		void render(const mat4& view_projection);
+		void use();
 		void render(const mat4& view, const mat4& projection);
 
 		nodisc mesh& get_mesh() const noexcept;

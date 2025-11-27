@@ -32,16 +32,16 @@ namespace citadel {
 		}
 	}
 	
-	std::streamsize stl_file::_read(void* data, std::streamsize size) {
-		stream_.read(reinterpret_cast<char*>(data), size);
+	std::streamsize stl_file::_read(void* buffer, std::streamsize size) {
+		stream_.read(reinterpret_cast<char*>(buffer), size);
 		return stream_.gcount();
 	}
 
-	std::streamsize stl_file::_write(const void* data, std::streamsize size) {
+	std::streamsize stl_file::_write(const void* buffer, std::streamsize size) {
 		stream_.flush();
 
 		std::streampos previous_position = tell();
-		stream_.write(reinterpret_cast<const char*>(data), size);
+		stream_.write(reinterpret_cast<const char*>(buffer), size);
 
 		if (!stream_.good()) {
 			std::streampos current_position = tell();
@@ -54,10 +54,10 @@ namespace citadel {
 	std::streampos stl_file::_tell() {
 		file_open_mode::enumeration open_mode = get_open_mode();
 
-		if (open_mode & file_open_mode::read) {
+		if (open_mode == file_open_mode::read) {
 			return stream_.tellg();
 		}
-		else if (open_mode & file_open_mode::write) {
+		else if (open_mode == file_open_mode::write) {
 			return stream_.tellp();
 		}
 
@@ -91,6 +91,10 @@ namespace citadel {
 		return static_cast<std::streamoff>(size_position);
 	}
 
+	char stl_file::_peek() {
+		return static_cast<char>(stream_.peek());
+	}
+
 	void stl_file::_seek(std::streamoff position) {
 		file_open_mode::enumeration open_mode = get_open_mode();
 
@@ -101,6 +105,14 @@ namespace citadel {
 		if (open_mode == file_open_mode::write) {
 			stream_.seekp(position);
 		}
+	}
+
+	bool stl_file::_is_good() const {
+		return stream_.good();
+	}
+
+	bool stl_file::_is_eof() const {
+		return stream_.eof();
 	}
 
 	void* stl_file::_get_native_handle() const {

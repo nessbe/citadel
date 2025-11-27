@@ -21,6 +21,19 @@
 
 namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+
+	std::vector<index_buffer::index> index_buffer::linear(std::size_t size) {
+		std::vector<index_buffer::index> indices(size);
+		for (std::size_t i = 0; i < size; i++) {
+			indices[i] = static_cast<index_buffer::index>(i);
+		}
+		return indices;
+	}
+
+CITADEL_IGNORE_WARNING_POP()
+
+CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const std::vector<index>& indices) {

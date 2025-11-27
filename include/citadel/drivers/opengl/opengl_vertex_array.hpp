@@ -51,7 +51,7 @@ namespace citadel {
 		virtual void _bind() override;
 		virtual void _unbind() override;
 
-		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) override;
+		virtual void _add_vertex_buffer(const std::shared_ptr<vertex_buffer>& buffer) override;
 		virtual void _set_index_buffer(const std::shared_ptr<index_buffer>& buffer) override;
 	};
 }

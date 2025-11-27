@@ -23,22 +23,20 @@ namespace citadel {
 		CITADEL_ASSERT(material, "The given material is null");
 	}
 
-	void mesh_instance::render(const mat4& view_projection) {
+	void mesh_instance::use() {
 		mesh_->bind();
-
 		material_->use();
+	}
 
-		citadel::mat4 mvp = view_projection * transform_;
-		material_->set_uniform_mat4("mvp", mvp);
+	void mesh_instance::render(const mat4& view, const mat4& projection) {
+		material_->set_uniform_mat4("view", view);
+		material_->set_uniform_mat4("projection", projection);
+		material_->set_uniform_mat4("transform", transform_);
 
 		material_->apply();
 
 		mesh_->render();
 		mesh_->unbind();
-	}
-
-	void mesh_instance::render(const mat4& view, const mat4& projection) {
-		render(projection * view);
 	}
 
 	mesh& mesh_instance::get_mesh() const noexcept {

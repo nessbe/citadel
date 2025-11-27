@@ -29,6 +29,8 @@ namespace citadel {
 		using index = std::uint32_t;
 
 	public:
+		nodisc static std::vector<index> linear(std::size_t size);
+
 		nodisc static std::shared_ptr<index_buffer> create(rendering_api_type api, const std::vector<index>& indices);
 		nodisc static std::shared_ptr<index_buffer> create(rendering_api_type api, const index* data, std::size_t size);
 

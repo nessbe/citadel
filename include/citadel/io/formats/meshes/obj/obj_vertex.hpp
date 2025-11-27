@@ -1,4 +1,4 @@
-// File:       vertex.cpp
+// File:       obj_vertex.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,18 +12,14 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/rendering/vertices/vertex.hpp"
+#pragma once
+
+#include <cstddef>
 
 namespace citadel {
-	vertex::vertex(const vec3& position, const vec3& normal, const vec2& uv)
-		: position(position), normal(normal), uv(uv) { }
-
-	void* vertex::data() noexcept {
-		return &position;
-	}
-
-	const void* vertex::data() const noexcept {
-		return &position;
-	}
+	struct obj_vertex {
+		std::size_t position_index = 0;
+		std::size_t uv_index = 0;
+		std::size_t normal_index = 0;
+	};
 }

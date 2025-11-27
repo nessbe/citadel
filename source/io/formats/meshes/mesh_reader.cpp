@@ -19,7 +19,7 @@ namespace citadel {
 	mesh_reader::mesh_reader(const std::shared_ptr<file>& file)
 		: reader(file) { }
 
-	mesh mesh_reader::read_mesh() {
-		return _read_mesh();
+	mesh mesh_reader::read_mesh(std::vector<vertex>& vertices, std::vector<index_buffer::index>& indices) {
+		return _read_mesh(vertices, indices);
 	}
 }

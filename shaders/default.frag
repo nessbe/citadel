@@ -14,10 +14,28 @@
 
 #version 460 compatibility
 
-in vec4 vertex_color;
+uniform vec3 color;
+uniform vec3 ambient_color;
 
-layout(location = 0) out vec4 fragment_color;
+uniform vec3 light_position;
+uniform float light_intensity;
+uniform float light_max_distance;
+
+flat in vec3 vertex_normal;
+in vec3 vertex_world_position;
+
+out vec4 fragment_color;
 
 void main() {
-	fragment_color = vertex_color;
+	vec3 normal = normalize(vertex_normal);
+	vec3 direction = normalize(light_position - vertex_world_position);
+	float difference = max(dot(normal, direction), 0.0);
+
+	float distance = length(light_position - vertex_world_position);
+	float attenuation = 1.0 - clamp(distance / light_max_distance, 0.0, 1.0);
+
+	float lighting = difference * attenuation * light_intensity;
+
+	vec3 out_color = ambient_color + color * max(lighting, 0.0);
+	fragment_color = vec4(out_color, 1.0);
 }

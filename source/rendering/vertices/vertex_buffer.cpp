@@ -23,28 +23,28 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH()
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout) {
+	std::shared_ptr<vertex_buffer> vertex_buffer::create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_vertex_buffer>(size, layout);
+			return std::make_shared<opengl_vertex_buffer>(size, layout);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout) {
+	std::shared_ptr<vertex_buffer> vertex_buffer::create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_vertex_buffer>(data, size, layout);
+			return std::make_shared<opengl_vertex_buffer>(data, size, layout);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -53,11 +53,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_IGNORE_WARNING_POP()
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size, const vertex_buffer_layout& layout) {
+	std::shared_ptr<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size, const vertex_buffer_layout& layout) {
 		return create(render_command::get_api(), data, size, layout);
 	}
 
-	std::unique_ptr<vertex_buffer> vertex_buffer::create(std::size_t size, const vertex_buffer_layout& layout) {
+	std::shared_ptr<vertex_buffer> vertex_buffer::create(std::size_t size, const vertex_buffer_layout& layout) {
 		return create(render_command::get_api(), size, layout);
 	}
 

@@ -28,11 +28,11 @@ namespace citadel {
 		nodisc static rendering_api_type get_api();
 		static void set_api(rendering_api_type value);
 
-		static void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		static void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array);
+		static void draw_indexed(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
+		static void draw_indexed(const std::shared_ptr<vertex_array>& vertex_array);
 
-		static void draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		static void draw_lines(const std::unique_ptr<vertex_array>& vertex_array);
+		static void draw_lines(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
+		static void draw_lines(const std::shared_ptr<vertex_array>& vertex_array);
 
 		static void set_line_width(float value);
 		nodisc static float get_line_width() noexcept;

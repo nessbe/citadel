@@ -1,4 +1,4 @@
-// File:       mesh_reader.hpp
+// File:       obj_reader.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,14 +14,21 @@
 
 #pragma once
 
-#include <vector>
+#include <memory>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/reader.hpp"
-
 #include "citadel/io/filesystem/file.hpp"
+
+#include "citadel/io/formats/meshes/mesh_reader.hpp"
+
+#include "citadel/io/formats/meshes/obj/obj_face.hpp"
+#include "citadel/io/formats/meshes/obj/obj_vertex.hpp"
+
+#include "citadel/io/text/text_reader.hpp"
+
+#include "citadel/math/vectors/vec3.hpp"
 
 #include "citadel/rendering/meshes/mesh.hpp"
 
@@ -29,13 +36,22 @@
 #include "citadel/rendering/vertices/index_buffer.hpp"
 
 namespace citadel {
-	class exported mesh_reader : public reader {
+	class exported obj_reader : public mesh_reader {
 	public:
-		explicit mesh_reader(const std::shared_ptr<file>& file);
-
-		mesh read_mesh(std::vector<vertex>& vertices, std::vector<index_buffer::index>& indices);
+		explicit obj_reader(const std::shared_ptr<file>& file);
 
 	private:
-		virtual mesh _read_mesh(std::vector<vertex>& vertices, std::vector<index_buffer::index>& indices) = 0;
+		text_reader reader_;
+
+	private:
+		nodisc vertex build_vertex(const obj_vertex& data, const std::vector<vec3>& positions, const std::vector<vec3>& normals, const std::vector<vec2>& uvs);
+
+		vec2 read_vec2();
+		vec3 read_vec3();
+
+		obj_vertex read_vertex();
+		obj_face read_face();
+
+		virtual mesh _read_mesh(std::vector<vertex>& vertices, std::vector<index_buffer::index>& indices) override;
 	};
 }

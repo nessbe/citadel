@@ -1,4 +1,4 @@
-// File:       text_writer.cpp
+// File:       obj_face.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,19 +12,14 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/io/text/text_writer.hpp"
+#pragma once
+
+#include <vector>
+
+#include "citadel/io/formats/meshes/obj/obj_vertex.hpp"
 
 namespace citadel {
-	text_writer::text_writer(const std::shared_ptr<file>& file)
-		: writer(file) { }
-
-	void text_writer::write_c_string(const char* buffer) {
-		std::size_t size = std::strlen(buffer);
-		file_->write(buffer, static_cast<std::streamsize>(size));
-	}
-
-	void text_writer::write_string(const std::string& string) {
-		file_->write(string.data(), static_cast<std::streamsize>(string.size()));
-	}
+	struct obj_face {
+		std::vector<obj_vertex> vertices;
+	};
 }

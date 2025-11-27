@@ -43,7 +43,11 @@ namespace citadel {
 		nodisc virtual std::streampos _tell() override;
 		nodisc virtual std::streamoff _size() override;
 
+		nodisc virtual char _peek() override;
 		virtual void _seek(std::streamoff position) override;
+
+		nodisc virtual bool _is_good() const override;
+		nodisc virtual bool _is_eof() const override;
 
 		nodisc virtual void* _get_native_handle() const override;
 	};

@@ -21,12 +21,12 @@ namespace citadel {
 	opengl_rendering_api::opengl_rendering_api(rendering_api_type api)
 		: rendering_api(api) { }
 
-	void opengl_rendering_api::_draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void opengl_rendering_api::_draw_indexed(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		vertex_array->bind();
 		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(vertex_count), GL_UNSIGNED_INT, nullptr);
 	}
 
-	void opengl_rendering_api::_draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void opengl_rendering_api::_draw_lines(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		vertex_array->bind();
 		glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(vertex_count));
 	}

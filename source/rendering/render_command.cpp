@@ -30,19 +30,19 @@ namespace citadel {
 		CITADEL_ASSERT(rendering_api_, "Failed to create rendering API");
 	}
 
-	void render_command::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_indexed(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		rendering_api_->draw_indexed(vertex_array, vertex_count);
 	}
 
-	void render_command::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array) {
+	void render_command::draw_indexed(const std::shared_ptr<vertex_array>& vertex_array) {
 		rendering_api_->draw_indexed(vertex_array);
 	}
 
-	void render_command::draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_lines(const std::shared_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
 		rendering_api_->draw_lines(vertex_array, vertex_count);
 	}
 
-	void render_command::draw_lines(const std::unique_ptr<vertex_array>& vertex_array) {
+	void render_command::draw_lines(const std::shared_ptr<vertex_array>& vertex_array) {
 		rendering_api_->draw_lines(vertex_array);
 	}
 

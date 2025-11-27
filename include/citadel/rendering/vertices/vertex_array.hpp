@@ -27,8 +27,8 @@
 namespace citadel {
 	class exported vertex_array {
 	public:
-		nodisc static std::unique_ptr<vertex_array> create(rendering_api_type api);
-		nodisc static std::unique_ptr<vertex_array> create();
+		nodisc static std::shared_ptr<vertex_array> create(rendering_api_type api);
+		nodisc static std::shared_ptr<vertex_array> create();
 
 		vertex_array() = default;
 		virtual ~vertex_array() = default;
@@ -39,7 +39,7 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer);
+		void add_vertex_buffer(const std::shared_ptr<vertex_buffer>& buffer);
 
 		nodisc index_buffer& get_index_buffer() const;
 		void set_index_buffer(const std::shared_ptr<index_buffer>& buffer);
@@ -51,7 +51,7 @@ namespace citadel {
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 
-		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) = 0;
+		virtual void _add_vertex_buffer(const std::shared_ptr<vertex_buffer>& buffer) = 0;
 		virtual void _set_index_buffer(const std::shared_ptr<index_buffer>& buffer) = 0;
 	};
 }

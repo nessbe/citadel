@@ -15,6 +15,7 @@
 #pragma once
 
 #include <memory>
+#include <ostream>
 #include <string>
 
 #include "citadel/attributes.hpp"
@@ -29,7 +30,7 @@ namespace citadel {
 	public:
 		explicit text_writer(const std::shared_ptr<file>& file);
 
-		nodisc void write_c_string(const char* buffer);
-		nodisc void write_string(const std::string& string);
+		void write_c_string(const char* buffer);
+		void write_string(const std::string& string);
 	};
 }
