@@ -16,8 +16,8 @@
 #include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
-	vertex::vertex(const vec3& position, const vec4& color)
-		: position(position), color(color) { }
+	vertex::vertex(const vec3& position, const vec3& normal, const vec2& uv)
+		: position(position), normal(normal), uv(uv) { }
 
 	void* vertex::data() noexcept {
 		return &position;
@@ -27,7 +27,7 @@ namespace citadel {
 		return &position;
 	}
 
-	vec3 vertex::get_position() const noexcept {
+	const vec3& vertex::get_position() const noexcept {
 		return position;
 	}
 
@@ -35,11 +35,19 @@ namespace citadel {
 		position = value;
 	}
 
-	vec4 vertex::get_color() const noexcept {
-		return color;
+	const vec3& vertex::get_normal() const noexcept {
+		return normal;
 	}
 
-	void vertex::set_color(const vec4& value) noexcept {
-		color = value;
+	void vertex::set_normal(const vec3& value) noexcept {
+		normal = value;
+	}
+
+	const vec2& vertex::get_uv() const noexcept {
+		return uv;
+	}
+
+	void vertex::set_uv(const vec2& value) noexcept {
+		uv = value;
 	}
 }

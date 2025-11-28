@@ -85,6 +85,7 @@ namespace citadel {
 
 	vertex_buffer_layout mesh::default_layout_ = {
 		{ "position", shader_data_type_vec3, false },
-		{ "color", shader_data_type_vec4, true },
+		{ "normal", shader_data_type_vec3, false },
+		{ "uv", shader_data_type_vec2, true },
 	};
 }
