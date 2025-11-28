@@ -57,6 +57,9 @@
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/platforms/windows.hpp"
 
 #include <glad/glad.h>
