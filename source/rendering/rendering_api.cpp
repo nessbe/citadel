@@ -20,8 +20,8 @@
 #include "citadel/rendering/vertices/vertex_array.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 	std::unique_ptr<rendering_api> rendering_api::create(rendering_api_type api) {
 		switch (api) {
@@ -37,7 +37,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	rendering_api::rendering_api(rendering_api_type api)
 		: api_(api) { }

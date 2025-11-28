@@ -23,8 +23,8 @@
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported opengl_vertex_array : public vertex_array {
@@ -56,4 +56,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

@@ -20,8 +20,8 @@
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 	std::unique_ptr<surface> surface::create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color) {
 		switch (api) {
@@ -51,7 +51,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	std::unique_ptr<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
 		return create(render_command::get_api(), x, y, width, height, clear_color);

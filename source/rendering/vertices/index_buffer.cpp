@@ -20,8 +20,8 @@
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const std::vector<index>& indices) {
 		switch (api) {
@@ -51,7 +51,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	std::shared_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
 		return create(render_command::get_api(), indices);
