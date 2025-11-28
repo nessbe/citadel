@@ -14,14 +14,21 @@
 
 #version 460 compatibility
 
-uniform mat4 mvp;
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat4 transform;
 
 layout(location = 0) in vec3 position;
-layout(location = 1) in vec4 color;
+layout(location = 1) in vec3 normal;
+layout(location = 2) in vec2 uv;
 
-out vec4 vertex_color;
+flat out vec3 vertex_normal;
+out vec3 vertex_world_position;
 
 void main() {
-	gl_Position = mvp * vec4(position, 1.0);
-	vertex_color = color;
+	vec4 world_position = transform * vec4(position, 1.0);
+	vertex_world_position = world_position.xyz;
+
+	vertex_normal = normalize(mat3(transpose(inverse(transform))) * normal);
+	gl_Position = projection * view * world_position;
 }
