@@ -30,6 +30,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -44,6 +45,8 @@
 #include "citadel/pragma.hpp"
 #include "citadel/type_traits.hpp"
 #include "citadel/warnings.hpp"
+
+#include "citadel/debug/exceptions/assertion_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 

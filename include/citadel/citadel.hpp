@@ -38,6 +38,8 @@
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
 
+#include "citadel/debug/exceptions/assertion_error.hpp"
+
 #include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
