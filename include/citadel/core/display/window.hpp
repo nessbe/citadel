@@ -28,6 +28,8 @@
 
 #include "citadel/core/layers/layer_stack.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 #include "citadel/rendering/rendering_context.hpp"
 
@@ -42,11 +44,11 @@ namespace citadel {
 		using clock = std::chrono::high_resolution_clock;
 
 	public:
-		nodisc static std::unique_ptr<window> create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		nodisc static std::unique_ptr<window> create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
 
-		nodisc static std::unique_ptr<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		nodisc static std::unique_ptr<window> create(dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(dimension width, dimension height, const std::string& title);
 
 		window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
@@ -102,8 +104,8 @@ namespace citadel {
 		std::string title_;
 
 		layer_stack layer_stack_;
-		std::unique_ptr<surface> surface_;
-		std::unique_ptr<rendering_context> rendering_context_;
+		scope<surface> surface_;
+		scope<rendering_context> rendering_context_;
 
 		clock::time_point last_frame_;
 

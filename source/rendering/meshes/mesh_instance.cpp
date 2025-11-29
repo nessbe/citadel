@@ -16,7 +16,7 @@
 #include "citadel/rendering/meshes/mesh_instance.hpp"
 
 namespace citadel {
-	mesh_instance::mesh_instance(const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material, const mat4 transform)
+	mesh_instance::mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const mat4 transform)
 		: mesh_(mesh), material_(material), transform_(transform)
 	{
 		CITADEL_ASSERT(mesh, "The given mesh is null");

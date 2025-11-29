@@ -16,7 +16,7 @@
 #include "citadel/io/text/text_writer.hpp"
 
 namespace citadel {
-	text_writer::text_writer(const std::shared_ptr<file>& file)
+	text_writer::text_writer(const reference<file>& file)
 		: writer(file) { }
 
 	void text_writer::write_c_string(const char* buffer) {

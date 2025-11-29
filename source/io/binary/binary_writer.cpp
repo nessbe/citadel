@@ -16,7 +16,7 @@
 #include "citadel/io/binary/binary_writer.hpp"
 
 namespace citadel {
-	binary_writer::binary_writer(const std::shared_ptr<file>& file)
+	binary_writer::binary_writer(const reference<file>& file)
 		: writer(file) { }
 
 	void binary_writer::write_int8(std::int8_t value) {

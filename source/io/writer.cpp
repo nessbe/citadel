@@ -16,7 +16,7 @@
 #include "citadel/io/writer.hpp"
 
 namespace citadel {
-	writer::writer(const std::shared_ptr<file>& file)
+	writer::writer(const reference<file>& file)
 		: file_(file)
 	{
 		CITADEL_ASSERT(file, "The given file is null");

@@ -21,15 +21,17 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported writer {
 	public:
-		explicit writer(const std::shared_ptr<file>& file);
+		explicit writer(const reference<file>& file);
 		virtual ~writer() = default;
 
 		nodisc file& get_file() const noexcept;
 
 	protected:
-		std::shared_ptr<file> file_;
+		reference<file> file_;
 	};
 }

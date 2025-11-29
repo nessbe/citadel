@@ -19,6 +19,8 @@
 
 #include "citadel/math/transforms/transform_3d.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/materials/material.hpp"
@@ -28,7 +30,7 @@
 namespace citadel {
 	class exported mesh_instance {
 	public:
-		mesh_instance(const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material, const mat4 transform);
+		mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const mat4 transform);
 
 		void use();
 		void render(const mat4& view, const mat4& projection);
@@ -40,8 +42,8 @@ namespace citadel {
 		void set_transform(const transform_3d& value) noexcept;
 
 	private:
-		std::shared_ptr<mesh>  mesh_;
-		std::shared_ptr<material> material_;
+		reference<mesh>  mesh_;
+		reference<material> material_;
 
 		transform_3d transform_;
 	};

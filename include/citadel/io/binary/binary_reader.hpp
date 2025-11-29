@@ -27,6 +27,8 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported binary_reader : public reader {
 	public:
@@ -36,7 +38,7 @@ namespace citadel {
 		using static_buffer = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_reader(const std::shared_ptr<file>& file);
+		explicit binary_reader(const reference<file>& file);
 
 		nodisc std::int8_t read_int8();
 		nodisc std::uint8_t read_uint8();

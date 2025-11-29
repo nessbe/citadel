@@ -18,7 +18,7 @@
 namespace citadel {
 	static rendering_api_type default_api_ = rendering_api_type::opengl;
 
-	std::unique_ptr<rendering_api> render_command::rendering_api_ = rendering_api::create(default_api_);
+	scope<rendering_api> render_command::rendering_api_ = rendering_api::create(default_api_);
 	float render_command::line_width_ = 1.0f;
 
 	rendering_api_type render_command::get_api() {
@@ -30,19 +30,19 @@ namespace citadel {
 		CITADEL_ASSERT(rendering_api_, "Failed to create rendering API");
 	}
 
-	void render_command::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
 		rendering_api_->draw_indexed(vertex_array, vertex_count);
 	}
 
-	void render_command::draw_indexed(const std::unique_ptr<vertex_array>& vertex_array) {
+	void render_command::draw_indexed(const scope<vertex_array>& vertex_array) {
 		rendering_api_->draw_indexed(vertex_array);
 	}
 
-	void render_command::draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
 		rendering_api_->draw_lines(vertex_array, vertex_count);
 	}
 
-	void render_command::draw_lines(const std::unique_ptr<vertex_array>& vertex_array) {
+	void render_command::draw_lines(const scope<vertex_array>& vertex_array) {
 		rendering_api_->draw_lines(vertex_array);
 	}
 

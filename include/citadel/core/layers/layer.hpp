@@ -21,6 +21,8 @@
 
 #include "citadel/core/display/surface.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 namespace citadel {
 	class exported layer {
 	public:
@@ -30,13 +32,13 @@ namespace citadel {
 		void detach();
 
 		bool update(double delta);
-		bool render(const std::unique_ptr<surface>& surface);
+		bool render(const scope<surface>& surface);
 
 	private:
 		virtual void _attach() = 0;
 		virtual void _detach() = 0;
 
 		virtual bool _update(double delta) = 0;
-		virtual bool _render(const std::unique_ptr<surface>& surface) = 0;
+		virtual bool _render(const scope<surface>& surface) = 0;
 	};
 }

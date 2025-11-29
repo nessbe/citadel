@@ -17,35 +17,35 @@
 
 namespace citadel {
 	layer_stack::~layer_stack() {
-		for (const std::shared_ptr<layer>& layer : layers_) {
+		for (const reference<layer>& layer : layers_) {
 			layer->detach();
 		}
 	}
 
 	void layer_stack::update(double delta) {
-		for (const std::shared_ptr<layer>& layer : layers_) {
+		for (const reference<layer>& layer : layers_) {
 			if (!layer->update(delta)) {
 				break;
 			}
 		}
 	}
 
-	void layer_stack::render(const std::unique_ptr<surface>& surface) {
-		for (const std::shared_ptr<layer>& layer : layers_) {
+	void layer_stack::render(const scope<surface>& surface) {
+		for (const reference<layer>& layer : layers_) {
 			if (!layer->render(surface)) {
 				break;
 			}
 		}
 	}
 
-	void layer_stack::push(const std::shared_ptr<layer>& layer) {
+	void layer_stack::push(const reference<layer>& layer) {
 		CITADEL_ASSERT(layer, "The given layer is null");
 		layers_.push_back(layer);
 		layer->attach();
 	}
 
-	std::shared_ptr<layer> layer_stack::pop() {
-		std::shared_ptr<layer> layer = layers_.back();
+	reference<layer> layer_stack::pop() {
+		reference<layer> layer = layers_.back();
 		layers_.pop_back();
 		layer->detach();
 		return layer;

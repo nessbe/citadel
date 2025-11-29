@@ -22,7 +22,7 @@ namespace citadel {
 	}
 
 	void application::initialize() {
-		engine_ = std::make_unique<engine>();
+		engine_ = make_scoped<engine>();
 		CITADEL_ASSERT(engine_, "Failed to create engine");
 
 		if (engine_) {

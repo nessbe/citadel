@@ -24,10 +24,12 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class text_reader : public reader {
 	public:
-		explicit text_reader(const std::shared_ptr<file>& file);
+		explicit text_reader(const reference<file>& file);
 
 		nodisc std::string read_c_string();
 		nodisc std::string read_string(std::size_t size);

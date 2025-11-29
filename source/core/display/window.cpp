@@ -20,9 +20,9 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		std::unique_ptr<windows_window> window = std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
+		scope<windows_window> window = make_scoped<windows_window>(rendering_api, x, y, width, height, title);
 
 		if (window) {
 			window->initialize(rendering_api);
@@ -36,20 +36,20 @@ namespace citadel {
 #endif
 	}
 
-	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		return std::make_unique<windows_window>(rendering_api, width, height, title);
+		return make_scoped<windows_window>(rendering_api, width, height, title);
 #else
 #error Citadel does not support your window system yet
 		return nullptr;
 #endif
 	}
 
-	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 		return create(render_command::get_api(), x, y, width, height, title);
 	}
 
-	std::unique_ptr<window> window::create(dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension width, dimension height, const std::string& title) {
 		return create(render_command::get_api(), width, height, title);
 	}
 

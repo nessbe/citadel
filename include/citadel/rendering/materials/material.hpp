@@ -28,6 +28,9 @@
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
@@ -82,8 +85,8 @@ namespace citadel {
 		std::unordered_map<std::string, mat3> mat3_uniforms_;
 		std::unordered_map<std::string, mat4> mat4_uniforms_;
 
-		std::shared_ptr<shader> vertex_shader_;
-		std::shared_ptr<shader> fragment_shader_;
-		std::unique_ptr<shader_program> shader_program_;
+		reference<shader> vertex_shader_;
+		reference<shader> fragment_shader_;
+		scope<shader_program> shader_program_;
 	};
 }

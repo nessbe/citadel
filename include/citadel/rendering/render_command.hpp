@@ -17,6 +17,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
@@ -28,17 +30,17 @@ namespace citadel {
 		nodisc static rendering_api_type get_api();
 		static void set_api(rendering_api_type value);
 
-		static void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		static void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array);
+		static void draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count);
+		static void draw_indexed(const scope<vertex_array>& vertex_array);
 
-		static void draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		static void draw_lines(const std::unique_ptr<vertex_array>& vertex_array);
+		static void draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count);
+		static void draw_lines(const scope<vertex_array>& vertex_array);
 
 		static void set_line_width(float value);
 		nodisc static float get_line_width() noexcept;
 
 	private:
-		static std::unique_ptr<rendering_api> rendering_api_;
+		static scope<rendering_api> rendering_api_;
 		static float line_width_;
 	};
 }

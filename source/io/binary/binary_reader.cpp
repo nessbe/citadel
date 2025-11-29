@@ -16,7 +16,7 @@
 #include "citadel/io/binary/binary_reader.hpp"
 
 namespace citadel {
-	binary_reader::binary_reader(const std::shared_ptr<file>& file)
+	binary_reader::binary_reader(const reference<file>& file)
 		: reader(file) { }
 
 	std::int8_t binary_reader::read_int8() {

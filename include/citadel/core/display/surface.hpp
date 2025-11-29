@@ -21,6 +21,8 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/color.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
@@ -33,11 +35,11 @@ namespace citadel {
 		using dimension = std::uint32_t;
 
 	public:
-		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
 
-		nodisc static std::unique_ptr<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static std::unique_ptr<surface> create(dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(dimension width, dimension height, color clear_color);
 
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);

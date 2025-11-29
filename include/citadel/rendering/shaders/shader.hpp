@@ -28,6 +28,8 @@
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/shaders/shader_data_type.hpp"
@@ -39,11 +41,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 namespace citadel {
 	class exported shader {
 	public:
-		nodisc static std::shared_ptr<shader> create(rendering_api_type api, const std::string& name, shader_type type, const std::string& source);
-		nodisc static std::shared_ptr<shader> create(rendering_api_type api, const std::string& name, shader_type type);
+		nodisc static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type, const std::string& source);
+		nodisc static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type);
 
-		nodisc static std::shared_ptr<shader> create(const std::string& name, shader_type type, const std::string& source);
-		nodisc static std::shared_ptr<shader> create(const std::string& name, shader_type type);
+		nodisc static reference<shader> create(const std::string& name, shader_type type, const std::string& source);
+		nodisc static reference<shader> create(const std::string& name, shader_type type);
 
 		shader(const std::string& name, shader_type type, const std::string& source);
 		shader(const std::string& name, shader_type type);

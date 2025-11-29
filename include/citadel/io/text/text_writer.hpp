@@ -24,10 +24,12 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class text_writer : public writer {
 	public:
-		explicit text_writer(const std::shared_ptr<file>& file);
+		explicit text_writer(const reference<file>& file);
 
 		nodisc void write_c_string(const char* buffer);
 		nodisc void write_string(const std::string& string);

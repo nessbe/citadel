@@ -77,8 +77,8 @@ namespace citadel {
 		glUseProgram(id_);
 	}
 
-	void opengl_shader_program::_attach(const std::shared_ptr<shader>& shader) {
-		std::shared_ptr<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
+	void opengl_shader_program::_attach(const reference<shader>& shader) {
+		reference<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
 		CITADEL_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {
@@ -90,8 +90,8 @@ namespace citadel {
 		}
 	}
 
-	void opengl_shader_program::_detach(const std::shared_ptr<shader>& shader) {
-		std::shared_ptr<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
+	void opengl_shader_program::_detach(const reference<shader>& shader) {
+		reference<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
 		CITADEL_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {

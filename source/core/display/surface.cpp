@@ -23,28 +23,28 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH();
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
-	std::unique_ptr<surface> surface::create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_surface>(x, y, width, height, clear_color);
+			return make_scoped<opengl_surface>(x, y, width, height, clear_color);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-	std::unique_ptr<surface> surface::create(rendering_api_type api, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(rendering_api_type api, dimension width, dimension height, color clear_color) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_surface>(width, height, clear_color);
+			return make_scoped<opengl_surface>(width, height, clear_color);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -53,11 +53,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 CITADEL_IGNORE_WARNING_POP();
 
-	std::unique_ptr<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
 		return create(render_command::get_api(), x, y, width, height, clear_color);
 	}
 
-	std::unique_ptr<surface> surface::create(dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(dimension width, dimension height, color clear_color) {
 		return create(render_command::get_api(), width, height, clear_color);
 	}
 

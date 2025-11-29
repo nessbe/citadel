@@ -16,7 +16,7 @@
 #include "citadel/io/reader.hpp"
 
 namespace citadel {
-	reader::reader(const std::shared_ptr<file>& file)
+	reader::reader(const reference<file>& file)
 		: file_(file)
 	{
 		CITADEL_ASSERT(file, "The given file is null");

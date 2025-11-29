@@ -20,6 +20,9 @@
 
 #include "citadel/drivers/opengl.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
@@ -51,8 +54,8 @@ namespace citadel {
 		virtual void _bind() override;
 		virtual void _unbind() override;
 
-		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) override;
-		virtual void _set_index_buffer(const std::shared_ptr<index_buffer>& buffer) override;
+		virtual void _add_vertex_buffer(const scope<vertex_buffer>& buffer) override;
+		virtual void _set_index_buffer(const reference<index_buffer>& buffer) override;
 	};
 }
 

@@ -15,13 +15,14 @@
 #pragma once
 
 #include <cstddef>
-#include <memory>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/core/engine.hpp"
 #include "citadel/core/exit_code.hpp"
+
+#include "citadel/memory/scope.hpp"
 
 namespace citadel {
 	int run_application(int argc, char** argv);
@@ -55,7 +56,7 @@ namespace citadel {
 
 		std::size_t error_level_ = 0;
 
-		std::unique_ptr<engine> engine_ = nullptr;
+		scope<engine> engine_ = nullptr;
 
 	private:
 		virtual void _initialize() = 0;

@@ -20,6 +20,9 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
@@ -53,8 +56,8 @@ namespace citadel {
 	private:
 		static vertex_buffer_layout default_layout_;
 
-		std::unique_ptr<vertex_array> vertex_array_;
-		std::unique_ptr<vertex_buffer> vertex_buffer_;
-		std::shared_ptr<index_buffer> index_buffer_;
+		scope<vertex_array> vertex_array_;
+		scope<vertex_buffer> vertex_buffer_;
+		reference<index_buffer> index_buffer_;
 	};
 }

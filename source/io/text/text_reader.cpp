@@ -19,7 +19,7 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH();
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 
-	text_reader::text_reader(const std::shared_ptr<file>& file)
+	text_reader::text_reader(const reference<file>& file)
 		: reader(file) { }
 
 	std::string text_reader::read_c_string() {

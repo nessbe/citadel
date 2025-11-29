@@ -23,14 +23,14 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH();
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
-	std::unique_ptr<shader_program> shader_program::create(rendering_api_type api, const std::string& name) {
+	scope<shader_program> shader_program::create(rendering_api_type api, const std::string& name) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_shader_program>(name);
+			return make_scoped<opengl_shader_program>(name);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -39,7 +39,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 CITADEL_IGNORE_WARNING_POP();
 
-	std::unique_ptr<shader_program> shader_program::create(const std::string& name) {
+	scope<shader_program> shader_program::create(const std::string& name) {
 		return create(render_command::get_api(), name);
 	}
 
@@ -60,7 +60,7 @@ CITADEL_IGNORE_WARNING_POP();
 		_use();
 	}
 
-	bool shader_program::attach(const std::shared_ptr<shader>& shader) {
+	bool shader_program::attach(const reference<shader>& shader) {
 		CITADEL_ASSERT(shader, "The given shader is null");
 
 		shader_type type = shader->get_type();
@@ -80,7 +80,7 @@ CITADEL_IGNORE_WARNING_POP();
 			return;
 		}
 
-		const std::shared_ptr<shader>& shader = shaders_.at(type);
+		const reference<shader>& shader = shaders_.at(type);
 		_detach(shader);
 
 		shaders_.erase(type);
@@ -152,11 +152,11 @@ CITADEL_IGNORE_WARNING_POP();
 		return uniforms_.size();
 	}
 
-	std::vector<std::shared_ptr<shader>> shader_program::get_shaders() const {
-		std::vector<std::shared_ptr<shader>> shaders;
+	std::vector<reference<shader>> shader_program::get_shaders() const {
+		std::vector<reference<shader>> shaders;
 		shaders.reserve(shaders_.size());
 
-		std::transform(shaders_.begin(), shaders_.end(), std::back_inserter(shaders), [](const std::pair<shader_type, std::shared_ptr<shader>> shader) {
+		std::transform(shaders_.begin(), shaders_.end(), std::back_inserter(shaders), [](const std::pair<shader_type, reference<shader>> shader) {
 			return shader.second;
 		});
 
@@ -167,7 +167,7 @@ CITADEL_IGNORE_WARNING_POP();
 		return shaders_.find(type) != shaders_.end();
 	}
 
-	std::shared_ptr<shader> shader_program::get_shader(shader_type type) const {
+	reference<shader> shader_program::get_shader(shader_type type) const {
 		if (!has_shader(type)) {
 			return nullptr;
 		}
