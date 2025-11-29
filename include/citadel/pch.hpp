@@ -40,6 +40,7 @@
 #include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
+#include "citadel/exceptions.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
 #include "citadel/pragma.hpp"
