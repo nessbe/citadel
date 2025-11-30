@@ -25,6 +25,9 @@ namespace citadel {
 
 	exported void assert(bool condition) noexcept;
 	exported void assert(bool condition, const std::string& message);
+
+	exported void soft_assert(bool condition);
+	exported void soft_assert(bool condition, const std::string& message);
 }
 
 #ifdef CITADEL_DEBUG
@@ -34,3 +37,5 @@ namespace citadel {
 	#define CITADEL_PANIC(message)
 	#define CITADEL_ASSERT(condition, message)
 #endif
+
+#define CITADEL_SOFT_ASSERT(condition, message) ::citadel::soft_assert(static_cast<bool>(condition), "Soft assertion failed (" #condition "): " message)
