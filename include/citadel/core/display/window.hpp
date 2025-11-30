@@ -17,7 +17,6 @@
 #include <chrono>
 #include <cinttypes>
 #include <functional>
-#include <memory>
 #include <string>
 
 #include "citadel/attributes.hpp"
