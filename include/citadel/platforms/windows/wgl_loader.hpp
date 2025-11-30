@@ -31,6 +31,9 @@ namespace citadel {
 		wgl_loader() = default;
 
 	private:
+		static HMODULE opengl32_module_;
+
+	private:
 		virtual int _load() override;
 		virtual void _unload() override;
 
