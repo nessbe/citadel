@@ -23,7 +23,7 @@ namespace citadel {
 		stl_open_mode |= std::ios::binary;
 
 		stream_.open(path, stl_open_mode);
-		CITADEL_ASSERT(stream_.is_open(), "Failed to open file '" + path + " '");
+		CITADEL_SOFT_ASSERT(stream_.is_open(), "Failed to open file '" + path + "'");
 	}
 
 	stl_file::~stl_file() {
