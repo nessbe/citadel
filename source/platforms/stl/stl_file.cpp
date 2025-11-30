@@ -91,6 +91,10 @@ namespace citadel {
 		return static_cast<std::streamoff>(size_position);
 	}
 
+	char stl_file::_peek() {
+		return static_cast<char>(stream_.peek());
+	}
+
 	void stl_file::_seek(std::streamoff position) {
 		file_open_mode::enumeration open_mode = get_open_mode();
 
@@ -101,6 +105,14 @@ namespace citadel {
 		if (open_mode == file_open_mode::write) {
 			stream_.seekp(position);
 		}
+	}
+
+	bool stl_file::_is_good() const {
+		return stream_.good();
+	}
+
+	bool stl_file::_is_eof() const {
+		return stream_.eof();
 	}
 
 	void* stl_file::_get_native_handle() const {
