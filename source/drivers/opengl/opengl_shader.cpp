@@ -38,7 +38,7 @@ CITADEL_IGNORE_WARNING_POP();
 		: shader(name, type, source)
 	{
 		id_ = glCreateShader(get_native_type());
-		CITADEL_ASSERT(id_, "Failed to create OpenGL shader");
+		CITADEL_SOFT_ASSERT(id_, "Failed to create OpenGL shader");
 
 		const char* raw_source = source.c_str();
 		glShaderSource(id_, 1, &raw_source, nullptr);
@@ -78,8 +78,6 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	bool opengl_shader::_compile() {
-		CITADEL_ASSERT(id_, "Shader is not yet created");
-
 		glCompileShader(id_);
 
 		GLint success = 0;
@@ -100,7 +98,6 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	void opengl_shader::_set_source(const std::string& value) {
-		CITADEL_ASSERT(id_, "Shader is not yet created");
 		const char* source = value.c_str();
 		glShaderSource(id_, 1, &source, nullptr);
 	}

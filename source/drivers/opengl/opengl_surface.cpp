@@ -71,7 +71,9 @@ CITADEL_IGNORE_WARNING_POP();
 
 	void opengl_surface::_set_x(dimension value) { }
 	void opengl_surface::_set_y(dimension value) { }
+
 	void opengl_surface::_set_width(dimension value) { }
 	void opengl_surface::_set_height(dimension value) { }
+
 	void opengl_surface::_set_clear_color(color value) { }
 }

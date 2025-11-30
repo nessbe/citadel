@@ -83,8 +83,10 @@ namespace citadel {
 
 		virtual void _set_x(dimension value) = 0;
 		virtual void _set_y(dimension value) = 0;
+
 		virtual void _set_width(dimension value) = 0;
 		virtual void _set_height(dimension value) = 0;
+
 		virtual void _set_clear_color(color value) = 0;
 	};
 }
