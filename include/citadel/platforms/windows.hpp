@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "citadel/platforms.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
@@ -28,3 +30,19 @@
 	#undef near
 	#undef far
 #endif
+
+#ifdef UNICODE
+	#define CITADEL_UNIVERSAL_STRING(string) L##string
+#else
+	#define CITADEL_UNIVERSAL_STRING(string) string
+#endif
+
+namespace citadel {
+#ifdef UNICODE
+	using universal_char = wchar_t;
+#else
+	using universal_char = char;
+#endif
+
+	using universal_string = std::basic_string<universal_char>;
+}

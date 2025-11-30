@@ -20,14 +20,14 @@
 namespace citadel {
 	void* wgl_loader::get_procedure_address(const char* name) noexcept {
 #if CITADEL_PLATFORM_WINDOWS
-		void* address = wglGetProcAddress(name);
+		void* address = reinterpret_cast<void*>(wglGetProcAddress(name));
 
 		if (address) {
 			return address;
 		}
 
-		static HMODULE opengl32_module = LoadLibraryA("opengl32");
-		return GetProcAddress(opengl32_module, name);
+		static HMODULE opengl32_module = LoadLibraryA("opengl32.dll");
+		return reinterpret_cast<void*>(GetProcAddress(opengl32_module, name));
 #else
 	#error Cannot load OpenGL procedure addresses using your operating system yet
 #endif
@@ -38,7 +38,7 @@ namespace citadel {
 		dummy_window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		dummy_window_class.lpfnWndProc = DefWindowProc;
 		dummy_window_class.hInstance = GetModuleHandle(NULL);
-		dummy_window_class.lpszClassName = L"DummyCitadelWindow";
+		dummy_window_class.lpszClassName = CITADEL_UNIVERSAL_STRING("DummyCitadelWindow");
 
 		CITADEL_SOFT_ASSERT(
 			RegisterClass(&dummy_window_class),
@@ -48,7 +48,7 @@ namespace citadel {
 		HWND dummy_window = CreateWindowEx(
 			0,
 			dummy_window_class.lpszClassName,
-			L"DummyWindow",
+			CITADEL_UNIVERSAL_STRING("DummyWindow"),
 			0,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,

@@ -45,7 +45,7 @@ project "citadel"
 	filter "action:gmake"
 		buildoptions {
 			"-Wall",
-			"-Wunused-parameter"
+			"-Wno-unused-parameter"
 		}
 
 	filter "action:vs*"

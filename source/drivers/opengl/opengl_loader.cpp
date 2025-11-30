@@ -18,14 +18,14 @@
 namespace citadel {
 	void* opengl_loader::get_procedure_address(const char* name) noexcept {
 #if CITADEL_PLATFORM_WINDOWS
-		void* address = wglGetProcAddress(name);
+		void* address = reinterpret_cast<void*>(wglGetProcAddress(name));
 
 		if (address) {
 			return address;
 		}
 
 		static HMODULE opengl32_module = LoadLibraryA("opengl32.dll");
-		return GetProcAddress(opengl32_module, name);
+		return reinterpret_cast<void*>(GetProcAddress(opengl32_module, name));
 #else
 	#error Cannot load OpenGL procedure addresses using your operating system yet
 #endif

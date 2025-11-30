@@ -17,11 +17,13 @@
 #include <cstddef>
 #include <type_traits>
 
+#include "citadel/attributes.hpp"
+
 namespace citadel {
 	template <typename T>
 	struct basic_vec3 {
 	public:
-		static_assert(is_numeric_v<T>, "T must be numeric");
+		static_assert(std::is_arithmetic_v<T>, "T must be numeric");
 
 	public:
 		static constexpr std::size_t x_index = 0;

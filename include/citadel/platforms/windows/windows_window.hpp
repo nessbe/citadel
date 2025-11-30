@@ -31,11 +31,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 namespace citadel {
 	class exported windows_window : public window {
 	public:
-		static constexpr const wchar_t* class_name = L"CitadelWindow";
+		static constexpr const universal_char* class_name = CITADEL_UNIVERSAL_STRING("CitadelWindow");
 
 	public:
-		static bool register_class(const wchar_t* name);
-		static bool unregister_class(const wchar_t* name);
+		static bool register_class(const universal_char* name);
+		static bool unregister_class(const universal_char* name);
 
 		windows_window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
 		windows_window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
@@ -59,7 +59,7 @@ namespace citadel {
 		RECT calculate_rect(dimension x, dimension y, dimension width, dimension height) const;
 		void move_window(dimension x, dimension y, dimension width, dimension height) const;
 
-		std::wstring get_wide_title() const;
+		universal_string get_universal_title() const;
 
 		virtual void _show() override;
 		virtual void _hide() override;

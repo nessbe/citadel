@@ -16,7 +16,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	bool windows_window::register_class(const wchar_t* name) {
+	bool windows_window::register_class(const universal_char* name) {
 		WNDCLASS window_class = { };
 		window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		window_class.lpszClassName = name;
@@ -29,7 +29,7 @@ namespace citadel {
 		return static_cast<bool>(result);
 	}
 
-	bool windows_window::unregister_class(const wchar_t* name) {
+	bool windows_window::unregister_class(const universal_char* name) {
 		BOOL result = UnregisterClass(name, GetModuleHandle(NULL));
 		return static_cast<bool>(result);
 	}
@@ -50,12 +50,12 @@ namespace citadel {
 			get_height()
 		);
 
-		std::wstring wide_title = get_wide_title();
+		universal_string universal_title = get_universal_title();
 
 		window_ = CreateWindowEx(
 			0,
 			class_name,
-			wide_title.c_str(),
+			universal_title.c_str(),
 			style_,
 			rect.left,
 			rect.top,
@@ -170,8 +170,9 @@ namespace citadel {
 		);
 	}
 
-	std::wstring windows_window::get_wide_title() const {
-		return std::wstring(get_title().begin(), get_title().end());
+	universal_string windows_window::get_universal_title() const {
+		const std::string& title = get_title();
+		return universal_string(title.begin(), title.end());
 	}
 
 	void windows_window::_show() {
@@ -221,8 +222,8 @@ namespace citadel {
 
 	void windows_window::_set_title(const std::string& value) {
 		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
-		std::wstring wide_title(value.begin(), value.end());
-		SetWindowText(window_, wide_title.c_str());
+		universal_string title(value.begin(), value.end());
+		SetWindowText(window_, title.c_str());
 	}
 
 	void windows_window::_set_x(dimension value) {

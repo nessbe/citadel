@@ -18,7 +18,6 @@
 #include <type_traits>
 
 #include "citadel/attributes.hpp"
-#include "citadel/type_traits.hpp"
 
 namespace citadel {
 	template <typename T, typename Enabled = void>
@@ -27,7 +26,7 @@ namespace citadel {
 	};
 
 	template <typename T>
-	struct epsilon<T, std::enable_if_t<is_numeric_v<T>>> {
+	struct epsilon<T, std::enable_if_t<std::is_arithmetic_v<T>>> {
 		static constexpr T value = std::numeric_limits<T>::epsilon();
 	};
 

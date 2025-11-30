@@ -23,7 +23,6 @@
 #include "citadel/platforms.hpp"
 #include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
-#include "citadel/type_traits.hpp"
 #include "citadel/utility.hpp"
 #include "citadel/warnings.hpp"
 

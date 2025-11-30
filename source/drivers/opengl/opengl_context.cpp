@@ -59,7 +59,7 @@ namespace citadel {
 			WGL_COLOR_BITS_ARB,     32,
 			WGL_DEPTH_BITS_ARB,     24,
 			WGL_STENCIL_BITS_ARB,   8,
-			NULL
+			0
 		};
 
 		int pixel_format;
@@ -81,7 +81,7 @@ namespace citadel {
 			WGL_CONTEXT_MINOR_VERSION_ARB, 6,
 			WGL_CONTEXT_PROFILE_MASK_ARB,  WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
 			WGL_CONTEXT_FLAGS_ARB,         WGL_CONTEXT_DEBUG_BIT_ARB,
-			NULL
+			0
 		};
 
 		rendering_context_ = wglCreateContextAttribsARB(device_context_, NULL, opengl_attributes);

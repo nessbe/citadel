@@ -31,7 +31,7 @@ namespace citadel {
 	public:
 		explicit text_writer(const reference<file>& file);
 
-		nodisc void write_c_string(const char* buffer);
-		nodisc void write_string(const std::string& string);
+		void write_c_string(const char* buffer);
+		void write_string(const std::string& string);
 	};
 }

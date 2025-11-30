@@ -18,7 +18,6 @@
 #include <type_traits>
 
 #include "citadel/attributes.hpp"
-#include "citadel/type_traits.hpp"
 
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
@@ -27,7 +26,7 @@ namespace citadel {
 	template <typename T>
 	struct basic_mat3 {
 	public:
-		static_assert(is_numeric_v<T>, "T must be numeric");
+		static_assert(std::is_arithmetic_v<T>, "T must be numeric");
 
 	public:
 		static constexpr std::size_t x_index = 0;

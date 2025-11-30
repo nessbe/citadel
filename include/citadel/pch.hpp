@@ -45,7 +45,6 @@
 #include "citadel/platforms.hpp"
 #include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
-#include "citadel/type_traits.hpp"
 #include "citadel/warnings.hpp"
 
 #include "citadel/debug/exceptions/assertion_error.hpp"

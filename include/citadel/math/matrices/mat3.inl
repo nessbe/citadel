@@ -310,7 +310,7 @@ namespace citadel {
 
 	template <typename T>
 	basic_mat3<T>& basic_mat3<T>::operator*=(T scalar) {
-		*this = *this * other;
+		*this = *this * scalar;
 		return *this;
 	}
 }
