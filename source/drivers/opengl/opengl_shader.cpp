@@ -21,6 +21,10 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 	opengl_shader::native_type opengl_shader::to_native_type(shader_type type) noexcept {
 		switch (type) {
+		case shader_type::none:
+			CITADEL_PANIC("Shader type cannot be none");
+			return NULL;
+
 		case shader_type::vertex:
 			return GL_VERTEX_SHADER;
 
@@ -29,6 +33,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 		default:
 			CITADEL_PANIC("The given is shader type is not yet supported for OpenGL");
+			return NULL;
 		}
 	}
 

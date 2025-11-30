@@ -17,7 +17,7 @@
 #include "citadel/assert.hpp"
 
 #define CITADEL_POINTER_GET(pointer, property, placeholder) pointer ? pointer->property : placeholder
-#define CITADEL_POINTER_GET_OR_NULL(pointer, property, placeholder) CITADEL_POINTER_GET(pointer, property, nullptr)
+#define CITADEL_POINTER_GET_OR_NULL(pointer, property) CITADEL_POINTER_GET(pointer, property, nullptr)
 
 #define CITADEL_POINTER_SET(pointer, property, value) do { if (pointer) { pointer->property = value; } } while (0)
 

@@ -27,7 +27,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		result.reserve(256);
 
 		while (CITADEL_POINTER_CALL_OR_FALSE(file_, is_eof)) {
-			char character;
+			char character = '\0';
 			std::streamsize bytes_read = CITADEL_POINTER_CALL_OR_DEFAULT(file_, read, 0, &character, sizeof(char));
 
 			if (bytes_read <= 0) {

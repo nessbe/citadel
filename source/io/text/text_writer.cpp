@@ -25,6 +25,6 @@ namespace citadel {
 	}
 
 	void text_writer::write_string(const std::string& string) {
-		CITADEL_POINTER_CALL(file_, write, string.data(), string.size());
+		CITADEL_POINTER_CALL(file_, write, string.data(), static_cast<std::streamsize>(string.size()));
 	}
 }
