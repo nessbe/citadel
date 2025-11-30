@@ -18,13 +18,13 @@
 namespace citadel {
 	layer_stack::~layer_stack() {
 		for (const reference<layer>& layer : layers_) {
-			layer->detach();
+			CITADEL_POINTER_CALL(layer, detach);
 		}
 	}
 
 	void layer_stack::update(double delta) {
 		for (const reference<layer>& layer : layers_) {
-			if (!layer->update(delta)) {
+			if (CITADEL_POINTER_CALL_OR_FALSE(layer, update, delta)) {
 				break;
 			}
 		}
@@ -32,22 +32,22 @@ namespace citadel {
 
 	void layer_stack::render(const scope<surface>& surface) {
 		for (const reference<layer>& layer : layers_) {
-			if (!layer->render(surface)) {
+			if (CITADEL_POINTER_CALL_OR_FALSE(layer, render, surface)) {
 				break;
 			}
 		}
 	}
 
 	void layer_stack::push(const reference<layer>& layer) {
-		CITADEL_ASSERT(layer, "The given layer is null");
+		CITADEL_SOFT_ASSERT(layer, "The given layer is null");
 		layers_.push_back(layer);
-		layer->attach();
+		CITADEL_POINTER_CALL(layer, attach);
 	}
 
 	reference<layer> layer_stack::pop() {
 		reference<layer> layer = layers_.back();
 		layers_.pop_back();
-		layer->detach();
+		CITADEL_POINTER_CALL(layer, detach);
 		return layer;
 	}
 }
