@@ -21,55 +21,55 @@ namespace citadel {
 
 	std::int8_t binary_reader::read_int8() {
 		std::int8_t value = 0;
-		file_->read(&value, sizeof(std::int8_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::int8_t));
 		return value;
 	}
 
 	std::uint8_t binary_reader::read_uint8() {
 		std::uint8_t value = 0;
-		file_->read(&value, sizeof(std::uint8_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::uint8_t));
 		return value;
 	}
 
 	std::int16_t binary_reader::read_int16() {
 		std::int16_t value = 0;
-		file_->read(&value, sizeof(std::int16_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::int16_t));
 		return value;
 	}
 
 	std::uint16_t binary_reader::read_uint16() {
 		std::uint16_t value = 0;
-		file_->read(&value, sizeof(std::uint16_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::uint16_t));
 		return value;
 	}
 
 	std::int32_t binary_reader::read_int32() {
 		std::int32_t value = 0;
-		file_->read(&value, sizeof(std::int32_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::int32_t));
 		return value;
 	}
 
 	std::uint32_t binary_reader::read_uint32() {
 		std::uint32_t value = 0;
-		file_->read(&value, sizeof(std::uint32_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::uint32_t));
 		return value;
 	}
 
 	std::int64_t binary_reader::read_int64() {
 		std::int64_t value = 0;
-		file_->read(&value, sizeof(std::int64_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::int64_t));
 		return value;
 	}
 
 	std::uint64_t binary_reader::read_uint64() {
 		std::uint64_t value = 0;
-		file_->read(&value, sizeof(std::uint64_t));
+		CITADEL_POINTER_CALL(file_, read, &value, sizeof(std::uint64_t));
 		return value;
 	}
 
 	typename binary_reader::dynamic_buffer binary_reader::read_dynamic_buffer(std::streamsize size) {
 		std::vector<std::uint8_t> buffer(static_cast<std::size_t>(size));
-		file_->read(buffer.data(), size);
+		CITADEL_POINTER_CALL(file_, read, buffer.data(), size);
 		return buffer;
 	}
 }

@@ -20,38 +20,38 @@ namespace citadel {
 		: writer(file) { }
 
 	void binary_writer::write_int8(std::int8_t value) {
-		file_->write(&value, sizeof(std::int8_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::int8_t));
 	}
 
 	void binary_writer::write_uint8(std::uint8_t value) {
-		file_->write(&value, sizeof(std::uint8_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::uint8_t));
 	}
 
 	void binary_writer::write_int16(std::int16_t value) {
-		file_->write(&value, sizeof(std::int16_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::int16_t));
 	}
 
 	void binary_writer::write_uint16(std::uint16_t value) {
-		file_->write(&value, sizeof(std::uint16_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::uint16_t));
 	}
 
 	void binary_writer::write_int32(std::int32_t value) {
-		file_->write(&value, sizeof(std::int32_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::int32_t));
 	}
 
 	void binary_writer::write_uint32(std::uint32_t value) {
-		file_->write(&value, sizeof(std::uint32_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::uint32_t));
 	}
 
 	void binary_writer::write_int64(std::int64_t value) {
-		file_->write(&value, sizeof(std::int64_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::int64_t));
 	}
 
 	void binary_writer::write_uint64(std::uint64_t value) {
-		file_->write(&value, sizeof(std::uint64_t));
+		CITADEL_POINTER_CALL(file_, write, &value, sizeof(std::uint64_t));
 	}
 
 	void binary_writer::write_dynamic_buffer(const dynamic_buffer& buffer) {
-		file_->write(buffer.data(), static_cast<std::streamsize>(buffer.size()));
+		CITADEL_POINTER_CALL(file_, write, buffer.data(), static_cast<std::streamsize>(buffer.size()));
 	}
 }

@@ -19,10 +19,10 @@ namespace citadel {
 	reader::reader(const reference<file>& file)
 		: file_(file)
 	{
-		CITADEL_ASSERT(file, "The given file is null");
+		CITADEL_SOFT_ASSERT(file, "The given file is null");
 	}
 
 	file& reader::get_file() const noexcept {
-		return *file_;
+		CITADEL_POINTER_RETURN_REFERENCE(file_);
 	}
 }
