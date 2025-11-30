@@ -43,25 +43,31 @@ CITADEL_IGNORE_WARNING_POP();
 		: api_(api) { }
 
 	void rendering_api::draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
-		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
+		CITADEL_SOFT_ASSERT(vertex_array, "The given vertex array is null");
 		_draw_indexed(vertex_array, vertex_count);
 	}
 
 	void rendering_api::draw_indexed(const scope<vertex_array>& vertex_array) {
-		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
-		const index_buffer& index_buffer = vertex_array->get_index_buffer();
-		_draw_indexed(vertex_array, index_buffer.size());
+		CITADEL_SOFT_ASSERT(vertex_array, "The given vertex array is null");
+
+		if (vertex_array) {
+			const index_buffer& index_buffer = CITADEL_POINTER_CALL_RAW(vertex_array, get_index_buffer);
+			_draw_indexed(vertex_array, index_buffer.size());
+		}
 	}
 
 	void rendering_api::draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
-		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
+		CITADEL_SOFT_ASSERT(vertex_array, "The given vertex array is null");
 		_draw_lines(vertex_array, vertex_count);
 	}
 
 	void rendering_api::draw_lines(const scope<vertex_array>& vertex_array) {
-		CITADEL_ASSERT(vertex_array, "The given vertex array is null");
-		const index_buffer& index_buffer = vertex_array->get_index_buffer();
-		_draw_lines(vertex_array, index_buffer.size());
+		CITADEL_SOFT_ASSERT(vertex_array, "The given vertex array is null");
+
+		if (vertex_array) {
+			const index_buffer& index_buffer = CITADEL_POINTER_CALL_RAW(vertex_array, get_index_buffer);
+			_draw_lines(vertex_array, index_buffer.size());
+		}
 	}
 
 	void rendering_api::set_line_width(float value) {

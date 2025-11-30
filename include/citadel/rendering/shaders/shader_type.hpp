@@ -16,7 +16,8 @@
 
 namespace citadel {
 	enum class shader_type {
-		vertex = 0,
+		none = 0,
+		vertex,
 		fragment,
 	};
 }

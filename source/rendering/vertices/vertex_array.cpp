@@ -56,8 +56,7 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	index_buffer& vertex_array::get_index_buffer() const {
-		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
-		return *index_buffer_;
+		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 
 	void vertex_array::set_index_buffer(const reference<index_buffer>& buffer) {

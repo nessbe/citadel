@@ -27,7 +27,7 @@ namespace citadel {
 
 	void render_command::set_api(rendering_api_type value) {
 		rendering_api_ = rendering_api::create(value);
-		CITADEL_ASSERT(rendering_api_, "Failed to create rendering API");
+		CITADEL_SOFT_ASSERT(rendering_api_, "Failed to create rendering API");
 	}
 
 	void render_command::draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {

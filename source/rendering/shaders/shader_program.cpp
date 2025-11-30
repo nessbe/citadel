@@ -61,9 +61,9 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	bool shader_program::attach(const reference<shader>& shader) {
-		CITADEL_ASSERT(shader, "The given shader is null");
-
-		shader_type type = shader->get_type();
+		CITADEL_SOFT_ASSERT(shader, "The given shader is null");
+		shader_type type = CITADEL_POINTER_CALL_OR_DEFAULT(shader, get_type, shader_type::none);
+		CITADEL_SOFT_ASSERT(type != shader_type::none, "Shader type cannot be none");
 
 		if (has_shader(type)) {
 			return false;
@@ -140,7 +140,7 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	const uniform_info& shader_program::get_uniform(const std::string& name) const {
-		CITADEL_ASSERT(uniform_exists(name), "Uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(uniform_exists(name), "Uniform '" + name + "' does not exist");
 		return uniforms_.at(name);
 	}
 

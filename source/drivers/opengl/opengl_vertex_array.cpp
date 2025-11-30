@@ -69,7 +69,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		CITADEL_POINTER_CALL(buffer, bind);
 
 		if (buffer) {
-			const vertex_buffer_layout& buffer_layout = buffer->get_layout();
+			const vertex_buffer_layout& buffer_layout = CITADEL_POINTER_CALL_RAW(buffer, get_layout);
 			std::size_t buffer_layout_stride = buffer_layout.get_stride();
 
 			for (const vertex_buffer_element& buffer_element : buffer_layout) {

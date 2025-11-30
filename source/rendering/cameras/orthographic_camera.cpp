@@ -20,7 +20,8 @@ namespace citadel {
 		: left_(left), right_(right), bottom_(bottom), top_(top) { }
 
 	orthographic_camera::orthographic_camera(dimension width, dimension height)
-		: left_(0), right_(0), bottom_(0), top_(0) {
+		: left_(0), right_(0), bottom_(0), top_(0)
+	{
 		set_projection(width, height);
 	}
 
