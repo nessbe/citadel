@@ -15,17 +15,18 @@
 #pragma once
 
 #include <cinttypes>
-#include <memory>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/color.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported surface {
@@ -33,11 +34,11 @@ namespace citadel {
 		using dimension = std::uint32_t;
 
 	public:
-		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static std::unique_ptr<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
 
-		nodisc static std::unique_ptr<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static std::unique_ptr<surface> create(dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(dimension width, dimension height, color clear_color);
 
 		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
 		surface(dimension width, dimension height, color clear_color);
@@ -82,10 +83,12 @@ namespace citadel {
 
 		virtual void _set_x(dimension value) = 0;
 		virtual void _set_y(dimension value) = 0;
+
 		virtual void _set_width(dimension value) = 0;
 		virtual void _set_height(dimension value) = 0;
+
 		virtual void _set_clear_color(color value) = 0;
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

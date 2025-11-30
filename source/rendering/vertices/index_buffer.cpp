@@ -20,44 +20,44 @@
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
-	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const std::vector<index>& indices) {
+	reference<index_buffer> index_buffer::create(rendering_api_type api, const std::vector<index>& indices) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_index_buffer>(indices);
+			return make_scoped<opengl_index_buffer>(indices);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-	std::shared_ptr<index_buffer> index_buffer::create(rendering_api_type api, const index* data, std::size_t size) {
+	reference<index_buffer> index_buffer::create(rendering_api_type api, const index* data, std::size_t size) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_index_buffer>(data, size);
+			return make_scoped<opengl_index_buffer>(data, size);
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
-	std::shared_ptr<index_buffer> index_buffer::create(const std::vector<index>& indices) {
+	reference<index_buffer> index_buffer::create(const std::vector<index>& indices) {
 		return create(render_command::get_api(), indices);
 	}
 
-	std::shared_ptr<index_buffer> index_buffer::create(const index* data, std::size_t size) {
+	reference<index_buffer> index_buffer::create(const index* data, std::size_t size) {
 		return create(render_command::get_api(), data, size);
 	}
 

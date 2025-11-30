@@ -19,7 +19,7 @@ namespace citadel {
 	opengl_vertex_buffer::opengl_vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)
 		: vertex_buffer(size, layout) {
 		glGenBuffers(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
+		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), nullptr, GL_DYNAMIC_DRAW);
@@ -28,7 +28,7 @@ namespace citadel {
 	opengl_vertex_buffer::opengl_vertex_buffer(const void* data, std::size_t size, const vertex_buffer_layout& layout)
 		: vertex_buffer(size, layout) {
 		glGenBuffers(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
+		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), data, GL_STATIC_DRAW);

@@ -19,7 +19,7 @@ namespace citadel {
 	opengl_index_buffer::opengl_index_buffer(const std::vector<index>& indices)
 		: index_buffer(indices) {
 		glGenBuffers(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL index buffer");
+		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL index buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(index)), indices.data(), GL_STATIC_DRAW);
@@ -28,7 +28,7 @@ namespace citadel {
 	opengl_index_buffer::opengl_index_buffer(const index* data, std::size_t size)
 		: index_buffer(data, size) {
 		glGenBuffers(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL index buffer");
+		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL index buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size * sizeof(index)), data, GL_STATIC_DRAW);

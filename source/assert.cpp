@@ -27,7 +27,7 @@ namespace citadel {
 	}
 
 	void panic(const std::string& message) {
-		std::cout << message << std::endl;
+		std::cerr << message << std::endl;
 		panic();
 	}
 
@@ -39,8 +39,20 @@ namespace citadel {
 
 	void assert(bool condition, const std::string& message) {
 		if (unlikely(!condition)) {
-			std::cout << message << std::endl;
+			std::cerr << message << std::endl;
 			panic();
+		}
+	}
+
+	void soft_assert(bool condition) {
+		if (unlikely(!condition)) {
+			throw assertion_error("Soft assertion failed");
+		}
+	}
+
+	void soft_assert(bool condition, const std::string& message) {
+		if (unlikely(!condition)) {
+			throw assertion_error(message);
 		}
 	}
 }

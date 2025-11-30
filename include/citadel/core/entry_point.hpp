@@ -28,16 +28,10 @@ namespace citadel {
 		CITADEL_ASSERT(application, "Failed to create application");
 
 		application::instance_ = application;
+		CITADEL_POINTER_CALL(application, initialize);
 
-		if (application) {
-			application->initialize();
-		}
-
-		exit_code::enumeration exit_code = application ? application->run() : exit_code::failure;
-
-		if (application) {
-			application->shutdown();
-		}
+		exit_code::enumeration exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(application, run, exit_code::failure);
+		CITADEL_POINTER_CALL(application, shutdown);
 
 		application::instance_ = nullptr;
 		delete application;

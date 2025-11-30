@@ -21,12 +21,14 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
 	class exported mesh_reader : public reader {
 	public:
-		explicit mesh_reader(const std::shared_ptr<file>& file);
+		explicit mesh_reader(const reference<file>& file);
 
 		nodisc mesh read_mesh();
 

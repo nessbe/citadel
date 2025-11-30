@@ -22,20 +22,23 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 #include "citadel/rendering/shaders/uniform_info.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported shader_program {
 	public:
-		nodisc static std::unique_ptr<shader_program> create(rendering_api_type api, const std::string& name);
-		nodisc static std::unique_ptr<shader_program> create(const std::string& name);
+		nodisc static scope<shader_program> create(rendering_api_type api, const std::string& name);
+		nodisc static scope<shader_program> create(const std::string& name);
 
 		shader_program(const std::string& name);
 		virtual ~shader_program() = default;
@@ -46,7 +49,7 @@ namespace citadel {
 		bool link();
 		void use();
 
-		bool attach(const std::shared_ptr<shader>& shader);
+		bool attach(const reference<shader>& shader);
 		void detach(shader_type type);
 
 		void fetch_uniforms();
@@ -71,9 +74,9 @@ namespace citadel {
 		nodisc const std::unordered_map<std::string, uniform_info>& get_uniforms() const noexcept;
 		nodisc std::size_t uniform_count() const noexcept;
 
-		nodisc std::vector<std::shared_ptr<shader>> get_shaders() const;
+		nodisc std::vector<reference<shader>> get_shaders() const;
 		nodisc bool has_shader(shader_type type) const;
-		nodisc std::shared_ptr<shader> get_shader(shader_type type) const;
+		nodisc reference<shader> get_shader(shader_type type) const;
 
 		nodisc const std::string& get_name() const noexcept;
 
@@ -81,7 +84,7 @@ namespace citadel {
 		void add_uniform(const uniform_info& uniform);
 
 	private:
-		std::unordered_map<shader_type, std::shared_ptr<shader>> shaders_;
+		std::unordered_map<shader_type, reference<shader>> shaders_;
 		std::unordered_map<std::string, uniform_info> uniforms_;
 		std::string name_;
 
@@ -90,8 +93,8 @@ namespace citadel {
 		virtual bool _link() = 0;
 		virtual void _use() = 0;
 
-		virtual void _attach(const std::shared_ptr<shader>& shader) = 0;
-		virtual void _detach(const std::shared_ptr<shader>& shader) = 0;
+		virtual void _attach(const reference<shader>& shader) = 0;
+		virtual void _detach(const reference<shader>& shader) = 0;
 
 		virtual void _set_uniform_bool(const std::string& name, bool value) = 0;
 
@@ -112,4 +115,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

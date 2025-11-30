@@ -35,8 +35,10 @@ namespace citadel {
 
 		virtual void _set_x(dimension value) override;
 		virtual void _set_y(dimension value) override;
+
 		virtual void _set_width(dimension value) override;
 		virtual void _set_height(dimension value) override;
+
 		virtual void _set_clear_color(color value) override;
 	};
 }

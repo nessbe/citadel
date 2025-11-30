@@ -30,6 +30,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -39,11 +40,15 @@
 #include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
+#include "citadel/exceptions.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+#include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
 #include "citadel/type_traits.hpp"
 #include "citadel/warnings.hpp"
+
+#include "citadel/debug/exceptions/assertion_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
@@ -56,6 +61,9 @@
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
+
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
 
 #include "citadel/platforms/windows.hpp"
 

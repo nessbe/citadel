@@ -19,28 +19,30 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
-#include "citadel/math/vectors/vec4.hpp"
-
-#include "citadel/rendering/color.hpp"
 
 namespace citadel {
 	struct exported vertex {
 	public:
 		vec3 position;
-		vec4 color;
+		vec3 normal;
+		vec2 uv;
 
 	public:
-		vertex(const vec3& position, const vec4& color);
+		vertex(const vec3& position, const vec3& normal, const vec2& uv);
 
 		nodisc void* data() noexcept;
 		nodisc const void* data() const noexcept;
 
-		nodisc vec3 get_position() const noexcept;
+		nodisc const vec3& get_position() const noexcept;
 		void set_position(const vec3& value) noexcept;
 
-		nodisc vec4 get_color() const noexcept;
-		void set_color(const vec4& value) noexcept;
+		nodisc const vec3& get_normal() const noexcept;
+		void set_normal(const vec3& value) noexcept;
+
+		nodisc const vec2& get_uv() const noexcept;
+		void set_uv(const vec2& value) noexcept;
 	};
 
 	static_assert(std::is_trivially_copyable_v<vertex>, "Vertex struct is not trivially copyable");

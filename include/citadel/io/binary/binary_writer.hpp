@@ -27,6 +27,8 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported binary_writer : public writer {
 	public:
@@ -36,7 +38,7 @@ namespace citadel {
 		using static_buffer = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_writer(const std::shared_ptr<file>& file);
+		explicit binary_writer(const reference<file>& file);
 
 		void write_int8(std::int8_t value);
 		void write_uint8(std::uint8_t value);

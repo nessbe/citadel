@@ -20,26 +20,28 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/vertices/vertex_array.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported rendering_api {
 	public:
-		nodisc static std::unique_ptr<rendering_api> create(rendering_api_type api);
+		nodisc static scope<rendering_api> create(rendering_api_type api);
 
 		rendering_api(rendering_api_type api);
 		virtual ~rendering_api() = default;
 
-		void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		void draw_indexed(const std::unique_ptr<vertex_array>& vertex_array);
+		void draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count);
+		void draw_indexed(const scope<vertex_array>& vertex_array);
 
-		void draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count);
-		void draw_lines(const std::unique_ptr<vertex_array>& vertex_array);
+		void draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count);
+		void draw_lines(const scope<vertex_array>& vertex_array);
 
 		void set_line_width(float value);
 
@@ -49,11 +51,11 @@ namespace citadel {
 		rendering_api_type api_;
 
 	private:
-		virtual void _draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) = 0;
+		virtual void _draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) = 0;
 
-		virtual void _draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) = 0;
+		virtual void _draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count) = 0;
 		virtual void _set_line_width(float value) = 0;
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

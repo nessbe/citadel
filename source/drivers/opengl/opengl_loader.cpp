@@ -26,6 +26,8 @@ namespace citadel {
 
 		static HMODULE opengl32_module = LoadLibraryA("opengl32.dll");
 		return GetProcAddress(opengl32_module, name);
+#else
+	#error Cannot load OpenGL procedure addresses using your operating system yet
 #endif
 	}
 

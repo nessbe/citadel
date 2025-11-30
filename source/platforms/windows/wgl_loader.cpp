@@ -28,6 +28,8 @@ namespace citadel {
 
 		static HMODULE opengl32_module = LoadLibraryA("opengl32");
 		return GetProcAddress(opengl32_module, name);
+#else
+	#error Cannot load OpenGL procedure addresses using your operating system yet
 #endif
 	}
 
@@ -38,7 +40,7 @@ namespace citadel {
 		dummy_window_class.hInstance = GetModuleHandle(NULL);
 		dummy_window_class.lpszClassName = L"DummyCitadelWindow";
 
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			RegisterClass(&dummy_window_class),
 			"Failed to register dummy window class"
 		);
@@ -58,7 +60,7 @@ namespace citadel {
 			NULL
 		);
 
-		CITADEL_ASSERT(dummy_window, "Failed to open dummy window");
+		CITADEL_SOFT_ASSERT(dummy_window, "Failed to open dummy window");
 
 		HDC dummy_device_context = GetDC(dummy_window);
 
@@ -72,17 +74,17 @@ namespace citadel {
 		pixel_format_descriptor.cStencilBits = 8;
 
 		int pixel_format = ChoosePixelFormat(dummy_device_context, &pixel_format_descriptor);
-		CITADEL_ASSERT(pixel_format != 0, "Failed to choose dummy window pixel format");
+		CITADEL_SOFT_ASSERT(pixel_format != 0, "Failed to choose dummy window pixel format");
 
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			SetPixelFormat(dummy_device_context, pixel_format, &pixel_format_descriptor),
 			"Failed to set dummy window pixel format"
 		);
 
 		HGLRC dummy_rendering_context = wglCreateContext(dummy_device_context);
-		CITADEL_ASSERT(dummy_rendering_context, "Failed to create dummy rendering context");
+		CITADEL_SOFT_ASSERT(dummy_rendering_context, "Failed to create dummy rendering context");
 
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			wglMakeCurrent(dummy_device_context, dummy_rendering_context),
 			"Failed to make dummy rendering context current for dummy window"
 		);

@@ -22,8 +22,8 @@ namespace citadel {
 	opengl_surface::opengl_surface(dimension width, dimension height, color clear_color)
 		: surface(width, height, clear_color) { }
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 
 	void opengl_surface::_bind() {
 		dimension width = get_width();
@@ -49,7 +49,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 		glLoadIdentity();
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	void opengl_surface::_unbind() { }
 
@@ -71,7 +71,9 @@ CITADEL_IGNORE_WARNING_POP()
 
 	void opengl_surface::_set_x(dimension value) { }
 	void opengl_surface::_set_y(dimension value) { }
+
 	void opengl_surface::_set_width(dimension value) { }
 	void opengl_surface::_set_height(dimension value) { }
+
 	void opengl_surface::_set_clear_color(color value) { }
 }

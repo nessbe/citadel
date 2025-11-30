@@ -25,15 +25,13 @@ namespace citadel {
 		vertex_buffer_(vertex_buffer::create(api, data, size, layout)),
 		index_buffer_(index_buffer::create(api, indices))
 	{
-		CITADEL_ASSERT(vertex_array_, "Failed to create vertex array");
-		CITADEL_ASSERT(vertex_buffer_, "Failed to create vertex buffer");
-		CITADEL_ASSERT(index_buffer_, "Failed to create index buffer");
+		CITADEL_SOFT_ASSERT(vertex_array_, "Failed to create vertex array");
+		CITADEL_SOFT_ASSERT(vertex_buffer_, "Failed to create vertex buffer");
+		CITADEL_SOFT_ASSERT(index_buffer_, "Failed to create index buffer");
 
-		if (vertex_array_) {
-			vertex_array_->bind();
-			vertex_array_->add_vertex_buffer(vertex_buffer_);
-			vertex_array_->set_index_buffer(index_buffer_);
-		}
+		CITADEL_POINTER_CALL(vertex_array_, bind);
+		CITADEL_POINTER_CALL(vertex_array_, add_vertex_buffer, vertex_buffer_);
+		CITADEL_POINTER_CALL(vertex_array_, set_index_buffer, index_buffer_);
 	}
 
 	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices)
@@ -46,22 +44,17 @@ namespace citadel {
 		: mesh(vertices.data(), vertices.size() * sizeof(vertex), default_layout_, indices) { }
 
 	mesh::~mesh() {
-		CITADEL_ASSERT(vertex_buffer_, "Vertex buffer is null");
-		vertex_buffer_->unbind();
-
-		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
-		index_buffer_->unbind();
-
-		CITADEL_ASSERT(vertex_array_, "Vertex array is null");
-		vertex_array_->unbind();
+		CITADEL_POINTER_CALL(vertex_buffer_, unbind);
+		CITADEL_POINTER_CALL(index_buffer_, unbind);
+		CITADEL_POINTER_CALL(vertex_array_, unbind);
 	}
 
 	void mesh::bind() {
-		vertex_array_->bind();
+		CITADEL_POINTER_CALL(vertex_array_, bind);
 	}
 
 	void mesh::unbind() {
-		vertex_array_->unbind();
+		CITADEL_POINTER_CALL(vertex_array_, unbind);
 	}
 
 	void mesh::render() {
@@ -69,22 +62,20 @@ namespace citadel {
 	}
 
 	vertex_array& mesh::get_vertex_array() const {
-		CITADEL_ASSERT(vertex_array_, "Vertex array is null");
-		return *vertex_array_;
+		CITADEL_POINTER_RETURN_REFERENCE(vertex_array_);
 	}
 
 	vertex_buffer& mesh::get_vertex_buffer() const {
-		CITADEL_ASSERT(vertex_buffer_, "Vertex buffer is null");
-		return *vertex_buffer_;
+		CITADEL_POINTER_RETURN_REFERENCE(vertex_buffer_);
 	}
 
 	index_buffer& mesh::get_index_buffer() const {
-		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
-		return *index_buffer_;
+		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 
 	vertex_buffer_layout mesh::default_layout_ = {
 		{ "position", shader_data_type_vec3, false },
-		{ "color", shader_data_type_vec4, true },
+		{ "normal", shader_data_type_vec3, false },
+		{ "uv", shader_data_type_vec2, true },
 	};
 }

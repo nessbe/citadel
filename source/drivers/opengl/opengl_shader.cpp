@@ -16,11 +16,15 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
-	CITADEL_IGNORE_WARNING_PUSH()
-	CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
 	opengl_shader::native_type opengl_shader::to_native_type(shader_type type) noexcept {
 		switch (type) {
+		case shader_type::none:
+			CITADEL_PANIC("Shader type cannot be none");
+			return NULL;
+
 		case shader_type::vertex:
 			return GL_VERTEX_SHADER;
 
@@ -29,16 +33,17 @@ namespace citadel {
 
 		default:
 			CITADEL_PANIC("The given is shader type is not yet supported for OpenGL");
+			return NULL;
 		}
 	}
 
-	CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type, const std::string& source)
 		: shader(name, type, source)
 	{
 		id_ = glCreateShader(get_native_type());
-		CITADEL_ASSERT(id_, "Failed to create OpenGL shader");
+		CITADEL_SOFT_ASSERT(id_, "Failed to create OpenGL shader");
 
 		const char* raw_source = source.c_str();
 		glShaderSource(id_, 1, &raw_source, nullptr);
@@ -78,8 +83,6 @@ namespace citadel {
 	}
 
 	bool opengl_shader::_compile() {
-		CITADEL_ASSERT(id_, "Shader is not yet created");
-
 		glCompileShader(id_);
 
 		GLint success = 0;
@@ -100,7 +103,6 @@ namespace citadel {
 	}
 
 	void opengl_shader::_set_source(const std::string& value) {
-		CITADEL_ASSERT(id_, "Shader is not yet created");
 		const char* source = value.c_str();
 		glShaderSource(id_, 1, &source, nullptr);
 	}

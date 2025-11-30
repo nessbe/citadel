@@ -19,6 +19,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 namespace citadel {
@@ -26,8 +28,8 @@ namespace citadel {
 
 	class exported rendering_context {
 	public:
-		nodisc static std::unique_ptr<rendering_context> create(rendering_api_type api, window* window);
-		nodisc static std::unique_ptr<rendering_context> create(window* window);
+		nodisc static scope<rendering_context> create(rendering_api_type api, window* window);
+		nodisc static scope<rendering_context> create(window* window);
 
 		virtual ~rendering_context() = default;
 

@@ -16,21 +16,21 @@
 #include "citadel/io/text/text_reader.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 
-	text_reader::text_reader(const std::shared_ptr<file>& file)
+	text_reader::text_reader(const reference<file>& file)
 		: reader(file) { }
 
 	std::string text_reader::read_c_string() {
-		std::streamsize max_size = file_->size();
 		std::string result;
 		result.reserve(256);
 
-		for (std::streamsize i = 0; i < max_size; i++) {
-			char character;
+		while (CITADEL_POINTER_CALL_OR_FALSE(file_, is_eof)) {
+			char character = '\0';
+			std::streamsize bytes_read = CITADEL_POINTER_CALL_OR_DEFAULT(file_, read, 0, &character, sizeof(char));
 
-			if (!file_->read(&character, sizeof(char))) {
+			if (bytes_read <= 0) {
 				break;
 			}
 
@@ -48,7 +48,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 		return result;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
 	std::string text_reader::read_string(std::size_t size) {
 		if (size == 0) {
@@ -58,7 +58,7 @@ CITADEL_IGNORE_WARNING_POP()
 		std::string result;
 		result.resize(size);
 
-		std::streamsize bytes_read = file_->read(result.data(), static_cast<std::streamsize>(size));
+		std::streamsize bytes_read = CITADEL_POINTER_CALL_OR_DEFAULT(file_, read, 0, result.data(), static_cast<std::streamsize>(size));
 
 		if (bytes_read <= 0) {
 			return "";
@@ -69,7 +69,7 @@ CITADEL_IGNORE_WARNING_POP()
 	}
 
 	std::string text_reader::read_text() {
-		std::streamsize size = file_->size();
+		std::streamsize size = CITADEL_POINTER_CALL_OR_DEFAULT(file_, size, 0);
 
 		if (size <= 0) {
 			return "";

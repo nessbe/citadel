@@ -42,7 +42,7 @@ namespace citadel {
 
 	opengl_context::opengl_context(window* window) {
 #if CITADEL_PLATFORM_WINDOWS
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			wgl_loader_.load(),
 			"Failed to load WGL using Glad"
 		);
@@ -66,12 +66,12 @@ namespace citadel {
 		UINT pixel_format_count;
 
 		wglChoosePixelFormatARB(device_context_, pixel_format_attributes, NULL, 1, &pixel_format, &pixel_format_count);
-		CITADEL_ASSERT(pixel_format_count > 0, "Failed to choose pixel format");
+		CITADEL_SOFT_ASSERT(pixel_format_count > 0, "Failed to choose pixel format");
 
 		PIXELFORMATDESCRIPTOR pixel_format_descriptor;
 		DescribePixelFormat(device_context_, pixel_format, sizeof(pixel_format_descriptor), &pixel_format_descriptor);
 
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			SetPixelFormat(device_context_, pixel_format, &pixel_format_descriptor),
 			"Failed to set pixel format"
 		);
@@ -85,11 +85,11 @@ namespace citadel {
 		};
 
 		rendering_context_ = wglCreateContextAttribsARB(device_context_, NULL, opengl_attributes);
-		CITADEL_ASSERT(rendering_context_, "Failed to create OpenGL rendering context");
+		CITADEL_SOFT_ASSERT(rendering_context_, "Failed to create OpenGL rendering context");
 
 		wglMakeCurrent(device_context_, rendering_context_);
 
-		CITADEL_ASSERT(
+		CITADEL_SOFT_ASSERT(
 			opengl_loader_.load(),
 			"Failed to load OpenGL using Glad"
 		);
@@ -107,8 +107,8 @@ namespace citadel {
 
 	opengl_context::~opengl_context() {
 #if CITADEL_PLATFORM_WINDOWS
-		CITADEL_ASSERT(device_context_, "Device context is null");
-		CITADEL_ASSERT(rendering_context_, "OpenGL rendering context is null");
+		CITADEL_SOFT_ASSERT(device_context_, "Device context is null");
+		CITADEL_SOFT_ASSERT(rendering_context_, "OpenGL rendering context is null");
 
 		wglMakeCurrent(device_context_, NULL);
 		wglDeleteContext(rendering_context_);
@@ -143,8 +143,8 @@ namespace citadel {
 
 	void opengl_context::_bind() {
 #if CITADEL_PLATFORM_WINDOWS
-		CITADEL_ASSERT(device_context_, "Device context is null");
-		CITADEL_ASSERT(rendering_context_, "OpenGL rendering context is null");
+		CITADEL_SOFT_ASSERT(device_context_, "Device context is null");
+		CITADEL_SOFT_ASSERT(rendering_context_, "OpenGL rendering context is null");
 
 		wglMakeCurrent(device_context_, rendering_context_);
 #else
@@ -153,13 +153,13 @@ namespace citadel {
 	}
 
 	void opengl_context::_unbind() {
-		CITADEL_ASSERT(device_context_, "Device context is null");
+		CITADEL_SOFT_ASSERT(device_context_, "Device context is null");
 		wglMakeCurrent(device_context_, NULL);
 	}
 
 	void opengl_context::_swap_buffers() {
 #if CITADEL_PLATFORM_WINDOWS
-		CITADEL_ASSERT(device_context_, "Device context is null");
+		CITADEL_SOFT_ASSERT(device_context_, "Device context is null");
 		SwapBuffers(device_context_);
 #else
 	#error Rendering context does not support your window system yet

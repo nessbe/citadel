@@ -20,14 +20,10 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		std::unique_ptr<windows_window> window = std::make_unique<windows_window>(rendering_api, x, y, width, height, title);
-
-		if (window) {
-			window->initialize(rendering_api);
-		}
-
+		scope<windows_window> window = make_scoped<windows_window>(rendering_api, x, y, width, height, title);
+		CITADEL_POINTER_CALL(window, initialize, rendering_api);
 		return window;
 
 #else
@@ -36,20 +32,20 @@ namespace citadel {
 #endif
 	}
 
-	std::unique_ptr<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
-		return std::make_unique<windows_window>(rendering_api, width, height, title);
+		return make_scoped<windows_window>(rendering_api, width, height, title);
 #else
 #error Citadel does not support your window system yet
 		return nullptr;
 #endif
 	}
 
-	std::unique_ptr<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
 		return create(render_command::get_api(), x, y, width, height, title);
 	}
 
-	std::unique_ptr<window> window::create(dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension width, dimension height, const std::string& title) {
 		return create(render_command::get_api(), width, height, title);
 	}
 
@@ -113,28 +109,21 @@ namespace citadel {
 	}
 
 	void window::begin_frame() {
-		CITADEL_ASSERT(surface_, "Surface is null");
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
+		CITADEL_POINTER_CALL(rendering_context_, bind);
+		CITADEL_POINTER_CALL(surface_, bind);
 
-		rendering_context_->bind();
-
-		surface_->bind();
-		surface_->clear();
-
+		CITADEL_POINTER_CALL(surface_, clear);
 		_begin_frame();
 	}
 
 	void window::end_frame() {
-		CITADEL_ASSERT(surface_, "Surface is null");
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
-
 		_end_frame();
 
-		surface_->present();
-		rendering_context_->swap_buffers();
+		CITADEL_POINTER_CALL(surface_, present);
+		CITADEL_POINTER_CALL(rendering_context_, swap_buffers);
 
-		surface_->unbind();
-		rendering_context_->unbind();
+		CITADEL_POINTER_CALL(surface_, unbind);
+		CITADEL_POINTER_CALL(rendering_context_, unbind);
 	}
 
 	void* window::get_native_handle() const {
@@ -155,13 +144,11 @@ namespace citadel {
 	}
 
 	surface& window::get_surface() const {
-		CITADEL_ASSERT(surface_, "Surface is null");
-		return *surface_;
+		CITADEL_POINTER_RETURN_REFERENCE(surface_);
 	}
 
 	rendering_context& window::get_rendering_context() const {
-		CITADEL_ASSERT(rendering_context_, "Rendering context is null");
-		return *rendering_context_;
+		CITADEL_POINTER_RETURN_REFERENCE(rendering_context_);
 	}
 
 	window::dimension window::get_x() const noexcept {
@@ -172,11 +159,7 @@ namespace citadel {
 		_set_x(value);
 		x_ = value;
 
-		CITADEL_ASSERT(surface_, "Surface is null");
-
-		if (surface_) {
-			surface_->set_x(value);
-		}
+		CITADEL_POINTER_CALL(surface_, set_x, value);
 	}
 
 	window::dimension window::get_y() const noexcept {
@@ -187,11 +170,7 @@ namespace citadel {
 		_set_y(value);
 		y_ = value;
 
-		CITADEL_ASSERT(surface_, "Surface is null");
-
-		if (surface_) {
-			surface_->set_y(value);
-		}
+		CITADEL_POINTER_CALL(surface_, set_y, value);
 	}
 
 	window::dimension window::get_width() const noexcept {
@@ -202,11 +181,7 @@ namespace citadel {
 		_set_width(value);
 		width_ = value;
 
-		CITADEL_ASSERT(surface_, "Surface is null");
-
-		if (surface_) {
-			surface_->set_width(value);
-		}
+		CITADEL_POINTER_CALL(surface_, set_width, value);
 	}
 
 	window::dimension window::get_height() const noexcept {
@@ -217,11 +192,7 @@ namespace citadel {
 		_set_height(value);
 		height_ = value;
 
-		CITADEL_ASSERT(surface_, "Surface is null");
-
-		if (surface_) {
-			surface_->set_height(value);
-		}
+		CITADEL_POINTER_CALL(surface_, set_height, value);
 	}
 
 	bool window::is_vsync() const noexcept {

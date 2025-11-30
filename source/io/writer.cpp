@@ -16,13 +16,13 @@
 #include "citadel/io/writer.hpp"
 
 namespace citadel {
-	writer::writer(const std::shared_ptr<file>& file)
+	writer::writer(const reference<file>& file)
 		: file_(file)
 	{
-		CITADEL_ASSERT(file, "The given file is null");
+		CITADEL_SOFT_ASSERT(file, "The given file is null");
 	}
 
 	file& writer::get_file() const noexcept {
-		return *file_;
+		CITADEL_POINTER_RETURN_REFERENCE(file_);
 	}
 }

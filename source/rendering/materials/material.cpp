@@ -25,25 +25,18 @@ namespace citadel {
 		fragment_shader_(shader::create(api, name + "-fragment", shader_type::fragment, fragment_source)),
 		shader_program_(shader_program::create(api, name))
 	{
-		CITADEL_ASSERT(vertex_shader_, "Failed to create vertex shader");
-		CITADEL_ASSERT(fragment_shader_, "Failed to create fragent shader");
-		CITADEL_ASSERT(shader_program_, "Failed to create shader program");
+		CITADEL_SOFT_ASSERT(vertex_shader_, "Failed to create vertex shader");
+		CITADEL_SOFT_ASSERT(fragment_shader_, "Failed to create fragent shader");
+		CITADEL_SOFT_ASSERT(shader_program_, "Failed to create shader program");
 
-		if (vertex_shader_) {
-			vertex_shader_->compile();
-		}
+		CITADEL_POINTER_CALL(vertex_shader_, compile);
+		CITADEL_POINTER_CALL(fragment_shader_, compile);
 
-		if (fragment_shader_) {
-			fragment_shader_->compile();
-		}
+		CITADEL_POINTER_CALL(shader_program_, attach, vertex_shader_);
+		CITADEL_POINTER_CALL(shader_program_, attach, fragment_shader_);
 
-		if (shader_program_) {
-			shader_program_->attach(vertex_shader_);
-			shader_program_->attach(fragment_shader_);
-
-			if (shader_program_->link()) {
-				fetch();
-			}
+		if (CITADEL_POINTER_CALL_OR_FALSE(shader_program_, link)) {
+			fetch();
 		}
 	}
 
@@ -66,9 +59,10 @@ namespace citadel {
 		mat3_uniforms_.clear();
 		mat4_uniforms_.clear();
 
-		shader_program_->fetch_uniforms();
+		CITADEL_POINTER_CALL(shader_program_, fetch_uniforms);
 
-		const std::unordered_map<std::string, uniform_info> uniforms = shader_program_->get_uniforms();
+		using uniform_map = std::unordered_map<std::string, uniform_info>;
+		const uniform_map& uniforms = CITADEL_POINTER_CALL_OR_DEFAULT(shader_program_, get_uniforms, uniform_map());
 
 		for (const auto& [uniform_name, uniform] : uniforms) {
 
@@ -124,7 +118,7 @@ namespace citadel {
 	}
 
 	void material::use() {
-		shader_program_->use();
+		CITADEL_POINTER_CALL(shader_program_, use);
 	}
 
 #define CITADEL_APPLY_TYPE_UNIFORMS(type)                                                 \
@@ -156,69 +150,69 @@ namespace citadel {
 #undef CITADEL_APPLY_TYPE_UNIFORMS
 
 	void material::set_uniform_bool(const std::string& name, bool value) {
-		CITADEL_ASSERT(bool_uniforms_.find(name) != bool_uniforms_.end(), "Boolean uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(bool_uniforms_.find(name) != bool_uniforms_.end(), "Boolean uniform '" + name + "' does not exist");
 		bool_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_int(const std::string& name, int value) {
-		CITADEL_ASSERT(int_uniforms_.find(name) != int_uniforms_.end(), "Integer uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(int_uniforms_.find(name) != int_uniforms_.end(), "Integer uniform '" + name + "' does not exist");
 		int_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec2(const std::string& name, const ivec2& value) {
-		CITADEL_ASSERT(ivec2_uniforms_.find(name) != ivec2_uniforms_.end(), "Integer 2D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(ivec2_uniforms_.find(name) != ivec2_uniforms_.end(), "Integer 2D vector uniform '" + name + "' does not exist");
 		ivec2_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec3(const std::string& name, const ivec3& value) {
-		CITADEL_ASSERT(ivec3_uniforms_.find(name) != ivec3_uniforms_.end(), "Integer 3D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(ivec3_uniforms_.find(name) != ivec3_uniforms_.end(), "Integer 3D vector uniform '" + name + "' does not exist");
 		ivec3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec4(const std::string& name, const ivec4& value) {
-		CITADEL_ASSERT(ivec4_uniforms_.find(name) != ivec4_uniforms_.end(), "Integer 4D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(ivec4_uniforms_.find(name) != ivec4_uniforms_.end(), "Integer 4D vector uniform '" + name + "' does not exist");
 		ivec4_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_float(const std::string& name, float value) {
-		CITADEL_ASSERT(float_uniforms_.find(name) != float_uniforms_.end(), "Floating point uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(float_uniforms_.find(name) != float_uniforms_.end(), "Floating point uniform '" + name + "' does not exist");
 		float_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec2(const std::string& name, const vec2& value) {
-		CITADEL_ASSERT(vec2_uniforms_.find(name) != vec2_uniforms_.end(), "2D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(vec2_uniforms_.find(name) != vec2_uniforms_.end(), "2D vector uniform '" + name + "' does not exist");
 		vec2_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec3(const std::string& name, const vec3& value) {
-		CITADEL_ASSERT(vec3_uniforms_.find(name) != vec3_uniforms_.end(), "3D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(vec3_uniforms_.find(name) != vec3_uniforms_.end(), "3D vector uniform '" + name + "' does not exist");
 		vec3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec4(const std::string& name, const vec4& value) {
-		CITADEL_ASSERT(vec4_uniforms_.find(name) != vec4_uniforms_.end(), "4D vector uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(vec4_uniforms_.find(name) != vec4_uniforms_.end(), "4D vector uniform '" + name + "' does not exist");
 		vec4_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_mat3(const std::string& name, const mat3& value) {
-		CITADEL_ASSERT(mat3_uniforms_.find(name) != mat3_uniforms_.end(), "3x3 matrix uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(mat3_uniforms_.find(name) != mat3_uniforms_.end(), "3x3 matrix uniform '" + name + "' does not exist");
 		mat3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_mat4(const std::string& name, const mat4& value) {
-		CITADEL_ASSERT(mat4_uniforms_.find(name) != mat4_uniforms_.end(), "4x4 matrix uniform '" + name + "' does not exist");
+		CITADEL_SOFT_ASSERT(mat4_uniforms_.find(name) != mat4_uniforms_.end(), "4x4 matrix uniform '" + name + "' does not exist");
 		mat4_uniforms_[name] = value;
 	}
 
 	shader& material::get_vertex_shader() const noexcept {
-		return *vertex_shader_;
+		CITADEL_POINTER_RETURN_REFERENCE(vertex_shader_);
 	}
 
 	shader& material::get_fragment_shader() const noexcept {
-		return *fragment_shader_;
+		CITADEL_POINTER_RETURN_REFERENCE(fragment_shader_);
 	}
 
 	shader_program& material::get_shader_program() const noexcept {
-		return *shader_program_;
+		CITADEL_POINTER_RETURN_REFERENCE(shader_program_);
 	}
 }

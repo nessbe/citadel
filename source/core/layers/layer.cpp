@@ -28,7 +28,7 @@ namespace citadel {
 		return _update(delta);
 	}
 
-	bool layer::render(const std::unique_ptr<surface>& surface) {
+	bool layer::render(const scope<surface>& surface) {
 		return _render(surface);
 	}
 }

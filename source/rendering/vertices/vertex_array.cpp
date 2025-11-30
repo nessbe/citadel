@@ -20,26 +20,26 @@
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 
-	std::unique_ptr<vertex_array> vertex_array::create(rendering_api_type api) {
+	scope<vertex_array> vertex_array::create(rendering_api_type api) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return std::make_unique<opengl_vertex_array>();
+			return make_scoped<opengl_vertex_array>();
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
-	std::unique_ptr<vertex_array> vertex_array::create() {
+	scope<vertex_array> vertex_array::create() {
 		return create(render_command::get_api());	
 	}
 
@@ -51,16 +51,15 @@ CITADEL_IGNORE_WARNING_POP()
 		_unbind();
 	}
 
-	void vertex_array::add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
+	void vertex_array::add_vertex_buffer(const scope<vertex_buffer>& buffer) {
 		_add_vertex_buffer(buffer);
 	}
 
 	index_buffer& vertex_array::get_index_buffer() const {
-		CITADEL_ASSERT(index_buffer_, "Index buffer is null");
-		return *index_buffer_;
+		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 
-	void vertex_array::set_index_buffer(const std::shared_ptr<index_buffer>& buffer) {
+	void vertex_array::set_index_buffer(const reference<index_buffer>& buffer) {
 		_set_index_buffer(buffer);
 		index_buffer_ = buffer;
 	}

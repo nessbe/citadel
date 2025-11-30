@@ -20,12 +20,14 @@
 
 #include "citadel/drivers/opengl.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 #include "citadel/rendering/shaders/shader.hpp"
 #include "citadel/rendering/shaders/shader_program.hpp"
 #include "citadel/rendering/shaders/shader_type.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported opengl_shader_program : public shader_program {
@@ -51,8 +53,8 @@ namespace citadel {
 		virtual bool _link() override;
 		virtual void _use() override;
 
-		virtual void _attach(const std::shared_ptr<shader>& shader) override;
-		virtual void _detach(const std::shared_ptr<shader>& shader) override;
+		virtual void _attach(const reference<shader>& shader) override;
+		virtual void _detach(const reference<shader>& shader) override;
 
 		virtual void _set_uniform_bool(const std::string& name, bool value) override;
 
@@ -73,4 +75,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

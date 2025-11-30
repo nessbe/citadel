@@ -25,13 +25,15 @@
 
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING)
+#include "citadel/memory/reference.hpp"
+
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
 
 namespace citadel {
 	class exported file {
 	public:
-		nodisc static std::shared_ptr<file> create(const std::string& path, file_open_mode::enumeration open_mode);
+		nodisc static reference<file> create(const std::string& path, file_open_mode::enumeration open_mode);
 
 		file(const std::string& path, file_open_mode::enumeration open_mode);
 		virtual ~file() = default;
@@ -42,7 +44,13 @@ namespace citadel {
 		nodisc std::streampos tell();
 		nodisc std::streamoff size();
 
+		nodisc char peek();
 		void seek(std::streamoff position);
+
+		nodisc bool is_good() const;
+
+		nodisc bool is_eol();
+		nodisc bool is_eof() const;
 
 		nodisc void* get_native_handle() const;
 
@@ -60,10 +68,14 @@ namespace citadel {
 		nodisc virtual std::streampos _tell() = 0;
 		nodisc virtual std::streamoff _size() = 0;
 
+		nodisc virtual char _peek() = 0;
 		virtual void _seek(std::streamoff position) = 0;
+
+		nodisc virtual bool _is_good() const = 0;
+		nodisc virtual bool _is_eof() const = 0;
 
 		nodisc virtual void* _get_native_handle() const = 0;
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();

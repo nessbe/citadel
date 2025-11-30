@@ -16,37 +16,37 @@
 #include "citadel/rendering/meshes/mesh_instance.hpp"
 
 namespace citadel {
-	mesh_instance::mesh_instance(const std::shared_ptr<mesh>& mesh, const std::shared_ptr<material>& material, const mat4 transform)
+	mesh_instance::mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const mat4 transform)
 		: mesh_(mesh), material_(material), transform_(transform)
 	{
-		CITADEL_ASSERT(mesh, "The given mesh is null");
-		CITADEL_ASSERT(material, "The given material is null");
+		CITADEL_SOFT_ASSERT(mesh, "The given mesh is null");
+		CITADEL_SOFT_ASSERT(material, "The given material is null");
 	}
 
-	void mesh_instance::render(const mat4& view_projection) {
-		mesh_->bind();
-
-		material_->use();
-
-		citadel::mat4 mvp = view_projection * transform_;
-		material_->set_uniform_mat4("mvp", mvp);
-
-		material_->apply();
-
-		mesh_->render();
-		mesh_->unbind();
+	void mesh_instance::use() {
+		CITADEL_POINTER_CALL(mesh_, bind);
+		CITADEL_POINTER_CALL(material_, use);
 	}
 
 	void mesh_instance::render(const mat4& view, const mat4& projection) {
-		render(projection * view);
+		use();
+
+		CITADEL_POINTER_CALL(material_, set_uniform_mat4, "view", view);
+		CITADEL_POINTER_CALL(material_, set_uniform_mat4, "projection", projection);
+		CITADEL_POINTER_CALL(material_, set_uniform_mat4, "transform", transform_);
+
+		CITADEL_POINTER_CALL(material_, apply);
+
+		CITADEL_POINTER_CALL(mesh_, render);
+		CITADEL_POINTER_CALL(mesh_, unbind);
 	}
 
 	mesh& mesh_instance::get_mesh() const noexcept {
-		return *mesh_;
+		CITADEL_POINTER_RETURN_REFERENCE(mesh_);
 	}
 
 	material& mesh_instance::get_material() const noexcept {
-		return *material_;
+		CITADEL_POINTER_RETURN_REFERENCE(material_);
 	}
 
 	const transform_3d& mesh_instance::get_transform() const noexcept {

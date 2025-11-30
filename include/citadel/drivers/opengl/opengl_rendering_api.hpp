@@ -16,6 +16,8 @@
 
 #include "citadel/export.hpp"
 
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
@@ -25,9 +27,9 @@ namespace citadel {
 		opengl_rendering_api(rendering_api_type api);
 
 	private:
-		virtual void _draw_indexed(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) override;
+		virtual void _draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) override;
 
-		virtual void _draw_lines(const std::unique_ptr<vertex_array>& vertex_array, std::size_t vertex_count) override;
+		virtual void _draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count) override;
 		virtual void _set_line_width(float value) override;
 	};
 }

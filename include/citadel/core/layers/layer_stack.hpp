@@ -14,13 +14,15 @@
 
 #pragma once
 
-#include <memory>
 #include <vector>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/core/layers/layer.hpp"
+
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
 
 namespace citadel {
 	class exported layer_stack {
@@ -29,13 +31,13 @@ namespace citadel {
 		~layer_stack();
 
 		void update(double delta);
-		void render(const std::unique_ptr<surface>& surface);
+		void render(const scope<surface>& surface);
 
-		void push(const std::shared_ptr<layer>& layer);
-		std::shared_ptr<layer> pop();
+		void push(const reference<layer>& layer);
+		reference<layer> pop();
 
 	private:
-		std::vector<std::shared_ptr<layer>> layers_;
+		std::vector<reference<layer>> layers_;
 	};
 }
 

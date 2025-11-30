@@ -18,8 +18,8 @@
 #include "citadel/platforms/stl/stl_file.hpp"
 
 namespace citadel {
-	std::shared_ptr<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
-		return std::make_shared<stl_file>(path, open_mode);
+	reference<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
+		return make_referenced<stl_file>(path, open_mode);
 	}
 
 	file::file(const std::string& path, file_open_mode::enumeration open_mode)
@@ -41,8 +41,24 @@ namespace citadel {
 		return _size();
 	}
 
+	char file::peek() {
+		return _peek();
+	}
+
 	void file::seek(std::streamoff position) {
 		_seek(position);
+	}
+
+	bool file::is_good() const {
+		return _is_good();
+	}
+
+	bool file::is_eol() {
+		return peek() == '\n';
+	}
+
+	bool file::is_eof() const {
+		return _is_eof();
 	}
 
 	void* file::get_native_handle() const {

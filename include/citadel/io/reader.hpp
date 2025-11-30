@@ -21,15 +21,17 @@
 
 #include "citadel/io/filesystem/file.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported reader {
 	public:
-		explicit reader(const std::shared_ptr<file>& file);
+		explicit reader(const reference<file>& file);
 		virtual ~reader() = default;
 
 		nodisc file& get_file() const noexcept;
 
 	protected:
-		std::shared_ptr<file> file_;
+		reference<file> file_;
 	};
 }

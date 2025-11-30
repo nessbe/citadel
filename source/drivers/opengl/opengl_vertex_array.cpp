@@ -22,7 +22,7 @@ namespace citadel {
 		: vertex_buffer_index_(0)
 	{
 		glGenVertexArrays(1, &id_);
-		CITADEL_ASSERT(id_, "Failed to generate OpenGL vertex array");
+		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex array");
 	}
 
 	opengl_vertex_array::~opengl_vertex_array() {
@@ -59,17 +59,17 @@ namespace citadel {
 		glBindVertexArray(0);
 	}
 
-CITADEL_IGNORE_WARNING_PUSH()
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 
-	void opengl_vertex_array::_add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) {
-		CITADEL_ASSERT(buffer, "The given vertex buffer is null");
+	void opengl_vertex_array::_add_vertex_buffer(const scope<vertex_buffer>& buffer) {
+		CITADEL_SOFT_ASSERT(buffer, "The given vertex buffer is null");
+
+		bind();
+		CITADEL_POINTER_CALL(buffer, bind);
 
 		if (buffer) {
-			bind();
-			buffer->bind();
-
-			const vertex_buffer_layout& buffer_layout = buffer->get_layout();
+			const vertex_buffer_layout& buffer_layout = CITADEL_POINTER_CALL_RAW(buffer, get_layout);
 			std::size_t buffer_layout_stride = buffer_layout.get_stride();
 
 			for (const vertex_buffer_element& buffer_element : buffer_layout) {
@@ -133,14 +133,11 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE)
 		}
 	}
 
-CITADEL_IGNORE_WARNING_POP()
+CITADEL_IGNORE_WARNING_POP();
 
-	void opengl_vertex_array::_set_index_buffer(const std::shared_ptr<index_buffer>& buffer) {
-		CITADEL_ASSERT(buffer, "The given index buffer is null");
-
-		if (buffer) {
-			bind();
-			buffer->bind();
-		}
+	void opengl_vertex_array::_set_index_buffer(const reference<index_buffer>& buffer) {
+		CITADEL_SOFT_ASSERT(buffer, "The given index buffer is null");
+		bind();
+		CITADEL_POINTER_CALL(buffer, bind);
 	}
 }

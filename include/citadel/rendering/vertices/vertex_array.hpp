@@ -19,6 +19,9 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 #include "citadel/rendering/rendering_api_type.hpp"
 
 #include "citadel/rendering/vertices/index_buffer.hpp"
@@ -27,8 +30,8 @@
 namespace citadel {
 	class exported vertex_array {
 	public:
-		nodisc static std::unique_ptr<vertex_array> create(rendering_api_type api);
-		nodisc static std::unique_ptr<vertex_array> create();
+		nodisc static scope<vertex_array> create(rendering_api_type api);
+		nodisc static scope<vertex_array> create();
 
 		vertex_array() = default;
 		virtual ~vertex_array() = default;
@@ -39,19 +42,19 @@ namespace citadel {
 		void bind();
 		void unbind();
 
-		void add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer);
+		void add_vertex_buffer(const scope<vertex_buffer>& buffer);
 
 		nodisc index_buffer& get_index_buffer() const;
-		void set_index_buffer(const std::shared_ptr<index_buffer>& buffer);
+		void set_index_buffer(const reference<index_buffer>& buffer);
 
 	private:
-		std::shared_ptr<index_buffer> index_buffer_;
+		reference<index_buffer> index_buffer_;
 
 	private:
 		virtual void _bind() = 0;
 		virtual void _unbind() = 0;
 
-		virtual void _add_vertex_buffer(const std::unique_ptr<vertex_buffer>& buffer) = 0;
-		virtual void _set_index_buffer(const std::shared_ptr<index_buffer>& buffer) = 0;
+		virtual void _add_vertex_buffer(const scope<vertex_buffer>& buffer) = 0;
+		virtual void _set_index_buffer(const reference<index_buffer>& buffer) = 0;
 	};
 }

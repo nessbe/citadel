@@ -18,8 +18,10 @@
 #include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
+#include "citadel/exceptions.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+#include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
 #include "citadel/type_traits.hpp"
 #include "citadel/utility.hpp"
@@ -37,6 +39,8 @@
 
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
+
+#include "citadel/debug/exceptions/assertion_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_context.hpp"
@@ -70,6 +74,9 @@
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
 #include "citadel/math/vectors/vec4.hpp"
+
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
 
 #include "citadel/platforms/stl/stl_file.hpp"
 
