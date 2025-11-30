@@ -17,25 +17,17 @@
 
 namespace citadel {
 	application& application::get() {
-		CITADEL_ASSERT(instance_, "Application pointer is null");
-		return *instance_;
+		CITADEL_POINTER_RETURN_REFERENCE(instance_);
 	}
 
 	void application::initialize() {
 		engine_ = make_scoped<engine>();
-		CITADEL_ASSERT(engine_, "Failed to create engine");
-
-		if (engine_) {
-			engine_->initialize();
-		}
-
+		CITADEL_POINTER_CALL(engine_, initialize);
 		_initialize();
 	}
 
 	exit_code::enumeration application::run() {
-		CITADEL_ASSERT(engine_, "Engine pointer is null");
-
-		exit_code::enumeration engine_exit_code = engine_ ? engine_->run() : exit_code::failure;
+		exit_code::enumeration engine_exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(engine_, run, exit_code::failure);
 		exit_code::enumeration application_exit_code = _run();
 
 		exit_code::enumeration exit_code = static_cast<exit_code::enumeration>(engine_exit_code | application_exit_code);
@@ -45,13 +37,7 @@ namespace citadel {
 
 	void application::shutdown() {
 		_shutdown();
-
-		CITADEL_ASSERT(engine_, "Engine pointer is null");
-
-		if (engine_) {
-			engine_->shutdown();
-		}
-
+		CITADEL_POINTER_CALL(engine_, shutdown);
 		engine_ = nullptr;
 	}
 
@@ -69,8 +55,7 @@ namespace citadel {
 	}
 
 	engine& application::get_engine() const {
-		CITADEL_ASSERT(engine_, "Engine pointer is null");
-		return *engine_;
+		CITADEL_POINTER_RETURN_REFERENCE(engine_);
 	}
 
 	application* application::instance_ = nullptr;
