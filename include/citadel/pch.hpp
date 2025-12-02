@@ -42,6 +42,7 @@
 #include "citadel/compilers.hpp"
 #include "citadel/exceptions.hpp"
 #include "citadel/export.hpp"
+#include "citadel/packing.hpp"
 #include "citadel/platforms.hpp"
 #include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
