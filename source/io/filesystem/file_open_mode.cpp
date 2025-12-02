@@ -41,5 +41,21 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		}
 
 CITADEL_IGNORE_WARNING_POP();
+
+		bool use_read(enumeration value) {
+			return (
+				value == read ||
+				value == read_write ||
+				value == write_read
+			);
+		}
+
+		bool use_write(enumeration value) {
+			return (
+				value == write ||
+				value == write_read ||
+				value == read_write
+			);
+		}
 	}
 }

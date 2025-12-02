@@ -32,5 +32,8 @@ namespace citadel {
 		};
 
 		nodisc exported std::ios::openmode to_stl(enumeration value);
+
+		nodisc exported bool use_read(enumeration value);
+		nodisc exported bool use_write(enumeration value);
 	}
 }

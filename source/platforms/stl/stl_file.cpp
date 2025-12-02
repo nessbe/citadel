@@ -31,80 +31,90 @@ namespace citadel {
 			stream_.close();
 		}
 	}
-	
-	std::streamsize stl_file::_read(void* data, std::streamsize size) {
-		stream_.read(reinterpret_cast<char*>(data), size);
+
+	stream::size_type stl_file::_read(void* buffer, size_type size) {
+		stream_.read(reinterpret_cast<char*>(buffer), size);
 		return stream_.gcount();
 	}
 
-	std::streamsize stl_file::_write(const void* data, std::streamsize size) {
-		stream_.flush();
+	stream::size_type stl_file::_write(const void* buffer, size_type size) {
+		flush();
 
-		std::streampos previous_position = tell();
-		stream_.write(reinterpret_cast<const char*>(data), size);
+		position_type previous_position = tell();
+		stream_.write(reinterpret_cast<const char*>(buffer), size);
 
-		if (!stream_.good()) {
-			std::streampos current_position = tell();
-			return static_cast<std::streamsize>(current_position - previous_position);
+		if (!is_good()) {
+			position_type current_position = tell();
+			return static_cast<size_type>(current_position - previous_position);
 		}
 
-		return static_cast<std::streamsize>(size);
+		return static_cast<size_type>(size);
 	}
 
-	std::streampos stl_file::_tell() {
+	stream::position_type stl_file::_tell() {
 		file_open_mode::enumeration open_mode = get_open_mode();
 
-		if (open_mode & file_open_mode::read) {
+		if (file_open_mode::use_read(open_mode)) {
 			return stream_.tellg();
 		}
-		else if (open_mode & file_open_mode::write) {
+		else if (file_open_mode::use_write(open_mode)) {
 			return stream_.tellp();
 		}
 
-		return 0;
+		return -1;
 	}
 
-	std::streamoff stl_file::_size() {
+	stream::offset_type stl_file::_size() {
 		file_open_mode::enumeration open_mode = get_open_mode();
-		std::streampos size_position;
 
-		if (open_mode == file_open_mode::read) {
-			std::streampos position = stream_.tellg();
+		position_type position = tell();
+		seek(0, stream_direction_t::end);
 
-			stream_.seekg(0, std::ios::end);
-			size_position = stream_.tellg();
+		position_type size_position = tell();
+		seek(position);
 
-			stream_.seekg(position);
-		}
-		else if (open_mode == file_open_mode::write) {
-			std::streampos position = stream_.tellp();
-
-			stream_.seekp(0, std::ios::end);
-			size_position = stream_.tellp();
-
-			stream_.seekp(position);
-		}
-		else {
-			return 0;
-		}
-
-		return static_cast<std::streamoff>(size_position);
+		return static_cast<offset_type>(position);
 	}
 
-	char stl_file::_peek() {
+	int stl_file::_peek() {
 		return static_cast<char>(stream_.peek());
 	}
 
-	void stl_file::_seek(std::streamoff position) {
+	bool stl_file::_seek(position_type position) {
+		stream_.clear();
+
 		file_open_mode::enumeration open_mode = get_open_mode();
 
-		if (open_mode == file_open_mode::read) {
+		if (file_open_mode::use_write(open_mode)) {
 			stream_.seekg(position);
 		}
 
-		if (open_mode == file_open_mode::write) {
+		if (file_open_mode::use_write(open_mode)) {
 			stream_.seekp(position);
 		}
+
+		return stream_.good();
+	}
+
+	bool stl_file::_seek(offset_type offset, stream_direction_t direction) {
+		stream_.clear();
+
+		file_open_mode::enumeration open_mode = get_open_mode();
+		std::ios::seekdir seek_direction = stream_direction::to_stl(direction);
+
+		if (file_open_mode::use_write(open_mode)) {
+			stream_.seekg(offset, seek_direction);
+		}
+
+		if (file_open_mode::use_write(open_mode)) {
+			stream_.seekp(offset, seek_direction);
+		}
+
+		return stream_.good();
+	}
+
+	void stl_file::_flush() {
+		stream_.flush();
 	}
 
 	bool stl_file::_is_good() const {

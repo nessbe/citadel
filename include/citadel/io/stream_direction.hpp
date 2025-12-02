@@ -14,10 +14,19 @@
 
 #pragma once
 
+#include <ios>
+
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
+
 namespace citadel {
-	enum class stream_direction {
+	enum class stream_direction_t {
 		begin = 0,
 		current,
 		end,
 	};
+
+	namespace stream_direction {
+		nodisc exported std::ios::seekdir to_stl(stream_direction_t value);
+	}
 }

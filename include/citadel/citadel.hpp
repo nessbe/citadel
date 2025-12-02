@@ -50,6 +50,7 @@
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 #include "citadel/io/reader.hpp"
+#include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"
 #include "citadel/io/writer.hpp"
 

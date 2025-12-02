@@ -25,42 +25,6 @@ namespace citadel {
 	file::file(const std::string& path, file_open_mode::enumeration open_mode)
 		: path_(path), open_mode_(open_mode){ }
 
-	std::streamsize file::read(void* buffer, std::streamsize size) {
-		return _read(buffer, size);
-	}
-
-	std::streamsize file::write(const void* buffer, std::streamsize size) {
-		return _write(buffer, size);
-	}
-
-	std::streampos file::tell() {
-		return _tell();
-	}
-
-	std::streamsize file::size() {
-		return _size();
-	}
-
-	char file::peek() {
-		return _peek();
-	}
-
-	void file::seek(std::streamoff position) {
-		_seek(position);
-	}
-
-	bool file::is_good() const {
-		return _is_good();
-	}
-
-	bool file::is_eol() {
-		return peek() == '\n';
-	}
-
-	bool file::is_eof() const {
-		return _is_eof();
-	}
-
 	void* file::get_native_handle() const {
 		return _get_native_handle();
 	}

@@ -37,14 +37,18 @@ namespace citadel {
 		std::fstream stream_;
 
 	private:
-		virtual std::streamsize _read(void* buffer, std::streamsize size) override;
-		virtual std::streamsize _write(const void* buffer, std::streamsize size) override;
+		virtual size_type _read(void* buffer, size_type size) override;
+		virtual size_type _write(const void* buffer, size_type size) override;
 
-		nodisc virtual std::streampos _tell() override;
-		nodisc virtual std::streamoff _size() override;
+		nodisc virtual position_type _tell() override;
+		nodisc virtual offset_type _size() override;
 
-		nodisc virtual char _peek() override;
-		virtual void _seek(std::streamoff position) override;
+		nodisc virtual int _peek() override;
+
+		virtual bool _seek(position_type position) override;
+		virtual bool _seek(offset_type offset, stream_direction_t direction) override;
+
+		virtual void _flush() override;
 
 		nodisc virtual bool _is_good() const override;
 		nodisc virtual bool _is_eof() const override;
