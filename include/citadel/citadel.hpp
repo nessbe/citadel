@@ -105,6 +105,8 @@
 #include "citadel/rendering/shaders/shader_type.hpp"
 #include "citadel/rendering/shaders/uniform_info.hpp"
 
+#include "citadel/rendering/textures/image.hpp"
+
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
