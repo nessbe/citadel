@@ -16,11 +16,8 @@
 
 #include <array>
 #include <cinttypes>
-#include <iosfwd>
-#include <memory>
 #include <vector>
 
-#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/io/reader.hpp"
