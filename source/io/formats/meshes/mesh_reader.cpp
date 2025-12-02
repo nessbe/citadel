@@ -16,8 +16,8 @@
 #include "citadel/io/formats/meshes/mesh_reader.hpp"
 
 namespace citadel {
-	mesh_reader::mesh_reader(const reference<file>& file)
-		: reader(file) { }
+	mesh_reader::mesh_reader(const reference<class stream>& stream)
+		: reader(stream) { }
 
 	mesh mesh_reader::read_mesh() {
 		return _read_mesh();

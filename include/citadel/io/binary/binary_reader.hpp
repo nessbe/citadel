@@ -24,8 +24,7 @@
 #include "citadel/export.hpp"
 
 #include "citadel/io/reader.hpp"
-
-#include "citadel/io/filesystem/file.hpp"
+#include "citadel/io/stream.hpp"
 
 #include "citadel/memory/reference.hpp"
 
@@ -34,28 +33,28 @@ namespace citadel {
 	public:
 		using dynamic_buffer = std::vector<std::uint8_t>;
 
-		template <std::streamsize N>
+		template <stream::size_type N>
 		using static_buffer = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_reader(const reference<file>& file);
+		explicit binary_reader(const reference<class stream>& stream);
 
-		nodisc std::int8_t read_int8();
-		nodisc std::uint8_t read_uint8();
+		std::int8_t read_int8();
+		std::uint8_t read_uint8();
 
-		nodisc std::int16_t read_int16();
-		nodisc std::uint16_t read_uint16();
+		std::int16_t read_int16();
+		std::uint16_t read_uint16();
 
-		nodisc std::int32_t read_int32();
-		nodisc std::uint32_t read_uint32();
+		std::int32_t read_int32();
+		std::uint32_t read_uint32();
 
-		nodisc std::int64_t read_int64();
-		nodisc std::uint64_t read_uint64();
+		std::int64_t read_int64();
+		std::uint64_t read_uint64();
 
-		nodisc dynamic_buffer read_dynamic_buffer(std::streamsize size);
+		dynamic_buffer read_dynamic_buffer(stream::size_type size);
 
-		template <std::streamsize N>
-		nodisc static_buffer<N> read_static_buffer();
+		template <stream::size_type N>
+		static_buffer<N> read_static_buffer();
 	};
 }
 

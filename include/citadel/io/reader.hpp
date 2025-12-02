@@ -19,19 +19,19 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/filesystem/file.hpp"
+#include "citadel/io/stream.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	class exported reader {
 	public:
-		explicit reader(const reference<file>& file);
+		explicit reader(const reference<stream>& stream);
 		virtual ~reader() = default;
 
-		nodisc file& get_file() const noexcept;
+		nodisc stream& stream() const noexcept;
 
-	protected:
-		reference<file> file_;
+	private:
+		reference<class stream> stream_;
 	};
 }

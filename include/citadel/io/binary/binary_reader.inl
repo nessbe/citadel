@@ -15,10 +15,10 @@
 #pragma once
 
 namespace citadel {
-	template <std::streamsize N>
+	template <stream::size_type N>
 	typename binary_reader::static_buffer<N> binary_reader::read_static_buffer() {
 		std::array<std::uint8_t, N> buffer;
-		file_->read(buffer.data(), N);
+		stream().read(buffer.data(), N);
 		return buffer;
 	}
 }

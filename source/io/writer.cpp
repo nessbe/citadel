@@ -16,13 +16,13 @@
 #include "citadel/io/writer.hpp"
 
 namespace citadel {
-	writer::writer(const reference<file>& file)
-		: file_(file)
+	writer::writer(const reference<class stream>& stream)
+		: stream_(stream)
 	{
-		CITADEL_SOFT_ASSERT(file, "The given file is null");
+		CITADEL_SOFT_ASSERT(stream, "The given stream is null");
 	}
 
-	file& writer::get_file() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(file_);
+	stream& writer::stream() const noexcept {
+		CITADEL_POINTER_RETURN_REFERENCE(stream_);
 	}
 }

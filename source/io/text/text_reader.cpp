@@ -19,16 +19,18 @@ namespace citadel {
 CITADEL_IGNORE_WARNING_PUSH();
 CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 
-	text_reader::text_reader(const reference<file>& file)
-		: reader(file) { }
+	text_reader::text_reader(const reference<class stream>& stream)
+		: reader(stream) { }
 
 	std::string text_reader::read_c_string() {
 		std::string result;
 		result.reserve(256);
 
-		while (CITADEL_POINTER_CALL_OR_FALSE(file_, is_eof)) {
+		class stream& stream = this->stream();
+
+		while (!stream.is_eof()) {
 			char character = '\0';
-			std::streamsize bytes_read = CITADEL_POINTER_CALL_OR_DEFAULT(file_, read, 0, &character, sizeof(char));
+			stream::size_type bytes_read = stream.read(&character, sizeof(char));
 
 			if (bytes_read <= 0) {
 				break;
@@ -44,7 +46,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 				result.reserve(result.capacity() * 2);
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -58,7 +60,7 @@ CITADEL_IGNORE_WARNING_POP();
 		std::string result;
 		result.resize(size);
 
-		std::streamsize bytes_read = CITADEL_POINTER_CALL_OR_DEFAULT(file_, read, 0, result.data(), static_cast<std::streamsize>(size));
+		stream::size_type bytes_read = stream().read(result.data(), static_cast<stream::size_type>(size));
 
 		if (bytes_read <= 0) {
 			return "";
@@ -69,7 +71,7 @@ CITADEL_IGNORE_WARNING_POP();
 	}
 
 	std::string text_reader::read_text() {
-		std::streamsize size = CITADEL_POINTER_CALL_OR_DEFAULT(file_, size, 0);
+		stream::size_type size = stream().size();
 
 		if (size <= 0) {
 			return "";

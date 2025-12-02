@@ -20,16 +20,15 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/io/stream.hpp"
 #include "citadel/io/writer.hpp"
-
-#include "citadel/io/filesystem/file.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	class text_writer : public writer {
 	public:
-		explicit text_writer(const reference<file>& file);
+		explicit text_writer(const reference<class stream>& stream);
 
 		void write_c_string(const char* buffer);
 		void write_string(const std::string& string);

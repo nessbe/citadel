@@ -16,13 +16,13 @@
 #include "citadel/io/reader.hpp"
 
 namespace citadel {
-	reader::reader(const reference<file>& file)
-		: file_(file)
+	reader::reader(const reference<class stream>& stream)
+		: stream_(stream)
 	{
-		CITADEL_SOFT_ASSERT(file, "The given file is null");
+		CITADEL_SOFT_ASSERT(stream, "The given stream is null");
 	}
 
-	file& reader::get_file() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(file_);
+	stream& reader::stream() const noexcept {
+		CITADEL_POINTER_RETURN_REFERENCE(stream_);
 	}
 }

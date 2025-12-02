@@ -21,19 +21,18 @@
 #include "citadel/export.hpp"
 
 #include "citadel/io/reader.hpp"
-
-#include "citadel/io/filesystem/file.hpp"
+#include "citadel/io/stream.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	class text_reader : public reader {
 	public:
-		explicit text_reader(const reference<file>& file);
+		explicit text_reader(const reference<class stream>& stream);
 
-		nodisc std::string read_c_string();
-		nodisc std::string read_string(std::size_t size);
+		std::string read_c_string();
+		std::string read_string(std::size_t size);
 
-		nodisc std::string read_text();
+		std::string read_text();
 	};
 }

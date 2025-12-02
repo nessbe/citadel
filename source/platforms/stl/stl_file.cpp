@@ -65,8 +65,6 @@ namespace citadel {
 	}
 
 	stream::offset_type stl_file::_size() {
-		file_open_mode::enumeration open_mode = get_open_mode();
-
 		position_type position = tell();
 		seek(0, stream_direction_t::end);
 

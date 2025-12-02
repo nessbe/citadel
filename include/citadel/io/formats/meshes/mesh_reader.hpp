@@ -18,8 +18,7 @@
 #include "citadel/export.hpp"
 
 #include "citadel/io/reader.hpp"
-
-#include "citadel/io/filesystem/file.hpp"
+#include "citadel/io/stream.hpp"
 
 #include "citadel/memory/reference.hpp"
 
@@ -28,11 +27,11 @@
 namespace citadel {
 	class exported mesh_reader : public reader {
 	public:
-		explicit mesh_reader(const reference<file>& file);
+		explicit mesh_reader(const reference<class stream>& stream);
 
-		nodisc mesh read_mesh();
+		mesh read_mesh();
 
 	private:
-		nodisc virtual mesh _read_mesh() = 0;
+		virtual mesh _read_mesh() = 0;
 	};
 }

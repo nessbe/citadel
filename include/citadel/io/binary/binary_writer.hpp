@@ -23,9 +23,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/io/stream.hpp"
 #include "citadel/io/writer.hpp"
-
-#include "citadel/io/filesystem/file.hpp"
 
 #include "citadel/memory/reference.hpp"
 
@@ -34,11 +33,11 @@ namespace citadel {
 	public:
 		using dynamic_buffer = std::vector<std::uint8_t>;
 
-		template <std::streamsize N>
+		template <stream::size_type N>
 		using static_buffer = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_writer(const reference<file>& file);
+		explicit binary_writer(const reference<class stream>& stream);
 
 		void write_int8(std::int8_t value);
 		void write_uint8(std::uint8_t value);
@@ -54,7 +53,7 @@ namespace citadel {
 
 		void write_dynamic_buffer(const dynamic_buffer& buffer);
 
-		template <std::streamsize N>
+		template <stream::size_type N>
 		void write_static_buffer(const static_buffer<N>& buffer);
 	};
 }

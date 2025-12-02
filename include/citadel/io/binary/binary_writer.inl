@@ -15,8 +15,8 @@
 #pragma once
 
 namespace citadel {
-	template <typename std::streamsize N>
+	template <stream::size_type N>
 	void binary_writer::write_static_buffer(const static_buffer<N>& buffer) {
-		file_->write(buffer.data(), N);
+		stream().write(buffer.data(), N);
 	}
 }
