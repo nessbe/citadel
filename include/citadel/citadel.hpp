@@ -62,7 +62,9 @@
 
 #include "citadel/io/formats/meshes/mesh_reader.hpp"
 
-#include "citadel/io/formats/images/tga_header.hpp"
+#include "citadel/io/formats/images/image_reader.hpp"
+
+#include "citadel/io/formats/images/tga/tga_header.hpp"
 
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
