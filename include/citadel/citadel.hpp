@@ -114,6 +114,7 @@
 
 #include "citadel/rendering/textures/image.hpp"
 #include "citadel/rendering/textures/texture.hpp"
+#include "citadel/rendering/textures/texture_2d.hpp"
 
 #include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"
