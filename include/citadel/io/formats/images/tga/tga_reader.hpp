@@ -1,4 +1,4 @@
-// File:       pragma.hpp
+// File:       tga_reader.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,12 +14,22 @@
 
 #pragma once
 
-#include "citadel/compilers.hpp"
+#include "citadel/export.hpp"
 
-#if CITADEL_COMPILER_MSVC
-	#define CITADEL_PRAGMA(x) __pragma(x)
-#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-	#define CITADEL_PRAGMA(x) _Pragma(#x)
-#else
-	#define CITADEL_PRAGMA(x)
-#endif
+#include "citadel/io/stream.hpp"
+
+#include "citadel/io/formats/images/image_reader.hpp"
+
+#include "citadel/memory/reference.hpp"
+
+#include "citadel/rendering/textures/image.hpp"
+
+namespace citadel {
+	class exported tga_reader : public image_reader {
+	public:
+		tga_reader(const reference<class stream>& stream);
+
+	private:
+		virtual image _read_image() override;
+	};
+}

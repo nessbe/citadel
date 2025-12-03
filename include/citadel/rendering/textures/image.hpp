@@ -26,24 +26,27 @@ namespace citadel {
 	public:
 		using dimension = std::uint32_t;
 
-		using chunk = std::uint8_t;
-		using buffer = std::vector<chunk>;
+		using channel = std::uint8_t;
+		using buffer = std::vector<channel>;
 
 	public:
-		static constexpr std::uint32_t channel_count = 3;
+		image(dimension width, dimension height, std::size_t channel_count, const buffer& data);
+		image(dimension width, dimension height, std::size_t channel_count, std::initializer_list<channel> data);
+		image(dimension width, dimension height, std::size_t channel_count);
 
-	public:
-		image(dimension width, dimension height, std::initializer_list<chunk> data);
-		image(dimension width, dimension height);
-
-		nodisc dimension get_width() const noexcept;
-		nodisc dimension get_height() const noexcept;
+		nodisc std::size_t size() const noexcept;
 
 		nodisc buffer& data() noexcept;
 		nodisc const buffer& data() const noexcept;
 
+		nodisc std::size_t get_channel_count() const noexcept;
+
+		nodisc dimension get_width() const noexcept;
+		nodisc dimension get_height() const noexcept;
+
 	private:
-		dimension width_, height_;
 		buffer data_;
+		std::size_t channel_count_;
+		dimension width_, height_;
 	};
 }

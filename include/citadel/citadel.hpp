@@ -65,6 +65,7 @@
 #include "citadel/io/formats/images/image_reader.hpp"
 
 #include "citadel/io/formats/images/tga/tga_header.hpp"
+#include "citadel/io/formats/images/tga/tga_reader.hpp"
 
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"

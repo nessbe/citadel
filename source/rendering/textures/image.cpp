@@ -16,11 +16,30 @@
 #include "citadel/rendering/textures/image.hpp"
 
 namespace citadel {
-	image::image(dimension width, dimension height, std::initializer_list<chunk> data)
-		: width_(width), height_(height), data_(data) { }
+	image::image(dimension width, dimension height, std::size_t channel_count, const buffer& data)
+		: data_(data), channel_count_(channel_count), width_(width), height_(height) { }
 
-	image::image(dimension width, dimension height)
-		: width_(width), height_(height), data_(width * height * channel_count) { }
+	image::image(dimension width, dimension height, std::size_t channel_count, std::initializer_list<channel> data)
+		: data_(data), channel_count_(channel_count), width_(width), height_(height) { }
+
+	image::image(dimension width, dimension height, std::size_t channel_count)
+		: data_(width * height * channel_count), channel_count_(channel_count), width_(width), height_(height) { }
+
+	std::size_t image::size() const noexcept {
+		return width_ * height_ * channel_count_;
+	}
+
+	image::buffer& image::data() noexcept {
+		return data_;
+	}
+
+	const image::buffer &image::data() const noexcept {
+		return data_;
+	}
+
+    	std::size_t image::get_channel_count() const noexcept {
+		return channel_count_;
+	}
 
 	image::dimension image::get_width() const noexcept {
 		return width_;
@@ -28,13 +47,5 @@ namespace citadel {
 
 	image::dimension image::get_height() const noexcept {
 		return height_;
-	}
-
-	image::buffer& image::data() noexcept {
-		return data_;
-	}
-
-	const image::buffer& image::data() const noexcept {
-		return data_;
 	}
 }
