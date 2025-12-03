@@ -34,7 +34,9 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		image::buffer buffer(size);
 		stream().read(buffer.data(), static_cast<stream::size_type>(size));
 
-		if (!(header.descriptor & (1 << 5))) {
+		bool needs_flip = header.descriptor & (1 << 5);
+
+		if (needs_flip) {
 			std::size_t row_size = header.width * channel_count;
 			image::buffer temporary_row(row_size);
 
