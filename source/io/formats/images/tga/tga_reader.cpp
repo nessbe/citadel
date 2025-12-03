@@ -21,21 +21,41 @@ namespace citadel {
 	tga_reader::tga_reader(const reference<class stream>& stream)
 		: image_reader(stream) { }
 
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
+
 	image tga_reader::_read_image() {
 		tga_header header;
 		stream().read(&header, sizeof(tga_header));
 
-		std::size_t channel_count = header.pixel_depth / 8;
+		std::size_t channel_count = static_cast<std::size_t>(header.pixel_depth / 8);
 		std::size_t size = header.width * header.height * channel_count;
 
 		image::buffer buffer(size);
-		stream().read(buffer.data(), size);
+		stream().read(buffer.data(), static_cast<stream::size_type>(size));
 
-		return image(
-			header.width,
-			header.height,
-			channel_count,
-			buffer
-		);
+		if (!(header.descriptor & (1 << 5))) {
+			std::size_t row_size = header.width * channel_count;
+			image::buffer temporary_row(row_size);
+
+			for (std::size_t y = 0; y < static_cast<std::size_t>(header.height) / 2; y++) {
+				std::uint8_t* top_row = buffer.data() + y * row_size;
+				std::uint8_t* bottom_row = buffer.data() + (header.height - 1 - y) * row_size;
+
+				std::memcpy(temporary_row.data(), top_row, row_size);
+				std::memcpy(top_row, bottom_row, row_size);
+				std::memcpy(bottom_row, temporary_row.data(), row_size);
+			}
+		}
+
+		if (channel_count >= 3) {
+			for (std::size_t i = 0; i < static_cast<std::size_t>(header.width * header.height); i++) {
+				std::swap(buffer[i * channel_count + 0], buffer[i * channel_count + 2]);
+			}
+		}
+
+		return image(header.width, header.height, channel_count, buffer);
 	}
+
+CITADEL_IGNORE_WARNING_POP();
 }

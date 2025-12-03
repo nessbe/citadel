@@ -34,6 +34,7 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "citadel/architectures.hpp"
