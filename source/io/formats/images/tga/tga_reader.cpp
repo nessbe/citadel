@@ -21,8 +21,8 @@ namespace citadel {
 	tga_reader::tga_reader(const reference<class stream>& stream)
 		: image_reader(stream) { }
 
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	image tga_reader::_read_image() {
 		tga_header header;
@@ -59,5 +59,6 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		return image(header.width, header.height, channel_count, buffer);
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
+
 }

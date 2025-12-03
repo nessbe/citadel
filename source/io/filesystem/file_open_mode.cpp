@@ -17,8 +17,9 @@
 
 namespace citadel {
 	namespace file_open_mode {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		std::ios::openmode to_stl(enumeration value) {
 			switch (value) {
@@ -40,7 +41,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 			}
 		}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 		bool use_read(enumeration value) {
 			return (

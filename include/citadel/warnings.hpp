@@ -32,19 +32,19 @@
 #endif
 
 #if CITADEL_COMPILER_MSVC
-	#define CITADEL_IGNORE_WARNING_PUSH() CITADEL_PRAGMA(warning(push))
-	#define CITADEL_IGNORE_WARNING(name)  CITADEL_PRAGMA(warning(disable : name))
-	#define CITADEL_IGNORE_WARNING_POP()  CITADEL_PRAGMA(warning(pop))
+	#define CITADEL_WARNING_IGNORE_PUSH  CITADEL_PRAGMA(warning(push))
+	#define CITADEL_WARNING_IGNORE(name) CITADEL_PRAGMA(warning(disable : name))
+	#define CITADEL_WARNING_IGNORE_POP   CITADEL_PRAGMA(warning(pop))
 #elif CITADEL_COMPILER_CLANG
-	#define CITADEL_IGNORE_WARNING_PUSH() CITADEL_PRAGMA(clang diagnostic push)
-	#define CITADEL_IGNORE_WARNING(name)  CITADEL_PRAGMA(clang diagnostic ignored name)
-	#define CITADEL_IGNORE_WARNING_POP()  CITADEL_PRAGMA(clang diagnostic pop)
+	#define CITADEL_WARNING_IGNORE_PUSH  CITADEL_PRAGMA(clang diagnostic push)
+	#define CITADEL_WARNING_IGNORE(name) CITADEL_PRAGMA(clang diagnostic ignored name)
+	#define CITADEL_WARNING_IGNORE_POP   CITADEL_PRAGMA(clang diagnostic pop)
 #elif CITADEL_COMPILER_GCC
-	#define CITADEL_IGNORE_WARNING_PUSH() CITADEL_PRAGMA(GCC diagnostic push)
-	#define CITADEL_IGNORE_WARNING(name)  CITADEL_PRAGMA(GCC diagnostic ignored name)
-	#define CITADEL_IGNORE_WARNING_POP()  CITADEL_PRAGMA(GCC diagnostic pop)
+	#define CITADEL_WARNING_IGNORE_PUSH  CITADEL_PRAGMA(GCC diagnostic push)
+	#define CITADEL_WARNING_IGNORE(name) CITADEL_PRAGMA(GCC diagnostic ignored name)
+	#define CITADEL_WARNING_IGNORE_POP   CITADEL_PRAGMA(GCC diagnostic pop)
 #else
-	#define CITADEL_IGNORE_WARNING_PUSH()
-	#define CITADEL_IGNORE_WARNING(name)
-	#define CITADEL_IGNORE_WARNING_POP()
+	#define CITADEL_WARNING_IGNORE_PUSH
+	#define CITADEL_WARNING_IGNORE(name)
+	#define CITADEL_WARNING_IGNORE_POP
 #endif

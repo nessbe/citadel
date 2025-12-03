@@ -18,8 +18,9 @@
 #include "citadel/drivers/opengl/opengl_texture_2d.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	scope<texture_2d> texture_2d::create(rendering_api_type api, const image& image) {
 		switch (api) {
@@ -35,7 +36,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	scope<texture_2d> texture_2d::create(const image& image) {
 		return create(rendering_api_type::opengl, image);

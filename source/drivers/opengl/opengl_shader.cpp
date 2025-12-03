@@ -16,8 +16,9 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	opengl_shader::native_type opengl_shader::to_native_type(shader_type type) noexcept {
 		switch (type) {
@@ -37,7 +38,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		}
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	opengl_shader::opengl_shader(const std::string& name, shader_type type, const std::string& source)
 		: shader(name, type, source)

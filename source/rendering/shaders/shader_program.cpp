@@ -20,8 +20,9 @@
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	scope<shader_program> shader_program::create(rendering_api_type api, const std::string& name) {
 		switch (api) {
@@ -37,7 +38,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	scope<shader_program> shader_program::create(const std::string& name) {
 		return create(render_command::get_api(), name);

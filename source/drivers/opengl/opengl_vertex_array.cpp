@@ -59,8 +59,8 @@ namespace citadel {
 		glBindVertexArray(0);
 	}
 
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	void opengl_vertex_array::_add_vertex_buffer(const scope<vertex_buffer>& buffer) {
 		CITADEL_SOFT_ASSERT(buffer, "The given vertex buffer is null");
@@ -133,7 +133,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		}
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	void opengl_vertex_array::_set_index_buffer(const reference<index_buffer>& buffer) {
 		CITADEL_SOFT_ASSERT(buffer, "The given index buffer is null");

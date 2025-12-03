@@ -16,8 +16,9 @@
 #include "citadel/io/text/text_reader.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	text_reader::text_reader(const reference<class stream>& stream)
 		: reader(stream) { }
@@ -50,7 +51,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_SPECTRE);
 		return result;
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	std::string text_reader::read_string(std::size_t size) {
 		if (size == 0) {

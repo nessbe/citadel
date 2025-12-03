@@ -20,8 +20,9 @@
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	scope<vertex_array> vertex_array::create(rendering_api_type api) {
 		switch (api) {
@@ -37,7 +38,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	scope<vertex_array> vertex_array::create() {
 		return create(render_command::get_api());	

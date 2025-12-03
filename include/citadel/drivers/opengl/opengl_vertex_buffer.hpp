@@ -25,8 +25,8 @@
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class exported opengl_vertex_buffer : public vertex_buffer {
@@ -58,4 +58,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP

@@ -22,8 +22,8 @@
 
 #include "citadel/rendering/textures/texture_2d.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class exported opengl_texture_2d : public texture_2d {
@@ -52,4 +52,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP

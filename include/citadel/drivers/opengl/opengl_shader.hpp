@@ -22,8 +22,8 @@
 
 #include "citadel/rendering/shaders/shader.hpp"
 
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_PADDING);
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	class exported opengl_shader : public shader {
@@ -58,4 +58,4 @@ namespace citadel {
 	};
 }
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP

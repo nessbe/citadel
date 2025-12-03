@@ -22,8 +22,9 @@
 #include "citadel/drivers/opengl/opengl_context.hpp"
 
 namespace citadel {
-CITADEL_IGNORE_WARNING_PUSH();
-CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	scope<rendering_context> rendering_context::create(rendering_api_type api, window* window) {
 		switch (api) {
@@ -39,7 +40,7 @@ CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
 		return nullptr;
 	}
 
-CITADEL_IGNORE_WARNING_POP();
+CITADEL_WARNING_IGNORE_POP
 
 	scope<rendering_context> rendering_context::create(window* window) {
 		return create(render_command::get_api(), window);
