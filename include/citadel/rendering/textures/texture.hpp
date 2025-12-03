@@ -28,6 +28,7 @@ namespace citadel {
 
 	public:
 		texture(const image& image);
+		virtual ~texture() = default;
 
 		void bind(slot_type slot);
 

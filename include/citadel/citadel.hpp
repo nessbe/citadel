@@ -44,10 +44,15 @@
 
 #include "citadel/drivers/opengl.hpp"
 #include "citadel/drivers/opengl/opengl_context.hpp"
+#include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
+#include "citadel/drivers/opengl/opengl_rendering_api.hpp"
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 #include "citadel/drivers/opengl/opengl_shader_program.hpp"
 #include "citadel/drivers/opengl/opengl_surface.hpp"
+#include "citadel/drivers/opengl/opengl_texture_2d.hpp"
+#include "citadel/drivers/opengl/opengl_vertex_array.hpp"
+#include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 #include "citadel/io/reader.hpp"
 #include "citadel/io/stream.hpp"

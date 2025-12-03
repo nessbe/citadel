@@ -15,10 +15,27 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/textures/texture_2d.hpp"
 
+#include "citadel/drivers/opengl/opengl_texture_2d.hpp"
+
 namespace citadel {
+CITADEL_IGNORE_WARNING_PUSH();
+CITADEL_IGNORE_WARNING(CITADEL_WARNING_UNREACHABLE_CODE);
+
 	scope<texture_2d> texture_2d::create(rendering_api_type api, const image& image) {
+		switch (api) {
+		case rendering_api_type::none:
+			CITADEL_PANIC("Rendering API cannot be none");
+			return nullptr;
+
+		case rendering_api_type::opengl:
+			return make_scoped<opengl_texture_2d>(image);
+		}
+
+		CITADEL_PANIC("Unknown rendering API");
 		return nullptr;
 	}
+
+CITADEL_IGNORE_WARNING_POP();
 
 	scope<texture_2d> texture_2d::create(const image& image) {
 		return create(rendering_api_type::opengl, image);
