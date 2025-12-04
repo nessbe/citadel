@@ -13,9 +13,9 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/io/formats/images/tga/tga_reader.hpp"
+#include "citadel/formats/tga/tga_reader.hpp"
 
-#include "citadel/io/formats/images/tga/tga_header.hpp"
+#include "citadel/formats/tga/tga_header.hpp"
 
 namespace citadel {
 	tga_reader::tga_reader(const reference<class stream>& stream)

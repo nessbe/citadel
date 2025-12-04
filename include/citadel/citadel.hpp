@@ -54,6 +54,9 @@
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
+#include "citadel/formats/tga/tga_header.hpp"
+#include "citadel/formats/tga/tga_reader.hpp"
+
 #include "citadel/io/reader.hpp"
 #include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"
@@ -65,12 +68,9 @@
 #include "citadel/io/filesystem/file.hpp"
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
-#include "citadel/io/formats/meshes/mesh_reader.hpp"
+#include "citadel/io/resources/meshes/mesh_reader.hpp"
 
-#include "citadel/io/formats/images/image_reader.hpp"
-
-#include "citadel/io/formats/images/tga/tga_header.hpp"
-#include "citadel/io/formats/images/tga/tga_reader.hpp"
+#include "citadel/io/resources/images/image_reader.hpp"
 
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"

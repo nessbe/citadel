@@ -16,6 +16,6 @@
 
 #include "citadel/pragma.hpp"
 
-#define CITADEL_PACK_PUSH() CITADEL_PRAGMA(pack(push, 1))
+#define CITADEL_PACK_PUSH CITADEL_PRAGMA(pack(push, 1))
 
-#define CITADEL_PACK_POP() CITADEL_PRAGMA(pack(pop))
+#define CITADEL_PACK_POP CITADEL_PRAGMA(pack(pop))

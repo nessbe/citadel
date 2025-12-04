@@ -18,7 +18,7 @@
 
 #include "citadel/io/stream.hpp"
 
-#include "citadel/io/formats/images/image_reader.hpp"
+#include "citadel/io/resources/images/image_reader.hpp"
 
 #include "citadel/memory/reference.hpp"
 

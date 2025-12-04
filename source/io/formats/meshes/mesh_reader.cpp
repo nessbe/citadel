@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/io/formats/meshes/mesh_reader.hpp"
+#include "citadel/io/resources/meshes/mesh_reader.hpp"
 
 namespace citadel {
 	mesh_reader::mesh_reader(const reference<class stream>& stream)

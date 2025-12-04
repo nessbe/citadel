@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/io/formats/images/image_reader.hpp"
+#include "citadel/io/resources/images/image_reader.hpp"
 
 namespace citadel {
 	image_reader::image_reader(const reference<class stream>& stream)

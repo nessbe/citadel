@@ -19,7 +19,8 @@
 #include "citadel/packing.hpp"
 
 namespace citadel {
-#pragma pack(push, 1)
+
+CITADEL_PACK_PUSH
 
 	struct tga_header {
 		std::uint8_t id_length;
@@ -40,7 +41,7 @@ namespace citadel {
 		std::uint8_t descriptor;
 	};
 
-#pragma pack(pop)
+CITADEL_PACK_POP
 
 	static_assert(sizeof(tga_header) == 18, "tga_header must be 18 bytes");
 }
