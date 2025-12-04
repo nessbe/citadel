@@ -22,4 +22,12 @@ namespace citadel {
 	image image_reader::read_image() {
 		return _read_image();
 	}
+
+	bool image_reader::should_flip_vertically() const noexcept {
+		return flip_vertically_;
+	}
+
+	void image_reader::set_flip_vertically(bool value) noexcept {
+		flip_vertically_ = value;
+	}
 }

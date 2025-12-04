@@ -14,7 +14,9 @@
 
 #pragma once
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/io/reader.hpp"
 #include "citadel/io/stream.hpp"
@@ -23,6 +25,9 @@
 
 #include "citadel/rendering/textures/image.hpp"
 
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
+
 namespace citadel {
 	class exported image_reader : public reader {
 	public:
@@ -30,7 +35,15 @@ namespace citadel {
 
 		image read_image();
 
+		nodisc bool should_flip_vertically() const noexcept;
+		void set_flip_vertically(bool value) noexcept;
+
+	private:
+		bool flip_vertically_ = false;
+
 	private:
 		virtual image _read_image() = 0;
 	};
 }
+
+CITADEL_WARNING_IGNORE_POP
