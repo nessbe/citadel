@@ -19,17 +19,24 @@
 #include <string>
 
 #include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
 
 #include "citadel/rendering/shaders/shader_data_type.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	struct exported uniform_info {
 	public:
 		std::string name;
 		std::size_t size;
-		shader_data_type type;
 		std::uint32_t location;
+		shader_data_type type;
 
 		uniform_info(const std::string& name, shader_data_type type, std::size_t size, std::uint32_t location);
 	};
 }
+
+
+CITADEL_WARNING_IGNORE_POP

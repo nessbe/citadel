@@ -28,7 +28,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported opengl_shader : public shader {
 	public:
-		using id = GLuint;
+		using id_type = GLuint;
 
 	public:
 		opengl_shader(const std::string& name, shader_type type, const std::string& source);
@@ -42,11 +42,11 @@ namespace citadel {
 		opengl_shader(opengl_shader&& other) noexcept;
 		opengl_shader& operator=(opengl_shader&& other) noexcept;
 
-		nodisc id get_id() const noexcept;
+		nodisc id_type get_id() const noexcept;
 		nodisc GLenum get_opengl_type() const noexcept;
 
 	private:
-		id id_ = 0;
+		id_type id_ = 0;
 
 	private:
 		virtual bool _compile() override;

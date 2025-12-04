@@ -19,7 +19,7 @@ namespace citadel {
 	perspective_camera::perspective_camera(float fov, float aspect, float near, float far)
 		: fov_(fov), aspect_(aspect), near_(near), far_(far) { }
 
-	perspective_camera::perspective_camera(float fov, dimension width, dimension height, float near, float far)
+	perspective_camera::perspective_camera(float fov, dimension_type width, dimension_type height, float near, float far)
 		: perspective_camera(fov, static_cast<float>(width) / static_cast<float>(height), near, far) { }
 
 	float perspective_camera::get_fov() const noexcept {
@@ -54,7 +54,7 @@ namespace citadel {
 		far_ = value;
 	}
 
-	void perspective_camera::_set_projection(dimension width, dimension height) {
+	void perspective_camera::_set_projection(dimension_type width, dimension_type height) {
 		aspect_ = width > 0 && height > 0 ? static_cast<float>(width) / static_cast<float>(height) : 1.0f;
 	}
 

@@ -47,7 +47,7 @@ namespace citadel {
 		return *this;
 	}
 
-	opengl_shader_program::id opengl_shader_program::get_id() const noexcept {
+	opengl_shader_program::id_type opengl_shader_program::get_id() const noexcept {
 		return id_;
 	}
 
@@ -80,7 +80,7 @@ namespace citadel {
 		CITADEL_SOFT_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {
-			opengl_shader::id shader_id = driver_shader->get_id();
+			opengl_shader::id_type shader_id = driver_shader->get_id();
 			glAttachShader(id_, shader_id);
 		}
 	}
@@ -90,7 +90,7 @@ namespace citadel {
 		CITADEL_SOFT_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
 
 		if (driver_shader) {
-			opengl_shader::id shader_id = driver_shader->get_id();
+			opengl_shader::id_type shader_id = driver_shader->get_id();
 			glDetachShader(id_, shader_id);
 		}
 	}

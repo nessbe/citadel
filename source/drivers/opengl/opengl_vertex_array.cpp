@@ -47,7 +47,7 @@ namespace citadel {
 		return *this;
 	}
 
-	opengl_vertex_array::id opengl_vertex_array::get_id() const noexcept {
+	opengl_vertex_array::id_type opengl_vertex_array::get_id() const noexcept {
 		return id_;
 	}
 

@@ -20,7 +20,7 @@
 #include "citadel/rendering/shaders/shader_data_type.hpp"
 
 namespace citadel {
-	mesh::mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices) :
+	mesh::mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices) :
 		vertex_array_(vertex_array::create(api)),
 		vertex_buffer_(vertex_buffer::create(api, data, size, layout)),
 		index_buffer_(index_buffer::create(api, indices))
@@ -34,13 +34,13 @@ namespace citadel {
 		CITADEL_POINTER_CALL(vertex_array_, set_index_buffer, index_buffer_);
 	}
 
-	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices)
+	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices)
 		: mesh(render_command::get_api(), data, size, layout, indices) { }
 
-	mesh::mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices)
+	mesh::mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index>& indices)
 		: mesh(api, vertices.data(), vertices.size() * sizeof(vertex), default_layout_, indices) { }
 
-	mesh::mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices)
+	mesh::mesh(const std::vector<vertex>& vertices, const std::vector<index>& indices)
 		: mesh(vertices.data(), vertices.size() * sizeof(vertex), default_layout_, indices) { }
 
 	mesh::~mesh() {

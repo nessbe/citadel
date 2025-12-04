@@ -24,7 +24,7 @@
 namespace citadel {
 	class exported camera {
 	public:
-		using dimension = std::uint32_t;
+		using dimension_type = std::uint32_t;
 
 	public:
 		camera() = default;
@@ -32,7 +32,7 @@ namespace citadel {
 
 		nodisc mat4 get_view() const;
 
-		void set_projection(dimension width, dimension height);
+		void set_projection(dimension_type width, dimension_type height);
 		nodisc mat4 get_projection() const;
 
 		nodisc const vec3& get_position() const noexcept;
@@ -46,7 +46,7 @@ namespace citadel {
 		vec3 rotation_;
 
 	private:
-		virtual void _set_projection(dimension width, dimension height) = 0;
+		virtual void _set_projection(dimension_type width, dimension_type height) = 0;
 		nodisc virtual mat4 _get_projection() const = 0;
 	};
 }

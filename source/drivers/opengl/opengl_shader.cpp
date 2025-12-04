@@ -51,7 +51,7 @@ namespace citadel {
 		return *this;
 	}
 
-	opengl_shader::id opengl_shader::get_id() const noexcept {
+	opengl_shader::id_type opengl_shader::get_id() const noexcept {
 		return id_;
 	}
 

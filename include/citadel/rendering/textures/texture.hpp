@@ -37,8 +37,8 @@ namespace citadel {
 
 		nodisc std::size_t get_channel_count() const noexcept;
 
-		nodisc image::dimension get_width() const noexcept;
-		nodisc image::dimension get_height() const noexcept;
+		nodisc image::dimension_type get_width() const noexcept;
+		nodisc image::dimension_type get_height() const noexcept;
 
 	private:
 		image image_;

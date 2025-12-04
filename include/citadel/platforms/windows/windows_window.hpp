@@ -37,8 +37,8 @@ namespace citadel {
 		static bool register_class(const universal_char* name);
 		static bool unregister_class(const universal_char* name);
 
-		windows_window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		windows_window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
+		windows_window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		windows_window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
 
 		windows_window(const windows_window&) = delete;
 		windows_window& operator=(const windows_window&) = delete;
@@ -56,8 +56,8 @@ namespace citadel {
 	private:
 		static LRESULT CALLBACK window_procedure(HWND handle, UINT message, WPARAM wide_parameter, LPARAM long_parameter);
 
-		RECT calculate_rect(dimension x, dimension y, dimension width, dimension height) const;
-		void move_window(dimension x, dimension y, dimension width, dimension height) const;
+		RECT calculate_rect(dimension_type x, dimension_type y, dimension_type width, dimension_type height) const;
+		void move_window(dimension_type x, dimension_type y, dimension_type width, dimension_type height) const;
 
 		universal_string get_universal_title() const;
 
@@ -77,10 +77,10 @@ namespace citadel {
 
 		virtual void _set_title(const std::string& value) override;
 
-		virtual void _set_x(dimension value) override;
-		virtual void _set_y(dimension value) override;
-		virtual void _set_width(dimension value) override;
-		virtual void _set_height(dimension value) override;
+		virtual void _set_x(dimension_type value) override;
+		virtual void _set_y(dimension_type value) override;
+		virtual void _set_width(dimension_type value) override;
+		virtual void _set_height(dimension_type value) override;
 
 		virtual void _set_vsync(bool value) override;
 	};

@@ -16,12 +16,14 @@
 
 #include <vector>
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
-#include "citadel/rendering/vertices/index_buffer.hpp"
+#include "citadel/rendering/indices/index.hpp"
+#include "citadel/rendering/indices/index_buffer.hpp"
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
@@ -29,7 +31,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported opengl_index_buffer : public index_buffer {
 	public:
-		using id = GLuint;
+		using id_type = GLuint;
 
 	public:
 		opengl_index_buffer(const std::vector<index>& indices);
@@ -43,8 +45,10 @@ namespace citadel {
 		opengl_index_buffer(opengl_index_buffer&& other) noexcept;
 		opengl_index_buffer& operator=(opengl_index_buffer&& other) noexcept;
 
+		nodisc id_type get_id() const noexcept;
+
 	private:
-		id id_ = 0;
+		id_type id_ = 0;
 
 	private:
 		virtual void _bind() override;

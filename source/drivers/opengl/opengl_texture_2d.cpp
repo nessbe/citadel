@@ -19,8 +19,8 @@ namespace citadel {
 	opengl_texture_2d::opengl_texture_2d(const image& image)
 		: texture_2d(image)
 	{
-		image::dimension width = image.get_width();
-		image::dimension height = image.get_height();
+		image::dimension_type width = image.get_width();
+		image::dimension_type height = image.get_height();
 		std::size_t channel_count = image.get_channel_count();
 
 		if (channel_count == 4) {
@@ -45,7 +45,7 @@ namespace citadel {
 		glTextureParameteri(id_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glTextureSubImage2D(id_, 0, 0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height), data_format_, GL_UNSIGNED_BYTE, image.data().data());
+		glTextureSubImage2D(id_, 0, 0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height), data_format_, GL_UNSIGNED_BYTE, image.raw());
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 	}
 
@@ -71,7 +71,7 @@ namespace citadel {
 		return *this;
 	}
 
-	opengl_texture_2d::id opengl_texture_2d::get_id() const noexcept {
+	opengl_texture_2d::id_type opengl_texture_2d::get_id() const noexcept {
 		return id_;
 	}
 

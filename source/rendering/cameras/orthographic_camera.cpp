@@ -19,7 +19,7 @@ namespace citadel {
 	orthographic_camera::orthographic_camera(float left, float right, float bottom, float top)
 		: left_(left), right_(right), bottom_(bottom), top_(top) { }
 
-	orthographic_camera::orthographic_camera(dimension width, dimension height)
+	orthographic_camera::orthographic_camera(dimension_type width, dimension_type height)
 		: left_(0), right_(0), bottom_(0), top_(0)
 	{
 		set_projection(width, height);
@@ -74,7 +74,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
-	void orthographic_camera::_set_projection(dimension width, dimension height) {
+	void orthographic_camera::_set_projection(dimension_type width, dimension_type height) {
 		float aspect = static_cast<float>(width) / static_cast<float>(height);
 
 		if (aspect >= 1.0) {

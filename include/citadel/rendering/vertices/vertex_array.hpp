@@ -24,7 +24,8 @@
 
 #include "citadel/rendering/rendering_api_type.hpp"
 
-#include "citadel/rendering/vertices/index_buffer.hpp"
+#include "citadel/rendering/indices/index_buffer.hpp"
+
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {

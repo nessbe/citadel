@@ -24,7 +24,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	scope<surface> surface::create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(rendering_api_type api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
@@ -38,7 +38,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-	scope<surface> surface::create(rendering_api_type api, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(rendering_api_type api, dimension_type width, dimension_type height, color clear_color) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
@@ -54,18 +54,18 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_WARNING_IGNORE_POP
 
-	scope<surface> surface::create(dimension x, dimension y, dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color) {
 		return create(render_command::get_api(), x, y, width, height, clear_color);
 	}
 
-	scope<surface> surface::create(dimension width, dimension height, color clear_color) {
+	scope<surface> surface::create(dimension_type width, dimension_type height, color clear_color) {
 		return create(render_command::get_api(), width, height, clear_color);
 	}
 
-	surface::surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
+	surface::surface(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color)
 		: x_(x), y_(y), width_(width), height_(height), clear_color_(clear_color) { }
 
-	surface::surface(dimension width, dimension height, color clear_color)
+	surface::surface(dimension_type width, dimension_type height, color clear_color)
 		: surface(0, 0, width, height, clear_color) { }
 
 	void surface::bind() {
@@ -86,38 +86,38 @@ CITADEL_WARNING_IGNORE_POP
 		_present();
 	}
 
-	surface::dimension surface::get_x() const noexcept {
+	surface::dimension_type surface::get_x() const noexcept {
 		return x_;
 	}
 
-	void surface::set_x(dimension value) {
+	void surface::set_x(dimension_type value) {
 		_set_x(value);
 		x_ = value;
 	}
 
-	surface::dimension surface::get_y() const noexcept {
+	surface::dimension_type surface::get_y() const noexcept {
 		return y_;
 	}
 
-	void surface::set_y(dimension value) {
+	void surface::set_y(dimension_type value) {
 		_set_y(value);
 		y_ = value;
 	}
 
-	surface::dimension surface::get_width() const noexcept {
+	surface::dimension_type surface::get_width() const noexcept {
 		return width_;
 	}
 
-	void surface::set_width(dimension value) {
+	void surface::set_width(dimension_type value) {
 		_set_width(value);
 		width_ = value;
 	}
 
-	surface::dimension surface::get_height() const noexcept {
+	surface::dimension_type surface::get_height() const noexcept {
 		return height_;
 	}
 
-	void surface::set_height(dimension value) {
+	void surface::set_height(dimension_type value) {
 		_set_height(value);
 		height_ = value;
 	}

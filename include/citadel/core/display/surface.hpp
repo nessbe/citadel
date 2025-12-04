@@ -31,17 +31,17 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported surface {
 	public:
-		using dimension = std::uint32_t;
+		using dimension_type = std::uint32_t;
 
 	public:
-		nodisc static scope<surface> create(rendering_api_type api, dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static scope<surface> create(rendering_api_type api, dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		nodisc static scope<surface> create(rendering_api_type api, dimension_type width, dimension_type height, color clear_color);
 
-		nodisc static scope<surface> create(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		nodisc static scope<surface> create(dimension width, dimension height, color clear_color);
+		nodisc static scope<surface> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		nodisc static scope<surface> create(dimension_type width, dimension_type height, color clear_color);
 
-		surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		surface(dimension width, dimension height, color clear_color);
+		surface(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		surface(dimension_type width, dimension_type height, color clear_color);
 
 		virtual ~surface() = default;
 
@@ -51,17 +51,17 @@ namespace citadel {
 		void clear();
 		void present();
 
-		nodisc dimension get_x() const noexcept;
-		void set_x(dimension value);
+		nodisc dimension_type get_x() const noexcept;
+		void set_x(dimension_type value);
 
-		nodisc dimension get_y() const noexcept;
-		void set_y(dimension value);
+		nodisc dimension_type get_y() const noexcept;
+		void set_y(dimension_type value);
 
-		nodisc dimension get_width() const noexcept;
-		void set_width(dimension value);
+		nodisc dimension_type get_width() const noexcept;
+		void set_width(dimension_type value);
 
-		nodisc dimension get_height() const noexcept;
-		void set_height(dimension value);
+		nodisc dimension_type get_height() const noexcept;
+		void set_height(dimension_type value);
 
 		nodisc color get_clear_color() const noexcept;
 		void set_clear_color(color value) noexcept;
@@ -69,7 +69,7 @@ namespace citadel {
 		nodisc bool is_bound() const noexcept;
 
 	private:
-		dimension x_, y_, width_, height_;
+		dimension_type x_, y_, width_, height_;
 		color clear_color_;
 
 		bool is_bound_ = false;
@@ -81,11 +81,11 @@ namespace citadel {
 		virtual void _clear() = 0;
 		virtual void _present() = 0;
 
-		virtual void _set_x(dimension value) = 0;
-		virtual void _set_y(dimension value) = 0;
+		virtual void _set_x(dimension_type value) = 0;
+		virtual void _set_y(dimension_type value) = 0;
 
-		virtual void _set_width(dimension value) = 0;
-		virtual void _set_height(dimension value) = 0;
+		virtual void _set_width(dimension_type value) = 0;
+		virtual void _set_height(dimension_type value) = 0;
 
 		virtual void _set_clear_color(color value) = 0;
 	};

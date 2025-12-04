@@ -34,7 +34,7 @@ namespace citadel {
 		return static_cast<bool>(result);
 	}
 
-	windows_window::windows_window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title)
+	windows_window::windows_window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title)
 		: window(rendering_api, x, y, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL))
 	{
 		CITADEL_SOFT_ASSERT(instance_, "Failed to get module handle");
@@ -70,7 +70,7 @@ namespace citadel {
 		CITADEL_SOFT_ASSERT(window_, "Failed to create window");
 	}
 
-	windows_window::windows_window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title)
+	windows_window::windows_window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title)
 		: windows_window(rendering_api, 0, 0, width, height, title) { }
 
 	windows_window::~windows_window() {
@@ -107,11 +107,11 @@ namespace citadel {
 
 			CITADEL_SOFT_ASSERT(window, "Failed to retrieve Windows window");
 
-			CITADEL_POINTER_SET(window, x_, static_cast<dimension>(x));
-			CITADEL_POINTER_SET(window, y_, static_cast<dimension>(y));
+			CITADEL_POINTER_SET(window, x_, static_cast<dimension_type>(x));
+			CITADEL_POINTER_SET(window, y_, static_cast<dimension_type>(y));
 
-			CITADEL_POINTER_CALL(window, get_surface().set_x, static_cast<dimension>(x));
-			CITADEL_POINTER_CALL(window, get_surface().set_y, static_cast<dimension>(y));
+			CITADEL_POINTER_CALL(window, get_surface().set_x, static_cast<dimension_type>(x));
+			CITADEL_POINTER_CALL(window, get_surface().set_y, static_cast<dimension_type>(y));
 		} break;
 
 		case WM_SIZE: {
@@ -120,11 +120,11 @@ namespace citadel {
 
 			CITADEL_ASSERT(window, "Failed to retrieve Windows window");
 
-			CITADEL_POINTER_SET(window, width_, static_cast<dimension>(width));
-			CITADEL_POINTER_SET(window, height_, static_cast<dimension>(height));
+			CITADEL_POINTER_SET(window, width_, static_cast<dimension_type>(width));
+			CITADEL_POINTER_SET(window, height_, static_cast<dimension_type>(height));
 
-			CITADEL_POINTER_CALL(window, get_surface().set_width, static_cast<dimension>(width));
-			CITADEL_POINTER_CALL(window, get_surface().set_height, static_cast<dimension>(height));
+			CITADEL_POINTER_CALL(window, get_surface().set_width, static_cast<dimension_type>(width));
+			CITADEL_POINTER_CALL(window, get_surface().set_height, static_cast<dimension_type>(height));
 		} break;
 
 		case WM_CREATE:
@@ -143,7 +143,7 @@ namespace citadel {
 		return DefWindowProc(handle, message, wide_parameter, long_parameter);
 	}
 
-	RECT windows_window::calculate_rect(dimension x, dimension y, dimension width, dimension height) const {
+	RECT windows_window::calculate_rect(dimension_type x, dimension_type y, dimension_type width, dimension_type height) const {
 		RECT rect = { };
 
 		rect.left = static_cast<LONG>(x);
@@ -155,7 +155,7 @@ namespace citadel {
 		return rect;
 	}
 
-	void windows_window::move_window(dimension x, dimension y, dimension width, dimension height) const {
+	void windows_window::move_window(dimension_type x, dimension_type y, dimension_type width, dimension_type height) const {
 		CITADEL_ASSERT(window_, "Window handle is null");
 
 		RECT rect = calculate_rect(x, y, width, height);
@@ -226,7 +226,7 @@ namespace citadel {
 		SetWindowText(window_, title.c_str());
 	}
 
-	void windows_window::_set_x(dimension value) {
+	void windows_window::_set_x(dimension_type value) {
 		move_window(
 			get_x(),
 			get_y(),
@@ -235,7 +235,7 @@ namespace citadel {
 		);
 	}
 
-	void windows_window::_set_y(dimension value) {
+	void windows_window::_set_y(dimension_type value) {
 		move_window(
 			get_x(),
 			get_y(),
@@ -244,7 +244,7 @@ namespace citadel {
 		);
 	}
 
-	void windows_window::_set_width(dimension value) {
+	void windows_window::_set_width(dimension_type value) {
 		move_window(
 			get_x(),
 			get_y(),
@@ -253,7 +253,7 @@ namespace citadel {
 		);
 	}
 
-	void windows_window::_set_height(dimension value) {
+	void windows_window::_set_height(dimension_type value) {
 		move_window(
 			get_x(),
 			get_y(),

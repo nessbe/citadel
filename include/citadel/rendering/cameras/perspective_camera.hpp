@@ -27,7 +27,7 @@ namespace citadel {
 	class exported perspective_camera : public camera {
 	public:
 		perspective_camera(float fov, float aspect, float near, float far);
-		perspective_camera(float fov, dimension width, dimension height, float near, float far);
+		perspective_camera(float fov, dimension_type width, dimension_type height, float near, float far);
 
 		nodisc float get_fov() const noexcept;
 		void set_fov(float value) noexcept;
@@ -45,7 +45,7 @@ namespace citadel {
 		float fov_, aspect_, near_, far_;
 
 	private:
-		virtual void _set_projection(dimension width, dimension height) override;
+		virtual void _set_projection(dimension_type width, dimension_type height) override;
 		nodisc virtual mat4 _get_projection() const override;
 	};
 }

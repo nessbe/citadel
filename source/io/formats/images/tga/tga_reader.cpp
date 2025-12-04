@@ -31,14 +31,14 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		std::size_t channel_count = static_cast<std::size_t>(header.pixel_depth / 8);
 		std::size_t size = header.width * header.height * channel_count;
 
-		image::buffer buffer(size);
+		image::buffer_type buffer(size);
 		stream().read(buffer.data(), static_cast<stream::size_type>(size));
 
 		bool needs_flip = header.descriptor & (1 << 5);
 
 		if (needs_flip) {
 			std::size_t row_size = header.width * channel_count;
-			image::buffer temporary_row(row_size);
+			image::buffer_type temporary_row(row_size);
 
 			for (std::size_t y = 0; y < static_cast<std::size_t>(header.height) / 2; y++) {
 				std::uint8_t* top_row = buffer.data() + y * row_size;

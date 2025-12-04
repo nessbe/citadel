@@ -20,7 +20,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 namespace citadel {
-	scope<window> window::create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
 		scope<windows_window> window = make_scoped<windows_window>(rendering_api, x, y, width, height, title);
 		CITADEL_POINTER_CALL(window, initialize, rendering_api);
@@ -32,7 +32,7 @@ namespace citadel {
 #endif
 	}
 
-	scope<window> window::create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
 		return make_scoped<windows_window>(rendering_api, width, height, title);
 #else
@@ -41,15 +41,15 @@ namespace citadel {
 #endif
 	}
 
-	scope<window> window::create(dimension x, dimension y, dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title) {
 		return create(render_command::get_api(), x, y, width, height, title);
 	}
 
-	scope<window> window::create(dimension width, dimension height, const std::string& title) {
+	scope<window> window::create(dimension_type width, dimension_type height, const std::string& title) {
 		return create(render_command::get_api(), width, height, title);
 	}
 
-	window::window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title) :
+	window::window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title) :
 		x_(x),
 		y_(y),
 		width_(width),
@@ -59,7 +59,7 @@ namespace citadel {
 		rendering_context_(nullptr)
 	{ }
 
-	window::window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title)
+	window::window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title)
 		: window(rendering_api, 0, 0, width, height, title) { }
 
 	void window::show() {
@@ -87,7 +87,7 @@ namespace citadel {
 	}
 
 	bool window::update() {
-		clock::time_point now = clock::now();
+		clock_type::time_point now = clock_type::now();
 		std::chrono::duration<double> elasped_time = now - last_frame_;
 		double delta_time = elasped_time.count();
 
@@ -98,7 +98,7 @@ namespace citadel {
 			should_close_ = true;
 		}
 
-		last_frame_ = clock::now();
+		last_frame_ = clock_type::now();
 
 		return result;
 	}
@@ -151,44 +151,44 @@ namespace citadel {
 		CITADEL_POINTER_RETURN_REFERENCE(rendering_context_);
 	}
 
-	window::dimension window::get_x() const noexcept {
+	window::dimension_type window::get_x() const noexcept {
 		return x_;
 	}
 
-	void window::set_x(dimension value) {
+	void window::set_x(dimension_type value) {
 		_set_x(value);
 		x_ = value;
 
 		CITADEL_POINTER_CALL(surface_, set_x, value);
 	}
 
-	window::dimension window::get_y() const noexcept {
+	window::dimension_type window::get_y() const noexcept {
 		return y_;
 	}
 
-	void window::set_y(dimension value) {
+	void window::set_y(dimension_type value) {
 		_set_y(value);
 		y_ = value;
 
 		CITADEL_POINTER_CALL(surface_, set_y, value);
 	}
 
-	window::dimension window::get_width() const noexcept {
+	window::dimension_type window::get_width() const noexcept {
 		return width_;
 	}
 
-	void window::set_width(dimension value) {
+	void window::set_width(dimension_type value) {
 		_set_width(value);
 		width_ = value;
 
 		CITADEL_POINTER_CALL(surface_, set_width, value);
 	}
 
-	window::dimension window::get_height() const noexcept {
+	window::dimension_type window::get_height() const noexcept {
 		return height_;
 	}
 
-	void window::set_height(dimension value) {
+	void window::set_height(dimension_type value) {
 		_set_height(value);
 		height_ = value;
 

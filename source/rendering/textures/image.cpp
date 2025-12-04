@@ -16,36 +16,44 @@
 #include "citadel/rendering/textures/image.hpp"
 
 namespace citadel {
-	image::image(dimension width, dimension height, std::size_t channel_count, const buffer& data)
+	image::image(dimension_type width, dimension_type height, std::size_t channel_count, const buffer_type& data)
 		: data_(data), channel_count_(channel_count), width_(width), height_(height) { }
 
-	image::image(dimension width, dimension height, std::size_t channel_count, std::initializer_list<channel> data)
+	image::image(dimension_type width, dimension_type height, std::size_t channel_count, std::initializer_list<channel_type> data)
 		: data_(data), channel_count_(channel_count), width_(width), height_(height) { }
 
-	image::image(dimension width, dimension height, std::size_t channel_count)
+	image::image(dimension_type width, dimension_type height, std::size_t channel_count)
 		: data_(width * height * channel_count), channel_count_(channel_count), width_(width), height_(height) { }
 
 	std::size_t image::size() const noexcept {
 		return width_ * height_ * channel_count_;
 	}
 
-	image::buffer& image::data() noexcept {
+	image::buffer_type& image::data() noexcept {
 		return data_;
 	}
 
-	const image::buffer &image::data() const noexcept {
+	const image::buffer_type&image::data() const noexcept {
 		return data_;
+	}
+
+	image::channel_type* image::raw() noexcept {
+		return data_.data();
+	}
+
+	const image::channel_type* image::raw() const noexcept {
+		return data_.data();
 	}
 
     	std::size_t image::get_channel_count() const noexcept {
 		return channel_count_;
 	}
 
-	image::dimension image::get_width() const noexcept {
+	image::dimension_type image::get_width() const noexcept {
 		return width_;
 	}
 
-	image::dimension image::get_height() const noexcept {
+	image::dimension_type image::get_height() const noexcept {
 		return height_;
 	}
 }

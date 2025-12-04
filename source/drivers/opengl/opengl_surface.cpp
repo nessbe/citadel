@@ -16,18 +16,18 @@
 #include "citadel/drivers/opengl/opengl_surface.hpp"
 
 namespace citadel {
-	opengl_surface::opengl_surface(dimension x, dimension y, dimension width, dimension height, color clear_color)
+	opengl_surface::opengl_surface(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color)
 		: surface(x, y, width, height, clear_color) { }
 
-	opengl_surface::opengl_surface(dimension width, dimension height, color clear_color)
+	opengl_surface::opengl_surface(dimension_type width, dimension_type height, color clear_color)
 		: surface(width, height, clear_color) { }
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	void opengl_surface::_bind() {
-		dimension width = get_width();
-		dimension height = get_height();
+		dimension_type width = get_width();
+		dimension_type height = get_height();
 
 		if (width == 0 || height == 0) {
 			return;
@@ -54,7 +54,7 @@ CITADEL_WARNING_IGNORE_POP
 	void opengl_surface::_unbind() { }
 
 	void opengl_surface::_clear() {
-		color::channel_normalized red, green, blue, alpha;
+		color::channel_normalized_type red, green, blue, alpha;
 		get_clear_color().get_channels_normalized(red, green, blue, alpha);
 
 		glClearColor(
@@ -69,11 +69,11 @@ CITADEL_WARNING_IGNORE_POP
 
 	void opengl_surface::_present() { }
 
-	void opengl_surface::_set_x(dimension value) { }
-	void opengl_surface::_set_y(dimension value) { }
+	void opengl_surface::_set_x(dimension_type value) { }
+	void opengl_surface::_set_y(dimension_type value) { }
 
-	void opengl_surface::_set_width(dimension value) { }
-	void opengl_surface::_set_height(dimension value) { }
+	void opengl_surface::_set_width(dimension_type value) { }
+	void opengl_surface::_set_height(dimension_type value) { }
 
 	void opengl_surface::_set_clear_color(color value) { }
 }

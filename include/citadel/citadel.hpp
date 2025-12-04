@@ -106,6 +106,9 @@
 #include "citadel/rendering/cameras/orthographic_camera.hpp"
 #include "citadel/rendering/cameras/perspective_camera.hpp"
 
+#include "citadel/rendering/indices/index.hpp"
+#include "citadel/rendering/indices/index_buffer.hpp"
+
 #include "citadel/rendering/materials/material.hpp"
 
 #include "citadel/rendering/meshes/mesh.hpp"
@@ -121,7 +124,6 @@
 #include "citadel/rendering/textures/texture.hpp"
 #include "citadel/rendering/textures/texture_2d.hpp"
 
-#include "citadel/rendering/vertices/index_buffer.hpp"
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer.hpp"

@@ -35,11 +35,11 @@ namespace citadel {
 		return image_.get_channel_count();
 	}
 
-	image::dimension texture::get_width() const noexcept {
+	image::dimension_type texture::get_width() const noexcept {
 		return image_.get_width();
 	}
 
-	image::dimension texture::get_height() const noexcept {
+	image::dimension_type texture::get_height() const noexcept {
 		return image_.get_height();
 	}
 }

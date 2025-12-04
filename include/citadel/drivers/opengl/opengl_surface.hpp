@@ -21,8 +21,8 @@
 namespace citadel {
 	class exported opengl_surface : public surface {
 	public:
-		opengl_surface(dimension x, dimension y, dimension width, dimension height, color clear_color);
-		opengl_surface(dimension width, dimension height, color clear_color);
+		opengl_surface(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		opengl_surface(dimension_type width, dimension_type height, color clear_color);
 
 		virtual ~opengl_surface() override = default;
 
@@ -33,11 +33,11 @@ namespace citadel {
 		virtual void _clear() override;
 		virtual void _present() override;
 
-		virtual void _set_x(dimension value) override;
-		virtual void _set_y(dimension value) override;
+		virtual void _set_x(dimension_type value) override;
+		virtual void _set_y(dimension_type value) override;
 
-		virtual void _set_width(dimension value) override;
-		virtual void _set_height(dimension value) override;
+		virtual void _set_width(dimension_type value) override;
+		virtual void _set_height(dimension_type value) override;
 
 		virtual void _set_clear_color(color value) override;
 	};

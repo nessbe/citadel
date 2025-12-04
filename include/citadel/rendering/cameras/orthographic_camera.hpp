@@ -26,11 +26,11 @@
 namespace citadel {
 	class exported orthographic_camera : public camera {
 	public:
-		using dimension = std::uint32_t;
+		using dimension_type = std::uint32_t;
 
 	public:
 		orthographic_camera(float left, float right, float bottom, float top);
-		orthographic_camera(dimension width, dimension height);
+		orthographic_camera(dimension_type width, dimension_type height);
 
 		nodisc float get_left() const noexcept;
 		void set_left(float value) noexcept;
@@ -51,7 +51,7 @@ namespace citadel {
 		float left_, right_, bottom_, top_;
 
 	private:
-		virtual void _set_projection(dimension width, dimension height) override;
+		virtual void _set_projection(dimension_type width, dimension_type height) override;
 		nodisc virtual mat4 _get_projection() const override;
 	};
 }

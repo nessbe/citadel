@@ -55,7 +55,7 @@ namespace citadel {
 		return *this;
 	}
 
-	opengl_vertex_buffer::id opengl_vertex_buffer::get_id() const noexcept {
+	opengl_vertex_buffer::id_type opengl_vertex_buffer::get_id() const noexcept {
 		return id_;
 	}
 

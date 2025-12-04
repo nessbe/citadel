@@ -38,19 +38,18 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported window {
 	public:
-		using dimension = std::uint32_t;
-
-		using clock = std::chrono::high_resolution_clock;
+		using dimension_type = std::uint32_t;
+		using clock_type = std::chrono::high_resolution_clock;
 
 	public:
-		nodisc static scope<window> create(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		nodisc static scope<window> create(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		nodisc static scope<window> create(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
 
-		nodisc static scope<window> create(dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		nodisc static scope<window> create(dimension width, dimension height, const std::string& title);
+		nodisc static scope<window> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		nodisc static scope<window> create(dimension_type width, dimension_type height, const std::string& title);
 
-		window(rendering_api_type rendering_api, dimension x, dimension y, dimension width, dimension height, const std::string& title);
-		window(rendering_api_type rendering_api, dimension width, dimension height, const std::string& title);
+		window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
 
 		virtual ~window() = default;
 
@@ -78,17 +77,17 @@ namespace citadel {
 		nodisc surface& get_surface() const;
 		nodisc rendering_context& get_rendering_context() const;
 
-		nodisc dimension get_x() const noexcept;
-		void set_x(dimension value);
+		nodisc dimension_type get_x() const noexcept;
+		void set_x(dimension_type value);
 
-		nodisc dimension get_y() const noexcept;
-		void set_y(dimension value);
+		nodisc dimension_type get_y() const noexcept;
+		void set_y(dimension_type value);
 
-		nodisc dimension get_width() const noexcept;
-		void set_width(dimension value);
+		nodisc dimension_type get_width() const noexcept;
+		void set_width(dimension_type value);
 
-		nodisc dimension get_height() const noexcept;
-		void set_height(dimension value);
+		nodisc dimension_type get_height() const noexcept;
+		void set_height(dimension_type value);
 
 		nodisc bool is_vsync() const noexcept;
 		void set_vsync(bool value);
@@ -97,7 +96,7 @@ namespace citadel {
 		nodisc bool is_visible() const noexcept;
 
 	protected:
-		dimension x_, y_, width_, height_;		
+		dimension_type x_, y_, width_, height_;		
 
 	private:
 		std::string title_;
@@ -106,7 +105,7 @@ namespace citadel {
 		scope<surface> surface_;
 		scope<rendering_context> rendering_context_;
 
-		clock::time_point last_frame_;
+		clock_type::time_point last_frame_;
 
 		bool is_vsync_ = false;
 
@@ -132,10 +131,10 @@ namespace citadel {
 
 		virtual void _set_title(const std::string& value) = 0;
 
-		virtual void _set_x(dimension value) = 0;
-		virtual void _set_y(dimension value) = 0;
-		virtual void _set_width(dimension value) = 0;
-		virtual void _set_height(dimension value) = 0;
+		virtual void _set_x(dimension_type value) = 0;
+		virtual void _set_y(dimension_type value) = 0;
+		virtual void _set_width(dimension_type value) = 0;
+		virtual void _set_height(dimension_type value) = 0;
 
 		virtual void _set_vsync(bool value) = 0;
 	};

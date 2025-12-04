@@ -28,10 +28,10 @@
 namespace citadel {
 	class exported binary_reader : public reader {
 	public:
-		using dynamic_buffer = std::vector<std::uint8_t>;
+		using dynamic_buffer_type = std::vector<std::uint8_t>;
 
 		template <stream::size_type N>
-		using static_buffer = std::array<std::uint8_t, N>;
+		using static_buffer_type = std::array<std::uint8_t, N>;
 
 	public:
 		explicit binary_reader(const reference<class stream>& stream);
@@ -48,10 +48,10 @@ namespace citadel {
 		std::int64_t read_int64();
 		std::uint64_t read_uint64();
 
-		dynamic_buffer read_dynamic_buffer(stream::size_type size);
+		dynamic_buffer_type read_dynamic_buffer(stream::size_type size);
 
 		template <stream::size_type N>
-		static_buffer<N> read_static_buffer();
+		static_buffer_type<N> read_static_buffer();
 	};
 }
 

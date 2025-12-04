@@ -61,6 +61,10 @@ namespace citadel {
 		return *this;
 	}
 
+	opengl_index_buffer::id_type opengl_index_buffer::get_id() const noexcept {
+		return id_;
+	}
+
 	void opengl_index_buffer::_bind() {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_);
 	}

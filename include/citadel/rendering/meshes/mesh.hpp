@@ -26,6 +26,8 @@
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 
+#include "citadel/rendering/indices/index.hpp"
+
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
@@ -33,11 +35,11 @@
 namespace citadel {
 	class exported mesh {
 	public:
-		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
-		mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index_buffer::index>& indices);
+		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices);
+		mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices);
 
-		mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
-		mesh(const std::vector<vertex>& vertices, const std::vector<index_buffer::index>& indices);
+		mesh(rendering_api_type api, const std::vector<vertex>& vertices, const std::vector<index>& indices);
+		mesh(const std::vector<vertex>& vertices, const std::vector<index>& indices);
 
 		~mesh();
 

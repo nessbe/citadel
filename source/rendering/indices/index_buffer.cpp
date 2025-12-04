@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/rendering/vertices/index_buffer.hpp"
+#include "citadel/rendering/indices/index_buffer.hpp"
 
 #include "citadel/rendering/render_command.hpp"
 
@@ -86,11 +86,11 @@ CITADEL_WARNING_IGNORE_POP
 		indices_.assign(data, data + size);
 	}
 
-	index_buffer::index* index_buffer::data() noexcept {
+	index* index_buffer::data() noexcept {
 		return indices_.data();
 	}
 
-	const index_buffer::index* index_buffer::data() const noexcept {
+	const index* index_buffer::data() const noexcept {
 		return indices_.data();
 	}
 

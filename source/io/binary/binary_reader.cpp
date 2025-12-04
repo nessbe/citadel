@@ -67,7 +67,7 @@ namespace citadel {
 		return value;
 	}
 
-	typename binary_reader::dynamic_buffer binary_reader::read_dynamic_buffer(stream::size_type size) {
+	typename binary_reader::dynamic_buffer_type binary_reader::read_dynamic_buffer(stream::size_type size) {
 		std::vector<std::uint8_t> buffer(static_cast<std::size_t>(size));
 		stream().read(buffer.data(), size);
 		return buffer;

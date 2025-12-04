@@ -16,7 +16,7 @@
 
 namespace citadel {
 	template <stream::size_type N>
-	typename binary_reader::static_buffer<N> binary_reader::read_static_buffer() {
+	typename binary_reader::static_buffer_type<N> binary_reader::read_static_buffer() {
 		std::array<std::uint8_t, N> buffer;
 		stream().read(buffer.data(), N);
 		return buffer;

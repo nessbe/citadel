@@ -26,7 +26,7 @@ namespace citadel {
 		return transform.inverse();
 	}
 
-	void camera::set_projection(dimension width, dimension height) {
+	void camera::set_projection(dimension_type width, dimension_type height) {
 		_set_projection(width, height);
 	}
 

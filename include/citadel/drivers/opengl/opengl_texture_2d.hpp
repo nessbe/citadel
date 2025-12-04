@@ -28,7 +28,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported opengl_texture_2d : public texture_2d {
 	public:
-		using id = GLuint;
+		using id_type = GLuint;
 
 	public:
 		opengl_texture_2d(const image& image);
@@ -40,10 +40,10 @@ namespace citadel {
 		opengl_texture_2d(opengl_texture_2d&& other) noexcept;
 		opengl_texture_2d& operator=(opengl_texture_2d&& other) noexcept;
 
-		nodisc id get_id() const noexcept;
+		nodisc id_type get_id() const noexcept;
 
 	private:
-		id id_ = 0;
+		id_type id_ = 0;
 
 		GLuint internal_format_, data_format_;
 

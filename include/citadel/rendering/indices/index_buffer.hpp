@@ -25,11 +25,10 @@
 
 #include "citadel/rendering/rendering_api_type.hpp"
 
+#include "citadel/rendering/indices/index.hpp"
+
 namespace citadel {
 	class exported index_buffer {
-	public:
-		using index = std::uint32_t;
-
 	public:
 		nodisc static reference<index_buffer> create(rendering_api_type api, const std::vector<index>& indices);
 		nodisc static reference<index_buffer> create(rendering_api_type api, const index* data, std::size_t size);

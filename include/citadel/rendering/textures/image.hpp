@@ -24,29 +24,31 @@
 namespace citadel {
 	class exported image {
 	public:
-		using dimension = std::uint32_t;
-
-		using channel = std::uint8_t;
-		using buffer = std::vector<channel>;
+		using dimension_type = std::uint32_t;
+		using channel_type = std::uint8_t;
+		using buffer_type = std::vector<channel_type>;
 
 	public:
-		image(dimension width, dimension height, std::size_t channel_count, const buffer& data);
-		image(dimension width, dimension height, std::size_t channel_count, std::initializer_list<channel> data);
-		image(dimension width, dimension height, std::size_t channel_count);
+		image(dimension_type width, dimension_type height, std::size_t channel_count, const buffer_type& data);
+		image(dimension_type width, dimension_type height, std::size_t channel_count, std::initializer_list<channel_type> data);
+		image(dimension_type width, dimension_type height, std::size_t channel_count);
 
 		nodisc std::size_t size() const noexcept;
 
-		nodisc buffer& data() noexcept;
-		nodisc const buffer& data() const noexcept;
+		nodisc buffer_type& data() noexcept;
+		nodisc const buffer_type& data() const noexcept;
+
+		nodisc channel_type* raw() noexcept;
+		nodisc const channel_type* raw() const noexcept;
 
 		nodisc std::size_t get_channel_count() const noexcept;
 
-		nodisc dimension get_width() const noexcept;
-		nodisc dimension get_height() const noexcept;
+		nodisc dimension_type get_width() const noexcept;
+		nodisc dimension_type get_height() const noexcept;
 
 	private:
-		buffer data_;
+		buffer_type data_;
 		std::size_t channel_count_;
-		dimension width_, height_;
+		dimension_type width_, height_;
 	};
 }

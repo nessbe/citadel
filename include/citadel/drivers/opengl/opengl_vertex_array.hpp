@@ -32,7 +32,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported opengl_vertex_array : public vertex_array {
 	public:
-		using id = GLuint;
+		using id_type = GLuint;
 
 	public:
 		opengl_vertex_array();
@@ -44,11 +44,11 @@ namespace citadel {
 		opengl_vertex_array(opengl_vertex_array&& other) noexcept;
 		opengl_vertex_array& operator=(opengl_vertex_array&& other) noexcept;
 
-		nodisc id get_id() const noexcept;
+		nodisc id_type get_id() const noexcept;
 
 	private:
 		std::size_t vertex_buffer_index_;
-		id id_ = 0;
+		id_type id_ = 0;
 
 	private:
 		virtual void _bind() override;

@@ -15,7 +15,7 @@
 #include "citadel/pch.hpp"
 #include "citadel/drivers/opengl/opengl_rendering_api.hpp"
 
-#include "citadel/rendering/vertices/index_buffer.hpp"
+#include "citadel/rendering/indices/index_buffer.hpp"
 
 namespace citadel {
 	opengl_rendering_api::opengl_rendering_api(rendering_api_type api)

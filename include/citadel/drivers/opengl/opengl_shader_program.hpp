@@ -32,7 +32,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported opengl_shader_program : public shader_program {
 	public:
-		using id = GLuint;
+		using id_type = GLuint;
 
 	public:
 		opengl_shader_program(const std::string& name);
@@ -44,10 +44,10 @@ namespace citadel {
 		opengl_shader_program(opengl_shader_program&& other) noexcept;
 		opengl_shader_program& operator=(opengl_shader_program&& other) noexcept;
 
-		nodisc id get_id() const noexcept;
+		nodisc id_type get_id() const noexcept;
 
 	private:
-		id id_ = 0;
+		id_type id_ = 0;
 
 	private:
 		virtual bool _link() override;
