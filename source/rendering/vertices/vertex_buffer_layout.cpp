@@ -16,10 +16,42 @@
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 namespace citadel {
+	vertex_buffer_layout vertex_buffer_layout::begin() {
+		return vertex_buffer_layout();
+	}
+
+	vertex_buffer_layout vertex_buffer_layout::begin(std::size_t size) {
+		return vertex_buffer_layout(size);
+	}
+
+	vertex_buffer_layout::vertex_buffer_layout(std::size_t size)
+		: stride_(0)
+	{
+		elements_.reserve(size);
+	}
+
 	vertex_buffer_layout::vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements)
 		: elements_(elements), stride_(0)
 	{
 		update_layout();
+	}
+
+	vertex_buffer_layout& vertex_buffer_layout::add(const vertex_buffer_element& element) {
+		elements_.push_back(element);
+		return *this;
+	}
+
+	vertex_buffer_layout& vertex_buffer_layout::add(const std::string& name, shader_data_type data_type, bool normalized) {
+		return add({ name, data_type, normalized });
+	}
+
+	vertex_buffer_layout& vertex_buffer_layout::add(const std::string& name, shader_data_type data_type) {
+		return add(name, data_type, false);
+	}
+
+	vertex_buffer_layout& vertex_buffer_layout::end() {
+		update_layout();
+		return *this;
 	}
 
 	const std::vector<vertex_buffer_element>& vertex_buffer_layout::get_elements() const noexcept {

@@ -15,6 +15,7 @@
 #pragma once
 
 #include <initializer_list>
+#include <string>
 #include <vector>
 
 #include "citadel/attributes.hpp"
@@ -22,18 +23,29 @@
 #include "citadel/utility.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/rendering/shaders/shader_data_type.hpp"
+
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
 
 namespace citadel {
 	class exported vertex_buffer_layout {
 	public:
+		nodisc static vertex_buffer_layout begin();
+		nodisc static vertex_buffer_layout begin(std::size_t size);
+
 		vertex_buffer_layout() = default;
+
+		vertex_buffer_layout(std::size_t size);
 		vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements);
+
+		nodisc vertex_buffer_layout& add(const vertex_buffer_element& element);
+		nodisc vertex_buffer_layout& add(const std::string& name, shader_data_type data_type, bool normalized);
+		nodisc vertex_buffer_layout& add(const std::string& name, shader_data_type data_type);
+
+		vertex_buffer_layout& end();
 
 		nodisc const std::vector<vertex_buffer_element>& get_elements() const noexcept;
 		nodisc std::size_t get_stride() const noexcept;
-
-		CITADEL_VECTOR_ITERATOR_WRAPPER(vertex_buffer_element, elements_)
 
 	private:
 		std::vector<vertex_buffer_element> elements_;

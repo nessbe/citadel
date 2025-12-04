@@ -72,7 +72,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 			const vertex_buffer_layout& buffer_layout = CITADEL_POINTER_CALL_RAW(buffer, get_layout);
 			std::size_t buffer_layout_stride = buffer_layout.get_stride();
 
-			for (const vertex_buffer_element& buffer_element : buffer_layout) {
+			for (const vertex_buffer_element& buffer_element : buffer_layout.get_elements()) {
 				switch (buffer_element.data_type) {
 				case shader_data_type::type_bool:
 				case shader_data_type::type_int:

@@ -73,9 +73,9 @@ namespace citadel {
 		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 
-	vertex_buffer_layout mesh::default_layout_ = {
-		{ "position", shader_data_type::type_vec3, false },
-		{ "normal", shader_data_type::type_vec3, false },
-		{ "uv", shader_data_type::type_vec2, true },
-	};
+	vertex_buffer_layout mesh::default_layout_ = vertex_buffer_layout::begin(3)
+		.add("position", shader_data_type::type_vec3)
+		.add("normal", shader_data_type::type_vec3)
+		.add("uv", shader_data_type::type_vec2)
+		.end();
 }
