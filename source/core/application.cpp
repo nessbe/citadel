@@ -26,11 +26,11 @@ namespace citadel {
 		_initialize();
 	}
 
-	exit_code::enumeration application::run() {
-		exit_code::enumeration engine_exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(engine_, run, exit_code::failure);
-		exit_code::enumeration application_exit_code = _run();
+	exit_code application::run() {
+		exit_code engine_exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(engine_, run, exit_code::failure);
+		exit_code application_exit_code = _run();
 
-		exit_code::enumeration exit_code = static_cast<exit_code::enumeration>(engine_exit_code | application_exit_code);
+		exit_code exit_code = static_cast<enum class exit_code>(engine_exit_code | application_exit_code);
 
 		return exit_code;
 	}
@@ -41,7 +41,7 @@ namespace citadel {
 		engine_ = nullptr;
 	}
 
-	void application::exit(exit_code::enumeration code) {
+	void application::exit(exit_code code) {
 		shutdown();
 		std::exit(static_cast<int>(code));
 	}

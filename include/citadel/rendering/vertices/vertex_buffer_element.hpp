@@ -33,11 +33,11 @@ namespace citadel {
 
 	public:
 		std::string name;
-		shader_data_type::enumeration data_type;
+		shader_data_type data_type;
 		bool normalized;
 
 	public:
-		vertex_buffer_element(const std::string& name, shader_data_type::enumeration data_type, bool normalized);
+		vertex_buffer_element(const std::string& name, shader_data_type data_type, bool normalized);
 
 		nodisc std::size_t size() const noexcept;
 		nodisc std::size_t component_count() const noexcept;

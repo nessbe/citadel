@@ -16,34 +16,10 @@
 #include "citadel/drivers/opengl/opengl_shader.hpp"
 
 namespace citadel {
-
-CITADEL_WARNING_IGNORE_PUSH
-CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
-
-	opengl_shader::native_type opengl_shader::to_native_type(shader_type type) noexcept {
-		switch (type) {
-		case shader_type::none:
-			CITADEL_PANIC("Shader type cannot be none");
-			return 0;
-
-		case shader_type::vertex:
-			return GL_VERTEX_SHADER;
-
-		case shader_type::fragment:
-			return GL_FRAGMENT_SHADER;
-
-		default:
-			CITADEL_PANIC("The given is shader type is not yet supported for OpenGL");
-			return 0;
-		}
-	}
-
-CITADEL_WARNING_IGNORE_POP
-
 	opengl_shader::opengl_shader(const std::string& name, shader_type type, const std::string& source)
 		: shader(name, type, source)
 	{
-		id_ = glCreateShader(get_native_type());
+		id_ = glCreateShader(get_opengl_type());
 		CITADEL_SOFT_ASSERT(id_, "Failed to create OpenGL shader");
 
 		const char* raw_source = source.c_str();
@@ -79,8 +55,8 @@ CITADEL_WARNING_IGNORE_POP
 		return id_;
 	}
 
-	opengl_shader::native_type opengl_shader::get_native_type() const noexcept {
-		return to_native_type(get_type());
+	GLenum opengl_shader::get_opengl_type() const noexcept {
+		return shader_type_to_opengl(get_type());
 	}
 
 	bool opengl_shader::_compile() {

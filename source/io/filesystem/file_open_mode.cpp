@@ -16,47 +16,45 @@
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
 namespace citadel {
-	namespace file_open_mode {
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
-		std::ios::openmode to_stl(enumeration value) {
-			switch (value) {
-			case read:
-				return std::ios::in;
+	std::ios::openmode file_open_mode_to_stl(file_open_mode value) noexcept {
+		switch (value) {
+		case file_open_mode::read:
+			return std::ios::in;
 
-			case write:
-				return std::ios::out | std::ios::trunc;
+		case file_open_mode::write:
+			return std::ios::out | std::ios::trunc;
 
-			case read_write:
-				return std::ios::in | std::ios::out;
+		case file_open_mode::read_write:
+			return std::ios::in | std::ios::out;
 
-			case write_read:
-				return std::ios::in | std::ios::out | std::ios::trunc;
+		case file_open_mode::write_read:
+			return std::ios::in | std::ios::out | std::ios::trunc;
 
-			default:
-				CITADEL_PANIC("Unknown file open mode");
-				return std::ios::in;
-			}
+		default:
+			CITADEL_PANIC("Unknown file open mode");
+			return std::ios::in;
 		}
+	}
 
 CITADEL_WARNING_IGNORE_POP
 
-		bool use_read(enumeration value) {
-			return (
-				value == read ||
-				value == read_write ||
-				value == write_read
-			);
-		}
+	bool file_open_mode_use_read(file_open_mode value) noexcept {
+		return (
+			value == file_open_mode::read ||
+			value == file_open_mode::read_write ||
+			value == file_open_mode:: write_read
+		);
+	}
 
-		bool use_write(enumeration value) {
-			return (
-				value == write ||
-				value == write_read ||
-				value == read_write
-			);
-		}
+	bool file_open_mode_use_write(file_open_mode value) noexcept {
+		return (
+			value == file_open_mode::write ||
+			value == file_open_mode::write_read ||
+			value == file_open_mode::read_write
+		);
 	}
 }

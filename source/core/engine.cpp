@@ -18,7 +18,7 @@
 namespace citadel {
 	void engine::initialize() { }
 
-	exit_code::enumeration engine::run() {
+	exit_code engine::run() {
 		return exit_code::success;
 	}
 

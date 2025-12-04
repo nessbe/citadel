@@ -33,7 +33,7 @@ namespace citadel {
 		nodisc const std::vector<vertex_buffer_element>& get_elements() const noexcept;
 		nodisc std::size_t get_stride() const noexcept;
 
-		CITADEL_VECTOR_ITERATOR_WRAPPER(vertex_buffer_element, elements_);
+		CITADEL_VECTOR_ITERATOR_WRAPPER(vertex_buffer_element, elements_)
 
 	private:
 		std::vector<vertex_buffer_element> elements_;

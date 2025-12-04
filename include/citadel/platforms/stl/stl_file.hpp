@@ -27,7 +27,7 @@
 namespace citadel {
 	class exported stl_file : public file {
 	public:
-		stl_file(const std::string& path, file_open_mode::enumeration mode);
+		stl_file(const std::string& path, file_open_mode mode);
 		virtual ~stl_file() override;
 
 		stl_file(const stl_file&) = delete;
@@ -46,7 +46,7 @@ namespace citadel {
 		nodisc virtual int _peek() override;
 
 		virtual bool _seek(position_type position) override;
-		virtual bool _seek(offset_type offset, stream_direction_t direction) override;
+		virtual bool _seek(offset_type offset, stream_direction direction) override;
 
 		virtual void _flush() override;
 

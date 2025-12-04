@@ -23,29 +23,24 @@
 #include "citadel/drivers/opengl.hpp"
 
 namespace citadel {
-	enum shader_data_type_enumeration {
-		shader_data_type_unknown = 0,
-		shader_data_type_bool,
-		shader_data_type_int,
-		shader_data_type_ivec2,
-		shader_data_type_ivec3,
-		shader_data_type_ivec4,
-		shader_data_type_float,
-		shader_data_type_vec2,
-		shader_data_type_vec3,
-		shader_data_type_vec4,
-		shader_data_type_mat3,
-		shader_data_type_mat4,
+	enum class shader_data_type : std::uint8_t {
+		unknown = 0,
+		type_bool,
+		type_int,
+		type_ivec2,
+		type_ivec3,
+		type_ivec4,
+		type_float,
+		type_vec2,
+		type_vec3,
+		type_vec4,
+		type_mat3,
+		type_mat4,
 	};
 
-	namespace shader_data_type {
-		using type = std::uint8_t;
-		using enumeration = shader_data_type_enumeration;
+	nodisc exported std::size_t shader_data_type_size(shader_data_type value) noexcept;
+	nodisc exported std::size_t shader_data_type_component_count(shader_data_type value) noexcept;
 
-		nodisc exported std::size_t size(enumeration value) noexcept;
-		nodisc exported std::size_t component_count(enumeration value) noexcept;
-
-		nodisc exported enumeration from_opengl(GLenum value) noexcept;
-		nodisc exported GLenum to_opengl(enumeration value) noexcept;
-	}
+	nodisc exported shader_data_type shader_data_type_from_opengl(GLenum value) noexcept;
+	nodisc exported GLenum shader_data_type_to_opengl(shader_data_type value) noexcept;
 }

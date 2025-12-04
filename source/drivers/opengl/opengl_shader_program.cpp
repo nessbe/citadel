@@ -192,7 +192,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 			uniform_info uniform = {
 				uniform_name,
-				shader_data_type::from_opengl(uniform_type),
+				shader_data_type_from_opengl(uniform_type),
 				static_cast<std::size_t>(uniform_size),
 				static_cast<std::uint32_t>(uniform_location)
 			};

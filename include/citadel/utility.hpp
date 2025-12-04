@@ -31,3 +31,42 @@
 	::std::vector<type>::const_iterator cend() const noexcept { return property.cend(); }               \
 	::std::vector<type>::const_reverse_iterator crbegin() const noexcept { return property.crbegin(); } \
 	::std::vector<type>::const_reverse_iterator crend() const noexcept { return property.crend(); }
+
+#define CITADEL_BITWISE_OPERATORS_WRAPPER(type)                              \
+	inline constexpr type operator|(type left, type right) noexcept {    \
+	    return static_cast<type>(                                        \
+		static_cast<::std::underlying_type_t<type>>(left) |          \
+		static_cast<::std::underlying_type_t<type>>(right));         \
+	}                                                                    \
+									     \
+	inline constexpr type& operator|=(type& left, type right) noexcept { \
+	    left = left | right;                                             \
+	    return left;                                                     \
+	}                                                                    \
+									     \
+	inline constexpr type operator&(type left, type right) noexcept {    \
+	    return static_cast<type>(                                        \
+		static_cast<::std::underlying_type_t<type>>(left) &          \
+		static_cast<::std::underlying_type_t<type>>(right));         \
+	}                                                                    \
+									     \
+	inline constexpr type& operator&=(type& left, type right) noexcept { \
+	    left = left & right;                                             \
+	    return left;                                                     \
+	}                                                                    \
+									     \
+	inline constexpr type operator^(type left, type right) noexcept {    \
+	    return static_cast<type>(                                        \
+		static_cast<::std::underlying_type_t<type>>(left) ^          \
+		static_cast<::std::underlying_type_t<type>>(right));         \
+	}                                                                    \
+									     \
+	inline constexpr type& operator^=(type& left, type right) noexcept { \
+	    left = left ^ right;                                             \
+	    return left;                                                     \
+	}                                                                    \
+									     \
+	inline constexpr type operator~(type left) noexcept {                \
+	    return static_cast<type>(                                        \
+		~static_cast<::std::underlying_type_t<type>>(left));         \
+	}

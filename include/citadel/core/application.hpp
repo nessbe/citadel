@@ -41,10 +41,10 @@ namespace citadel {
 		application & operator=(const application&) = delete;
 
 		void initialize();
-		exit_code::enumeration run();
+		exit_code run();
 		void shutdown();
 
-		noret void exit(exit_code::enumeration code);
+		noret void exit(exit_code code);
 
 		nodisc std::size_t get_error_level() const noexcept;
 		void notify_error() noexcept;
@@ -60,7 +60,7 @@ namespace citadel {
 
 	private:
 		virtual void _initialize() = 0;
-		virtual exit_code::enumeration _run() = 0;
+		virtual exit_code _run() = 0;
 		virtual void _shutdown() = 0;
 	};
 

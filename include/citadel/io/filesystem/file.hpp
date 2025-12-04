@@ -35,19 +35,19 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported file : public stream {
 	public:
-		nodisc static reference<file> create(const std::string& path, file_open_mode::enumeration open_mode);
+		nodisc static reference<file> create(const std::string& path, file_open_mode open_mode);
 
-		file(const std::string& path, file_open_mode::enumeration open_mode);
+		file(const std::string& path, file_open_mode open_mode);
 		virtual ~file() override = default;
 
 		nodisc void* get_native_handle() const;
 
 		nodisc const std::string& get_path() const noexcept;
-		nodisc file_open_mode::enumeration get_open_mode() const noexcept;
+		nodisc file_open_mode get_open_mode() const noexcept;
 
 	private:
 		std::string path_;
-		file_open_mode::enumeration open_mode_;
+		file_open_mode open_mode_;
 
 	private:
 		nodisc virtual void* _get_native_handle() const = 0;

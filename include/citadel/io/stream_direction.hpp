@@ -14,19 +14,18 @@
 
 #pragma once
 
+#include <cinttypes>
 #include <ios>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 namespace citadel {
-	enum class stream_direction_t {
+	enum class stream_direction : std::uint8_t {
 		begin = 0,
 		current,
 		end,
 	};
 
-	namespace stream_direction {
-		nodisc exported std::ios::seekdir to_stl(stream_direction_t value);
-	}
+	nodisc exported std::ios::seekdir stream_direction_to_stl(stream_direction value);
 }

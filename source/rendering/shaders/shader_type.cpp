@@ -1,4 +1,4 @@
-// File:       stream_direction.cpp
+// File:       shader_type.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,27 +13,29 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/io/stream_direction.hpp"
+#include "citadel/rendering/shaders/shader_type.hpp"
 
 namespace citadel {
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	std::ios::seekdir stream_direction_to_stl(stream_direction value) {
+	GLenum shader_type_to_opengl(shader_type value) noexcept
+	{
 		switch (value) {
-		case stream_direction::begin:
-			return std::ios::beg;
+		case shader_type::none:
+			CITADEL_PANIC("Shader type cannot be none");
+			return 0;
 
-		case stream_direction::current:
-			return std::ios::cur;
+		case shader_type::vertex:
+			return GL_VERTEX_SHADER;
 
-		case stream_direction::end:
-			return std::ios::end;
+		case shader_type::fragment:
+			return GL_FRAGMENT_SHADER;
 
 		default:
-			CITADEL_PANIC("Unknown stream direction");
-			return std::ios::cur;
+			CITADEL_PANIC("The given is shader type is not yet supported for OpenGL");
+			return 0;
 		}
 	}
 

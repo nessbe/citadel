@@ -18,11 +18,11 @@
 #include "citadel/platforms/stl/stl_file.hpp"
 
 namespace citadel {
-	reference<file> file::create(const std::string& path, file_open_mode::enumeration open_mode) {
+	reference<file> file::create(const std::string& path, file_open_mode open_mode) {
 		return make_referenced<stl_file>(path, open_mode);
 	}
 
-	file::file(const std::string& path, file_open_mode::enumeration open_mode)
+	file::file(const std::string& path, file_open_mode open_mode)
 		: path_(path), open_mode_(open_mode){ }
 
 	void* file::get_native_handle() const {
@@ -33,7 +33,7 @@ namespace citadel {
 		return path_;
 	}
 
-	file_open_mode::enumeration file::get_open_mode() const noexcept {
+	file_open_mode file::get_open_mode() const noexcept {
 		return open_mode_;
 	}
 }

@@ -40,7 +40,7 @@ namespace citadel {
 		return _seek(position);
 	}
 
-	bool stream::seek(offset_type offset, stream_direction_t direction) {
+	bool stream::seek(offset_type offset, stream_direction direction) {
 		return _seek(offset, direction);
 	}
 

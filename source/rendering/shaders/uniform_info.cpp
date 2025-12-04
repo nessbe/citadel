@@ -16,6 +16,6 @@
 #include "citadel/rendering/shaders/uniform_info.hpp"
 
 namespace citadel {
-	uniform_info::uniform_info(const std::string& name, shader_data_type::enumeration type, std::size_t size, std::uint32_t location)
+	uniform_info::uniform_info(const std::string& name, shader_data_type type, std::size_t size, std::uint32_t location)
 		: name(name), size(size), type(type), location(location) { }
 }

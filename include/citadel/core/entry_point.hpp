@@ -30,7 +30,7 @@ namespace citadel {
 		application::instance_ = application;
 		CITADEL_POINTER_CALL(application, initialize);
 
-		exit_code::enumeration exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(application, run, exit_code::failure);
+		exit_code exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(application, run, exit_code::failure);
 		CITADEL_POINTER_CALL(application, shutdown);
 
 		application::instance_ = nullptr;

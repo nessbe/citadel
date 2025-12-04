@@ -14,9 +14,11 @@
 
 #pragma once
 
+#include <cinttypes>
+
 namespace citadel {
-	enum class rendering_api_type {
+	enum class rendering_api_type : std::uint8_t {
 		none = 0,
-		opengl
+		opengl,
 	};
 }

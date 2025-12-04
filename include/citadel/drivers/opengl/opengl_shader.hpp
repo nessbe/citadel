@@ -29,11 +29,8 @@ namespace citadel {
 	class exported opengl_shader : public shader {
 	public:
 		using id = GLuint;
-		using native_type = GLenum;
 
 	public:
-		static native_type to_native_type(shader_type type) noexcept;
-
 		opengl_shader(const std::string& name, shader_type type, const std::string& source);
 		opengl_shader(const std::string& name, shader_type type);
 
@@ -46,7 +43,7 @@ namespace citadel {
 		opengl_shader& operator=(opengl_shader&& other) noexcept;
 
 		nodisc id get_id() const noexcept;
-		nodisc native_type get_native_type() const noexcept;
+		nodisc GLenum get_opengl_type() const noexcept;
 
 	private:
 		id id_ = 0;

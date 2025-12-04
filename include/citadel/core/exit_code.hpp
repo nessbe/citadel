@@ -17,13 +17,13 @@
 #include <cinttypes>
 #include <cstdlib>
 
-namespace citadel {
-	namespace exit_code {
-		using type = std::uint8_t;
+#include "citadel/utility.hpp"
 
-		enum enumeration : type {
-			success = EXIT_SUCCESS,
-			failure = EXIT_FAILURE,
-		};
-	}
+namespace citadel {
+	enum class exit_code : std::uint8_t {
+		success = EXIT_SUCCESS,
+		failure = EXIT_FAILURE,
+	};
+
+	CITADEL_BITWISE_OPERATORS_WRAPPER(exit_code)
 }

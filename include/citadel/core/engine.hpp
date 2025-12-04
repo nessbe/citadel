@@ -25,7 +25,7 @@ namespace citadel {
 		~engine() = default;
 
 		void initialize();
-		exit_code::enumeration run();
+		exit_code run();
 		void shutdown();
 	};
 }

@@ -21,19 +21,15 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	namespace file_open_mode {
-		using type = std::uint8_t;
+	enum class file_open_mode : std::uint8_t {
+		read = 0,
+		write,
+		read_write,
+		write_read,
+	};
 
-		enum enumeration : type {
-			read = 0,
-			write,
-			read_write,
-			write_read,
-		};
+	nodisc exported std::ios::openmode file_open_mode_to_stl(file_open_mode value) noexcept;
 
-		nodisc exported std::ios::openmode to_stl(enumeration value);
-
-		nodisc exported bool use_read(enumeration value);
-		nodisc exported bool use_write(enumeration value);
-	}
+	nodisc exported bool file_open_mode_use_read(file_open_mode value) noexcept;
+	nodisc exported bool file_open_mode_use_write(file_open_mode value) noexcept;
 }

@@ -40,7 +40,7 @@ namespace citadel {
 		nodisc int peek();
 
 		bool seek(position_type position);
-		bool seek(offset_type offset, stream_direction_t direction);
+		bool seek(offset_type offset, stream_direction direction);
 
 		void flush();
 
@@ -57,7 +57,7 @@ namespace citadel {
 		nodisc virtual int _peek() = 0;
 
 		virtual bool _seek(position_type position) = 0;
-		virtual bool _seek(offset_type offset, stream_direction_t direction) = 0;
+		virtual bool _seek(offset_type offset, stream_direction direction) = 0;
 
 		virtual void _flush() = 0;
 

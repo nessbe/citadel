@@ -14,10 +14,17 @@
 
 #pragma once
 
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
+
+#include "citadel/drivers/opengl.hpp"
+
 namespace citadel {
-	enum class shader_type {
+	enum class shader_type : std::uint8_t {
 		none = 0,
 		vertex,
 		fragment,
 	};
+
+	nodisc exported GLenum shader_type_to_opengl(shader_type type) noexcept;
 }

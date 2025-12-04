@@ -27,9 +27,9 @@ namespace citadel {
 	public:
 		std::string name;
 		std::size_t size;
-		shader_data_type::enumeration type;
+		shader_data_type type;
 		std::uint32_t location;
 
-		uniform_info(const std::string& name, shader_data_type::enumeration type, std::size_t size, std::uint32_t location);
+		uniform_info(const std::string& name, shader_data_type type, std::size_t size, std::uint32_t location);
 	};
 }

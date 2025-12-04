@@ -67,51 +67,51 @@ namespace citadel {
 		for (const auto& [uniform_name, uniform] : uniforms) {
 
 			switch (uniform.type) {
-			case shader_data_type_bool:
+			case shader_data_type::type_bool:
 				bool_uniforms_[uniform_name] = false;
 				break;
 
-			case shader_data_type_int:
+			case shader_data_type::type_int:
 				int_uniforms_[uniform_name] = 0;
 				break;
 
-			case shader_data_type_ivec2:
+			case shader_data_type::type_ivec2:
 				ivec2_uniforms_[uniform_name] = ivec2(0, 0);
 				break;
 
-			case shader_data_type_ivec3:
+			case shader_data_type::type_ivec3:
 				ivec3_uniforms_[uniform_name] = ivec3(0, 0, 0);
 				break;
 
-			case shader_data_type_ivec4:
+			case shader_data_type::type_ivec4:
 				ivec4_uniforms_[uniform_name] = ivec4(0, 0, 0, 0);
 				break;
 
-			case shader_data_type_float:
+			case shader_data_type::type_float:
 				float_uniforms_[uniform_name] = 0.0f;
 				break;
 
-			case shader_data_type_vec2:
+			case shader_data_type::type_vec2:
 				vec2_uniforms_[uniform_name] = vec2(0.0f, 0.0f);
 				break;
 
-			case shader_data_type_vec3:
+			case shader_data_type::type_vec3:
 				vec3_uniforms_[uniform_name] = vec3(0.0f, 0.0f, 0.0f);
 				break;
 
-			case shader_data_type_vec4:
+			case shader_data_type::type_vec4:
 				vec4_uniforms_[uniform_name] = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 				break;
 
-			case shader_data_type_mat3:
+			case shader_data_type::type_mat3:
 				mat3_uniforms_[uniform_name] = mat3::identity();
 				break;
 
-			case shader_data_type_mat4:
+			case shader_data_type::type_mat4:
 				mat4_uniforms_[uniform_name] = mat4::identity();
 				break;
 
-			case shader_data_type_unknown:
+			case shader_data_type::unknown:
 				break;
 			}
 		}

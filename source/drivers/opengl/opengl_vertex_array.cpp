@@ -74,31 +74,31 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 			for (const vertex_buffer_element& buffer_element : buffer_layout) {
 				switch (buffer_element.data_type) {
-				case shader_data_type_bool:
-				case shader_data_type_int:
-				case shader_data_type_ivec2:
-				case shader_data_type_ivec3:
-				case shader_data_type_ivec4: {
+				case shader_data_type::type_bool:
+				case shader_data_type::type_int:
+				case shader_data_type::type_ivec2:
+				case shader_data_type::type_ivec3:
+				case shader_data_type::type_ivec4: {
 					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
 					glVertexAttribIPointer(
 						static_cast<GLuint>(vertex_buffer_index_),
 						static_cast<GLint>(buffer_element.component_count()),
-						shader_data_type::to_opengl(buffer_element.data_type),
+						shader_data_type_to_opengl(buffer_element.data_type),
 						static_cast<GLsizei>(buffer_layout_stride),
 						reinterpret_cast<const void*>(buffer_element.offset())
 					);
 					vertex_buffer_index_++;
 				} break;
 
-				case shader_data_type_float:
-				case shader_data_type_vec2:
-				case shader_data_type_vec3:
-				case shader_data_type_vec4: {
+				case shader_data_type::type_float:
+				case shader_data_type::type_vec2:
+				case shader_data_type::type_vec3:
+				case shader_data_type::type_vec4: {
 					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
 					glVertexAttribPointer(
 						static_cast<GLuint>(vertex_buffer_index_),
 						static_cast<GLint>(buffer_element.component_count()),
-						shader_data_type::to_opengl(buffer_element.data_type),
+						shader_data_type_to_opengl(buffer_element.data_type),
 						buffer_element.normalized ? GL_TRUE : GL_FALSE,
 						static_cast<GLsizei>(buffer_layout_stride),
 						reinterpret_cast<const void*>(buffer_element.offset())
@@ -106,8 +106,8 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 					vertex_buffer_index_++;
 				} break;
 
-				case shader_data_type_mat3:
-				case shader_data_type_mat4: {
+				case shader_data_type::type_mat3:
+				case shader_data_type::type_mat4: {
 					std::size_t component_count = buffer_element.component_count();
 
 					for (std::size_t i = 0; i < component_count; i++) {
@@ -115,7 +115,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 						glVertexAttribPointer(
 							static_cast<GLuint>(vertex_buffer_index_),
 							static_cast<GLint>(component_count),
-							shader_data_type::to_opengl(buffer_element.data_type),
+							shader_data_type_to_opengl(buffer_element.data_type),
 							buffer_element.normalized ? GL_TRUE : GL_FALSE,
 							static_cast<GLsizei>(buffer_layout_stride),
 							reinterpret_cast<const void*>(buffer_element.offset() + sizeof(float) * component_count * i)
@@ -126,7 +126,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 					}
 				} break;
 
-				case shader_data_type_unknown:
+				case shader_data_type::unknown:
 					break;
 				}
 			}
