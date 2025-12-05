@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <functional>
 #include <string>
 
 #include "citadel/export.hpp"
@@ -21,16 +22,34 @@
 #include "citadel/io/reader.hpp"
 #include "citadel/io/stream.hpp"
 
-#include "citadel/memory/reference.hpp"
-
 namespace citadel {
 	class text_reader : public reader {
 	public:
+		using condition_callback_type = std::function<bool(char)>;
+
+	public:
+		static constexpr std::size_t default_base_capacity = 64;
+
+	public:
 		explicit text_reader(const stream_reference& stream);
+
+		char read_character();
 
 		std::string read_c_string();
 		std::string read_string(std::size_t size);
 
+		std::string read_group();
+		std::string read_word();
+
+		std::string read_integer();
+		std::string read_floating_point();
+
+		std::string read_whitespace();
+
+		std::string read_line();
 		std::string read_text();
+
+		std::string read_while(condition_callback_type condition_callback, std::size_t base_capacity);
+		std::string read_while(condition_callback_type condition_callback);
 	};
 }

@@ -16,68 +16,115 @@
 #include "citadel/io/text/text_reader.hpp"
 
 namespace citadel {
-
-CITADEL_WARNING_IGNORE_PUSH
-CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
-
 	text_reader::text_reader(const stream_reference& stream)
 		: reader(stream) { }
 
+	char text_reader::read_character() {
+		char value;
+		stream().read(&value, sizeof(char));
+		return value;
+	}
+
 	std::string text_reader::read_c_string() {
+		return read_while([](char character) {
+			return character != '\0';
+		});
+	}
+
+	std::string text_reader::read_string(std::size_t size) {
+		std::size_t iterator = 0;
+
+		return read_while([&iterator, size](char character) {
+			return iterator < size;
+		}, size);
+	}
+
+	std::string text_reader::read_group() {
+		return read_while([](char character) {
+			return std::isalnum(static_cast<unsigned char>(character));
+		});
+	}
+
+	std::string text_reader::read_word() {
+		return read_while([](char character) {
+			return std::isalpha(static_cast<unsigned char>(character));
+		});
+	}
+
+	std::string text_reader::read_integer() {
+		return read_while([](char character) {
+			return std::isdigit(static_cast<unsigned char>(character));
+		});
+	}
+
+	std::string text_reader::read_floating_point() {
+		bool has_sign = false;
+		bool has_point = false;
+
+		return read_while([&has_sign, &has_point](char character) {
+			if (!has_sign && (character == '-' || character == '+')) {
+				has_sign = true;
+				return true;
+			}
+
+			if (character == '.') {
+				if (has_point) {
+					return false;
+				}
+				has_point = true;
+				return true;
+			}
+
+			return static_cast<bool>(std::isdigit(static_cast<unsigned char>(character)));
+		});
+	}
+
+	std::string text_reader::read_whitespace() {
+		return read_while([](char character) {
+			return character == ' ' || character == '\t';
+		});
+	}
+
+	std::string text_reader::read_line() {
+		return read_while([](char character) {
+			return character != '\n';
+		});
+	}
+
+	std::string text_reader::read_text() {
+		class stream& stream = this->stream();
+		stream::size_type size = stream.size();
+
+		return read_while([&stream](char character) {
+			return !stream.is_eof();
+		}, static_cast<std::size_t>(size));
+	}
+
+	std::string text_reader::read_while(condition_callback_type condition_callback, std::size_t base_capacity) {
 		std::string result;
-		result.reserve(256);
+		result.reserve(base_capacity);
 
 		class stream& stream = this->stream();
 
 		while (!stream.is_eof()) {
-			char character = '\0';
-			stream::size_type bytes_read = stream.read(&character, sizeof(char));
+			char character = static_cast<char>(stream.peek());
 
-			if (bytes_read <= 0) {
+			if (character == '\r' || character == '\n') {
+				read_character();
 				break;
 			}
 
-			if (character == '\0') {
+			if (!condition_callback(character)) {
 				break;
 			}
 
 			result.push_back(character);
-
-			if (result.size() + 1 == result.capacity()) {
-				result.reserve(result.capacity() * 2);
-			}
 		}
 
 		return result;
 	}
 
-CITADEL_WARNING_IGNORE_POP
-
-	std::string text_reader::read_string(std::size_t size) {
-		if (size == 0) {
-			return "";
-		}
-
-		std::string result;
-		result.resize(size);
-
-		stream::size_type bytes_read = stream().read(result.data(), static_cast<stream::size_type>(size));
-
-		if (bytes_read <= 0) {
-			return "";
-		}
-
-		result.resize(static_cast<std::size_t>(bytes_read));
-		return result;
-	}
-
-	std::string text_reader::read_text() {
-		stream::size_type size = stream().size();
-
-		if (size <= 0) {
-			return "";
-		}
-
-		return read_string(static_cast<std::size_t>(size));
+	std::string text_reader::read_while(condition_callback_type condition_callback) {
+		return read_while(condition_callback, default_base_capacity);
 	}
 }

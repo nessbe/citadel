@@ -33,7 +33,9 @@ namespace citadel {
 	}
 
 	stream::size_type stl_file::_read(void* buffer, size_type size) {
-		stream_.read(reinterpret_cast<char*>(buffer), size);
+		if (buffer) {
+			stream_.read(reinterpret_cast<char*>(buffer), size);
+		}
 		return stream_.gcount();
 	}
 
