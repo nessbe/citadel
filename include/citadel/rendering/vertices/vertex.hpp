@@ -30,6 +30,7 @@ namespace citadel {
 		vec2 uv;
 
 	public:
+		vertex() = default;
 		vertex(const vec3& position, const vec3& normal, const vec2& uv);
 
 		nodisc void* data() noexcept;

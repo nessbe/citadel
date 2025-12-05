@@ -62,7 +62,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
-	void opengl_vertex_array::_add_vertex_buffer(const scope<vertex_buffer>& buffer) {
+	void opengl_vertex_array::_add_vertex_buffer(const reference<vertex_buffer>& buffer) {
 		CITADEL_SOFT_ASSERT(buffer, "The given vertex buffer is null");
 
 		bind();

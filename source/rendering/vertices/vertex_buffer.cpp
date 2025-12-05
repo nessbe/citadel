@@ -24,7 +24,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	scope<vertex_buffer> vertex_buffer::create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout) {
+	reference<vertex_buffer> vertex_buffer::create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
@@ -38,7 +38,16 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 		return nullptr;
 	}
 
-	scope<vertex_buffer> vertex_buffer::create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout) {
+CITADEL_WARNING_IGNORE_POP
+
+	reference<vertex_buffer> vertex_buffer::create(std::size_t size, const vertex_buffer_layout& layout) {
+		return create(render_command::get_api(), size, layout);
+	}
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
+
+	reference<vertex_buffer> vertex_buffer::create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
@@ -54,12 +63,8 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_WARNING_IGNORE_POP
 
-	scope<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size, const vertex_buffer_layout& layout) {
+	reference<vertex_buffer> vertex_buffer::create(const void* data, std::size_t size, const vertex_buffer_layout& layout) {
 		return create(render_command::get_api(), data, size, layout);
-	}
-
-	scope<vertex_buffer> vertex_buffer::create(std::size_t size, const vertex_buffer_layout& layout) {
-		return create(render_command::get_api(), size, layout);
 	}
 
 	vertex_buffer::vertex_buffer(std::size_t size, const vertex_buffer_layout& layout)

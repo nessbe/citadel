@@ -30,6 +30,8 @@
 namespace citadel {
 	class exported index_buffer {
 	public:
+		nodisc static std::vector<index> linear(std::size_t size);
+
 		nodisc static reference<index_buffer> create(rendering_api_type api, const std::vector<index>& indices);
 		nodisc static reference<index_buffer> create(rendering_api_type api, const index* data, std::size_t size);
 

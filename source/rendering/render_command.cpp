@@ -30,24 +30,24 @@ namespace citadel {
 		CITADEL_SOFT_ASSERT(rendering_api_, "Failed to create rendering API");
 	}
 
-	void render_command::draw_indexed(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
-		rendering_api_->draw_indexed(vertex_array, vertex_count);
+	void render_command::draw_indexed(const reference<vertex_array>& vertex_array, std::size_t vertex_count) {
+		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array, vertex_count);
 	}
 
-	void render_command::draw_indexed(const scope<vertex_array>& vertex_array) {
-		rendering_api_->draw_indexed(vertex_array);
+	void render_command::draw_indexed(const reference<vertex_array>& vertex_array) {
+		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array);
 	}
 
-	void render_command::draw_lines(const scope<vertex_array>& vertex_array, std::size_t vertex_count) {
-		rendering_api_->draw_lines(vertex_array, vertex_count);
+	void render_command::draw_lines(const reference<vertex_array>& vertex_array, std::size_t vertex_count) {
+		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array, vertex_count);
 	}
 
-	void render_command::draw_lines(const scope<vertex_array>& vertex_array) {
-		rendering_api_->draw_lines(vertex_array);
+	void render_command::draw_lines(const reference<vertex_array>& vertex_array) {
+		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array);
 	}
 
 	void render_command::set_line_width(float value) {
-		rendering_api_->set_line_width(value);
+		CITADEL_POINTER_CALL(rendering_api_, set_line_width, value);
 		line_width_ = value;
 	}
 

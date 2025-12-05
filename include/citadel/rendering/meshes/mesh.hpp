@@ -21,7 +21,6 @@
 #include "citadel/export.hpp"
 
 #include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
 
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
@@ -43,9 +42,6 @@ namespace citadel {
 
 		~mesh();
 
-		mesh(const mesh&) = delete;
-		mesh& operator=(const mesh&) = delete;
-
 		void bind();
 		void unbind();
 
@@ -58,8 +54,8 @@ namespace citadel {
 	private:
 		static vertex_buffer_layout default_layout_;
 
-		scope<vertex_array> vertex_array_;
-		scope<vertex_buffer> vertex_buffer_;
+		reference<vertex_array> vertex_array_;
+		reference<vertex_buffer> vertex_buffer_;
 		reference<index_buffer> index_buffer_;
 	};
 }

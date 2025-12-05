@@ -24,14 +24,14 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
-	scope<vertex_array> vertex_array::create(rendering_api_type api) {
+	reference<vertex_array> vertex_array::create(rendering_api_type api) {
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_PANIC("Rendering API cannot be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
-			return make_scoped<opengl_vertex_array>();
+			return make_referenced<opengl_vertex_array>();
 		}
 
 		CITADEL_PANIC("Unknown rendering API");
@@ -40,7 +40,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 CITADEL_WARNING_IGNORE_POP
 
-	scope<vertex_array> vertex_array::create() {
+	reference<vertex_array> vertex_array::create() {
 		return create(render_command::get_api());	
 	}
 
@@ -52,7 +52,7 @@ CITADEL_WARNING_IGNORE_POP
 		_unbind();
 	}
 
-	void vertex_array::add_vertex_buffer(const scope<vertex_buffer>& buffer) {
+	void vertex_array::add_vertex_buffer(const reference<vertex_buffer>& buffer) {
 		_add_vertex_buffer(buffer);
 	}
 
