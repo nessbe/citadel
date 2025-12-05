@@ -15,6 +15,7 @@
 #pragma once
 
 #include <iosfwd>
+#include <mutex>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
@@ -32,7 +33,11 @@ namespace citadel {
 		using offset_type = std::streamoff;
 
 	public:
+		stream() = default;
 		virtual ~stream() = default;
+
+		stream(const stream&) = delete;
+		stream& operator=(const stream&) = delete;
 
 		size_type read(void* buffer, size_type size);
 		size_type write(const void* buffer, size_type size);
@@ -51,6 +56,9 @@ namespace citadel {
 
 		nodisc bool is_eol();
 		nodisc bool is_eof() const;
+
+	private:
+		mutable std::mutex mutex_;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) = 0;

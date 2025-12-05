@@ -40,6 +40,9 @@ namespace citadel {
 		file(const std::string& path, file_open_mode open_mode);
 		virtual ~file() override = default;
 
+		file(const file&) = delete;
+		file& operator=(const file&) = delete;
+
 		nodisc void* get_native_handle() const;
 
 		nodisc const std::string& get_path() const noexcept;

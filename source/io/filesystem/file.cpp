@@ -23,7 +23,7 @@ namespace citadel {
 	}
 
 	file::file(const std::string& path, file_open_mode open_mode)
-		: path_(path), open_mode_(open_mode){ }
+		: path_(path), open_mode_(open_mode) { }
 
 	void* file::get_native_handle() const {
 		return _get_native_handle();

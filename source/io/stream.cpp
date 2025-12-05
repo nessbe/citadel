@@ -17,34 +17,42 @@
 
 namespace citadel {
 	stream::size_type stream::read(void* buffer, size_type size) {
+		std::lock_guard lock(mutex_);
 		return _read(buffer, size);
 	}
 
 	stream::size_type stream::write(const void* buffer, size_type size) {
+		std::lock_guard lock(mutex_);
 		return _write(buffer, size);
 	}
 
 	stream::position_type stream::tell() {
+		std::lock_guard lock(mutex_);
 		return _tell();
 	}
 
 	stream::offset_type stream::size() {
+		std::lock_guard lock(mutex_);
 		return _size();
 	}
 
 	int stream::peek() {
+		std::lock_guard lock(mutex_);
 		return _peek();
 	}
 
 	bool stream::seek(position_type position) {
+		std::lock_guard lock(mutex_);
 		return _seek(position);
 	}
 
 	bool stream::seek(offset_type offset, stream_direction direction) {
+		std::lock_guard lock(mutex_);
 		return _seek(offset, direction);
 	}
 
 	void stream::flush() {
+		std::lock_guard lock(mutex_);
 		_flush();
 	}
 

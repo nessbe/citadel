@@ -32,6 +32,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <optional>
 #include <stdexcept>
 #include <string>
