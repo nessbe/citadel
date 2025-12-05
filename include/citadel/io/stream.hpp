@@ -48,6 +48,8 @@ namespace citadel {
 		void flush();
 
 		nodisc bool is_good() const;
+
+		nodisc bool is_eol();
 		nodisc bool is_eof() const;
 
 	private:

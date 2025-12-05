@@ -124,7 +124,7 @@ namespace citadel {
 
 		class stream& stream = this->stream();
 
-		while (!stream.is_eof()) {
+		while (!stream.is_eof() && stream.is_good()) {
 			char character = static_cast<char>(stream.peek());
 
 			if (character == '\r' || character == '\n') {

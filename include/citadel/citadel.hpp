@@ -55,6 +55,7 @@
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
 #include "citadel/formats/obj/obj_face.hpp"
+#include "citadel/formats/obj/obj_reader.hpp"
 #include "citadel/formats/obj/obj_vertex.hpp"
 
 #include "citadel/formats/tga/tga_header.hpp"

@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <type_traits>
+
 #include "citadel/warnings.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
@@ -30,7 +32,15 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		for (std::size_t i = 0; i < basic_vec2<T>::max_index; i++) {
 			T value = T(0);
 
-			std::string string_value = reader_.read_integer();
+			std::string string_value;
+			string_value.reserve(8);
+
+			if constexpr (std::is_integral_v<T>) {
+				string_value = reader_.read_integer();
+			}
+			else if constexpr (std::is_floating_point_v<T>) {
+				string_value = reader_.read_floating_point();
+			}
 
 			if (std::optional<T> optional_value = to_arithmetic<T>(string_value)) {
 				value = optional_value.value();
@@ -51,7 +61,15 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		for (std::size_t i = 0; i < basic_vec3<T>::max_index; i++) {
 			T value = T(0);
 
-			std::string string_value = reader_.read_integer();
+			std::string string_value;
+			string_value.reserve(8);
+
+			if constexpr (std::is_integral_v<T>) {
+				string_value = reader_.read_integer();
+			}
+			else if constexpr (std::is_floating_point_v<T>) {
+				string_value = reader_.read_floating_point();
+			}
 			
 			if (std::optional<T> optional_value = to_arithmetic<T>(string_value)) {
 				value = optional_value.value();

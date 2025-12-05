@@ -52,6 +52,10 @@ namespace citadel {
 		return _is_good();
 	}
 
+	bool stream::is_eol() {
+		return peek() == '\0';
+	}
+
 	bool stream::is_eof() const {
 		return _is_eof();
 	}

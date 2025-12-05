@@ -27,7 +27,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 	std::vector<index> index_buffer::linear(std::size_t size) {
 		std::vector<index> result(size);
 		for (std::size_t i = 0; i < size; i++) {
-			result[i] = static_cast<index>(size);
+			result[i] = static_cast<index>(i);
 		}
 		return result;
 	}

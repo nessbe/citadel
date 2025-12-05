@@ -32,6 +32,7 @@ namespace citadel {
 		CITADEL_POINTER_CALL(vertex_array_, bind);
 		CITADEL_POINTER_CALL(vertex_array_, add_vertex_buffer, vertex_buffer_);
 		CITADEL_POINTER_CALL(vertex_array_, set_index_buffer, index_buffer_);
+		CITADEL_POINTER_CALL(vertex_array_, unbind);
 	}
 
 	mesh::mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices)
