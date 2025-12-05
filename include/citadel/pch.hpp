@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <array>
+#include <charconv>
 #include <chrono>
 #include <cinttypes>
 #include <cmath>
@@ -23,6 +24,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
+#include <functional>
 #include <initializer_list>
 #include <iomanip>
 #include <ios>
@@ -30,6 +32,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
@@ -67,6 +70,8 @@
 #include "citadel/memory/scope.hpp"
 
 #include "citadel/platforms/windows.hpp"
+
+#include "citadel/utils/string/string_convertion.hpp"
 
 #include <glad/glad.h>
 #include <glad/glad_wgl.h>
