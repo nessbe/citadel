@@ -16,7 +16,7 @@
 #include "citadel/io/resources/meshes/mesh_reader.hpp"
 
 namespace citadel {
-	mesh_reader::mesh_reader(const reference<class stream>& stream)
+	mesh_reader::mesh_reader(const stream_reference& stream)
 		: reader(stream) { }
 
 	mesh mesh_reader::read_mesh() {

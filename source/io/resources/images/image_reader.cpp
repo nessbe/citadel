@@ -16,7 +16,7 @@
 #include "citadel/io/resources/images/image_reader.hpp"
 
 namespace citadel {
-	image_reader::image_reader(const reference<class stream>& stream)
+	image_reader::image_reader(const stream_reference& stream)
 		: reader(stream) { }
 
 	image image_reader::read_image() {

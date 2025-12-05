@@ -31,7 +31,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 namespace citadel {
 	class exported image_reader : public reader {
 	public:
-		explicit image_reader(const reference<class stream>& stream);
+		explicit image_reader(const stream_reference& stream);
 
 		image read_image();
 

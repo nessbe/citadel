@@ -26,12 +26,12 @@
 namespace citadel {
 	class exported reader {
 	public:
-		explicit reader(const reference<stream>& stream);
+		explicit reader(const stream_reference& stream);
 		virtual ~reader() = default;
 
 		nodisc stream& stream() const noexcept;
 
 	private:
-		reference<class stream> stream_;
+		stream_reference stream_;
 	};
 }

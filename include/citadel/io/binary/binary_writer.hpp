@@ -28,13 +28,13 @@
 namespace citadel {
 	class exported binary_writer : public writer {
 	public:
-		using dynamic_buffer = std::vector<std::uint8_t>;
+		using dynamic_buffer_type = std::vector<std::uint8_t>;
 
 		template <stream::size_type N>
-		using static_buffer = std::array<std::uint8_t, N>;
+		using static_buffer_type = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_writer(const reference<class stream>& stream);
+		explicit binary_writer(const stream_reference& stream);
 
 		void write_int8(std::int8_t value);
 		void write_uint8(std::uint8_t value);
@@ -48,10 +48,10 @@ namespace citadel {
 		void write_int64(std::int64_t value);
 		void write_uint64(std::uint64_t value);
 
-		void write_dynamic_buffer(const dynamic_buffer& buffer);
+		void write_dynamic_buffer(const dynamic_buffer_type& buffer);
 
 		template <stream::size_type N>
-		void write_static_buffer(const static_buffer<N>& buffer);
+		void write_static_buffer(const static_buffer_type<N>& buffer);
 	};
 }
 

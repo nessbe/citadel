@@ -34,7 +34,7 @@ namespace citadel {
 		using static_buffer_type = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_reader(const reference<class stream>& stream);
+		explicit binary_reader(const stream_reference& stream);
 
 		std::int8_t read_int8();
 		std::uint8_t read_uint8();

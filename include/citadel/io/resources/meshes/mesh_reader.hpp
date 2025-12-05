@@ -26,7 +26,7 @@
 namespace citadel {
 	class exported mesh_reader : public reader {
 	public:
-		explicit mesh_reader(const reference<class stream>& stream);
+		explicit mesh_reader(const stream_reference& stream);
 
 		mesh read_mesh();
 

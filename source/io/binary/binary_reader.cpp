@@ -16,7 +16,7 @@
 #include "citadel/io/binary/binary_reader.hpp"
 
 namespace citadel {
-	binary_reader::binary_reader(const reference<class stream>& stream)
+	binary_reader::binary_reader(const stream_reference& stream)
 		: reader(stream) { }
 
 	std::int8_t binary_reader::read_int8() {

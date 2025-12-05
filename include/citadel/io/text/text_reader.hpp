@@ -26,7 +26,7 @@
 namespace citadel {
 	class text_reader : public reader {
 	public:
-		explicit text_reader(const reference<class stream>& stream);
+		explicit text_reader(const stream_reference& stream);
 
 		std::string read_c_string();
 		std::string read_string(std::size_t size);

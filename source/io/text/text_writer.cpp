@@ -16,7 +16,7 @@
 #include "citadel/io/text/text_writer.hpp"
 
 namespace citadel {
-	text_writer::text_writer(const reference<class stream>& stream)
+	text_writer::text_writer(const stream_reference& stream)
 		: writer(stream) { }
 
 	void text_writer::write_c_string(const char* buffer) {

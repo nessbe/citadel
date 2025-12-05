@@ -26,12 +26,12 @@
 namespace citadel {
 	class exported writer {
 	public:
-		explicit writer(const reference<stream>& file);
+		explicit writer(const stream_reference& file);
 		virtual ~writer() = default;
 
 		nodisc stream& stream() const noexcept;
 
 	private:
-		reference<class stream> stream_;
+		stream_reference stream_;
 	};
 }

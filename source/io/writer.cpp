@@ -16,7 +16,7 @@
 #include "citadel/io/writer.hpp"
 
 namespace citadel {
-	writer::writer(const reference<class stream>& stream)
+	writer::writer(const stream_reference& stream)
 		: stream_(stream)
 	{
 		CITADEL_SOFT_ASSERT(stream, "The given stream is null");

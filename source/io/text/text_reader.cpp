@@ -20,7 +20,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
-	text_reader::text_reader(const reference<class stream>& stream)
+	text_reader::text_reader(const stream_reference& stream)
 		: reader(stream) { }
 
 	std::string text_reader::read_c_string() {

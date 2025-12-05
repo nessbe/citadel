@@ -20,14 +20,12 @@
 
 #include "citadel/io/resources/images/image_reader.hpp"
 
-#include "citadel/memory/reference.hpp"
-
 #include "citadel/rendering/textures/image.hpp"
 
 namespace citadel {
 	class exported tga_reader : public image_reader {
 	public:
-		tga_reader(const reference<class stream>& stream);
+		tga_reader(const stream_reference& stream);
 
 	private:
 		virtual image _read_image() override;

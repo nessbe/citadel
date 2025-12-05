@@ -16,7 +16,7 @@
 
 namespace citadel {
 	template <stream::size_type N>
-	void binary_writer::write_static_buffer(const static_buffer<N>& buffer) {
+	void binary_writer::write_static_buffer(const static_buffer_type<N>& buffer) {
 		stream().write(buffer.data(), N);
 	}
 }

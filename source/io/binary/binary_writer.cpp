@@ -16,7 +16,7 @@
 #include "citadel/io/binary/binary_writer.hpp"
 
 namespace citadel {
-	binary_writer::binary_writer(const reference<class stream>& stream)
+	binary_writer::binary_writer(const stream_reference& stream)
 		: writer(stream) { }
 
 	void binary_writer::write_int8(std::int8_t value) {
@@ -51,7 +51,7 @@ namespace citadel {
 		stream().read(&value, sizeof(uint64_t));
 	}
 
-	void binary_writer::write_dynamic_buffer(const dynamic_buffer& buffer) {
+	void binary_writer::write_dynamic_buffer(const dynamic_buffer_type& buffer) {
 		stream().write(buffer.data(), static_cast<stream::size_type>(buffer.size()));
 	}
 }

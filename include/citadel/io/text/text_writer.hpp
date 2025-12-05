@@ -26,7 +26,7 @@
 namespace citadel {
 	class text_writer : public writer {
 	public:
-		explicit text_writer(const reference<class stream>& stream);
+		explicit text_writer(const stream_reference& stream);
 
 		void write_c_string(const char* buffer);
 		void write_string(const std::string& string);

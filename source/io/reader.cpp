@@ -16,7 +16,7 @@
 #include "citadel/io/reader.hpp"
 
 namespace citadel {
-	reader::reader(const reference<class stream>& stream)
+	reader::reader(const stream_reference& stream)
 		: stream_(stream)
 	{
 		CITADEL_SOFT_ASSERT(stream, "The given stream is null");

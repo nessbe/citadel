@@ -21,6 +21,9 @@
 
 #include "citadel/io/stream_direction.hpp"
 
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
+
 namespace citadel {
 	class exported stream {
 	public:
@@ -64,4 +67,7 @@ namespace citadel {
 		nodisc virtual bool _is_good() const = 0;
 		nodisc virtual bool _is_eof() const = 0;
 	};
+
+	using stream_reference = reference<stream>;
+	using stream_scope = scope<stream>;
 }
