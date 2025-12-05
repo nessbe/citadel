@@ -23,7 +23,7 @@ namespace citadel {
 	template <typename T>
 	struct basic_vec2 {
 	public:
-		static_assert(std::is_arithmetic_v<T>, "T must be numeric");
+		static_assert(std::is_arithmetic_v<T>, "T must be arithmetic");
 
 	public:
 		static constexpr std::size_t x_index = 0;

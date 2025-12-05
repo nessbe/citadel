@@ -75,6 +75,7 @@
 
 #include "citadel/io/resources/images/image_reader.hpp"
 
+#include "citadel/io/text/mathematical_reader.hpp"
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
 

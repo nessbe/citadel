@@ -23,7 +23,7 @@
 #include "citadel/io/stream.hpp"
 
 namespace citadel {
-	class text_reader : public reader {
+	class exported text_reader : public reader {
 	public:
 		using condition_callback_type = std::function<bool(char)>;
 
@@ -48,6 +48,9 @@ namespace citadel {
 
 		std::string read_line();
 		std::string read_text();
+
+		std::string read_while_matching(const std::string& match);
+		bool read_match(const std::string& match);
 
 		std::string read_while(condition_callback_type condition_callback, std::size_t base_capacity);
 		std::string read_while(condition_callback_type condition_callback);

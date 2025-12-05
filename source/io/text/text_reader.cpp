@@ -100,6 +100,24 @@ namespace citadel {
 		}, static_cast<std::size_t>(size));
 	}
 
+	std::string text_reader::read_while_matching(const std::string& match) {
+		std::size_t iterator = 0;
+		std::size_t size = match.size();
+
+		return read_while([&iterator, size, &match](char character) {
+			if (iterator < size && match[iterator] == character) {
+				iterator++;
+				return true;
+			}
+			return false;
+		}, match.size());
+	}
+
+	bool text_reader::read_match(const std::string& match) {
+		std::string result = read_while_matching(match);
+		return result.size() == match.size();
+	}
+
 	std::string text_reader::read_while(condition_callback_type condition_callback, std::size_t base_capacity) {
 		std::string result;
 		result.reserve(base_capacity);
@@ -119,6 +137,7 @@ namespace citadel {
 			}
 
 			result.push_back(character);
+			read_character();
 		}
 
 		return result;
