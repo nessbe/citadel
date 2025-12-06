@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <cstdio>
 #include <iosfwd>
 #include <mutex>
 
@@ -31,6 +32,9 @@ namespace citadel {
 		using size_type = std::streamsize;
 		using position_type = std::streampos;
 		using offset_type = std::streamoff;
+
+	public:
+		static constexpr size_type eof = EOF;
 
 	public:
 		stream() = default;

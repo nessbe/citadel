@@ -21,6 +21,7 @@
 #include <cinttypes>
 #include <cmath>
 #include <cstddef>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
