@@ -73,7 +73,7 @@ namespace citadel {
 		position_type size_position = tell();
 		seek(position);
 
-		return static_cast<offset_type>(position);
+		return static_cast<offset_type>(size_position);
 	}
 
 	int stl_file::_peek() {

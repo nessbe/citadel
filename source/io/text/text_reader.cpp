@@ -81,7 +81,7 @@ namespace citadel {
 
 	std::string text_reader::read_whitespace() {
 		return read_while([](char character) {
-			return character == ' ' || character == '\t';
+			return character == ' ' || character == '\t' || character == '\n';
 		});
 	}
 
@@ -95,9 +95,12 @@ namespace citadel {
 		class stream& stream = this->stream();
 		stream::size_type size = stream.size();
 
-		return read_while([&stream](char character) {
-			return !stream.is_eof();
-		}, static_cast<std::size_t>(size));
+		std::string result(static_cast<std::size_t>(size), '\0');
+
+		stream::size_type bytes_read = stream.read(result.data(), size);
+		result.resize(static_cast<std::size_t>(bytes_read));
+
+		return result;
 	}
 
 	std::string text_reader::read_while_matching(const std::string& match) {
@@ -126,11 +129,6 @@ namespace citadel {
 
 		while (!stream.is_eof() && stream.is_good()) {
 			char character = static_cast<char>(stream.peek());
-
-			if (character == '\r' || character == '\n') {
-				read_character();
-				break;
-			}
 
 			if (!condition_callback(character)) {
 				break;
