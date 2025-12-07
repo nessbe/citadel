@@ -19,3 +19,5 @@ workspace "citadel"
 		"debug",
 		"release"
 	}
+
+	startproject "basic_application"

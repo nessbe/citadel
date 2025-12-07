@@ -23,7 +23,7 @@
 namespace citadel {
 	extern application* create_application();
 
-	int run_application(int argc, char** argv) {
+	inline int run_application(int argc, char** argv) {
 		application* application = create_application();
 		CITADEL_ASSERT(application, "Failed to create application");
 
@@ -40,6 +40,4 @@ namespace citadel {
 	}
 }
 
-int main(int argc, char** argv) {
-	return citadel::run_application(argc, argv);
-}
+int main(int argc, char** argv);

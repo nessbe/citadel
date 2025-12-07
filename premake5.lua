@@ -16,3 +16,5 @@ include "workspace.lua"
 include "citadel.lua"
 
 include "vendor/glad/glad.lua"
+
+include "examples/basic_application/basic_application.lua"

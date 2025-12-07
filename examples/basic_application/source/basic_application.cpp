@@ -1,0 +1,58 @@
+// File:       basic_application.cpp
+// Project:    citadel
+// Repository: https://github.com/nessbe/citadel
+//
+// Copyright (c) 2025 nessbe
+// This file is part of the citadel project and is licensed
+// under the terms specified in the LICENSE file located at the
+// root of this repository.
+//
+// Unless required by applicable law or agreed to in writing,
+// the software is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the LICENSE file for details.
+
+#include "basic_application/basic_application.hpp"
+
+#include "basic_application/basic_layer.hpp"
+
+namespace basic_application {
+	application::application(application&& other) noexcept {
+		window_ = std::move(other.window_);
+		other.window_ = nullptr;
+	}
+
+	application& application::operator=(application&& other) noexcept {
+		if (this != &other) {
+			window_ = std::move(other.window_);
+			other.window_ = nullptr;
+		}
+
+		return *this;
+	}
+
+	void application::_initialize() {
+		window_ = citadel::window::create(100, 100, 960, 540, "Basic Application");
+		CITADEL_ASSERT(window_, "Failed to open window");
+
+		window_->set_vsync(false);
+		window_->get_surface().set_clear_color({ 30, 30, 30, 255 });
+
+		citadel::reference<basic_layer> layer = citadel::make_referenced<basic_layer>();
+		window_->get_layer_stack().push(layer);
+
+		window_->show();
+	}
+
+	citadel::exit_code application::_run() {
+		while (window_->update()) {
+			window_->begin_frame();
+			window_->render();
+			window_->end_frame();
+		}
+
+		return citadel::exit_code::success;
+	}
+
+	void application::_shutdown() { }
+}
