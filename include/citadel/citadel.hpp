@@ -76,6 +76,8 @@
 
 #include "citadel/io/resources/images/image_reader.hpp"
 
+#include "citadel/io/sinks/sink.hpp"
+
 #include "citadel/io/text/mathematical_reader.hpp"
 #include "citadel/io/text/string_stream.hpp"
 #include "citadel/io/text/text_reader.hpp"

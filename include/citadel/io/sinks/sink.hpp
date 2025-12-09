@@ -1,4 +1,4 @@
-// File:       text_writer.hpp
+// File:       sink.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,20 +14,29 @@
 
 #pragma once
 
-#include <string>
-
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/writer.hpp"
+#include "citadel/io/stream.hpp"
 
-#include "citadel/io/sinks/sink.hpp"
+#include "citadel/memory/reference.hpp"
+#include "citadel/memory/scope.hpp"
 
 namespace citadel {
-	class text_writer : public writer {
+	class exported sink {
 	public:
-		explicit text_writer(const sink_reference& sink);
+		sink(const stream_reference& stream);
+		~sink();
 
-		void write_c_string(const char* buffer);
-		void write_string(const std::string& string);
+		stream::size_type write(const void* data, stream::size_type size);
+		void flush();
+
+		nodisc stream& stream() const noexcept;
+
+	private:
+		stream_reference stream_;
 	};
+
+	using sink_reference = reference<sink>;
+	using sink_scope = scope<sink>;
 }

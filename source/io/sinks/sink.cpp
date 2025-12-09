@@ -1,4 +1,4 @@
-// File:       text_writer.hpp
+// File:       sink.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,22 +12,25 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
-
-#include <string>
-
-#include "citadel/export.hpp"
-
-#include "citadel/io/writer.hpp"
-
+#include "citadel/pch.hpp"
 #include "citadel/io/sinks/sink.hpp"
 
 namespace citadel {
-	class text_writer : public writer {
-	public:
-		explicit text_writer(const sink_reference& sink);
+	sink::sink(const stream_reference& stream)
+		: stream_(stream)
+	{
+		CITADEL_SOFT_ASSERT(stream_, "The given stream is null");
+	}
 
-		void write_c_string(const char* buffer);
-		void write_string(const std::string& string);
-	};
+	sink::~sink() {
+		flush();
+	}
+
+	stream::size_type sink::write(const void* data, stream::size_type size) {
+		return CITADEL_POINTER_CALL_OR_ZERO(stream_, write, data, size);
+	}
+
+	void sink::flush() {
+		CITADEL_POINTER_CALL(stream_, flush);
+	}
 }

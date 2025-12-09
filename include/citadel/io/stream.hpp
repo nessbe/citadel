@@ -16,7 +16,6 @@
 
 #include <cstdio>
 #include <iosfwd>
-#include <mutex>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
@@ -60,9 +59,6 @@ namespace citadel {
 
 		nodisc bool is_eol();
 		nodisc bool is_eof() const;
-
-	private:
-		mutable std::mutex mutex_;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) = 0;

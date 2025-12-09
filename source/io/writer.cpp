@@ -16,13 +16,13 @@
 #include "citadel/io/writer.hpp"
 
 namespace citadel {
-	writer::writer(const stream_reference& stream)
-		: stream_(stream)
+	writer::writer(const sink_reference& sink)
+		: sink_(sink)
 	{
-		CITADEL_SOFT_ASSERT(stream, "The given stream is null");
+		CITADEL_SOFT_ASSERT(sink, "The given stream is null");
 	}
 
-	stream& writer::stream() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(stream_);
+	sink& writer::sink() const noexcept {
+		CITADEL_POINTER_RETURN_REFERENCE(sink_);
 	}
 }

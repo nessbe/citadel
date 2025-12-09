@@ -20,8 +20,9 @@
 
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
 #include "citadel/io/writer.hpp"
+
+#include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/memory/reference.hpp"
 
@@ -34,7 +35,7 @@ namespace citadel {
 		using static_buffer_type = std::array<std::uint8_t, N>;
 
 	public:
-		explicit binary_writer(const stream_reference& stream);
+		explicit binary_writer(const sink_reference& sink);
 
 		void write_int8(std::int8_t value);
 		void write_uint8(std::uint8_t value);

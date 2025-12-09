@@ -16,15 +16,15 @@
 #include "citadel/io/text/text_writer.hpp"
 
 namespace citadel {
-	text_writer::text_writer(const stream_reference& stream)
-		: writer(stream) { }
+	text_writer::text_writer(const sink_reference& sink)
+		: writer(sink) { }
 
 	void text_writer::write_c_string(const char* buffer) {
 		std::size_t size = std::strlen(buffer);
-		stream().write(buffer, static_cast<stream::size_type>(size));
+		sink().write(buffer, static_cast<stream::size_type>(size));
 	}
 
 	void text_writer::write_string(const std::string& string) {
-		stream().write(string.data(), static_cast<stream::size_type>(string.size()));
+		sink().write(string.data(), static_cast<stream::size_type>(string.size()));
 	}
 }

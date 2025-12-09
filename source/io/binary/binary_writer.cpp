@@ -16,42 +16,42 @@
 #include "citadel/io/binary/binary_writer.hpp"
 
 namespace citadel {
-	binary_writer::binary_writer(const stream_reference& stream)
-		: writer(stream) { }
+	binary_writer::binary_writer(const sink_reference& sink)
+		: writer(sink) { }
 
 	void binary_writer::write_int8(std::int8_t value) {
-		stream().read(&value, sizeof(int8_t));
+		sink().write(&value, sizeof(int8_t));
 	}
 
 	void binary_writer::write_uint8(std::uint8_t value) {
-		stream().read(&value, sizeof(uint8_t));
+		sink().write(&value, sizeof(uint8_t));
 	}
 
 	void binary_writer::write_int16(std::int16_t value) {
-		stream().read(&value, sizeof(int16_t));
+		sink().write(&value, sizeof(int16_t));
 	}
 
 	void binary_writer::write_uint16(std::uint16_t value) {
-		stream().read(&value, sizeof(uint16_t));
+		sink().write(&value, sizeof(uint16_t));
 	}
 
 	void binary_writer::write_int32(std::int32_t value) {
-		stream().read(&value, sizeof(int32_t));
+		sink().write(&value, sizeof(int32_t));
 	}
 
 	void binary_writer::write_uint32(std::uint32_t value) {
-		stream().read(&value, sizeof(uint32_t));
+		sink().write(&value, sizeof(uint32_t));
 	}
 
 	void binary_writer::write_int64(std::int64_t value) {
-		stream().read(&value, sizeof(int64_t));
+		sink().write(&value, sizeof(int64_t));
 	}
 
 	void binary_writer::write_uint64(std::uint64_t value) {
-		stream().read(&value, sizeof(uint64_t));
+		sink().write(&value, sizeof(uint64_t));
 	}
 
 	void binary_writer::write_dynamic_buffer(const dynamic_buffer_type& buffer) {
-		stream().write(buffer.data(), static_cast<stream::size_type>(buffer.size()));
+		sink().write(buffer.data(), static_cast<stream::size_type>(buffer.size()));
 	}
 }

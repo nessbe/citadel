@@ -19,19 +19,19 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
+#include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	class exported writer {
 	public:
-		explicit writer(const stream_reference& file);
+		explicit writer(const sink_reference& file);
 		virtual ~writer() = default;
 
-		nodisc stream& stream() const noexcept;
+		nodisc sink& sink() const noexcept;
 
 	private:
-		stream_reference stream_;
+		sink_reference sink_;
 	};
 }

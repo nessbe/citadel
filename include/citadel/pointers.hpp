@@ -25,5 +25,6 @@
 #define CITADEL_POINTER_CALL_RAW(pointer, method, ...) pointer->method(__VA_ARGS__)
 #define CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, placeholder, ...) pointer ? pointer->method(__VA_ARGS__) : placeholder
 #define CITADEL_POINTER_CALL_OR_FALSE(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, false, __VA_ARGS__)
+#define CITADEL_POINTER_CALL_OR_ZERO(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, 0, __VA_ARGS__)
 
 #define CITADEL_POINTER_RETURN_REFERENCE(pointer) CITADEL_SOFT_ASSERT(pointer, "Pointer " #pointer " is null"); return *pointer
