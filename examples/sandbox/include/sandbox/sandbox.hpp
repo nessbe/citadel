@@ -1,4 +1,4 @@
-// File:       main.cpp
+// File:       sandbox.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,10 +12,18 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
+#pragma once
+
 #include <citadel/citadel.hpp>
 
-#include "basic_application/basic_application.hpp"
+namespace sandbox {
+	void application_initialize(citadel::application* application);
+	citadel::exit_code application_run(citadel::application* application);
+	void application_shutdown(citadel::application* application);
 
-citadel::application* citadel::create_application() {
-	return new basic_application::basic_application();
+	void layer_attach(citadel::layer* layer);
+	void layer_detach(citadel::layer* layer);
+
+	bool layer_update(citadel::layer* layer, double update);
+	bool layer_render(citadel::layer* layer, const citadel::scope<citadel::surface>& surface);
 }

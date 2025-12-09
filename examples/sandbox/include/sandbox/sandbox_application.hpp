@@ -1,4 +1,4 @@
-// File:       basic_application.hpp
+// File:       sandbox_application.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -16,16 +16,16 @@
 
 #include <citadel/citadel.hpp>
 
-namespace basic_application {
-	class basic_application : public citadel::application {
+namespace sandbox {
+	class sandbox_application : public citadel::application {
 	public:
-		basic_application() = default;
+		sandbox_application() = default;
 
-		basic_application(const basic_application&) = delete;
-		basic_application& operator=(const basic_application&) = delete;
+		sandbox_application(const sandbox_application&) = delete;
+		sandbox_application& operator=(const sandbox_application&) = delete;
 
-		basic_application(basic_application&& other) noexcept;
-		basic_application& operator=(basic_application&& other) noexcept;
+		sandbox_application(sandbox_application&& other) noexcept;
+		sandbox_application& operator=(sandbox_application&& other) noexcept;
 
 	private:
 		citadel::scope<citadel::window> window_ = nullptr;

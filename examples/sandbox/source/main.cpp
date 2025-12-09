@@ -14,8 +14,8 @@
 
 #include <citadel/citadel.hpp>
 
-#include "basic_application/basic_application.hpp"
+#include "sandbox/sandbox_application.hpp"
 
 citadel::application* citadel::create_application() {
-	return new basic_application::basic_application();
+	return new sandbox::sandbox_application();
 }

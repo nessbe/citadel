@@ -1,4 +1,4 @@
-// File:       main.cpp
+// File:       sandbox_layer.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,10 +12,17 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
+#pragma once
+
 #include <citadel/citadel.hpp>
 
-#include "basic_application/basic_application.hpp"
+namespace sandbox {
+	class sandbox_layer : public citadel::layer {
+	private:
+		void _attach() override;
+		void _detach() override;
 
-citadel::application* citadel::create_application() {
-	return new basic_application::basic_application();
+		bool _update(double delta) override;
+		bool _render(const citadel::scope<citadel::surface>& surface) override;
+	};
 }
