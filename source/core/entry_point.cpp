@@ -15,6 +15,10 @@
 #include "citadel/pch.hpp"
 #include "citadel/core/entry_point.hpp"
 
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR command_line, int show_command) {
+	return citadel::run_application(__argc, __argv);
+}
+
 int main(int argc, char** argv) {
 	return citadel::run_application(argc, argv);
 }

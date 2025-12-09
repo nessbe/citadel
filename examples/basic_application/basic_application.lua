@@ -54,6 +54,9 @@ project "basic_application"
 			"/wd4100"
 		}
 
+	filter "kind:WindowedApp"
+		defines "CITADEL_WINDOWED"
+
 	filter "configurations:debug"
 		defines "CITADEL_DEBUG"
 		symbols "On"

@@ -16,9 +16,12 @@
 
 #include "citadel/assert.hpp"
 #include "citadel/export.hpp"
+#include "citadel/platforms.hpp"
 
 #include "citadel/core/application.hpp"
 #include "citadel/core/exit_code.hpp"
+
+#include "citadel/platforms/windows.hpp"
 
 namespace citadel {
 	extern application* create_application();
@@ -40,4 +43,12 @@ namespace citadel {
 	}
 }
 
+#if CITADEL_PLATFORM_WINDOWS && defined(CITADEL_WINDOWED)
+
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR command_line, int show_command);
+
+#else
+
 int main(int argc, char** argv);
+
+#endif
