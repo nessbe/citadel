@@ -20,4 +20,4 @@ workspace "citadel"
 		"release"
 	}
 
-	startproject "basic_application"
+	startproject "sandbox"
