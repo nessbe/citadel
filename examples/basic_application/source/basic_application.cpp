@@ -17,12 +17,12 @@
 #include "basic_application/basic_layer.hpp"
 
 namespace basic_application {
-	application::application(application&& other) noexcept {
+	basic_application::basic_application(basic_application&& other) noexcept {
 		window_ = std::move(other.window_);
 		other.window_ = nullptr;
 	}
 
-	application& application::operator=(application&& other) noexcept {
+	basic_application& basic_application::operator=(basic_application&& other) noexcept {
 		if (this != &other) {
 			window_ = std::move(other.window_);
 			other.window_ = nullptr;
@@ -31,7 +31,7 @@ namespace basic_application {
 		return *this;
 	}
 
-	void application::_initialize() {
+	void basic_application::_initialize() {
 		window_ = citadel::window::create(100, 100, 960, 540, "Basic Application");
 		CITADEL_ASSERT(window_, "Failed to open window");
 
@@ -44,7 +44,7 @@ namespace basic_application {
 		window_->show();
 	}
 
-	citadel::exit_code application::_run() {
+	citadel::exit_code basic_application::_run() {
 		while (window_->update()) {
 			window_->begin_frame();
 			window_->render();
@@ -54,5 +54,5 @@ namespace basic_application {
 		return citadel::exit_code::success;
 	}
 
-	void application::_shutdown() { }
+	void basic_application::_shutdown() { }
 }

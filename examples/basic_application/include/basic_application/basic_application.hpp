@@ -17,15 +17,15 @@
 #include <citadel/citadel.hpp>
 
 namespace basic_application {
-	class application : public citadel::application {
+	class basic_application : public citadel::application {
 	public:
-		application() = default;
+		basic_application() = default;
 
-		application(const application&) = delete;
-		application& operator=(const application&) = delete;
+		basic_application(const basic_application&) = delete;
+		basic_application& operator=(const basic_application&) = delete;
 
-		application(application&& other) noexcept;
-		application& operator=(application&& other) noexcept;
+		basic_application(basic_application&& other) noexcept;
+		basic_application& operator=(basic_application&& other) noexcept;
 
 	private:
 		citadel::scope<citadel::window> window_ = nullptr;

@@ -12,8 +12,10 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
+#include <citadel/citadel.hpp>
+
 #include "basic_application/basic_application.hpp"
 
 citadel::application* citadel::create_application() {
-	return new basic_application::application();
+	return new basic_application::basic_application();
 }
