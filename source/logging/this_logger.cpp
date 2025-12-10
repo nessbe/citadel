@@ -18,12 +18,12 @@
 namespace citadel {
 	logger detail::this_logger("CITADEL", log_level::debug);
 
-	void this_logger::initialize(const std::string& name, log_level level) {
-		detail::this_logger = { name, level };
+	void this_logger::initialize(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks) {
+		detail::this_logger = { name, level, sinks };
 	}
 
-	void this_logger::initialize(const std::string& name) {
-		detail::this_logger = { name };
+	void this_logger::initialize(const std::string& name, std::initializer_list<sink_reference> sinks) {
+		detail::this_logger = { name, sinks };
 	}
 
 	constexpr logger& this_logger::get() noexcept {
@@ -44,6 +44,22 @@ namespace citadel {
 
 	const std::string& this_logger::get_name() noexcept {
 		return get().get_name();
+	}
+
+	const std::vector<sink_reference>& this_logger::get_sinks() noexcept {
+		return get().get_sinks();
+	}
+
+	std::size_t this_logger::sink_count() noexcept {
+		return get().sink_count();
+	}
+
+	void this_logger::push_sink(const sink_reference& sink) {
+		get().push_sink(sink);
+	}
+
+	void this_logger::clear_sinks() {
+		get().clear_sinks();
 	}
 
 	log_level this_logger::get_level() noexcept {

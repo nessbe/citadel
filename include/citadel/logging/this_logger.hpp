@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include <initializer_list>
 #include <string>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
+
+#include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/logging/log_level.hpp"
 #include "citadel/logging/logger.hpp"
@@ -28,8 +31,8 @@ namespace citadel {
 	}
 
 	namespace this_logger {
-		exported void initialize(const std::string& name, log_level level);
-		exported void initialize(const std::string& name);
+		exported void initialize(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks = { });
+		exported void initialize(const std::string& name, std::initializer_list<sink_reference> sinks = { });
 
 		exported constexpr inline logger& get() noexcept;
 
@@ -37,6 +40,12 @@ namespace citadel {
 
 		nodisc exported bool is_level_valid(log_level level) noexcept;
 		nodisc exported bool is_off() noexcept;
+
+		nodisc exported const std::vector<sink_reference>& get_sinks() noexcept;
+		nodisc exported std::size_t sink_count() noexcept;
+
+		exported void push_sink(const sink_reference& sink);
+		exported void clear_sinks();
 
 		nodisc exported const std::string& get_name() noexcept;
 

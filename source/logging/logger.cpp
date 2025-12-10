@@ -16,11 +16,11 @@
 #include "citadel/logging/logger.hpp"
 
 namespace citadel {
-	logger::logger(const std::string& name, log_level level)
-		: name_(name), level_(level) { }
+	logger::logger(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks)
+		: sinks_(sinks), name_(name), level_(level) { }
 
-	logger::logger(const std::string& name)
-		: logger(name, log_level::debug) { }
+	logger::logger(const std::string& name, std::initializer_list<sink_reference> sinks)
+		: logger(name, log_level::debug, sinks) { }
 
 	void logger::log(const std::string& message, log_level level) const {
 		if (is_off()) {
@@ -31,9 +31,18 @@ namespace citadel {
 			return;
 		}
 
-		std::cout << "[" << name_ << "] ";
-		std::cout << "[" << level << "] ";
-		std::cout << message << std::endl;
+		std::ostringstream out;
+		out << "[" << name_ << "] ";
+		out << "[" << level << "] ";
+		out << message << std::endl;
+
+		std::string formatted_message = out.str();
+		const char* formatted_message_buffer = formatted_message.data();
+		std::size_t formatted_message_size = formatted_message.size();
+
+		for (const sink_reference& sink : sinks_) {
+			CITADEL_POINTER_CALL(sink, write, formatted_message_buffer, static_cast<stream::size_type>(formatted_message_size));
+		}
 	}
 
 	bool logger::is_level_valid(log_level value) const noexcept {
@@ -42,6 +51,22 @@ namespace citadel {
 
 	bool logger::is_off() const noexcept {
 		return level_ >= log_level::off;
+	}
+
+	const std::vector<sink_reference>& logger::get_sinks() const noexcept {
+		return sinks_;
+	}
+
+	std::size_t logger::sink_count() const noexcept {
+		return sinks_.size();
+	}
+
+	void logger::push_sink(const sink_reference& sink) {
+		sinks_.push_back(sink);
+	}
+
+	void logger::clear_sinks() {
+		sinks_.clear();
 	}
 
 	const std::string& logger::get_name() const noexcept {
