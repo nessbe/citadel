@@ -20,6 +20,8 @@ project "sandbox"
 	targetdir("%{wks.location}/build/bin/%{prj.name}")
 	objdir("%{wks.location}/build/obj/%{prj.name}")
 
+	defines "CITADEL_THIS_LOGGER_NAME=\"SANDBOX\""
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",
