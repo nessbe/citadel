@@ -59,6 +59,10 @@
 
 #include "citadel/drivers/opengl.hpp"
 
+#include "citadel/logging/log_level.hpp"
+#include "citadel/logging/logger.hpp"
+#include "citadel/logging/this_logger.hpp"
+
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"
 
