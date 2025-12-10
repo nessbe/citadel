@@ -77,7 +77,7 @@ namespace citadel {
 	}
 
 	int stl_file::_peek() {
-		return static_cast<char>(stream_.peek());
+		return stream_.peek();
 	}
 
 	bool stl_file::_seek(position_type position) {
@@ -93,7 +93,7 @@ namespace citadel {
 			stream_.seekp(position);
 		}
 
-		return stream_.good();
+		return is_good();
 	}
 
 	bool stl_file::_seek(offset_type offset, stream_direction direction) {
@@ -110,7 +110,7 @@ namespace citadel {
 			stream_.seekp(offset, seek_direction);
 		}
 
-		return stream_.good();
+		return is_good();
 	}
 
 	void stl_file::_flush() {
