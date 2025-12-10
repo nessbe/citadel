@@ -1,4 +1,4 @@
-// File:       this_logger.cpp
+// File:       this_logger.inl
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,22 +12,47 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/logging/this_logger.hpp"
+#pragma once
 
 namespace citadel {
-	logger detail::this_logger("DEFAULT", log_level::debug);
-
-	void this_logger::initialize(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks) {
-		detail::this_logger = { name, level, sinks };
+	std::mutex& this_logger::mutex() {
+		static std::mutex mutex;
+		return mutex;
 	}
 
-	void this_logger::initialize(const std::string& name, std::initializer_list<sink_reference> sinks) {
-		detail::this_logger = { name, sinks };
+	std::unordered_map<std::string, reference<logger>>& this_logger::instances() {
+		static std::unordered_map<std::string, reference<logger>> instances;
+		return instances;
 	}
 
-	constexpr logger& this_logger::get() noexcept {
-		return detail::this_logger;
+	logger& this_logger::initialize(const std::string& name) {
+		std::lock_guard<std::mutex> lock(mutex());
+		std::unordered_map<std::string, reference<logger>>& loggers = instances();
+
+		if (loggers.find(name) == loggers.end()) {
+			loggers[name] = make_referenced<logger>(name);
+		}
+
+		current = loggers[name];
+		CITADEL_POINTER_RETURN_REFERENCE(current);
+ 	}
+
+	logger& this_logger::get() {
+		CITADEL_POINTER_RETURN_REFERENCE(current);
+	}
+
+	bool this_logger::set(const std::string& name) {
+		std::lock_guard<std::mutex> lock(mutex());
+
+		std::unordered_map<std::string, reference<logger>>& loggers = instances();
+		std::unordered_map<std::string, reference<logger>>::iterator logger = loggers.find(name);
+
+		if (logger != loggers.end()) {
+			current = logger->second;
+			return true;
+		}
+
+		return false;
 	}
 
 	void this_logger::log(const std::string& name, log_level level) {

@@ -15,7 +15,9 @@
 #pragma once
 
 #include <initializer_list>
+#include <mutex>
 #include <string>
+#include <unordered_map>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
@@ -25,31 +27,36 @@
 #include "citadel/logging/log_level.hpp"
 #include "citadel/logging/logger.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
-	namespace detail {
-		extern logger this_logger;
-	}
-
 	namespace this_logger {
-		exported void initialize(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks = { });
-		exported void initialize(const std::string& name, std::initializer_list<sink_reference> sinks = { });
+		inline thread_local reference<logger> current;
 
-		exported constexpr inline logger& get() noexcept;
+		exported inline std::mutex& mutex();
+		exported inline std::unordered_map<std::string, reference<logger>>& instances();
 
-		exported void log(const std::string& message, log_level level);
+		exported inline logger& initialize(const std::string& name);
 
-		nodisc exported bool is_level_valid(log_level level) noexcept;
-		nodisc exported bool is_off() noexcept;
+		exported inline logger& get();
+		exported inline bool set(const std::string& name);
 
-		nodisc exported const std::vector<sink_reference>& get_sinks() noexcept;
-		nodisc exported std::size_t sink_count() noexcept;
+		exported inline void log(const std::string& message, log_level level);
 
-		exported void push_sink(const sink_reference& sink);
-		exported void clear_sinks();
+		nodisc exported inline bool is_level_valid(log_level level) noexcept;
+		nodisc exported inline bool is_off() noexcept;
 
-		nodisc exported const std::string& get_name() noexcept;
+		nodisc exported inline const std::vector<sink_reference>& get_sinks() noexcept;
+		nodisc exported inline std::size_t sink_count() noexcept;
 
-		nodisc exported log_level get_level() noexcept;
-		exported void set_level(log_level value) noexcept;
+		exported inline void push_sink(const sink_reference& sink);
+		exported inline void clear_sinks();
+
+		nodisc exported inline const std::string& get_name() noexcept;
+
+		nodisc exported inline log_level get_level() noexcept;
+		exported inline void set_level(log_level value) noexcept;
 	}
 }
+
+#include "citadel/logging/this_logger.inl"
