@@ -16,7 +16,7 @@
 #include "citadel/logging/this_logger.hpp"
 
 namespace citadel {
-	logger detail::this_logger("CITADEL", log_level::debug);
+	logger detail::this_logger("DEFAULT", log_level::debug);
 
 	void this_logger::initialize(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks) {
 		detail::this_logger = { name, level, sinks };

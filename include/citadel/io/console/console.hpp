@@ -14,14 +14,20 @@
 
 #pragma once
 
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported console : public stream {
 	public:
+		nodisc static console& get() noexcept;
+		nodisc static const reference<console>& pointer() noexcept;
+
 		console() = default;
 
 		console(const console&) = delete;
@@ -29,6 +35,9 @@ namespace citadel {
 
 		console(console&&) = delete;
 		console& operator=(console&&) = delete;
+
+	private:
+		static reference<console> instance_;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) override;

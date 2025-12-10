@@ -15,8 +15,16 @@
 #include "citadel/pch.hpp"
 #include "citadel/core/engine.hpp"
 
+#include "citadel/io/console/console.hpp"
+
 namespace citadel {
-	void engine::initialize() { }
+	void engine::initialize() {
+		sink_reference console_sink = make_referenced<sink>(console::pointer());
+		this_logger::initialize("CITADEL", log_level::debug);
+		this_logger::push_sink(console_sink);
+
+		this_logger::log("Citadel core logger initialized successfully", log_level::trace);
+	}
 
 	exit_code engine::run() {
 		return exit_code::success;

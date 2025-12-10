@@ -16,6 +16,16 @@
 #include "citadel/io/console/console.hpp"
 
 namespace citadel {
+	console& console::get() noexcept {
+		CITADEL_POINTER_RETURN_REFERENCE(instance_);
+	}
+
+	const reference<console>& console::pointer() noexcept {
+		return instance_;
+	}
+
+	reference<console> console::instance_ = make_referenced<console>();
+
 	stream::size_type console::_read(void* buffer, size_type size) {
 		if (buffer) {
 			std::cin.read(reinterpret_cast<char*>(buffer), size);
