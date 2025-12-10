@@ -45,6 +45,30 @@ namespace citadel {
 		}
 	}
 
+	void logger::log_debug(const std::string& message) const {
+		log(message, log_level::debug);
+	}
+
+	void logger::log_trace(const std::string& message) const {
+		log(message, log_level::trace);
+	}
+
+	void logger::log_info(const std::string& message) const {
+		log(message, log_level::info);
+	}
+
+	void logger::log_warning(const std::string& message) const {
+		log(message, log_level::warning);
+	}
+
+	void logger::log_error(const std::string& message) const {
+		log(message, log_level::error);
+	}
+
+	void logger::log_fatal(const std::string& message) const {
+		log(message, log_level::fatal);
+	}
+
 	bool logger::is_level_valid(log_level value) const noexcept {
 		return value >= level_;
 	}

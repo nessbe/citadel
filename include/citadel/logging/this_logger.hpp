@@ -33,29 +33,36 @@ namespace citadel {
 	namespace this_logger {
 		inline thread_local reference<logger> current;
 
-		exported inline std::mutex& mutex();
-		exported inline std::unordered_map<std::string, reference<logger>>& instances();
+		inline std::mutex& mutex();
+		inline std::unordered_map<std::string, reference<logger>>& instances();
 
-		exported inline logger& initialize(const std::string& name);
+		inline logger& initialize(const std::string& name);
 
-		exported inline logger& get();
-		exported inline bool set(const std::string& name);
+		inline logger& get();
+		inline bool set(const std::string& name);
 
-		exported inline void log(const std::string& message, log_level level);
+		inline void log(const std::string& message, log_level level);
 
-		nodisc exported inline bool is_level_valid(log_level level) noexcept;
-		nodisc exported inline bool is_off() noexcept;
+		inline void log_debug(const std::string& message);
+		inline void log_trace(const std::string& message);
+		inline void log_info(const std::string& message);
+		inline void log_warning(const std::string& message);
+		inline void log_error(const std::string& message);
+		inline void log_fatal(const std::string& message);
 
-		nodisc exported inline const std::vector<sink_reference>& get_sinks() noexcept;
-		nodisc exported inline std::size_t sink_count() noexcept;
+		nodisc inline bool is_level_valid(log_level level) noexcept;
+		nodisc inline bool is_off() noexcept;
 
-		exported inline void push_sink(const sink_reference& sink);
-		exported inline void clear_sinks();
+		nodisc inline const std::vector<sink_reference>& get_sinks() noexcept;
+		nodisc inline std::size_t sink_count() noexcept;
 
-		nodisc exported inline const std::string& get_name() noexcept;
+		inline void push_sink(const sink_reference& sink);
+		inline void clear_sinks();
 
-		nodisc exported inline log_level get_level() noexcept;
-		exported inline void set_level(log_level value) noexcept;
+		nodisc inline const std::string& get_name() noexcept;
+
+		nodisc inline log_level get_level() noexcept;
+		inline void set_level(log_level value) noexcept;
 	}
 }
 

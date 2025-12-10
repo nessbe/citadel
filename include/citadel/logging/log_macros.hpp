@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "citadel/logging/log_level.hpp"
 #include "citadel/logging/this_logger.hpp"
 
 #ifndef CITADEL_THIS_LOGGER_NAME
@@ -23,3 +24,10 @@
 #define CITADEL_THIS_LOGGER_CALL(function, ...) ::citadel::this_logger::set(CITADEL_THIS_LOGGER_NAME); ::citadel::this_logger::function(__VA_ARGS__)
 
 #define CITADEL_LOG(message, level) CITADEL_THIS_LOGGER_CALL(log, message, level)
+
+#define CITADEL_LOG_DEBUG(message) CITADEL_LOG(message, ::citadel::log_level::debug)
+#define CITADEL_LOG_TRACE(message) CITADEL_LOG(message, ::citadel::log_level::trace)
+#define CITADEL_LOG_INFO(message) CITADEL_LOG(message, ::citadel::log_level::info)
+#define CITADEL_LOG_WARNING(message) CITADEL_LOG(message, ::citadel::log_level::warning)
+#define CITADEL_LOG_ERROR(message) CITADEL_LOG(message, ::citadel::log_level::error)
+#define CITADEL_LOG_FATAL(message) CITADEL_LOG(message, ::citadel::log_level::fatal)

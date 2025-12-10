@@ -37,6 +37,13 @@ namespace citadel {
 
 		void log(const std::string& message, log_level level) const;
 
+		void log_debug(const std::string& message) const;
+		void log_trace(const std::string& message) const;
+		void log_info(const std::string& message) const;
+		void log_warning(const std::string& message) const;
+		void log_error(const std::string& message) const;
+		void log_fatal(const std::string& message) const;
+
 		nodisc bool is_level_valid(log_level value) const noexcept;
 		nodisc bool is_off() const noexcept;
 
