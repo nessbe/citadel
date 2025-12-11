@@ -148,3 +148,5 @@
 
 #include "citadel/utils/string/string_convertion.hpp"
 #include "citadel/utils/string/stringifier.hpp"
+
+#include "citadel/utils/variadic/variadic_accessor.hpp"
