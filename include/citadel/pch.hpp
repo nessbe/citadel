@@ -35,6 +35,7 @@
 #include <memory>
 #include <mutex>
 #include <optional>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -78,6 +79,7 @@
 #include "citadel/platforms/windows.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
+#include "citadel/utils/string/stringifier.hpp"
 
 #include <glad/glad.h>
 #include <glad/glad_wgl.h>
