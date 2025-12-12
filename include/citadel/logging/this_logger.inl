@@ -16,6 +16,8 @@
 
 #include <type_traits>
 
+#include "citadel/pointers.hpp"
+
 namespace citadel {
 	std::mutex& this_logger::mutex() {
 		static std::mutex mutex;

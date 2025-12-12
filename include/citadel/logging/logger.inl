@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "citadel/pointers.hpp"
+
 #include "citadel/utils/format/formatter.hpp"
 
 namespace citadel {

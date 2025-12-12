@@ -35,7 +35,7 @@ namespace citadel {
 
 	private:
 		template <typename T, typename Visitor>
-		void call_if_index_matches(std::size_t index, std::size_t I, T& value, bool& matched);
+		void call_if_index_matches(std::size_t index, std::size_t I, T& value, bool& matched, Visitor&& visitor);
 
 		template <typename Visitor, std::size_t... I>
 		void visit_sequence(std::size_t index, Visitor&& visitor, std::index_sequence<I...>);

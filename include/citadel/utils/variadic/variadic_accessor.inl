@@ -42,7 +42,7 @@ namespace citadel {
 
 	template<typename ...Arguments>
 	template<typename T, typename Visitor>
-	void variadic_accessor<Arguments...>::call_if_index_matches(std::size_t index, std::size_t I, T& value, bool& matched) {
+	void variadic_accessor<Arguments...>::call_if_index_matches(std::size_t index, std::size_t I, T& value, bool& matched, Visitor&& visitor) {
 		if (index == I) {
 			visitor(value);
 			matched = true;
@@ -54,7 +54,7 @@ namespace citadel {
 	void variadic_accessor<Arguments...>::visit_sequence(std::size_t index, Visitor&& visitor, std::index_sequence<I...>) {
 		bool matched = false;
 
-		(call_if_index_matches(index, I, std::get<I>(values_), matched, visitor), ...);
+		(call_if_index_matches(index, I, std::get<I>(values_), matched, std::forward<Visitor>(visitor)), ...);
 
 		if (!matched) {
 			throw std::out_of_range("Index out of range");
