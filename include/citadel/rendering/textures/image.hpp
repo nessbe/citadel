@@ -26,7 +26,7 @@ namespace citadel {
 	public:
 		using dimension_type = std::uint32_t;
 		using channel_type = std::uint8_t;
-		using buffer_type = std::vector<channel_type>;
+		using buffer_type = std::vector<std::uint8_t>;
 
 	public:
 		image(dimension_type width, dimension_type height, std::size_t channel_count, const buffer_type& data);
@@ -38,8 +38,8 @@ namespace citadel {
 		nodisc buffer_type& data() noexcept;
 		nodisc const buffer_type& data() const noexcept;
 
-		nodisc channel_type* raw() noexcept;
-		nodisc const channel_type* raw() const noexcept;
+		nodisc std::uint8_t* raw() noexcept;
+		nodisc const std::uint8_t* raw() const noexcept;
 
 		nodisc std::size_t get_channel_count() const noexcept;
 
