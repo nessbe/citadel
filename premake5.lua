@@ -13,9 +13,13 @@
 -- See the LICENSE file for details.
 
 include "workspace.lua"
-include "citadel.lua"
 
-include "vendor/glad/glad.lua"
+group "core"
+	include "citadel.lua"
 
-include "examples/basic_application/basic_application.lua"
-include "examples/sandbox/sandbox.lua"
+group "examples"
+	include "examples/basic_application/basic_application.lua"
+	include "examples/sandbox/sandbox.lua"
+
+group "vendor"
+	include "vendor/glad/glad.lua"

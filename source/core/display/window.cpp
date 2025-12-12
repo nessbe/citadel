@@ -213,7 +213,7 @@ namespace citadel {
 	}
 
 	void window::initialize(rendering_api_type rendering_api) {
-		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_channel, color::max_channel, color::max_channel, color::max_channel));
+		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_value, color::max_value, color::max_value, color::max_value));
 		CITADEL_ASSERT(surface_, "Failed to create surface");
 
 		rendering_context_ = rendering_context::create(rendering_api, this);

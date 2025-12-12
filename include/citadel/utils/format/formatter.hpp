@@ -1,4 +1,4 @@
-// File:       assert.cpp
+// File:       formatter.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,29 +12,26 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/assert.hpp"
+#pragma once
+
+#include <string>
+
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 
 namespace citadel {
-	void panic() noexcept {
-#if CITADEL_COMPILER_MSVC
-		__debugbreak();
-#elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-		__builtin_trap();
-#else
-		std::abort();
-#endif
-	}
+	class exported formatter {
+	public:
+		formatter(const std::string& source);
 
-	void assert(bool condition) noexcept {
-		if (unlikely(!condition)) {
-			panic();
-		}
-	}
+		template <typename... Arguments>
+		std::string format(Arguments&&... arguments);
 
-	void soft_assert(bool condition) {
-		if (unlikely(!condition)) {
-			throw assertion_error("Soft assertion failed");
-		}
-	}
+		nodisc const std::string& source() const noexcept;
+
+	private:
+		std::string source_;
+	};
 }
+
+#include "citadel/utils/format/formatter.inl"

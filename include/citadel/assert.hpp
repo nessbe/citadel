@@ -21,21 +21,29 @@
 
 namespace citadel {
 	noret exported void panic() noexcept;
-	noret exported void panic(const std::string& message);
+
+	template <typename... Arguments>
+	noret void panic(const std::string& message, Arguments&&... arguments);
 
 	exported void assert(bool condition) noexcept;
-	exported void assert(bool condition, const std::string& message);
+
+	template <typename... Arguments>
+	void assert(bool condition, const std::string& message, Arguments&&... arguments);
 
 	exported void soft_assert(bool condition);
-	exported void soft_assert(bool condition, const std::string& message);
+
+	template <typename... Arguments>
+	void soft_assert(bool condition, const std::string& message, Arguments&&... arguments);
 }
 
 #ifdef CITADEL_DEBUG
-	#define CITADEL_PANIC(message) ::citadel::panic("Program panicked: " message)
-	#define CITADEL_ASSERT(condition, message) ::citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message)
+	#define CITADEL_PANIC(message, ...) ::citadel::panic("Program panicked: " message, __VA_ARGS__)
+	#define CITADEL_ASSERT(condition, message, ...) ::citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message, __VA_ARGS__)
 #else
-	#define CITADEL_PANIC(message)
-	#define CITADEL_ASSERT(condition, message)
+	#define CITADEL_PANIC(message, ...)
+	#define CITADEL_ASSERT(condition, message, ...)
 #endif
 
-#define CITADEL_SOFT_ASSERT(condition, message) ::citadel::soft_assert(static_cast<bool>(condition), "Soft assertion failed (" #condition "): " message)
+#define CITADEL_SOFT_ASSERT(condition, message, ...) ::citadel::soft_assert(static_cast<bool>(condition), "Soft assertion failed (" #condition "): " message, __VA_ARGS__)
+
+#include "citadel/assert.inl"

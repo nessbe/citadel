@@ -35,8 +35,11 @@
 #include <memory>
 #include <mutex>
 #include <optional>
+#include <ostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
@@ -58,6 +61,9 @@
 
 #include "citadel/drivers/opengl.hpp"
 
+#include "citadel/logging/log_macros.hpp"
+#include "citadel/logging/this_logger.hpp"
+
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"
 
@@ -74,6 +80,9 @@
 #include "citadel/platforms/windows.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
+#include "citadel/utils/string/stringifier.hpp"
+
+#include "citadel/utils/format/formatter.hpp"
 
 #include <glad/glad.h>
 #include <glad/glad_wgl.h>

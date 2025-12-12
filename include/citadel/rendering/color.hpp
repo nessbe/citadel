@@ -23,49 +23,49 @@
 namespace citadel {
 	class exported color {
 	public:
-		using channel_type = std::uint8_t;
-		using channel_normalized_type = float;
+		static const std::uint8_t max_value;
+		static const float max_value_normalized;
+
+		std::uint8_t red, green, blue, alpha;
 
 	public:
-		static constexpr channel_type max_channel = std::numeric_limits<channel_type>::max();
+		nodisc static float normalize_channel(std::uint8_t value) noexcept;
+		nodisc static std::uint8_t unnormalize_channel(float value) noexcept;
 
-		channel_type red, green, blue, alpha;
+		nodisc static color from_normalized(float red, float green, float blue, float alpha);
+		nodisc static color from_normalized(float red, float green, float blue);
 
-	public:
-		static channel_normalized_type normalize_channel(channel_type value) noexcept;
-		static channel_type unnormalize_channel(channel_normalized_type value) noexcept;
+		color(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha);
+		color(std::uint8_t red, std::uint8_t green, std::uint8_t blue);
 
-		color(channel_type red, channel_type green, channel_type blue, channel_type alpha);
-		color(channel_type red, channel_type green, channel_type blue);
+		nodisc std::uint8_t get_red() const noexcept;
+		void set_red(std::uint8_t value) noexcept;
 
-		nodisc channel_type get_red() const noexcept;
-		void set_red(channel_type value) noexcept;
+		nodisc float get_red_normalized() const noexcept;
+		void set_red_normalized(float value) noexcept;
 
-		nodisc channel_normalized_type get_red_normalized() const noexcept;
-		void set_red_normalized(channel_normalized_type value) noexcept;
+		nodisc std::uint8_t get_green() const noexcept;
+		void set_green(std::uint8_t value) noexcept;
 
-		nodisc channel_type get_green() const noexcept;
-		void set_green(channel_type value) noexcept;
+		nodisc float get_green_normalized() const noexcept;
+		void set_green_normalized(float value) noexcept;
 
-		nodisc channel_normalized_type get_green_normalized() const noexcept;
-		void set_green_normalized(channel_normalized_type value) noexcept;
+		nodisc std::uint8_t get_blue() const noexcept;
+		void set_blue(std::uint8_t value) noexcept;
 
-		nodisc channel_type get_blue() const noexcept;
-		void set_blue(channel_type value) noexcept;
+		nodisc float get_blue_normalized() const noexcept;
+		void set_blue_normalized(float value) noexcept;
 
-		nodisc channel_normalized_type get_blue_normalized() const noexcept;
-		void set_blue_normalized(channel_normalized_type value) noexcept;
+		nodisc std::uint8_t get_alpha() const noexcept;
+		void set_alpha(std::uint8_t value) noexcept;
 
-		nodisc channel_type get_alpha() const noexcept;
-		void set_alpha(channel_type value) noexcept;
+		nodisc float get_alpha_normalized() const noexcept;
+		void set_alpha_normalized(float value) noexcept;
 
-		nodisc channel_normalized_type get_alpha_normalized() const noexcept;
-		void set_alpha_normalized(channel_normalized_type value) noexcept;
+		void get_channels(std::uint8_t& out_red, std::uint8_t& out_green, std::uint8_t& out_blue, std::uint8_t& out_alpha) const noexcept;
+		void get_channels(std::uint8_t& out_red, std::uint8_t& out_green, std::uint8_t& out_blue) const noexcept;
 
-		void get_channels(channel_type& out_red, channel_type& out_green, channel_type& out_blue, channel_type& out_alpha) const noexcept;
-		void get_channels(channel_type& out_red, channel_type& out_green, channel_type& out_blue) const noexcept;
-
-		void get_channels_normalized(channel_normalized_type& out_red, channel_normalized_type& out_green, channel_normalized_type& out_blue, channel_normalized_type& out_alpha) const noexcept;
-		void get_channels_normalized(channel_normalized_type& out_red, channel_normalized_type& out_green, channel_normalized_type& out_blue) const noexcept;
+		void get_channels_normalized(float& out_red, float& out_green, float& out_blue, float& out_alpha) const noexcept;
+		void get_channels_normalized(float& out_red, float& out_green, float& out_blue) const noexcept;
 	};
 }

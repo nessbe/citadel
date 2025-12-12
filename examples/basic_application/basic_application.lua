@@ -20,6 +20,8 @@ project "basic_application"
 	targetdir("%{wks.location}/build/bin/%{prj.name}")
 	objdir("%{wks.location}/build/obj/%{prj.name}")
 
+	defines "CITADEL_THIS_LOGGER_NAME=\"BASIC_APPLICATION\""
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",

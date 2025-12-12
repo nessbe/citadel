@@ -54,16 +54,10 @@ CITADEL_WARNING_IGNORE_POP
 	void opengl_surface::_unbind() { }
 
 	void opengl_surface::_clear() {
-		color::channel_normalized_type red, green, blue, alpha;
+		float red, green, blue, alpha;
 		get_clear_color().get_channels_normalized(red, green, blue, alpha);
 
-		glClearColor(
-			static_cast<GLclampf>(red),
-			static_cast<GLclampf>(green),
-			static_cast<GLclampf>(blue),
-			static_cast<GLclampf>(alpha)
-		);
-
+		glClearColor(red, green, blue, alpha);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 

@@ -1,4 +1,4 @@
-// File:       stl_file.hpp
+// File:       console.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,30 +14,30 @@
 
 #pragma once
 
-#include <fstream>
-#include <iosfwd>
-#include <string>
-
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"
 
-#include "citadel/io/filesystem/file.hpp"
-#include "citadel/io/filesystem/file_open_mode.hpp"
+#include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported stl_file : public file {
+	class exported console : public stream {
 	public:
-		stl_file(const std::string& path, file_open_mode mode);
-		virtual ~stl_file() override;
+		nodisc static console& get() noexcept;
+		nodisc static const reference<console>& pointer() noexcept;
 
-		stl_file(const stl_file&) = delete;
-		stl_file& operator=(const stl_file&) = delete;
+		console() = default;
+
+		console(const console&) = delete;
+		console& operator=(const console&) = delete;
+
+		console(console&&) = delete;
+		console& operator=(console&&) = delete;
 
 	private:
-		std::fstream stream_;
+		static reference<console> instance_;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) override;
@@ -55,7 +55,5 @@ namespace citadel {
 
 		nodisc virtual bool _is_good() const override;
 		nodisc virtual bool _is_eof() const override;
-
-		nodisc virtual void* _get_native_handle() const override;
 	};
 }

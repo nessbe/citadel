@@ -23,6 +23,8 @@ project "citadel"
 	pchheader "citadel/pch.hpp"
 	pchsource "source/pch.cpp"
 
+	defines "CITADEL_THIS_LOGGER_NAME=\"CITADEL\""
+
 	files {
 		"include/**.hpp",
 		"include/**.inl",

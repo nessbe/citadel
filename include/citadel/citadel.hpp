@@ -43,6 +43,7 @@
 #include "citadel/debug/exceptions/assertion_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
+
 #include "citadel/drivers/opengl/opengl_context.hpp"
 #include "citadel/drivers/opengl/opengl_index_buffer.hpp"
 #include "citadel/drivers/opengl/opengl_loader.hpp"
@@ -69,6 +70,8 @@
 #include "citadel/io/binary/binary_reader.hpp"
 #include "citadel/io/binary/binary_writer.hpp"
 
+#include "citadel/io/console/console.hpp"
+
 #include "citadel/io/filesystem/file.hpp"
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
@@ -82,6 +85,11 @@
 #include "citadel/io/text/string_stream.hpp"
 #include "citadel/io/text/text_reader.hpp"
 #include "citadel/io/text/text_writer.hpp"
+
+#include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_macros.hpp"
+#include "citadel/logging/logger.hpp"
+#include "citadel/logging/this_logger.hpp"
 
 #include "citadel/math/angles.hpp"
 #include "citadel/math/epsilon.hpp"
@@ -138,4 +146,9 @@
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
+#include "citadel/utils/format/formatter.hpp"
+
 #include "citadel/utils/string/string_convertion.hpp"
+#include "citadel/utils/string/stringifier.hpp"
+
+#include "citadel/utils/variadic/variadic_accessor.hpp"
