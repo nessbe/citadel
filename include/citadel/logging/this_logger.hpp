@@ -41,14 +41,26 @@ namespace citadel {
 		inline logger& get();
 		inline bool set(const std::string& name);
 
-		inline void log(const std::string& message, log_level level);
+		template <typename... Arguments>
+		inline void log(const std::string& message, log_level level, Arguments&&... arguments);
 
-		inline void log_debug(const std::string& message);
-		inline void log_trace(const std::string& message);
-		inline void log_info(const std::string& message);
-		inline void log_warning(const std::string& message);
-		inline void log_error(const std::string& message);
-		inline void log_fatal(const std::string& message);
+		template <typename... Arguments>
+		inline void log_debug(const std::string& message, Arguments&&... arguments);
+
+		template <typename... Arguments>
+		inline void log_trace(const std::string& message, Arguments&&... arguments);
+
+		template <typename... Arguments>
+		inline void log_info(const std::string& message, Arguments&&... arguments);
+
+		template <typename... Arguments>
+		inline void log_warning(const std::string& message, Arguments&&... arguments);
+
+		template <typename... Arguments>
+		inline void log_error(const std::string& message, Arguments&&... arguments);
+
+		template <typename... Arguments>
+		inline void log_fatal(const std::string& message, Arguments&&... arguments);
 
 		nodisc inline bool is_level_valid(log_level level) noexcept;
 		nodisc inline bool is_off() noexcept;

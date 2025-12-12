@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <type_traits>
+
 namespace citadel {
 	std::mutex& this_logger::mutex() {
 		static std::mutex mutex;
@@ -55,32 +57,39 @@ namespace citadel {
 		return false;
 	}
 
-	void this_logger::log(const std::string& name, log_level level) {
-		get().log(name, level);
+	template <typename... Arguments>
+	void this_logger::log(const std::string& name, log_level level, Arguments&&... arguments) {
+		get().log(name, level, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_debug(const std::string& message) {
-		get().log_debug(message);
+	template <typename... Arguments>
+	void this_logger::log_debug(const std::string& message, Arguments&&... arguments) {
+		get().log_debug(message, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_trace(const std::string& message) {
-		get().log_trace(message);
+	template <typename... Arguments>
+	void this_logger::log_trace(const std::string& message, Arguments&&... arguments) {
+		get().log_trace(message, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_info(const std::string& message) {
-		get().log_info(message);
+	template <typename... Arguments>
+	void this_logger::log_info(const std::string& message, Arguments&&... arguments) {
+		get().log_info(message, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_warning(const std::string& message) {
-		get().log_warning(message);
+	template <typename... Arguments>
+	void this_logger::log_warning(const std::string& message, Arguments&&... arguments) {
+		get().log_warning(message, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_error(const std::string& message) {
-		get().log_error(message);
+	template <typename... Arguments>
+	void this_logger::log_error(const std::string& message, Arguments&&... arguments) {
+		get().log_error(message, std::forward<Arguments>(arguments)...);
 	}
 
-	void this_logger::log_fatal(const std::string& message) {
-		get().log_fatal(message);
+	template <typename... Arguments>
+	void this_logger::log_fatal(const std::string& message, Arguments&&... arguments) {
+		get().log_fatal(message, std::forward<Arguments>(arguments)...);
 	}
 
 	bool this_logger::is_level_valid(log_level level) noexcept {

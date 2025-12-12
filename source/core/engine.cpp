@@ -24,7 +24,7 @@ namespace citadel {
 		this_logger::initialize("CITADEL");
 		this_logger::push_sink(console_sink);
 
-		CITADEL_LOG("Citadel core logger initialized successfully", log_level::trace);
+		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
 	}
 
 	exit_code engine::run() {

@@ -17,56 +17,17 @@
 
 namespace citadel {
 	logger::logger(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks)
-		: sinks_(sinks), name_(name), level_(level) { }
+		: name_(name), sinks_(sinks), level_(level) { }
 
 	logger::logger(const std::string& name, std::initializer_list<sink_reference> sinks)
 		: logger(name, log_level::debug, sinks) { }
 
-	void logger::log(const std::string& message, log_level level) const {
-		if (is_off()) {
-			return;
-		}
-
-		if (!is_level_valid(level)) {
-			return;
-		}
-
-		std::ostringstream out;
-		out << "[" << name_ << "] ";
-		out << "[" << level << "] ";
-		out << message << std::endl;
-
-		std::string formatted_message = out.str();
-		const char* formatted_message_buffer = formatted_message.data();
-		std::size_t formatted_message_size = formatted_message.size();
-
-		for (const sink_reference& sink : sinks_) {
-			CITADEL_POINTER_CALL(sink, write, formatted_message_buffer, static_cast<stream::size_type>(formatted_message_size));
-		}
-	}
-
-	void logger::log_debug(const std::string& message) const {
-		log(message, log_level::debug);
-	}
-
-	void logger::log_trace(const std::string& message) const {
-		log(message, log_level::trace);
-	}
-
-	void logger::log_info(const std::string& message) const {
-		log(message, log_level::info);
-	}
-
-	void logger::log_warning(const std::string& message) const {
-		log(message, log_level::warning);
-	}
-
-	void logger::log_error(const std::string& message) const {
-		log(message, log_level::error);
-	}
-
-	void logger::log_fatal(const std::string& message) const {
-		log(message, log_level::fatal);
+	std::string logger::enrich_message(const std::string& message, log_level level) const {
+		std::ostringstream oss;
+		oss << "[" << name_ << "] ";
+		oss << "[" << level << "] ";
+		oss << message << std::endl;
+		return oss.str();
 	}
 
 	bool logger::is_level_valid(log_level value) const noexcept {

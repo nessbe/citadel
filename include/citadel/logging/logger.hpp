@@ -35,14 +35,31 @@ namespace citadel {
 		logger(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks = { });
 		logger(const std::string& name, std::initializer_list<sink_reference> sinks = { });
 
-		void log(const std::string& message, log_level level) const;
+		template <typename... Arguments>
+		std::string format_message(const std::string& message, Arguments&&... arguments) const;
 
-		void log_debug(const std::string& message) const;
-		void log_trace(const std::string& message) const;
-		void log_info(const std::string& message) const;
-		void log_warning(const std::string& message) const;
-		void log_error(const std::string& message) const;
-		void log_fatal(const std::string& message) const;
+		std::string enrich_message(const std::string& message, log_level level) const;
+
+		template <typename... Arguments>
+		void log(const std::string& message, log_level level, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_debug(const std::string& message, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_trace(const std::string& message, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_info(const std::string& message, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_warning(const std::string& message, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_error(const std::string& message, Arguments&&... arguments) const;
+
+		template <typename... Arguments>
+		void log_fatal(const std::string& message, Arguments&&... arguments) const;
 
 		nodisc bool is_level_valid(log_level value) const noexcept;
 		nodisc bool is_off() const noexcept;
@@ -59,11 +76,12 @@ namespace citadel {
 		void set_level(log_level value) noexcept;
 
 	private:
-		std::vector<sink_reference> sinks_;
-
 		std::string name_;
+		std::vector<sink_reference> sinks_;
 		log_level level_;
 	};
 }
 
 CITADEL_WARNING_IGNORE_POP
+
+#include "citadel/logging/logger.inl"
