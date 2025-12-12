@@ -40,10 +40,21 @@ namespace citadel {
 		return std::tuple_size_v<std::tuple<Arguments...>>;
 	}
 
+	template<typename ...Arguments>
+	template<typename T, typename Visitor>
+	void variadic_accessor<Arguments...>::call_if_index_matches(std::size_t index, std::size_t I, T& value, bool& matched) {
+		if (index == I) {
+			visitor(value);
+			matched = true;
+		}
+	}
+
 	template <typename... Arguments>
 	template <typename Visitor, std::size_t... I>
 	void variadic_accessor<Arguments...>::visit_sequence(std::size_t index, Visitor&& visitor, std::index_sequence<I...>) {
-		bool matched = ((index == I && (visitor(std::get<I>(values_)), true)) || ...);
+		bool matched = false;
+
+		(call_if_index_matches(index, I, std::get<I>(values_), matched, visitor), ...);
 
 		if (!matched) {
 			throw std::out_of_range("Index out of range");

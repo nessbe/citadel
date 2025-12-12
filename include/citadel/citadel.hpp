@@ -146,6 +146,8 @@
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
+#include "citadel/utils/format/formatter.hpp"
+
 #include "citadel/utils/string/string_convertion.hpp"
 #include "citadel/utils/string/stringifier.hpp"
 
