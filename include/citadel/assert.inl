@@ -38,8 +38,7 @@ namespace citadel {
 	template <typename... Arguments>
 	void soft_assert(bool condition, const std::string& message, Arguments&&... arguments) {
 		if (unlikely(!condition)) {
-			formatter formatter(message);
-			throw assertion_error(formatter.format(std::forward<Arguments>(arguments)...));
+			throw assertion_error(formatter::format(message, std::forward<Arguments>(arguments)...));
 		}
 	}
 }

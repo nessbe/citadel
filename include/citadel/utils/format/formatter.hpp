@@ -22,10 +22,13 @@
 namespace citadel {
 	class exported formatter {
 	public:
+		template <typename... Arguments>
+		nodisc static std::string format(const std::string& source, Arguments&&... arguments);
+
 		formatter(const std::string& source);
 
 		template <typename... Arguments>
-		std::string format(Arguments&&... arguments);
+		nodisc std::string formatted(Arguments&&... arguments);
 
 		nodisc const std::string& source() const noexcept;
 

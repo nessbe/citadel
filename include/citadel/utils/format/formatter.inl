@@ -31,8 +31,8 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	template <typename... Arguments>
-	std::string formatter::format(Arguments&&... arguments) {
-		std::size_t source_size = source_.size();
+	std::string formatter::format(const std::string& source, Arguments&&... arguments) {
+		std::size_t source_size = source.size();
 
 		std::string result;
 		result.resize(source_size);
@@ -40,14 +40,14 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		variadic_accessor<Arguments...> arguments_accessor(std::forward<Arguments>(arguments)...);
 
 		for (std::size_t i = 0; i < source_size; i++) {
-			char character = source_[i];
+			char character = source[i];
 
 			if (character == '{') {
 				std::size_t j = i + 1;
 				std::string number_string;
 
-				while (j < source_size && std::isdigit(static_cast<unsigned char>(source_[j])) ) {
-					number_string.push_back(source_[j++]);
+				while (j < source_size && std::isdigit(static_cast<unsigned char>(source[j])) ) {
+					number_string.push_back(source[j++]);
 				}
 
 				if (std::optional<int> number = to_int(number_string)) {
@@ -70,4 +70,8 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 CITADEL_WARNING_IGNORE_POP
 
+	template <typename... Arguments>
+	std::string formatter::formatted(Arguments&&... arguments) {
+		return format(source_, std::forward<Arguments>(arguments)...);
+	}
 }

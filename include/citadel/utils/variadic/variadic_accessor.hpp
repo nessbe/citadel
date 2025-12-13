@@ -24,6 +24,9 @@ namespace citadel {
 	public:
 		variadic_accessor(Arguments&&... arguments);
 
+		variadic_accessor(const variadic_accessor&) = delete;
+		variadic_accessor& operator=(const variadic_accessor&) = delete;
+
 		template <typename Visitor>
 		void visit(std::size_t index, Visitor&& visitor);
 
