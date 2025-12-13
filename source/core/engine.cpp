@@ -25,6 +25,11 @@ namespace citadel {
 		this_logger::push_sink(console_sink);
 
 		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
+
+		void* application = nullptr;
+		CITADEL_THROW_IF_NULL(application, invalid_argument_exception, "Application '{0}' cannot be null", application);
+
+		std::cin.get();
 	}
 
 	exit_code engine::run() {

@@ -1,4 +1,4 @@
-// File:       assertion_error.cpp
+// File:       exception.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,12 +13,13 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/assertion_error.hpp"
+#include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	assertion_error::assertion_error(const char* message)
-		: std::runtime_error(message) { }
+	exception::exception(std::string message) noexcept
+		: message_(std::move(message)) { }
 
-	assertion_error::assertion_error(const std::string& message)
-		: std::runtime_error(message) { }
+	const char* exception::what() const noexcept {
+		return message_.c_str();
+	}
 }
