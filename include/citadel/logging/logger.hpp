@@ -25,6 +25,8 @@
 #include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_level_palette.hpp"
+#include "citadel/logging/log_message.hpp"
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
@@ -36,9 +38,7 @@ namespace citadel {
 		logger(const std::string& name, std::initializer_list<sink_reference> sinks = { });
 
 		template <typename... Arguments>
-		std::string format_message(const std::string& message, Arguments&&... arguments) const;
-
-		std::string enrich_message(const std::string& message, log_level level) const;
+		std::string format_message(const log_message<Arguments...>& message) const;
 
 		template <typename... Arguments>
 		void log(const std::string& message, log_level level, Arguments&&... arguments) const;
@@ -64,21 +64,29 @@ namespace citadel {
 		nodisc bool is_level_valid(log_level value) const noexcept;
 		nodisc bool is_off() const noexcept;
 
+		nodisc log_level_palette& palette() noexcept;
+
+		nodisc const std::string& get_name() const noexcept;
+
 		nodisc const std::vector<sink_reference>& get_sinks() const noexcept;
 		nodisc std::size_t sink_count() const noexcept;
 
 		void push_sink(const sink_reference& sink);
 		void clear_sinks();
 
-		nodisc const std::string& get_name() const noexcept;
-
 		nodisc log_level get_level() const noexcept;
 		void set_level(log_level value) noexcept;
 
 	private:
+		log_level_palette palette_;
+
 		std::string name_;
 		std::vector<sink_reference> sinks_;
 		log_level level_;
+
+	private:
+		template <typename... Arguments>
+		void log(const log_message<Arguments...>& message) const;
 	};
 }
 

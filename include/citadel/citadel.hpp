@@ -55,6 +55,12 @@
 #include "citadel/drivers/opengl/opengl_vertex_array.hpp"
 #include "citadel/drivers/opengl/opengl_vertex_buffer.hpp"
 
+#include "citadel/formats/ansi/ansi_color.hpp"
+#include "citadel/formats/ansi/ansi_color_mode.hpp"
+#include "citadel/formats/ansi/ansi_color_type.hpp"
+#include "citadel/formats/ansi/ansi_color_style.hpp"
+#include "citadel/formats/ansi/ansi_colors.hpp"
+
 #include "citadel/formats/obj/obj_face.hpp"
 #include "citadel/formats/obj/obj_reader.hpp"
 #include "citadel/formats/obj/obj_vertex.hpp"
@@ -87,8 +93,11 @@
 #include "citadel/io/text/text_writer.hpp"
 
 #include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_level_palette.hpp"
 #include "citadel/logging/log_macros.hpp"
+#include "citadel/logging/log_message.hpp"
 #include "citadel/logging/logger.hpp"
+#include "citadel/logging/loggers.hpp"
 #include "citadel/logging/this_logger.hpp"
 
 #include "citadel/math/angles.hpp"

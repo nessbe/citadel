@@ -22,20 +22,20 @@ namespace citadel {
 	logger::logger(const std::string& name, std::initializer_list<sink_reference> sinks)
 		: logger(name, log_level::debug, sinks) { }
 
-	std::string logger::enrich_message(const std::string& message, log_level level) const {
-		std::ostringstream oss;
-		oss << "[" << name_ << "] ";
-		oss << "[" << level << "] ";
-		oss << message << std::endl;
-		return oss.str();
-	}
-
 	bool logger::is_level_valid(log_level value) const noexcept {
 		return value >= level_;
 	}
 
 	bool logger::is_off() const noexcept {
 		return level_ >= log_level::off;
+	}
+
+	log_level_palette& logger::palette() noexcept {
+		return palette_;
+	}
+
+	const std::string& logger::get_name() const noexcept {
+		return name_;
 	}
 
 	const std::vector<sink_reference>& logger::get_sinks() const noexcept {
@@ -52,10 +52,6 @@ namespace citadel {
 
 	void logger::clear_sinks() {
 		sinks_.clear();
-	}
-
-	const std::string& logger::get_name() const noexcept {
-		return name_;
 	}
 
 	log_level logger::get_level() const noexcept {

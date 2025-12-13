@@ -18,45 +18,15 @@
 
 #include "citadel/pointers.hpp"
 
+#include "citadel/logging/loggers.hpp"
+
 namespace citadel {
-	std::mutex& this_logger::mutex() {
-		static std::mutex mutex;
-		return mutex;
-	}
-
-	std::unordered_map<std::string, reference<logger>>& this_logger::instances() {
-		static std::unordered_map<std::string, reference<logger>> instances;
-		return instances;
-	}
-
-	logger& this_logger::initialize(const std::string& name) {
-		std::lock_guard<std::mutex> lock(mutex());
-		std::unordered_map<std::string, reference<logger>>& loggers = instances();
-
-		if (loggers.find(name) == loggers.end()) {
-			loggers[name] = make_referenced<logger>(name);
-		}
-
-		current = loggers[name];
-		CITADEL_POINTER_RETURN_REFERENCE(current);
- 	}
-
 	logger& this_logger::get() {
-		CITADEL_POINTER_RETURN_REFERENCE(current);
+		return loggers::get(current);
 	}
 
-	bool this_logger::set(const std::string& name) {
-		std::lock_guard<std::mutex> lock(mutex());
-
-		std::unordered_map<std::string, reference<logger>>& loggers = instances();
-		std::unordered_map<std::string, reference<logger>>::iterator logger = loggers.find(name);
-
-		if (logger != loggers.end()) {
-			current = logger->second;
-			return true;
-		}
-
-		return false;
+	void this_logger::set(const std::string& name) {
+		current = name;
 	}
 
 	template <typename... Arguments>
@@ -92,41 +62,5 @@ namespace citadel {
 	template <typename... Arguments>
 	void this_logger::log_fatal(const std::string& message, Arguments&&... arguments) {
 		get().log_fatal(message, std::forward<Arguments>(arguments)...);
-	}
-
-	bool this_logger::is_level_valid(log_level level) noexcept {
-		return get().is_level_valid(level);
-	}
-
-	bool this_logger::is_off() noexcept {
-		return get().is_off();
-	}
-
-	const std::string& this_logger::get_name() noexcept {
-		return get().get_name();
-	}
-
-	const std::vector<sink_reference>& this_logger::get_sinks() noexcept {
-		return get().get_sinks();
-	}
-
-	std::size_t this_logger::sink_count() noexcept {
-		return get().sink_count();
-	}
-
-	void this_logger::push_sink(const sink_reference& sink) {
-		get().push_sink(sink);
-	}
-
-	void this_logger::clear_sinks() {
-		get().clear_sinks();
-	}
-
-	log_level this_logger::get_level() noexcept {
-		return get().get_level();
-	}
-
-	void this_logger::set_level(log_level value) noexcept {
-		return get().set_level(value);
 	}
 }

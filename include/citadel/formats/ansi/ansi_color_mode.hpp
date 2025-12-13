@@ -1,4 +1,4 @@
-// File:       engine.cpp
+// File:       ansi_color_mode.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,24 +12,18 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/core/engine.hpp"
+#pragma once
 
-#include "citadel/io/console/console.hpp"
+#include <cinttypes>
+
+#include "citadel/utility.hpp"
 
 namespace citadel {
-	void engine::initialize() {
-		sink_reference console_sink = make_referenced<sink>(console::pointer());
+	enum class ansi_color_mode : std::uint8_t {
+		none = 0,
+		background = CITADEL_BIT(0),
+		high_intensity = CITADEL_BIT(1),
+	};
 
-		loggers::add("CITADEL");
-		this_logger::push_sink(console_sink);
-
-		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
-	}
-
-	exit_code engine::run() {
-		return exit_code::success;
-	}
-
-	void engine::shutdown() { }
+	CITADEL_BITWISE_OPERATORS_WRAPPER(ansi_color_mode)
 }

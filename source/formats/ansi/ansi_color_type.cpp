@@ -1,4 +1,4 @@
-// File:       engine.cpp
+// File:       ansi_color_type.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,23 +13,9 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/core/engine.hpp"
-
-#include "citadel/io/console/console.hpp"
+#include "citadel/formats/ansi/ansi_color_type.hpp"
 
 namespace citadel {
-	void engine::initialize() {
-		sink_reference console_sink = make_referenced<sink>(console::pointer());
-
-		loggers::add("CITADEL");
-		this_logger::push_sink(console_sink);
-
-		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
-	}
-
-	exit_code engine::run() {
-		return exit_code::success;
-	}
-
-	void engine::shutdown() { }
+	const std::uint8_t ansi_background_signature = 10;
+	const std::uint8_t ansi_high_intensity_signature = 60;
 }

@@ -14,10 +14,7 @@
 
 #pragma once
 
-#include <initializer_list>
-#include <mutex>
 #include <string>
-#include <unordered_map>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
@@ -25,21 +22,17 @@
 #include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_level_palette.hpp"
 #include "citadel/logging/logger.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	namespace this_logger {
-		inline thread_local reference<logger> current;
+		inline std::string current;
 
-		inline std::mutex& mutex();
-		inline std::unordered_map<std::string, reference<logger>>& instances();
-
-		inline logger& initialize(const std::string& name);
-
-		inline logger& get();
-		inline bool set(const std::string& name);
+		exported inline logger& get();
+		exported inline void set(const std::string& name);
 
 		template <typename... Arguments>
 		inline void log(const std::string& message, log_level level, Arguments&&... arguments);
@@ -62,19 +55,21 @@ namespace citadel {
 		template <typename... Arguments>
 		inline void log_fatal(const std::string& message, Arguments&&... arguments);
 
-		nodisc inline bool is_level_valid(log_level level) noexcept;
-		nodisc inline bool is_off() noexcept;
+		nodisc exported bool is_level_valid(log_level level);
+		nodisc exported bool is_off();
 
-		nodisc inline const std::vector<sink_reference>& get_sinks() noexcept;
-		nodisc inline std::size_t sink_count() noexcept;
+		nodisc exported log_level_palette& palette();
 
-		inline void push_sink(const sink_reference& sink);
-		inline void clear_sinks();
+		nodisc exported const std::string& get_name();
 
-		nodisc inline const std::string& get_name() noexcept;
+		nodisc exported const std::vector<sink_reference>& get_sinks();
+		nodisc exported std::size_t sink_count();
 
-		nodisc inline log_level get_level() noexcept;
-		inline void set_level(log_level value) noexcept;
+		exported void push_sink(const sink_reference& sink);
+		exported void clear_sinks();
+
+		nodisc exported log_level get_level();
+		exported void set_level(log_level value);
 	}
 }
 

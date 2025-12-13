@@ -1,4 +1,4 @@
-// File:       engine.cpp
+// File:       log_message.inl
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,24 +12,10 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/core/engine.hpp"
-
-#include "citadel/io/console/console.hpp"
+#pragma once
 
 namespace citadel {
-	void engine::initialize() {
-		sink_reference console_sink = make_referenced<sink>(console::pointer());
-
-		loggers::add("CITADEL");
-		this_logger::push_sink(console_sink);
-
-		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
-	}
-
-	exit_code engine::run() {
-		return exit_code::success;
-	}
-
-	void engine::shutdown() { }
+	template <typename... Arguments>
+	log_message<Arguments...>::log_message(const std::string& literal, log_level level, Arguments&&... arguments)
+		: literal(literal), level(level), arguments(std::forward<Arguments>(arguments)...) { }
 }

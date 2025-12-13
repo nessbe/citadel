@@ -14,36 +14,40 @@
 
 #pragma once
 
+#include <tuple>
+#include <type_traits>
+
 #include "citadel/pointers.hpp"
 
 #include "citadel/utils/format/formatter.hpp"
 
 namespace citadel {
 	template <typename... Arguments>
-	std::string logger::format_message(const std::string& message, Arguments&&... arguments) const {
-		formatter formatter(message);
-		return formatter.format(std::forward<Arguments>(arguments)...);
+	std::string logger::format_message(const log_message<Arguments...>& message) const {
+		formatter formatter(message.literal);
+
+		std::string formatted_message = std::apply(
+			[&](const auto&... arguments) {
+				return formatter.format(arguments...);
+			},
+			message.arguments
+		);
+
+		std::ostringstream oss;
+		oss << palette_.get(message.level);
+
+		oss << "[" << name_ << "] ";
+		oss << "[" << message.level << "] ";
+		oss << message.literal << std::endl;
+
+		oss << ansi_colors::reset;
+		return oss.str();
 	}
 
 	template <typename... Arguments>
 	void logger::log(const std::string& message, log_level level, Arguments&&... arguments) const {
-		if (is_off()) {
-			return;
-		}
-
-		if (!is_level_valid(level)) {
-			return;
-		}
-
-		std::string formatted_message = format_message(message, std::forward<Arguments>(arguments)...);
-		std::string enriched_message = enrich_message(formatted_message, level);
-
-		const char* message_buffer = enriched_message.data();
-		std::size_t message_size = enriched_message.size();
-
-		for (const sink_reference& sink : sinks_) {
-			CITADEL_POINTER_CALL(sink, write, message_buffer, static_cast<stream::size_type>(message_size));
-		}
+		log_message<Arguments...> log_message(message, level, std::forward<Arguments>(arguments)...);
+		log(log_message);
 	}
 
 	template <typename... Arguments>
@@ -74,5 +78,25 @@ namespace citadel {
 	template <typename... Arguments>
 	void logger::log_fatal(const std::string& message, Arguments&&... arguments) const {
 		log(message, log_level::fatal, std::forward<Arguments>(arguments)...);
+	}
+
+	template <typename... Arguments>
+	void logger::log(const log_message<Arguments...>& message) const {
+		if (is_off()) {
+			return;
+		}
+
+		if (!is_level_valid(message.level)) {
+			return;
+		}
+
+		std::string formatted_message = format_message(message);
+
+		const char* message_buffer = formatted_message.data();
+		std::size_t message_size = formatted_message.size();
+
+		for (const sink_reference& sink : sinks_) {
+			CITADEL_POINTER_CALL(sink, write, message_buffer, static_cast<stream::size_type>(message_size));
+		}
 	}
 }

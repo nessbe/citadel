@@ -15,19 +15,15 @@
 #pragma once
 
 #include "citadel/logging/log_level.hpp"
-#include "citadel/logging/this_logger.hpp"
+#include "citadel/logging/loggers.hpp"
 
 #ifndef CITADEL_THIS_LOGGER_NAME
 	#define CITADEL_THIS_LOGGER_NAME "CITADEL"
 #endif
-
-#define CITADEL_THIS_LOGGER_CALL(function, ...) ::citadel::this_logger::set(CITADEL_THIS_LOGGER_NAME); ::citadel::this_logger::function(__VA_ARGS__)
-
-#define CITADEL_LOG(message, level, ...) CITADEL_THIS_LOGGER_CALL(log, message, level, __VA_ARGS__)
-
-#define CITADEL_LOG_DEBUG(message, ...) CITADEL_LOG(message, ::citadel::log_level::debug, __VA_ARGS__)
-#define CITADEL_LOG_TRACE(message, ...) CITADEL_LOG(message, ::citadel::log_level::trace, __VA_ARGS__)
-#define CITADEL_LOG_INFO(message, ...) CITADEL_LOG(message, ::citadel::log_level::info, __VA_ARGS__)
-#define CITADEL_LOG_WARNING(message, ...) CITADEL_LOG(message, ::citadel::log_level::warning, __VA_ARGS__)
-#define CITADEL_LOG_ERROR(message, ...) CITADEL_LOG(message, ::citadel::log_level::error, __VA_ARGS__)
-#define CITADEL_LOG_FATAL(message, ...) CITADEL_LOG(message, ::citadel::log_level::fatal, __VA_ARGS__)
+#define CITADEL_LOG(message, level, ...)  ::citadel::loggers::log(CITADEL_THIS_LOGGER_NAME, message, level, __VA_ARGS__)
+#define CITADEL_LOG_DEBUG(message, ...)   ::citadel::loggers::log_debug(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)
+#define CITADEL_LOG_TRACE(message, ...)   ::citadel::loggers::log_trace(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)
+#define CITADEL_LOG_INFO(message, ...)    ::citadel::loggers::log_info(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)
+#define CITADEL_LOG_WARNING(message, ...) ::citadel::loggers::log_warning(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)
+#define CITADEL_LOG_ERROR(message, ...)   ::citadel::loggers::log_error(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)
+#define CITADEL_LOG_FATAL(message, ...)   ::citadel::loggers::log_fatal(CITADEL_THIS_LOGGER_NAME, message, __VA_ARGS__)

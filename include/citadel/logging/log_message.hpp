@@ -1,4 +1,4 @@
-// File:       log_level.hpp
+// File:       log_message.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,29 +14,29 @@
 
 #pragma once
 
-#include <cinttypes>
-
-#include <sstream>
 #include <string>
+#include <tuple>
+#include <type_traits>
 
-#include "citadel/attributes.hpp"
-#include "citadel/export.hpp"
+#include "citadel/warnings.hpp"
+
+#include "citadel/logging/log_level.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	enum class log_level : std::uint8_t {
-		debug = 0,
-		trace,
-		info,
-		warning,
-		error,
-		fatal,
-		count,
-		off,
+	template <typename... Arguments>
+	struct log_message {
+		std::string literal;
+		log_level level;
+		std::tuple<std::decay_t<Arguments>...> arguments;
+
+	public:
+		log_message(const std::string& message, log_level level, Arguments&&... arguments);
 	};
-
-	exported extern std::array<log_level, static_cast<std::size_t>(log_level::count)> log_levels;
-
-	nodisc exported std::string to_string(log_level value);
-
-	exported std::ostream& operator<<(std::ostream& out, log_level value);
 }
+
+CITADEL_WARNING_IGNORE_POP
+
+#include "citadel/logging/log_message.inl"

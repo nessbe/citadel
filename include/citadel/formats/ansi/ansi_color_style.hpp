@@ -1,4 +1,4 @@
-// File:       engine.cpp
+// File:       ansi_color_style.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,24 +12,14 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/core/engine.hpp"
+#pragma once
 
-#include "citadel/io/console/console.hpp"
+#include <cinttypes>
 
 namespace citadel {
-	void engine::initialize() {
-		sink_reference console_sink = make_referenced<sink>(console::pointer());
-
-		loggers::add("CITADEL");
-		this_logger::push_sink(console_sink);
-
-		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
-	}
-
-	exit_code engine::run() {
-		return exit_code::success;
-	}
-
-	void engine::shutdown() { }
+	enum class ansi_color_style : std::uint8_t {
+		none = 0,
+		bold = 1,
+		underline = 4,
+	};
 }
