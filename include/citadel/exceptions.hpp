@@ -14,14 +14,20 @@
 
 #pragma once
 
-#include <iostream>
+#include "citadel/attributes.hpp"
 
-#ifdef CITADEL_NOTHROW
-	#define CITADEL_THROW(exception, message, result) do { std::cerr << message << std::endl; } while(0); return result
-	#define CITADEL_THROW_VOID(exception, message) do { std::cerr << message << std::endl; } while(0); return
+#include "citadel/logging/log_macros.hpp"
+
+#include "citadel/utils/format/formatter.hpp"
+
+#ifndef CITADEL_NOTHROW
+	#define CITADEL_THROW(exception, message, ...) throw exception(::citadel::formatter::format(message, __VA_ARGS__))
 #else
-	#define CITADEL_THROW(exception, message, result) throw exception(message)
-	#define CITADEL_THROW_VOID(exception, message) throw exception(message)
+	#define CITADEL_THROW(exception, message, ...) CITADEL_LOG_ERROR(message, __VA_ARGS__)
 #endif
 
-#define CITADEL_THROW_OR_FAIL(exception, message) CITADEL_THROW(exception, message, false)
+#define CITADEL_THROW_IF(condition, exception, message, ...) do { if (unlikely(static_cast<bool>(condition))) { CITADEL_THROW(exception, message, __VA_ARGS__); } } while (0)
+#define CITADEL_THROW_IF_NULL(value, exception, message, ...) CITADEL_THROW_IF(value == nullptr, exception, message, __VA_ARGS__)
+
+#define CITADEL_THROW_IF_TRUE(value, exception, message, ...) CITADEL_THROW_IF(value == true, exception, message, __VA_ARGS__)
+#define CITADEL_THROW_IF_FALSE(value, exception, message, ...) CITADEL_THROW_IF(value == false, exception, message, __VA_ARGS__)

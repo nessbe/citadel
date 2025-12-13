@@ -34,7 +34,7 @@ namespace citadel {
 
 	void soft_assert(bool condition) {
 		if (unlikely(!condition)) {
-			throw assertion_error("Soft assertion failed");
+			throw std::runtime_error("Soft assertion failed");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-// File:       assertion_error.hpp
+// File:       exception.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,10 +17,17 @@
 #include <stdexcept>
 #include <string>
 
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
+
 namespace citadel {
-	class assertion_error : public std::runtime_error {
+	class exported exception : public std::exception {
 	public:
-		explicit assertion_error(const char* message);
-		explicit assertion_error(const std::string& message);
+		explicit exception(std::string message) noexcept;
+
+		nodisc const char* what() const noexcept override;
+
+	private:
+		std::string message_;
 	};
 }

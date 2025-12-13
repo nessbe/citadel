@@ -40,7 +40,7 @@
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
 
-#include "citadel/debug/exceptions/assertion_error.hpp"
+#include "citadel/debug/exceptions/exception.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 

@@ -28,7 +28,7 @@ namespace citadel {
 
 		std::string formatted_message = std::apply(
 			[&](const auto&... arguments) {
-				return formatter.format(arguments...);
+				return formatter.formatted(arguments...);
 			},
 			message.arguments
 		);

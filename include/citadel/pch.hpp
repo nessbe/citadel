@@ -57,7 +57,7 @@
 #include "citadel/pragma.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/debug/exceptions/assertion_error.hpp"
+#include "citadel/debug/exceptions/exception.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 

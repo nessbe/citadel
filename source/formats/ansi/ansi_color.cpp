@@ -57,8 +57,7 @@ namespace citadel {
 			}
 		}
 
-		formatter formatter("\033[{0};{1}m");
-		return formatter.format(style_code, color_code);
+		return formatter::format("\033[{0};{1}m", style_code, color_code);
 	}
 
 	ansi_color& ansi_color::operator|=(ansi_color_mode mode) {
