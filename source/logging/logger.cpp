@@ -24,9 +24,13 @@ namespace citadel {
 
 	std::string logger::enrich_message(const std::string& message, log_level level) const {
 		std::ostringstream oss;
+		oss << palette_.get(level);
+
 		oss << "[" << name_ << "] ";
 		oss << "[" << level << "] ";
 		oss << message << std::endl;
+
+		oss << ansi_colors::reset;
 		return oss.str();
 	}
 
@@ -36,6 +40,14 @@ namespace citadel {
 
 	bool logger::is_off() const noexcept {
 		return level_ >= log_level::off;
+	}
+
+	log_level_palette& logger::palette() noexcept {
+		return palette_;
+	}
+
+	const std::string& logger::get_name() const noexcept {
+		return name_;
 	}
 
 	const std::vector<sink_reference>& logger::get_sinks() const noexcept {
@@ -52,10 +64,6 @@ namespace citadel {
 
 	void logger::clear_sinks() {
 		sinks_.clear();
-	}
-
-	const std::string& logger::get_name() const noexcept {
-		return name_;
 	}
 
 	log_level logger::get_level() const noexcept {

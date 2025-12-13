@@ -33,6 +33,7 @@ namespace citadel {
 		ansi_color(ansi_color_type type, ansi_color_mode mode);
 
 		ansi_color(ansi_color_type type);
+		ansi_color();
 
 		nodisc ansi_color_type type() const noexcept;
 		nodisc ansi_color_mode mode() const noexcept;

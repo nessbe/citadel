@@ -102,6 +102,10 @@ namespace citadel {
 		return get().is_off();
 	}
 
+	log_level_palette& this_logger::palette() noexcept {
+		return get().palette();
+	}
+
 	const std::string& this_logger::get_name() noexcept {
 		return get().get_name();
 	}

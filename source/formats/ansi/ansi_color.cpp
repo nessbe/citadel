@@ -28,6 +28,9 @@ namespace citadel {
 	ansi_color::ansi_color(ansi_color_type type)
 		: ansi_color(type, ansi_color_mode::none, ansi_color_style::none) { }
 
+	ansi_color::ansi_color()
+		: ansi_color(ansi_color_type::white, ansi_color_mode::none, ansi_color_style::none) { }
+
 	ansi_color_type ansi_color::type() const noexcept {
 		return type_;
 	}

@@ -1,4 +1,4 @@
-// File:       log_level.hpp
+// File:       log_level_palette.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,29 +14,27 @@
 
 #pragma once
 
-#include <cinttypes>
-
-#include <sstream>
-#include <string>
+#include <unordered_map>
 
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/formats/ansi/ansi_color.hpp"
+
+#include "citadel/logging/log_level.hpp"
+
 namespace citadel {
-	enum class log_level : std::uint8_t {
-		debug = 0,
-		trace,
-		info,
-		warning,
-		error,
-		fatal,
-		count,
-		off,
+	class log_level_palette {
+	public:
+		log_level_palette(const std::unordered_map<log_level, ansi_color>& palette);
+		log_level_palette();
+
+		nodisc const ansi_color& get(log_level key) const;
+		void set(log_level key, const ansi_color& value);
+
+		nodisc ansi_color& operator[](log_level key);
+
+	private:
+		std::unordered_map<log_level, ansi_color> palette_;
 	};
-
-	exported extern std::array<log_level, static_cast<std::size_t>(log_level::count)> log_levels;
-
-	nodisc exported std::string to_string(log_level value);
-
-	exported std::ostream& operator<<(std::ostream& out, log_level value);
 }

@@ -25,6 +25,7 @@
 #include "citadel/io/sinks/sink.hpp"
 
 #include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_level_palette.hpp"
 #include "citadel/logging/logger.hpp"
 
 #include "citadel/memory/reference.hpp"
@@ -65,13 +66,15 @@ namespace citadel {
 		nodisc inline bool is_level_valid(log_level level) noexcept;
 		nodisc inline bool is_off() noexcept;
 
+		nodisc inline log_level_palette& palette() noexcept;
+
+		nodisc inline const std::string& get_name() noexcept;
+
 		nodisc inline const std::vector<sink_reference>& get_sinks() noexcept;
 		nodisc inline std::size_t sink_count() noexcept;
 
 		inline void push_sink(const sink_reference& sink);
 		inline void clear_sinks();
-
-		nodisc inline const std::string& get_name() noexcept;
 
 		nodisc inline log_level get_level() noexcept;
 		inline void set_level(log_level value) noexcept;

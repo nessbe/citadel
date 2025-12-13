@@ -20,6 +20,7 @@
 
 namespace citadel {
 	namespace ansi_colors {
+		exported extern const ansi_color default;
 		exported extern const ansi_color reset;
 
 		exported extern const ansi_color black;

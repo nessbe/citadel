@@ -93,6 +93,7 @@
 #include "citadel/io/text/text_writer.hpp"
 
 #include "citadel/logging/log_level.hpp"
+#include "citadel/logging/log_level_palette.hpp"
 #include "citadel/logging/log_macros.hpp"
 #include "citadel/logging/logger.hpp"
 #include "citadel/logging/this_logger.hpp"

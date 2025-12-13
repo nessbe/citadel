@@ -16,6 +16,15 @@
 #include "citadel/logging/log_level.hpp"
 
 namespace citadel {
+	std::array<log_level, static_cast<std::size_t>(log_level::count)> log_levels = {
+		log_level::debug,
+		log_level::trace,
+		log_level::info,
+		log_level::warning,
+		log_level::error,
+		log_level::fatal,
+	};
+
 	std::string to_string(log_level value) {
 		switch (value) {
 		case log_level::debug:
@@ -39,6 +48,7 @@ namespace citadel {
 		case log_level::off:
 			return "OFF";
 
+		case log_level::count:
 		default:
 			return "UNKNOWN";
 		}
