@@ -21,15 +21,15 @@ namespace citadel {
 	ansi_color::ansi_color(const std::string& code)
 		: code_(code) { }
 
-	ansi_color::ansi_color(ansi_color_type type, bool background, bool high_intensity) {
+	ansi_color::ansi_color(ansi_color_type type, ansi_color_mode mode) {
 		std::uint8_t color_code = static_cast<std::uint8_t>(type);
 
 		if (type != ansi_color_type::reset) {
-			if (background) {
+			if (static_cast<std::uint8_t>(mode & ansi_color_mode::background) > 0) {
 				color_code += ansi_background_signature;
 			}
 
-			if (high_intensity) {
+			if (static_cast<std::uint8_t>(mode & ansi_color_mode::high_intensity) > 0) {
 				color_code += ansi_high_intensity_signature;
 			}
 		}
@@ -38,11 +38,8 @@ namespace citadel {
 		code_ = formatter.format(color_code);
 	}
 
-	ansi_color::ansi_color(ansi_color_type type, bool background)
-		: ansi_color(type, background, false) { }
-
 	ansi_color::ansi_color(ansi_color_type type)
-		: ansi_color(type, false, false) { }
+		: ansi_color(type, ansi_color_mode::none) { }
 
 	const std::string& ansi_color::code() const noexcept {
 		return code_;

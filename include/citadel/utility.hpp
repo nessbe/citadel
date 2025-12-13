@@ -18,6 +18,8 @@
 
 #include "citadel/attributes.hpp"
 
+#define CITADEL_BIT(x) (1 << x)
+
 #define CITADEL_VECTOR_ITERATOR_WRAPPER(type, property)                                                     \
 	::std::vector<type>::iterator begin() noexcept { return property.begin(); }                         \
 	::std::vector<type>::const_iterator begin() const noexcept { return property.begin(); }             \

@@ -20,6 +20,7 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/formats/ansi/ansi_color_mode.hpp"
 #include "citadel/formats/ansi/ansi_color_type.hpp"
 
 namespace citadel {
@@ -30,8 +31,7 @@ namespace citadel {
 	public:
 		explicit ansi_color(const std::string& code);
 
-		ansi_color(ansi_color_type type, bool background, bool high_intensity);
-		ansi_color(ansi_color_type type, bool background);
+		ansi_color(ansi_color_type type, ansi_color_mode mode);
 		ansi_color(ansi_color_type type);
 
 		nodisc const std::string& code() const noexcept;
