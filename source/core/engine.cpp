@@ -21,7 +21,7 @@ namespace citadel {
 	void engine::initialize() {
 		sink_reference console_sink = make_referenced<sink>(console::pointer());
 
-		this_logger::initialize("CITADEL");
+		loggers::add("CITADEL");
 		this_logger::push_sink(console_sink);
 
 		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
