@@ -59,6 +59,7 @@
 #include "citadel/formats/ansi/ansi_color_mode.hpp"
 #include "citadel/formats/ansi/ansi_color_type.hpp"
 #include "citadel/formats/ansi/ansi_color_style.hpp"
+#include "citadel/formats/ansi/ansi_colors.hpp"
 
 #include "citadel/formats/obj/obj_face.hpp"
 #include "citadel/formats/obj/obj_reader.hpp"
