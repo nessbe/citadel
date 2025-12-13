@@ -16,6 +16,8 @@
 
 #include <cinttypes>
 
+#include "citadel/export.hpp"
+
 namespace citadel {
 	enum class ansi_color_type : std::uint8_t {
 		reset = 0,
@@ -29,6 +31,6 @@ namespace citadel {
 		white = 37,
 	};
 
-	extern const std::uint8_t ansi_background_signature;
-	extern const std::uint8_t ansi_high_intensity_signature;
+	exported extern const std::uint8_t ansi_background_signature;
+	exported extern const std::uint8_t ansi_high_intensity_signature;
 }
