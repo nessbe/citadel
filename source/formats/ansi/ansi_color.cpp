@@ -16,13 +16,12 @@
 #include "citadel/formats/ansi/ansi_color.hpp"
 
 namespace citadel {
-	const ansi_color ansi_color::reset(ansi_color_type::reset);
-
 	ansi_color::ansi_color(const std::string& code)
 		: code_(code) { }
 
-	ansi_color::ansi_color(ansi_color_type type, ansi_color_mode mode) {
+	ansi_color::ansi_color(ansi_color_type type, ansi_color_mode mode, ansi_color_style style) {
 		std::uint8_t color_code = static_cast<std::uint8_t>(type);
+		std::uint8_t style_code = static_cast<std::uint8_t>(style);
 
 		if (type != ansi_color_type::reset) {
 			if (static_cast<std::uint8_t>(mode & ansi_color_mode::background) > 0) {
@@ -34,12 +33,18 @@ namespace citadel {
 			}
 		}
 
-		formatter formatter("\033[{0}m");
-		code_ = formatter.format(color_code);
+		formatter formatter("\033[{0};{1}m");
+		code_ = formatter.format(style_code, color_code);
 	}
 
+	ansi_color::ansi_color(ansi_color_type type, ansi_color_style style)
+		: ansi_color(type, ansi_color_mode::none, style) { }
+
+	ansi_color::ansi_color(ansi_color_type type, ansi_color_mode mode)
+		: ansi_color(type, mode, ansi_color_style::none) { }
+
 	ansi_color::ansi_color(ansi_color_type type)
-		: ansi_color(type, ansi_color_mode::none) { }
+		: ansi_color(type, ansi_color_mode::none, ansi_color_style::none) { }
 
 	const std::string& ansi_color::code() const noexcept {
 		return code_;

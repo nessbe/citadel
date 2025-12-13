@@ -22,16 +22,18 @@
 
 #include "citadel/formats/ansi/ansi_color_mode.hpp"
 #include "citadel/formats/ansi/ansi_color_type.hpp"
+#include "citadel/formats/ansi/ansi_color_style.hpp"
 
 namespace citadel {
 	class exported ansi_color {
 	public:
-		static const ansi_color reset;
-
-	public:
 		explicit ansi_color(const std::string& code);
 
+		ansi_color(ansi_color_type type, ansi_color_mode mode, ansi_color_style style);
+
+		ansi_color(ansi_color_type type, ansi_color_style style);
 		ansi_color(ansi_color_type type, ansi_color_mode mode);
+
 		ansi_color(ansi_color_type type);
 
 		nodisc const std::string& code() const noexcept;
