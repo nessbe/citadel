@@ -24,11 +24,9 @@
 namespace citadel {
 	template <typename... Arguments>
 	std::string logger::format_message(const log_message<Arguments...>& message) const {
-		formatter formatter(message.literal);
-
 		std::string formatted_message = std::apply(
 			[&](const auto&... arguments) {
-				return formatter.formatted(arguments...);
+				return formatter::format(message.literal, arguments...);
 			},
 			message.arguments
 		);
@@ -38,7 +36,7 @@ namespace citadel {
 
 		oss << "[" << name_ << "] ";
 		oss << "[" << message.level << "] ";
-		oss << message.literal << std::endl;
+		oss << formatted_message << std::endl;
 
 		oss << ansi_colors::reset;
 		return oss.str();

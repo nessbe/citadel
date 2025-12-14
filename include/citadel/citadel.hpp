@@ -41,6 +41,8 @@
 #include "citadel/core/layers/layer_stack.hpp"
 
 #include "citadel/debug/exceptions/exception.hpp"
+#include "citadel/debug/exceptions/invalid_argument_exception.hpp"
+#include "citadel/debug/exceptions/null_reference_exception.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
