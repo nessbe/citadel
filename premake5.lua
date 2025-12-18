@@ -17,9 +17,12 @@ include "workspace.lua"
 group "core"
 	include "citadel.lua"
 
-group "examples"
-	include "examples/basic_application/basic_application.lua"
-	include "examples/sandbox/sandbox.lua"
+group "bindings"
+	include "bindings/c/citadel_c.lua"
 
 group "vendor"
 	include "vendor/glad/glad.lua"
+
+group "examples"
+	include "examples/basic_application/basic_application.lua"
+	include "examples/sandbox/sandbox.lua"
