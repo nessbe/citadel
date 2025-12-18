@@ -14,4 +14,10 @@
 
 #pragma once
 
-#include "citadel_c/export.h"
+#ifdef __cplusplus
+	#define CITADEL_C_EXPORT_PUSH extern "C" {
+	#define CITADEL_C_EXPORT_POP  }
+#else
+	#define CITADEL_C_EXPORT_PUSH
+	#define CITADEL_C_EXPORT_POP
+#endif
