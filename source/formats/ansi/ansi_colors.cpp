@@ -19,7 +19,7 @@
 #include "citadel/formats/ansi/ansi_color_type.hpp"
 
 namespace citadel {
-	const ansi_color ansi_colors::default(ansi_color_type::white);
+	const ansi_color ansi_colors::placeholder(ansi_color_type::white);
 	const ansi_color ansi_colors::reset(ansi_color_type::reset);
 
 	const ansi_color ansi_colors::black(ansi_color_type::black);

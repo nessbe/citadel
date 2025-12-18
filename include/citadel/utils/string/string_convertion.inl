@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <charconv>
+
 namespace citadel {
 	template <typename T>
 	std::optional<T> from_characters(const std::string& string) {

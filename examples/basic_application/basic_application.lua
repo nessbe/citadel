@@ -38,6 +38,8 @@ project "basic_application"
 	}
 
 	links {
+		"opengl32",
+		"gdi32",
 		"citadel",
 		"glad"
 	}

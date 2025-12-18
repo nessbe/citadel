@@ -17,6 +17,8 @@
 #include <tuple>
 #include <type_traits>
 
+#include "citadel/formats/ansi/ansi_colors.hpp"
+
 #include "citadel/pointers.hpp"
 
 #include "citadel/utils/format/formatter.hpp"

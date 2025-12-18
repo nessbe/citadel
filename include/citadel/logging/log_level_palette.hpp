@@ -26,7 +26,7 @@
 namespace citadel {
 	class log_level_palette {
 	public:
-		static log_level_palette default();
+		static log_level_palette placeholder();
 
 		log_level_palette(const std::unordered_map<log_level, ansi_color>& palette);
 		log_level_palette();

@@ -16,7 +16,7 @@
 #include "citadel/logging/log_level_palette.hpp"
 
 namespace citadel {
-	log_level_palette log_level_palette::default() {
+	log_level_palette log_level_palette::placeholder() {
 		return log_level_palette({
 			{ log_level::debug, ansi_colors::cyan },
 			{ log_level::trace, ansi_colors::high_intensity_black },

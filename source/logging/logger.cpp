@@ -17,7 +17,7 @@
 
 namespace citadel {
 	logger::logger(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks)
-		: palette_(log_level_palette::default()), name_(name), sinks_(sinks), level_(level) { }
+		: palette_(log_level_palette::placeholder()), name_(name), sinks_(sinks), level_(level) { }
 
 	logger::logger(const std::string& name, std::initializer_list<sink_reference> sinks)
 		: logger(name, log_level::debug, sinks) { }

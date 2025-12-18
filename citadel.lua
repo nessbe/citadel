@@ -41,6 +41,7 @@ project "citadel"
 
 	links {
 		"opengl32",
+		"gdi32",
 		"glad"
 	}
 

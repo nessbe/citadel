@@ -125,8 +125,6 @@ namespace citadel {
 
 		std::vector<vertex> vertices;
 
-		std::chrono::time_point start_b = std::chrono::high_resolution_clock::now();
-
 		for (const obj_face& face : faces) {
 			for (std::size_t i = 1; i + 1 < face.vertices.size(); i++) {
 				const obj_vertex& vertex_a = face.vertices[0];
