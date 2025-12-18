@@ -27,7 +27,13 @@ namespace citadel {
 	}
 
 	logger& loggers::get(const std::string& name) {
-		CITADEL_POINTER_RETURN_REFERENCE(instances()[name]);
+		std::unordered_map<std::string, reference<logger>>& loggers = instances();
+
+		if (loggers.find(name) == loggers.end()) {
+			add(name);
+		}
+
+		CITADEL_POINTER_RETURN_REFERENCE(loggers[name]);
 	}
 
 	logger& loggers::add(const std::string& name) {

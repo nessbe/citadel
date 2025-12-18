@@ -43,7 +43,7 @@ namespace citadel {
 		return style_;
 	}
 
-	std::string ansi_color::code() const noexcept {
+	std::string ansi_color::escape() const {
 		std::uint8_t color_code = static_cast<std::uint8_t>(type_);
 		std::uint8_t style_code = static_cast<std::uint8_t>(style_);
 
@@ -57,7 +57,11 @@ namespace citadel {
 			}
 		}
 
-		return formatter::format("\033[{0};{1}m", style_code, color_code);
+		return formatter::format("[{0};{1}m", style_code, color_code);
+	}
+
+	std::string ansi_color::code() const {
+		return formatter::format("\033{0}", escape());
 	}
 
 	ansi_color& ansi_color::operator|=(ansi_color_mode mode) {

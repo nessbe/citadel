@@ -66,6 +66,10 @@ namespace citadel {
 		if (likely(!is_visible_)) {
 			_show();
 		}
+		else {
+			CITADEL_LOG_WARNING("Trying to show window '{0}' which is already visible", title_);
+		}
+
 
 		is_visible_ = true;
 	}
@@ -73,6 +77,9 @@ namespace citadel {
 	void window::hide() {
 		if (likely(is_visible_)) {
 			_hide();
+		}
+		else {
+			CITADEL_LOG_WARNING("Trying to hide window '{0}' which is already hidden", title_);
 		}
 
 		is_visible_ = false;
@@ -95,6 +102,7 @@ namespace citadel {
 		layer_stack_.update(delta_time);
 
 		if (!result) {
+			CITADEL_LOG_INFO("Window '{0}' should now close", title_);
 			should_close_ = true;
 		}
 
@@ -214,9 +222,9 @@ namespace citadel {
 
 	void window::initialize(rendering_api_type rendering_api) {
 		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_value, color::max_value, color::max_value, color::max_value));
-		CITADEL_ASSERT(surface_, "Failed to create surface");
+		CITADEL_CHECK_NULL_REFERENCE(surface_);
 
 		rendering_context_ = rendering_context::create(rendering_api, this);
-		CITADEL_ASSERT(rendering_context_, "Failed to create rendering context");
+		CITADEL_CHECK_NULL_REFERENCE(rendering_context_);
 	}
 }

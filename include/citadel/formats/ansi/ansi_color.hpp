@@ -39,7 +39,8 @@ namespace citadel {
 		nodisc ansi_color_mode mode() const noexcept;
 		nodisc ansi_color_style style() const noexcept;
 
-		nodisc std::string code() const noexcept;
+		nodisc std::string escape() const;
+		nodisc std::string code() const;
 
 		ansi_color& operator|=(ansi_color_mode mode);
 

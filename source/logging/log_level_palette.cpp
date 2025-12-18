@@ -16,15 +16,20 @@
 #include "citadel/logging/log_level_palette.hpp"
 
 namespace citadel {
+	log_level_palette log_level_palette::default() {
+		return log_level_palette({
+			{ log_level::debug, ansi_colors::cyan },
+			{ log_level::trace, ansi_colors::high_intensity_black },
+			{ log_level::info, ansi_colors::green },
+			{ log_level::warning, ansi_colors::yellow },
+			{ log_level::error, ansi_colors::red },
+			{ log_level::fatal, ansi_colors::high_intensity_red },
+		});
+	}
+
 	log_level_palette::log_level_palette(const std::unordered_map<log_level, ansi_color>& palette)
 		: palette_(palette)
 	{
-		for (log_level level : log_levels) {
-			if (palette_.find(level) == palette_.end()) {
-				palette_[level] = ansi_colors::default;
-			}
-		}
-
 		CITADEL_SOFT_ASSERT(palette_.size() == log_levels.size(), "Failed to initialize log level palette successfully");
 	}
 
