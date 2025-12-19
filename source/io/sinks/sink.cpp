@@ -33,4 +33,12 @@ namespace citadel {
 	void sink::flush() {
 		CITADEL_POINTER_CALL(stream_, flush);
 	}
+
+	stream& sink::stream() const noexcept {
+		CITADEL_POINTER_RETURN_REFERENCE(stream_);
+	}
+
+	sink_reference make_sink(const stream_reference& stream) {
+		return make_referenced<sink>(stream);
+	}
 }

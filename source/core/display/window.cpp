@@ -95,8 +95,8 @@ namespace citadel {
 
 	bool window::update() {
 		clock_type::time_point now = clock_type::now();
-		std::chrono::duration<double> elasped_time = now - last_frame_;
-		double delta_time = elasped_time.count();
+		std::chrono::duration<double> elapsed_time = now - last_frame_;
+		double delta_time = elapsed_time.count();
 
 		bool result = _update(delta_time);
 		layer_stack_.update(delta_time);

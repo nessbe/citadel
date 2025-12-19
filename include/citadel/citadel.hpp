@@ -78,6 +78,7 @@
 #include "citadel/io/binary/binary_reader.hpp"
 #include "citadel/io/binary/binary_writer.hpp"
 
+#include "citadel/io/console/console_sink.hpp"
 #include "citadel/io/console/console.hpp"
 
 #include "citadel/io/filesystem/file.hpp"

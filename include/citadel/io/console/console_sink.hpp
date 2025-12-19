@@ -1,4 +1,4 @@
-// File:       sink.hpp
+// File:       console_sink.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,27 +17,10 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
+#include "citadel/io/console/console.hpp"
 
-#include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
+#include "citadel/io/sinks/sink.hpp"
 
 namespace citadel {
-	class exported sink {
-	public:
-		sink(const stream_reference& stream);
-		~sink();
-
-		stream::size_type write(const void* data, stream::size_type size);
-		void flush();
-
-		nodisc stream& stream() const noexcept;
-
-	private:
-		stream_reference stream_;
-	};
-
-	using sink_reference = reference<sink>;
-
-	nodisc exported sink_reference make_sink(const stream_reference& stream);
+	nodisc exported sink_reference make_console_sink();
 }

@@ -1,4 +1,4 @@
-// File:       engine.cpp
+// File:       console_sink.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,24 +13,10 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/core/engine.hpp"
-
 #include "citadel/io/console/console_sink.hpp"
-#include "citadel/io/console/console.hpp"
 
 namespace citadel {
-	void engine::initialize() {
-		sink_reference console_sink = make_console_sink();
-
-		loggers::add("CITADEL");
-		this_logger::push_sink(console_sink);
-
-		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");
+	sink_reference make_console_sink() {
+		return make_sink(console::pointer());
 	}
-
-	exit_code engine::run() {
-		return exit_code::success;
-	}
-
-	void engine::shutdown() { }
 }
