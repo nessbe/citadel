@@ -36,7 +36,7 @@ namespace citadel {
 		exported logger& add(const std::string& name);
 
 		template <typename... Arguments>
-		inline void log(const std::string& name, const std::string& message, log_level level, Arguments&&... arguments);
+		inline void log(const std::string& name, log_level level, const std::string& message, Arguments&&... arguments);
 
 		template <typename... Arguments>
 		inline void log_debug(const std::string& name, const std::string& message, Arguments&&... arguments);

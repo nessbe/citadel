@@ -41,7 +41,7 @@ namespace citadel {
 		std::string format_message(const log_message<Arguments...>& message) const;
 
 		template <typename... Arguments>
-		void log(const std::string& message, log_level level, Arguments&&... arguments) const;
+		void log(log_level level, const std::string& message, Arguments&&... arguments) const;
 
 		template <typename... Arguments>
 		void log_debug(const std::string& message, Arguments&&... arguments) const;

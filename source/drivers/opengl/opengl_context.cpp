@@ -27,17 +27,13 @@ namespace citadel {
 		const GLchar* message,
 		const void* user_parameters
 	) {
-		if (severity == GL_DEBUG_SEVERITY_NOTIFICATION) {
-			return;
-		}
+		log_level level = opengl::debug_severity_to_log_level(severity);
+		CITADEL_LOG(level, "OpenGL debug callback: {0}", message);
 
-		std::cerr << "[CITADEL][ERROR][OPENGL] "
-			<< "Source: " << source
-			<< ", Type: " << type
-			<< ", ID: " << id
-			<< ", Severity: " << severity
-			<< ",\n Message: " << message
-			<< std::endl;
+		CITADEL_LOG(level, "\tSource: {0}", source);
+		CITADEL_LOG(level, "\tType: {0}", type);
+		CITADEL_LOG(level, "\tID: {0}", id);
+		CITADEL_LOG(level, "\tSeverity: {0}", severity);
 	}
 
 	opengl_context::opengl_context(window* window) {

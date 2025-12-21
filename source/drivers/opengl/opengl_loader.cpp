@@ -34,25 +34,25 @@ namespace citadel {
 	int opengl_loader::_load() {
 		int status = gladLoadGLLoader((GLADloadproc)get_procedure_address);
 
-		if (status) {
-			std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-			std::cout << "OpenGL Renderer Version: " << glGetString(GL_RENDERER) << std::endl;
-			std::cout << "OpenGL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-
-			int profile_mask = 0;
-			glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile_mask);
-			std::cout << "OpenGL Profile: ";
-
-			if (profile_mask & GL_CONTEXT_CORE_PROFILE_BIT) {
-				std::cout << "Core" << std::endl;
-			}
-			else if (profile_mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) {
-				std::cout << "Compatibility" << std::endl;
-			}
-			else {
-				std::cout << "Unknown" << std::endl;
-			}
+		if (!status) {
+			CITADEL_LOG_FATAL("Failed to load OpenGL using Glad");
+			return status;
 		}
+
+		CITADEL_LOG_INFO("Loaded OpenGL successfully using Glad");
+
+		CITADEL_LOG_INFO("OpenGL version: {0}", glGetString(GL_VERSION));
+		CITADEL_LOG_INFO("OpenGL renderer version: {0}", glGetString(GL_RENDERER));
+		CITADEL_LOG_INFO("OpenGL shading language version: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+		int profile_mask = 0;
+		glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &profile_mask);
+
+		CITADEL_LOG_INFO("OpenGL profile: {0}",
+			profile_mask & GL_CONTEXT_CORE_PROFILE_BIT ? "Core" :
+			profile_mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT ? "Compatibility" :
+			"Unknown"
+		);
 
 		return status;
 	}

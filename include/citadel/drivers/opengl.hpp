@@ -14,7 +14,11 @@
 
 #pragma once
 
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+
+#include "citadel/logging/log_level.hpp"
 
 #if CITADEL_PLATFORM_WINDOWS
 	#include "citadel/platforms/windows.hpp"
@@ -22,3 +26,9 @@
 #endif
 
 #include <glad/glad.h>
+
+namespace citadel {
+	namespace opengl {
+		nodisc exported log_level debug_severity_to_log_level(GLenum value);
+	}
+}

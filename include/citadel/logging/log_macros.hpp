@@ -21,7 +21,7 @@
 	#define CITADEL_THIS_LOGGER_NAME "CITADEL"
 #endif
 
-#define CITADEL_LOG(message, level, ...)  ::citadel::loggers::log(CITADEL_THIS_LOGGER_NAME, message, level, ##__VA_ARGS__)
+#define CITADEL_LOG(level, message, ...)  ::citadel::loggers::log(CITADEL_THIS_LOGGER_NAME, level, message, ##__VA_ARGS__)
 #define CITADEL_LOG_DEBUG(message, ...)   ::citadel::loggers::log_debug(CITADEL_THIS_LOGGER_NAME, message, ##__VA_ARGS__)
 #define CITADEL_LOG_TRACE(message, ...)   ::citadel::loggers::log_trace(CITADEL_THIS_LOGGER_NAME, message, ##__VA_ARGS__)
 #define CITADEL_LOG_INFO(message, ...)    ::citadel::loggers::log_info(CITADEL_THIS_LOGGER_NAME, message, ##__VA_ARGS__)

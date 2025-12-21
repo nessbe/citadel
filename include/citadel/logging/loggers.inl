@@ -18,8 +18,8 @@
 
 namespace citadel {
 	template <typename... Arguments>
-	void loggers::log(const std::string& name, const std::string& message, log_level level, Arguments&&... arguments) {
-		get(name).log(message, level, std::forward<Arguments>(arguments)...);
+	void loggers::log(const std::string& name, log_level level, const std::string& message, Arguments&&... arguments) {
+		get(name).log(level, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>

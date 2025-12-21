@@ -45,39 +45,39 @@ namespace citadel {
 	}
 
 	template <typename... Arguments>
-	void logger::log(const std::string& message, log_level level, Arguments&&... arguments) const {
+	void logger::log(log_level level, const std::string& message, Arguments&&... arguments) const {
 		log_message<Arguments...> log_message(message, level, std::forward<Arguments>(arguments)...);
 		log(log_message);
 	}
 
 	template <typename... Arguments>
 	void logger::log_debug(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::debug, std::forward<Arguments>(arguments)...);
+		log(log_level::debug, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
 	void logger::log_trace(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::trace, std::forward<Arguments>(arguments)...);
+		log(log_level::trace, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
 	void logger::log_info(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::info, std::forward<Arguments>(arguments)...);
+		log(log_level::info, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
 	void logger::log_warning(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::warning, std::forward<Arguments>(arguments)...);
+		log(log_level::warning, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
 	void logger::log_error(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::error, std::forward<Arguments>(arguments)...);
+		log(log_level::error, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
 	void logger::log_fatal(const std::string& message, Arguments&&... arguments) const {
-		log(message, log_level::fatal, std::forward<Arguments>(arguments)...);
+		log(log_level::fatal, message, std::forward<Arguments>(arguments)...);
 	}
 
 	template <typename... Arguments>
