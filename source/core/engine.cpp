@@ -23,6 +23,8 @@ namespace citadel {
 		sink_reference console_sink = make_console_sink();
 
 		loggers::add("CITADEL");
+
+		this_logger::set_level(log_level::trace);
 		this_logger::push_sink(console_sink);
 
 		CITADEL_LOG_TRACE("Citadel core logger initialized successfully");

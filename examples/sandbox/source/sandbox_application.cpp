@@ -37,7 +37,26 @@ namespace sandbox {
 	}
 
 	citadel::exit_code sandbox_application::_run() {
-		return application_run(this);
+		citadel::exit_code exit_code = application_run(this);
+
+		window_ = citadel::window::create(
+			100, 100,
+			960, 520,
+			"Sandbox Application"
+		);
+
+		window_->get_layer_stack().push(citadel::make_referenced<sandbox_layer>());
+
+		window_->set_vsync(false);
+		window_->show();
+
+		while (window_->update()) {
+			window_->begin_frame();
+			window_->render();
+			window_->end_frame();
+		}
+
+		return exit_code;
 	}
 
 	void sandbox_application::_shutdown() {
