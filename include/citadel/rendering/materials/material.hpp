@@ -47,7 +47,7 @@ namespace citadel {
 		material& operator=(const material&) = delete;
 
 		void fetch();
-		void use();
+		void use() const;
 		void apply();
 
 		void set_uniform_bool(const std::string& name, bool value);
@@ -65,9 +65,9 @@ namespace citadel {
 		void set_uniform_mat3(const std::string& name, const mat3& value);
 		void set_uniform_mat4(const std::string& name, const mat4& value);
 
-		nodisc shader& get_vertex_shader() const noexcept;
-		nodisc shader& get_fragment_shader() const noexcept;
-		nodisc shader_program& get_shader_program() const noexcept;
+		nodisc shader& vertex_shader();
+		nodisc shader& fragment_shader();
+		nodisc shader_program& shader_program();
 
 	private:
 		std::unordered_map<std::string, bool> bool_uniforms_;
@@ -87,6 +87,6 @@ namespace citadel {
 
 		reference<shader> vertex_shader_;
 		reference<shader> fragment_shader_;
-		scope<shader_program> shader_program_;
+		scope<class shader_program> shader_program_;
 	};
 }

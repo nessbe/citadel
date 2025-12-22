@@ -26,7 +26,7 @@ namespace citadel {
 		shader_program_(shader_program::create(api, name))
 	{
 		CITADEL_SOFT_ASSERT(vertex_shader_, "Failed to create vertex shader");
-		CITADEL_SOFT_ASSERT(fragment_shader_, "Failed to create fragent shader");
+		CITADEL_SOFT_ASSERT(fragment_shader_, "Failed to create fragment shader");
 		CITADEL_SOFT_ASSERT(shader_program_, "Failed to create shader program");
 
 		CITADEL_POINTER_CALL(vertex_shader_, compile);
@@ -62,10 +62,9 @@ namespace citadel {
 		CITADEL_POINTER_CALL(shader_program_, fetch_uniforms);
 
 		using uniform_map = std::unordered_map<std::string, uniform_info>;
-		const uniform_map& uniforms = CITADEL_POINTER_CALL_OR_DEFAULT(shader_program_, get_uniforms, uniform_map());
+		uniform_map uniforms = CITADEL_POINTER_CALL_OR_DEFAULT(shader_program_, get_uniforms, uniform_map());
 
 		for (const auto& [uniform_name, uniform] : uniforms) {
-
 			switch (uniform.type) {
 			case shader_data_type::type_bool:
 				bool_uniforms_[uniform_name] = false;
@@ -117,7 +116,7 @@ namespace citadel {
 		}
 	}
 
-	void material::use() {
+	void material::use() const {
 		CITADEL_POINTER_CALL(shader_program_, use);
 	}
 
@@ -204,15 +203,15 @@ namespace citadel {
 		mat4_uniforms_[name] = value;
 	}
 
-	shader& material::get_vertex_shader() const noexcept {
+	shader& material::vertex_shader() {
 		CITADEL_POINTER_RETURN_REFERENCE(vertex_shader_);
 	}
 
-	shader& material::get_fragment_shader() const noexcept {
+	shader& material::fragment_shader() {
 		CITADEL_POINTER_RETURN_REFERENCE(fragment_shader_);
 	}
 
-	shader_program& material::get_shader_program() const noexcept {
+	shader_program& material::shader_program() {
 		CITADEL_POINTER_RETURN_REFERENCE(shader_program_);
 	}
 }

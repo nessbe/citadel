@@ -44,11 +44,11 @@ CITADEL_WARNING_IGNORE_POP
 		return create(render_command::get_api());	
 	}
 
-	void vertex_array::bind() {
+	void vertex_array::bind() const {
 		_bind();
 	}
 
-	void vertex_array::unbind() {
+	void vertex_array::unbind() const {
 		_unbind();
 	}
 
@@ -56,11 +56,11 @@ CITADEL_WARNING_IGNORE_POP
 		_add_vertex_buffer(buffer);
 	}
 
-	index_buffer& vertex_array::get_index_buffer() const {
+	index_buffer& vertex_array::index_buffer() const {
 		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 
-	void vertex_array::set_index_buffer(const reference<index_buffer>& buffer) {
+	void vertex_array::set_index_buffer(const reference<class index_buffer>& buffer) {
 		_set_index_buffer(buffer);
 		index_buffer_ = buffer;
 	}

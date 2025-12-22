@@ -71,7 +71,7 @@ namespace citadel {
 		return true;
 	}
 
-	void opengl_shader_program::_use() {
+	void opengl_shader_program::_use() const {
 		glUseProgram(id_);
 	}
 

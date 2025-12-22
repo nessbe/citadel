@@ -51,7 +51,7 @@ namespace citadel {
 
 	private:
 		virtual bool _link() override;
-		virtual void _use() override;
+		virtual void _use() const override;
 
 		virtual void _attach(const reference<shader>& shader) override;
 		virtual void _detach(const reference<shader>& shader) override;

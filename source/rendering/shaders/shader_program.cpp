@@ -57,7 +57,7 @@ CITADEL_WARNING_IGNORE_POP
 		return result;
 	}
 
-	void shader_program::use() {
+	void shader_program::use() const {
 		_use();
 	}
 

@@ -47,7 +47,7 @@ namespace citadel {
 		shader_program& operator=(const shader_program&) = delete;
 
 		bool link();
-		void use();
+		void use() const;
 
 		bool attach(const reference<shader>& shader);
 		void detach(shader_type type);
@@ -91,7 +91,7 @@ namespace citadel {
 	private:
 
 		virtual bool _link() = 0;
-		virtual void _use() = 0;
+		virtual void _use() const = 0;
 
 		virtual void _attach(const reference<shader>& shader) = 0;
 		virtual void _detach(const reference<shader>& shader) = 0;

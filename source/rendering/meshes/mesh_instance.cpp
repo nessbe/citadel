@@ -16,11 +16,11 @@
 #include "citadel/rendering/meshes/mesh_instance.hpp"
 
 namespace citadel {
-	mesh_instance::mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const mat4 transform)
+	mesh_instance::mesh_instance(const reference<class mesh>& mesh, const reference<class material>& material, const transform_3d& transform)
 		: mesh_(mesh), material_(material), transform_(transform)
 	{
-		CITADEL_SOFT_ASSERT(mesh, "The given mesh is null");
-		CITADEL_SOFT_ASSERT(material, "The given material is null");
+		CITADEL_CHECK_ARGUMENT(mesh, mesh == nullptr);
+		CITADEL_CHECK_ARGUMENT(material, material == nullptr);
 	}
 
 	void mesh_instance::use() {
@@ -41,19 +41,19 @@ namespace citadel {
 		CITADEL_POINTER_CALL(mesh_, unbind);
 	}
 
-	mesh& mesh_instance::get_mesh() const noexcept {
+	mesh& mesh_instance::mesh() const {
 		CITADEL_POINTER_RETURN_REFERENCE(mesh_);
 	}
 
-	material& mesh_instance::get_material() const noexcept {
+	material& mesh_instance::material() const {
 		CITADEL_POINTER_RETURN_REFERENCE(material_);
 	}
 
-	const transform_3d& mesh_instance::get_transform() const noexcept {
+	const transform_3d& mesh_instance::transform() const noexcept {
 		return transform_;
 	}
 
-	void mesh_instance::set_transform(const transform_3d& value) noexcept {
+	void mesh_instance::set_transform(const transform_3d& value) {
 		transform_ = value;
 	}
 }

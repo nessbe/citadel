@@ -47,15 +47,15 @@ namespace citadel {
 
 		void render();
 
-		nodisc vertex_array& get_vertex_array() const;
-		nodisc vertex_buffer& get_vertex_buffer() const;
-		nodisc index_buffer& get_index_buffer() const;
+		nodisc vertex_array& vertex_array();
+		nodisc vertex_buffer& vertex_buffer();
+		nodisc index_buffer& index_buffer();
 
 	private:
 		static vertex_buffer_layout default_layout_;
 
-		reference<vertex_array> vertex_array_;
-		reference<vertex_buffer> vertex_buffer_;
-		reference<index_buffer> index_buffer_;
+		reference<class vertex_array> vertex_array_;
+		reference<class vertex_buffer> vertex_buffer_;
+		reference<class index_buffer> index_buffer_;
 	};
 }

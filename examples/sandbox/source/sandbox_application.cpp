@@ -37,8 +37,6 @@ namespace sandbox {
 	}
 
 	citadel::exit_code sandbox_application::_run() {
-		citadel::exit_code exit_code = application_run(this);
-
 		window_ = citadel::window::create(
 			100, 100,
 			960, 520,
@@ -49,6 +47,8 @@ namespace sandbox {
 
 		window_->set_vsync(false);
 		window_->show();
+
+		citadel::exit_code exit_code = application_run(this);
 
 		while (window_->update()) {
 			window_->begin_frame();

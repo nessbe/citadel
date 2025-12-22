@@ -127,6 +127,7 @@
 
 #include "citadel/rendering/color.hpp"
 #include "citadel/rendering/render_command.hpp"
+#include "citadel/rendering/renderer.hpp"
 #include "citadel/rendering/rendering_api.hpp"
 #include "citadel/rendering/rendering_api_type.hpp"
 #include "citadel/rendering/rendering_context.hpp"

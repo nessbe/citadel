@@ -39,22 +39,22 @@ namespace citadel {
 		vertex_array(const vertex_array&) = delete;
 		vertex_array& operator=(const vertex_array&) = delete;
 
-		void bind();
-		void unbind();
+		void bind() const;
+		void unbind() const;
 
 		void add_vertex_buffer(const reference<vertex_buffer>& buffer);
 
-		nodisc index_buffer& get_index_buffer() const;
-		void set_index_buffer(const reference<index_buffer>& buffer);
+		nodisc index_buffer& index_buffer() const;
+		void set_index_buffer(const reference<class index_buffer>& buffer);
 
 	private:
-		reference<index_buffer> index_buffer_;
+		reference<class index_buffer> index_buffer_;
 
 	private:
-		virtual void _bind() = 0;
-		virtual void _unbind() = 0;
+		virtual void _bind() const = 0;
+		virtual void _unbind() const = 0;
 
 		virtual void _add_vertex_buffer(const reference<vertex_buffer>& buffer) = 0;
-		virtual void _set_index_buffer(const reference<index_buffer>& buffer) = 0;
+		virtual void _set_index_buffer(const reference<class index_buffer>& buffer) = 0;
 	};
 }

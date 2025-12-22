@@ -59,18 +59,18 @@ namespace citadel {
 	}
 
 	void mesh::render() {
-		render_command::draw_indexed(vertex_array_);
+		render_command::draw_indexed(vertex_array());
 	}
 
-	vertex_array& mesh::get_vertex_array() const {
+	vertex_array& mesh::vertex_array() {
 		CITADEL_POINTER_RETURN_REFERENCE(vertex_array_);
 	}
 
-	vertex_buffer& mesh::get_vertex_buffer() const {
+	vertex_buffer& mesh::vertex_buffer() {
 		CITADEL_POINTER_RETURN_REFERENCE(vertex_buffer_);
 	}
 
-	index_buffer& mesh::get_index_buffer() const {
+	index_buffer& mesh::index_buffer() {
 		CITADEL_POINTER_RETURN_REFERENCE(index_buffer_);
 	}
 

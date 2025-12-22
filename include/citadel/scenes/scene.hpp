@@ -30,18 +30,25 @@
 namespace citadel {
 	class exported scene {
 	public:
+		struct data {
+			mat4 view;
+			mat4 projection;
+		};
+
+	public:
 		scene(const reference<camera>& camera);
 
 		void refresh();
 
 		nodisc const mat4& view() const noexcept;
 		nodisc const mat4& projection() const noexcept;
-		nodisc const mat4& view_projection() const noexcept;
+		nodisc mat4 view_projection() const noexcept;
 
 		void add(const mesh_instance& mesh);
 		nodisc const std::vector<mesh_instance>& meshes() const noexcept;
 
 		nodisc camera& camera() const noexcept;
+		nodisc data pack() const;
 
 	private:
 		mat4 projection_;

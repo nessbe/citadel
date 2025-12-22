@@ -30,20 +30,20 @@
 namespace citadel {
 	class exported mesh_instance {
 	public:
-		mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const mat4 transform);
+		mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const transform_3d& transform);
 
 		void use();
 		void render(const mat4& view, const mat4& projection);
 
-		nodisc mesh& get_mesh() const noexcept;
-		nodisc material& get_material() const noexcept;
+		nodisc mesh& mesh() const;
+		nodisc material& material() const;
 
-		nodisc const transform_3d& get_transform() const noexcept;
-		void set_transform(const transform_3d& value) noexcept;
+		nodisc const transform_3d& transform() const noexcept;
+		void set_transform(const transform_3d& value);
 
 	private:
-		reference<mesh>  mesh_;
-		reference<material> material_;
+		reference<class mesh>  mesh_;
+		reference<class material> material_;
 
 		transform_3d transform_;
 	};

@@ -30,19 +30,19 @@ namespace citadel {
 		CITADEL_SOFT_ASSERT(rendering_api_, "Failed to create rendering API");
 	}
 
-	void render_command::draw_indexed(const reference<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_indexed(const vertex_array& vertex_array, std::size_t vertex_count) {
 		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array, vertex_count);
 	}
 
-	void render_command::draw_indexed(const reference<vertex_array>& vertex_array) {
+	void render_command::draw_indexed(const vertex_array& vertex_array) {
 		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array);
 	}
 
-	void render_command::draw_lines(const reference<vertex_array>& vertex_array, std::size_t vertex_count) {
+	void render_command::draw_lines(const vertex_array& vertex_array, std::size_t vertex_count) {
 		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array, vertex_count);
 	}
 
-	void render_command::draw_lines(const reference<vertex_array>& vertex_array) {
+	void render_command::draw_lines(const vertex_array& vertex_array) {
 		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array);
 	}
 

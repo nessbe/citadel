@@ -27,9 +27,9 @@ namespace citadel {
 		opengl_rendering_api(rendering_api_type api);
 
 	private:
-		virtual void _draw_indexed(const reference<vertex_array>& vertex_array, std::size_t vertex_count) override;
+		virtual void _draw_indexed(const vertex_array& vertex_array, std::size_t vertex_count) override;
+		virtual void _draw_lines(const vertex_array& vertex_array, std::size_t vertex_count) override;
 
-		virtual void _draw_lines(const reference<vertex_array>& vertex_array, std::size_t vertex_count) override;
 		virtual void _set_line_width(float value) override;
 	};
 }

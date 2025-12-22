@@ -14,31 +14,10 @@
 
 #version 460 compatibility
 
-uniform sampler2D texture_sampler;
-uniform vec3 ambient_color;
-
-uniform vec3 light_position;
-uniform float light_intensity;
-uniform float light_max_distance;
-
-in vec3 vertex_normal;
-in vec2 vertex_uv;
-in vec3 vertex_world_position;
+in vec4 vertex_color;
 
 out vec4 fragment_color;
 
 void main() {
-	vec3 normal = normalize(vertex_normal);
-	vec3 direction = normalize(light_position - vertex_world_position);
-	float difference = max(dot(normal, direction), 0.0);
-
-	float distance = length(light_position - vertex_world_position);
-	float attenuation = 1.0 - clamp(distance / light_max_distance, 0.0, 1.0);
-
-	float lighting = difference * attenuation * light_intensity;
-
-	vec4 texture_color = texture(texture_sampler, vertex_uv);
-	vec3 out_color = ambient_color + texture_color.rgb * max(lighting, 0.0);
-
-	fragment_color = vec4(out_color, texture_color.a);
+	fragment_color = vertex_color;
 }

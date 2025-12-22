@@ -51,11 +51,11 @@ namespace citadel {
 		id_type id_ = 0;
 
 	private:
-		virtual void _bind() override;
-		virtual void _unbind() override;
+		virtual void _bind() const override;
+		virtual void _unbind() const override;
 
 		virtual void _add_vertex_buffer(const reference<vertex_buffer>& buffer) override;
-		virtual void _set_index_buffer(const reference<index_buffer>& buffer) override;
+		virtual void _set_index_buffer(const reference<class index_buffer>& buffer) override;
 	};
 }
 

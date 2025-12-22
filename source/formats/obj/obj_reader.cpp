@@ -156,6 +156,12 @@ namespace citadel {
 		}
 
 		std::vector<index> indices = index_buffer::linear(vertices.size());
+
+		CITADEL_LOG_INFO("Successfully loaded mesh:");
+		CITADEL_LOG_INFO("\tVertex count: {0}", vertices.size());
+		CITADEL_LOG_INFO("\tIndex count: {0}", indices.size());
+		CITADEL_LOG_INFO("\tFace count: {0}", faces.size());
+
 		return mesh(vertices, indices);
 	}
 }

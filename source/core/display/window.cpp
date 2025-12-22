@@ -122,6 +122,8 @@ namespace citadel {
 
 		CITADEL_POINTER_CALL(surface_, clear);
 		_begin_frame();
+
+		CITADEL_LOG_DEBUG("Beginning '{0}' window's frame", title_);
 	}
 
 	void window::end_frame() {
@@ -132,6 +134,8 @@ namespace citadel {
 
 		CITADEL_POINTER_CALL(surface_, unbind);
 		CITADEL_POINTER_CALL(rendering_context_, unbind);
+
+		CITADEL_LOG_DEBUG("Ending '{0}' window's frame", title_);
 	}
 
 	void* window::get_native_handle() const {

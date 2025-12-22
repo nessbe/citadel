@@ -25,7 +25,7 @@ namespace citadel {
 	void scene::refresh() {
 		view_ = camera_->get_view();
 		projection_ = camera_->get_projection();
-		CITADEL_LOG_TRACE("Scene refreshed successfully");
+		CITADEL_LOG_DEBUG("Scene refreshed successfully");
 	}
 
 	const mat4& scene::view() const noexcept {
@@ -36,7 +36,7 @@ namespace citadel {
 		return projection_;
 	}
 
-	const mat4& scene::view_projection() const noexcept {
+	mat4 scene::view_projection() const noexcept {
 		return projection_ * view_;
 	}
 
@@ -50,5 +50,12 @@ namespace citadel {
 
 	camera& scene::camera() const noexcept {
 		CITADEL_POINTER_RETURN_REFERENCE(camera_);
+	}
+
+	scene::data scene::pack() const {
+		return {
+			view(),
+			projection()
+		};
 	}
 }
