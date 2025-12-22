@@ -16,6 +16,16 @@
 #include "citadel/drivers/opengl.hpp"
 
 namespace citadel {
+	GLint opengl::get_uniform_location(unsigned int program_id, const std::string& name) {
+		GLint location = glGetUniformLocation(program_id, name.c_str());
+		if (location <= 0) {
+			throw unknown_shader_uniform(
+				formatter::format("Uniform '{0}' not found in shader program {1}", name, program_id)
+			);
+		}
+		return location;
+	}
+
 	log_level opengl::debug_severity_to_log_level(GLenum value) {
 		switch (value) {
 		case GL_DEBUG_SEVERITY_NOTIFICATION:

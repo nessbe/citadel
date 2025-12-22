@@ -1,4 +1,4 @@
-// File:       opengl.hpp
+// File:       unknown_shader_uniform.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,23 +14,12 @@
 
 #pragma once
 
-#include "citadel/attributes.hpp"
-#include "citadel/export.hpp"
-#include "citadel/platforms.hpp"
-
-#include "citadel/logging/log_level.hpp"
-
-#if CITADEL_PLATFORM_WINDOWS
-	#include "citadel/platforms/windows.hpp"
-	#include <glad/glad_wgl.h>
-#endif
-
-#include <glad/glad.h>
+#include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	namespace opengl {
-		nodisc exported GLint get_uniform_location(unsigned int program_id, const std::string& name);
-
-		nodisc exported log_level debug_severity_to_log_level(GLenum value);
-	}
+	class unknown_shader_uniform final : public exception {
+	public:
+		unknown_shader_uniform() = delete;
+		using exception::exception;
+	};
 }
