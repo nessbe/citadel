@@ -63,7 +63,9 @@
 #include "citadel/debug/exceptions/invalid_operation_error.hpp"
 #include "citadel/debug/exceptions/invalid_result_error.hpp"
 #include "citadel/debug/exceptions/null_reference_error.hpp"
-#include "citadel/debug/exceptions/shader_uniform_not_found_error.hpp"
+
+#include "citadel/debug/exceptions/rendering/invalid_texture_pixel_format_error.hpp"
+#include "citadel/debug/exceptions/rendering/shader_uniform_not_found_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 

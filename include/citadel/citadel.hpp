@@ -46,7 +46,9 @@
 #include "citadel/debug/exceptions/invalid_operation_error.hpp"
 #include "citadel/debug/exceptions/invalid_result_error.hpp"
 #include "citadel/debug/exceptions/null_reference_error.hpp"
-#include "citadel/debug/exceptions/shader_uniform_not_found_error.hpp"
+
+#include "citadel/debug/exceptions/rendering/invalid_texture_pixel_format_error.hpp"
+#include "citadel/debug/exceptions/rendering/shader_uniform_not_found_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 
@@ -154,8 +156,9 @@
 #include "citadel/rendering/shaders/uniform_info.hpp"
 
 #include "citadel/rendering/textures/image.hpp"
-#include "citadel/rendering/textures/texture.hpp"
 #include "citadel/rendering/textures/texture_2d.hpp"
+#include "citadel/rendering/textures/texture_format_type.hpp"
+#include "citadel/rendering/textures/texture.hpp"
 
 #include "citadel/rendering/vertices/vertex.hpp"
 #include "citadel/rendering/vertices/vertex_array.hpp"
