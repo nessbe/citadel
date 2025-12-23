@@ -1,4 +1,4 @@
-// File:       null_reference_exception.hpp
+// File:       invalid_operation_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,10 +17,9 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class null_reference_exception final : public exception {
+	class invalid_operation_error final : public exception {
 	public:
-		null_reference_exception() = delete;
+		invalid_operation_error() = delete;
 		using exception::exception;
 	};
 }
-

@@ -1,4 +1,4 @@
-// File:       invalid_operation_exception.hpp
+// File:       invalid_member_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,9 +17,9 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class invalid_operation_exception final : public exception {
+	class invalid_member_error final : public exception {
 	public:
-		invalid_operation_exception() = delete;
+		invalid_member_error() = delete;
 		using exception::exception;
 	};
 }

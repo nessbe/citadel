@@ -41,12 +41,12 @@
 #include "citadel/core/layers/layer_stack.hpp"
 
 #include "citadel/debug/exceptions/exception.hpp"
-#include "citadel/debug/exceptions/invalid_argument_exception.hpp"
-#include "citadel/debug/exceptions/invalid_member_exception.hpp"
-#include "citadel/debug/exceptions/invalid_operation_exception.hpp"
-#include "citadel/debug/exceptions/invalid_result_exception.hpp"
-#include "citadel/debug/exceptions/null_reference_exception.hpp"
-#include "citadel/debug/exceptions/unknown_shader_uniform.hpp"
+#include "citadel/debug/exceptions/invalid_argument_error.hpp"
+#include "citadel/debug/exceptions/invalid_member_error.hpp"
+#include "citadel/debug/exceptions/invalid_operation_error.hpp"
+#include "citadel/debug/exceptions/invalid_result_error.hpp"
+#include "citadel/debug/exceptions/null_reference_error.hpp"
+#include "citadel/debug/exceptions/shader_uniform_not_found_error.hpp"
 
 #include "citadel/drivers/opengl.hpp"
 

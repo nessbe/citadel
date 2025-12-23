@@ -19,7 +19,7 @@ namespace citadel {
 	GLint opengl::get_uniform_location(unsigned int program_id, const std::string& name) {
 		GLint location = glGetUniformLocation(program_id, name.c_str());
 		if (location <= 0) {
-			throw unknown_shader_uniform(
+			throw shader_uniform_not_found_error(
 				formatter::format("Uniform '{0}' not found in shader program {1}", name, program_id)
 			);
 		}

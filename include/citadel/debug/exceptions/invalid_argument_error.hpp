@@ -1,4 +1,4 @@
-// File:       invalid_result_exception.hpp
+// File:       invalid_argument_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,9 +17,9 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class invalid_result_exception final : public exception {
+	class invalid_argument_error final : public exception {
 	public:
-		invalid_result_exception() = delete;
+		invalid_argument_error() = delete;
 		using exception::exception;
 	};
 }

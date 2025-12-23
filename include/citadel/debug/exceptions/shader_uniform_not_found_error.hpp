@@ -1,4 +1,4 @@
-// File:       invalid_member_exception.hpp
+// File:       shader_uniform_not_found_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,9 +17,9 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class invalid_member_exception final : public exception {
+	class shader_uniform_not_found_error final : public exception {
 	public:
-		invalid_member_exception() = delete;
+		shader_uniform_not_found_error() = delete;
 		using exception::exception;
 	};
 }

@@ -1,4 +1,4 @@
-// File:       unknown_shader_uniform.hpp
+// File:       invalid_result_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,9 +17,9 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class unknown_shader_uniform final : public exception {
+	class invalid_result_error final : public exception {
 	public:
-		unknown_shader_uniform() = delete;
+		invalid_result_error() = delete;
 		using exception::exception;
 	};
 }

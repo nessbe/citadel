@@ -1,4 +1,4 @@
-// File:       invalid_argument_exception.hpp
+// File:       null_reference_error.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,9 +17,10 @@
 #include "citadel/debug/exceptions/exception.hpp"
 
 namespace citadel {
-	class invalid_argument_exception final : public exception {
+	class null_reference_error final : public exception {
 	public:
-		invalid_argument_exception() = delete;
+		null_reference_error() = delete;
 		using exception::exception;
 	};
 }
+
