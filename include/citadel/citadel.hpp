@@ -168,6 +168,8 @@
 
 #include "citadel/scenes/scene.hpp"
 
+#include "citadel/scripting/scripting_engine.hpp"
+
 #include "citadel/utils/format/formatter.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
