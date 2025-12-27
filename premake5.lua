@@ -23,3 +23,4 @@ group "examples"
 
 group "vendor"
 	include "vendor/glad/glad.lua"
+	include "vendor/lua/lua.lua"

@@ -36,13 +36,14 @@ project "citadel"
 	}
 
 	externalincludedirs {
-		"vendor/glad/include"
+		"vendor/glad/include",
+		"vendor/lua/include"
 	}
 
 	links {
 		"opengl32",
-		"gdi32",
-		"glad"
+		"glad",
+		"lua"
 	}
 
 	filter "action:gmake"
