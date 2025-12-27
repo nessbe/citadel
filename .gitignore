@@ -12,22 +12,28 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the LICENSE file for details.
 
+# Binaries
 build/
 
+# Make
 Makefile
 *.make
 
+# Compiledb
 compile_commands.json
 
+# Clangd
 .cache/
 
+# Visual Studio
 *.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
 
-.vs/
-
 *.hint
 
+.vs/
+
+# Visual Studio Code
 .vscode/
