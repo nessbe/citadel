@@ -1,4 +1,4 @@
--- File:       premake5.lua
+-- File:       clangd.lua
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
@@ -12,17 +12,15 @@
 -- WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the LICENSE file for details.
 
-include "workspace.lua"
+newoption {
+	trigger     = "clangd",
+	description = "Generate compile_commands.json"
+}
 
-group "core"
-	include "citadel.lua"
-
-group "examples"
-	include "examples/basic_application/basic_application.lua"
-	include "examples/sandbox/sandbox.lua"
-
-group "vendor"
-	include "vendor/glad/glad.lua"
-	include "vendor/lua/lua.lua"
-
-include "clangd.lua"
+if _OPTIONS["clangd"] then
+	filter "action:gmake"
+		toolset "clang"
+		buildoptions {
+			"-fdiagnostics-color=always"
+		}
+end
