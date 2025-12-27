@@ -1,0 +1,37 @@
+// File:       lua_scripting_engine.cpp
+// Project:    citadel
+// Repository: https://github.com/nessbe/citadel
+//
+// Copyright (c) 2025 nessbe
+// This file is part of the citadel project and is licensed
+// under the terms specified in the LICENSE file located at the
+// root of this repository.
+//
+// Unless required by applicable law or agreed to in writing,
+// the software is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the LICENSE file for details.
+
+#include "citadel/pch.hpp"
+#include "citadel/scripting/lua/lua_scripting_engine.hpp"
+
+namespace citadel {
+	lua_scripting_engine::lua_scripting_engine() {
+		state_ = luaL_newstate();
+		CITADEL_ASSERT(state_, "Failed to create Lua state");
+
+		luaL_openlibs(state_);
+	}
+
+	lua_scripting_engine::~lua_scripting_engine() {
+		lua_close(state_);
+		state_ = nullptr;
+	}
+
+	void lua_scripting_engine::_bind() { }
+	void lua_scripting_engine::_unbind() { }
+
+	void* lua_scripting_engine::_native_handle() const noexcept {
+		return state_;
+	}
+}
