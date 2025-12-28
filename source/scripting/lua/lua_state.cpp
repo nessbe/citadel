@@ -1,4 +1,4 @@
-// File:       lua_scripting_engine.hpp
+// File:       lua_state.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,27 +12,21 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
-
-#include "citadel/attributes.hpp"
-#include "citadel/export.hpp"
-
-#include "citadel/scripting/scripting_engine.hpp"
-
+#include "citadel/pch.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
 
+#include "citadel/scripting/lua.hpp"
+
 namespace citadel {
-	class exported lua_scripting_engine final : public scripting_engine {
-	public:
-		nodisc lua_state& state() noexcept;
+	lua_state::lua_state() {
+		handle_ = luaL_newstate();
+	}
 
-	private:
-		lua_state state_;
+	lua_state::~lua_state() {
+		lua_close(handle_);
+	}
 
-	private:
-		virtual void _bind() override;
-		virtual void _unbind() override;
-
-		nodisc virtual void* _native_handle() const noexcept override;
-	};
+	lua_State* lua_state::native_handle() const noexcept {
+		return handle_;
+	}
 }

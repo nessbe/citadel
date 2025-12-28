@@ -16,22 +16,14 @@
 #include "citadel/scripting/lua/lua_scripting_engine.hpp"
 
 namespace citadel {
-	lua_scripting_engine::lua_scripting_engine() {
-		state_ = luaL_newstate();
-		CITADEL_ASSERT(state_, "Failed to create Lua state");
-
-		luaL_openlibs(state_);
-	}
-
-	lua_scripting_engine::~lua_scripting_engine() {
-		lua_close(state_);
-		state_ = nullptr;
+	lua_state& lua_scripting_engine::state() noexcept {
+		return state_;
 	}
 
 	void lua_scripting_engine::_bind() { }
 	void lua_scripting_engine::_unbind() { }
 
 	void* lua_scripting_engine::_native_handle() const noexcept {
-		return state_;
+		return state_.native_handle();
 	}
 }

@@ -1,4 +1,4 @@
-// File:       lua_scripting_engine.hpp
+// File:       lua_state.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -17,22 +17,17 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/scripting/scripting_engine.hpp"
-
-#include "citadel/scripting/lua/lua_state.hpp"
+struct lua_State;
 
 namespace citadel {
-	class exported lua_scripting_engine final : public scripting_engine {
+	class exported lua_state {
 	public:
-		nodisc lua_state& state() noexcept;
+		lua_state();
+		~lua_state();
+
+		nodisc lua_State* native_handle() const noexcept;
 
 	private:
-		lua_state state_;
-
-	private:
-		virtual void _bind() override;
-		virtual void _unbind() override;
-
-		nodisc virtual void* _native_handle() const noexcept override;
+		lua_State* handle_;
 	};
 }
