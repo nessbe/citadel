@@ -92,8 +92,6 @@
 
 #include "citadel/platforms/windows.hpp"
 
-#include "citadel/scripting/lua.hpp"
-
 #include "citadel/utils/string/string_convertion.hpp"
 #include "citadel/utils/string/stringifier.hpp"
 
