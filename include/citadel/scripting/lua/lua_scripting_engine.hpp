@@ -24,6 +24,9 @@
 namespace citadel {
 	class exported lua_scripting_engine final : public scripting_engine {
 	public:
+		lua_scripting_engine(const lua_scripting_engine&) = delete;
+		lua_scripting_engine& operator=(const lua_scripting_engine&) = delete;
+
 		nodisc lua_state& state() noexcept;
 
 	private:

@@ -25,6 +25,9 @@ namespace citadel {
 
 		virtual ~scripting_engine() = default;
 
+		scripting_engine(const scripting_engine&) = delete;
+		scripting_engine& operator=(const scripting_engine&) = delete;
+
 		void bind();
 		void unbind();
 

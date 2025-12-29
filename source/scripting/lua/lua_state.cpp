@@ -28,6 +28,18 @@ namespace citadel {
 		lua_close(handle_);
 	}
 
+	lua_state::lua_state(lua_state&& other) noexcept {
+		*this = std::move(other);
+	}
+
+	lua_state& lua_state::operator=(lua_state&& other) noexcept {
+		if (this != &other) {
+			handle_ = other.handle_;
+			other.handle_ = nullptr;
+		}
+		return *this;
+	}
+
 	lua_State* lua_state::native_handle() const noexcept {
 		return handle_;
 	}

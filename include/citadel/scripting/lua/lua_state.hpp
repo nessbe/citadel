@@ -27,6 +27,12 @@ namespace citadel {
 
 		~lua_state();
 
+		lua_state(const lua_state&) = delete;
+		lua_state& operator=(const lua_state&) = delete;
+
+		lua_state(lua_state&& other) noexcept;
+		lua_state& operator=(lua_state&& other) noexcept;
+
 		nodisc lua_State* native_handle() const noexcept;
 
 	private:
