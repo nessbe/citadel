@@ -194,6 +194,8 @@
 #include "citadel/scripting/lua/lua_thread.hpp"
 #include "citadel/scripting/lua/lua_value.hpp"
 
+#include "citadel/scripting/lua/exceptions/lua_exception.hpp"
+
 #include "citadel/utils/format/formatter.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
