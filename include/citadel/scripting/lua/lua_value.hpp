@@ -15,10 +15,12 @@
 #pragma once
 
 #include <string>
+#include <type_traits>
 #include <variant>
 
 #include "citadel/scripting/lua/lua_reference.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
+#include "citadel/scripting/lua/lua_thread.hpp"
 
 namespace citadel {
 	using lua_boolean = bool;
@@ -29,7 +31,6 @@ namespace citadel {
 	using lua_function = lua_reference;
 	using lua_userdata = lua_reference;
 	using lua_lightuserdata = void*;
-	using lua_thread = lua_state;
 
 	using lua_value = std::variant<
 		std::monostate,
@@ -37,10 +38,11 @@ namespace citadel {
 		lua_integer,
 		lua_number,
 		lua_string,
-		lua_table,
-		lua_function,
-		lua_userdata,
+		lua_reference,
 		lua_lightuserdata,
 		lua_thread
 	>;
+
+	static_assert(!std::is_copy_constructible_v<lua_value>);
+	static_assert(std::is_move_constructible_v<lua_value>);
 }

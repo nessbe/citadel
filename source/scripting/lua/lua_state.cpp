@@ -18,9 +18,11 @@
 #include "citadel/scripting/lua.hpp"
 
 namespace citadel {
-	lua_state::lua_state() {
-		handle_ = luaL_newstate();
-	}
+	lua_state::lua_state()
+		: handle_(luaL_newstate()) { }
+
+	lua_state::lua_state(lua_State* handle)
+		: handle_(handle) { }
 
 	lua_state::~lua_state() {
 		lua_close(handle_);

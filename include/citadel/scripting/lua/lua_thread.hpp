@@ -1,4 +1,4 @@
-// File:       lua_reference.hpp
+// File:       lua_thread.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -20,41 +20,44 @@
 
 #include "citadel/memory/reference.hpp"
 
+#include "citadel/scripting/lua/lua_reference.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported lua_reference {
+	class exported lua_thread {
 	public:
-		using reference_type = int;
+		using status_type = int;
 
 	public:
-		lua_reference(const reference<lua_state>& state, reference_type reference);
-		lua_reference(const reference<lua_state>& state);
+		lua_thread(lua_reference handle, const reference<lua_state>& state);
 
-		~lua_reference();
+		lua_thread(const lua_thread&) = delete;
+		lua_thread& operator=(const lua_thread&) = delete;
 
-		lua_reference(const lua_reference&) = delete;
-		lua_reference& operator=(const lua_reference&) = delete;
+		lua_thread(lua_thread&&) = default;
+		lua_thread& operator=(lua_thread&&) = default;
 
-		lua_reference(lua_reference&& other) noexcept;
-		lua_reference& operator=(lua_reference&& other) noexcept;
+		status_type resume(const reference<lua_state>& parent, int argument_count = 0);
+		nodisc status_type status() const noexcept;
 
-		void reset(reference_type reference);
-		void reset();
+		nodisc bool yielded() const noexcept;
+		nodisc bool finished() const noexcept;
+		nodisc bool error() const noexcept;
 
 		nodisc bool valid() const noexcept;
 
+		nodisc const lua_reference& handle() const noexcept;
 		nodisc lua_state& state() noexcept;
-		nodisc reference_type native_handle() const noexcept;
 
 		nodisc explicit operator bool() const noexcept;
 
 	private:
+		lua_reference handle_;
 		reference<lua_state> state_;
-		reference_type reference_;
+		status_type status_;
 	};
 }
 

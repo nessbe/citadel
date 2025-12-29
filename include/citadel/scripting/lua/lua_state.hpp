@@ -23,6 +23,8 @@ namespace citadel {
 	class exported lua_state {
 	public:
 		lua_state();
+		lua_state(lua_State* handle);
+
 		~lua_state();
 
 		nodisc lua_State* native_handle() const noexcept;

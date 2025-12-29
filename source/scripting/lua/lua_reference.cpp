@@ -58,6 +58,10 @@ namespace citadel {
 		reset(LUA_NOREF);
 	}
 
+	bool lua_reference::valid() const noexcept {
+		return reference_ != LUA_NOREF;
+	}
+
 	lua_state& lua_reference::state() noexcept {
 		return *state_;
 	}
@@ -67,6 +71,6 @@ namespace citadel {
 	}
 
 	lua_reference::operator bool() const noexcept {
-		return reference_ != LUA_NOREF;
+		return valid();
 	}
 }
