@@ -192,6 +192,7 @@
 #include "citadel/scripting/lua/lua_scripting_engine.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
 #include "citadel/scripting/lua/lua_thread.hpp"
+#include "citadel/scripting/lua/lua_type.hpp"
 #include "citadel/scripting/lua/lua_value.hpp"
 
 #include "citadel/scripting/lua/exceptions/lua_exception.hpp"
