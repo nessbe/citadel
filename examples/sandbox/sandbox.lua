@@ -41,7 +41,12 @@ project "sandbox"
 		"opengl32",
 		"gdi32",
 		"citadel",
-		"glad"
+		"glad",
+		"lua"
+	}
+
+	dependson {
+		"lua"
 	}
 
 	filter "action:gmake"

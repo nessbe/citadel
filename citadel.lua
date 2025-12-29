@@ -46,6 +46,10 @@ project "citadel"
 		"lua"
 	}
 
+	dependson {
+		"lua"
+	}
+
 	filter "action:gmake"
 		buildoptions {
 			"-Wall",
