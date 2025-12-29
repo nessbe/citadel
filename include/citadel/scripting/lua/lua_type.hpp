@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
@@ -35,4 +37,5 @@ namespace citadel {
 
 	nodisc exported native_lua_type lua_type_to_native(lua_type value);
 	nodisc exported lua_type lua_type_from_native(native_lua_type value);
+	nodisc exported std::string lua_type_to_string(lua_type value);
 }

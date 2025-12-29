@@ -24,6 +24,9 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	native_lua_type lua_type_to_native(lua_type value) {
 		switch (value) {
+		case lua_type::none:
+			return LUA_TNONE;
+
 		case lua_type::nil:
 			return LUA_TNIL;
 
@@ -60,6 +63,9 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 	lua_type lua_type_from_native(native_lua_type value) {
 		switch (value) {
+		case LUA_TNONE:
+			return lua_type::none;
+
 		case LUA_TNIL:
 			return lua_type::nil;
 
@@ -90,6 +96,47 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 		default:
 			CITADEL_PANIC("Unknown native Lua type");
 			return lua_type::none;
+		}
+	}
+
+	std::string lua_type_to_string(lua_type value) {
+		switch (value) {
+		case lua_type::nil:
+			return "nil";
+
+		case lua_type::boolean:
+			return "boolean";
+
+		case lua_type::integer:
+			return "integer";
+
+		case lua_type::number:
+			return "number";
+
+		case lua_type::string:
+			return "string";
+
+		case lua_type::table:
+			return "table";
+
+		case lua_type::function:
+			return "function";
+
+		case lua_type::userdata:
+			return "userdata";
+
+		case lua_type::lightuserdata:
+			return "lightuserdata";
+
+		case lua_type::thread:
+			return "thread";
+
+		case lua_type::none:
+			return "none";
+
+		default:
+			CITADEL_PANIC("Unknown Lua type");
+			return "unknown";
 		}
 	}
 
