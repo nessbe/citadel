@@ -1,4 +1,4 @@
-// File:       lua_exception.hpp
+// File:       lua_type_error.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,13 +12,16 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#pragma once
-
-#include "citadel/debug/exceptions/exception.hpp"
+#include "citadel/pch.hpp"
+#include "citadel/scripting/lua/exceptions/lua_type_error.hpp"
 
 namespace citadel {
-	class lua_exception : public exception {
-	public:
-		using exception::exception;
-	};
+	lua_type_error::lua_type_error(int index, lua_type expected, lua_type actual)
+		: lua_exception(formatter::format(
+			"Lua type error at stack index {0}: expected '{1}', got '{2}'",
+			index,
+			lua_type_to_string(expected),
+			lua_type_to_string(actual)
+		))
+	{ }
 }

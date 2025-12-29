@@ -196,6 +196,7 @@
 #include "citadel/scripting/lua/lua_value.hpp"
 
 #include "citadel/scripting/lua/exceptions/lua_exception.hpp"
+#include "citadel/scripting/lua/exceptions/lua_type_error.hpp"
 
 #include "citadel/utils/format/formatter.hpp"
 

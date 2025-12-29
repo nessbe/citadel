@@ -27,23 +27,23 @@
 #include "citadel/utils/format/formatter.hpp"
 
 #ifndef CITADEL_NOTHROW
-	#define CITADEL_THROW(exception, message, ...) throw exception(::citadel::formatter::format(message, __VA_ARGS__))
+	#define CITADEL_THROW(exception, ...) throw exception(__VA_ARGS__)
 #else
-	#define CITADEL_THROW(exception, message, ...) CITADEL_LOG_ERROR(message, __VA_ARGS__)
+	#define CITADEL_THROW(exception, ...) CITADEL_LOG_ERROR(__VA_ARGS__)
 #endif
 
-#define CITADEL_THROW_IF(condition, exception, message, ...) do { if (unlikely(static_cast<bool>(condition))) { CITADEL_THROW(exception, message, __VA_ARGS__); } } while (0)
-#define CITADEL_THROW_IF_NULL(value, exception, message, ...) CITADEL_THROW_IF(value == nullptr, exception, message, __VA_ARGS__)
+#define CITADEL_THROW_IF(condition, exception, ...) do { if (unlikely(static_cast<bool>(condition))) { CITADEL_THROW(exception, __VA_ARGS__); } } while (0)
+#define CITADEL_THROW_IF_NULL(value, exception, ...) CITADEL_THROW_IF(value == nullptr, exception, __VA_ARGS__)
 
 #define CITADEL_THROW_IF_TRUE(value, exception, message, ...) CITADEL_THROW_IF(value == true, exception, message, __VA_ARGS__)
 #define CITADEL_THROW_IF_FALSE(value, exception, message, ...) CITADEL_THROW_IF(value == false, exception, message, __VA_ARGS__)
 
-#define CITADEL_CHECK_ARGUMENT(argument, condition)                      CITADEL_THROW_IF(condition, ::citadel::invalid_argument_error, "Argument '{0}' is invalid ({1})", #argument, #condition)
-#define CITADEL_CHECK_MEMBER(member, condition)                          CITADEL_THROW_IF(condition, ::citadel::invalid_member_error, "Member '{0}' is invalid ({1})", #member, #condition)
-#define CITADEL_CHECK_OPERATION(operation, condition)                    CITADEL_THROW_IF(condition, ::citadel::invalid_operation_error, "Operation '{0}' is invalid ({1})", operation, #condition)
+#define CITADEL_CHECK_ARGUMENT(argument, condition)                      CITADEL_THROW_IF(condition, ::citadel::invalid_argument_error, ::citadel::formatter::format("Argument '{0}' is invalid ({1})", #argument, #condition))
+#define CITADEL_CHECK_MEMBER(member, condition)                          CITADEL_THROW_IF(condition, ::citadel::invalid_member_error, ::citadel::formatter::format("Member '{0}' is invalid ({1})", #member, #condition))
+#define CITADEL_CHECK_OPERATION(operation, condition)                    CITADEL_THROW_IF(condition, ::citadel::invalid_operation_error, ::citadel::formatter::format("Operation '{0}' is invalid ({1})", operation, #condition))
 
-#define CITADEL_CHECK_RESULT(result, condition)                           CITADEL_THROW_IF(condition, ::citadel::invalid_result_error, "Result '{0}' is invalid ({1})", #result, #condition)
+#define CITADEL_CHECK_RESULT(result, condition)                           CITADEL_THROW_IF(condition, ::citadel::invalid_result_error, ::citadel::formatter::format("Result '{0}' is invalid ({1})", #result, #condition))
 #define CITADEL_CHECK_FUNCTION_RESULT_STORED(result, function, condition) do { result = function; if (unlikely(static_cast<bool>(condition))) { CITADEL_THROW(::citadel::invalid_result_error, "Function '{0}' result is invalid ({1})", #function, #condition); } } while (0)
 #define CITADEL_CHECK_FUNCTION_RESULT(function, condition)                CITADEL_CHECK_FUNCTION_RESULT_STORED(auto result, function, condition)
 
-#define CITADEL_CHECK_NULL_REFERENCE(value)                               CITADEL_THROW_IF_NULL(value, ::citadel::null_reference_error, "'{0}' is null", #value)
+#define CITADEL_CHECK_NULL_REFERENCE(value)                               CITADEL_THROW_IF_NULL(value, ::citadel::null_reference_error, ::citadel::formatter::format("'{0}' is null", #value))
