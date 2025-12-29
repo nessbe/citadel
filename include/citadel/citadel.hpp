@@ -191,6 +191,7 @@
 #include "citadel/scripting/lua/lua_reference.hpp"
 #include "citadel/scripting/lua/lua_scripting_engine.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
+#include "citadel/scripting/lua/lua_value.hpp"
 
 #include "citadel/utils/format/formatter.hpp"
 
