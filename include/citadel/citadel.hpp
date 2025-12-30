@@ -190,6 +190,7 @@
 
 #include "citadel/scripting/lua/lua_reference.hpp"
 #include "citadel/scripting/lua/lua_scripting_engine.hpp"
+#include "citadel/scripting/lua/lua_stack.hpp"
 #include "citadel/scripting/lua/lua_state.hpp"
 #include "citadel/scripting/lua/lua_thread.hpp"
 #include "citadel/scripting/lua/lua_type.hpp"
