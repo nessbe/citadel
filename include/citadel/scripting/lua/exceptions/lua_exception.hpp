@@ -19,6 +19,7 @@
 namespace citadel {
 	class lua_exception : public exception {
 	public:
+		lua_exception() = delete;
 		using exception::exception;
 	};
 }
