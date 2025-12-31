@@ -27,6 +27,9 @@ namespace citadel {
 		case json_type::number:
 			return "number";
 
+		case json_type::string:
+			return "string";
+
 		case json_type::array:
 			return "array";
 

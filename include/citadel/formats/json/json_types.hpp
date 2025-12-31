@@ -24,7 +24,7 @@ namespace citadel {
 	class json_value;
 	using json_value_reference = reference<json_value>;
 
-	using json_null = std::monostate;
+	using json_null = std::nullptr_t;
 	using json_boolean = bool;
 	using json_number = double;
 	using json_string = std::string;

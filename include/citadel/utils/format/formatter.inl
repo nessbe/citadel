@@ -35,7 +35,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		std::size_t source_size = source.size();
 
 		std::string result;
-		result.resize(source_size);
+		result.reserve(source_size);
 
 		variadic_accessor<Arguments...> arguments_accessor(std::forward<Arguments>(arguments)...);
 

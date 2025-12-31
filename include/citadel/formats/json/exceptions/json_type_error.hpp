@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include <string>
+
+#include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
 #include "citadel/formats/json/json_type.hpp"

@@ -20,6 +20,7 @@ namespace citadel {
 		: message_(std::move(message)) { }
 
 	const char* exception::what() const noexcept {
+
 		return message_.c_str();
 	}
 }

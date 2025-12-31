@@ -72,6 +72,7 @@
 #include "citadel/formats/json/json_type_of.hpp"
 #include "citadel/formats/json/json_type.hpp"
 #include "citadel/formats/json/json_types.hpp"
+#include "citadel/formats/json/json_value.hpp"
 
 #include "citadel/formats/json/exceptions/json_exception.hpp"
 #include "citadel/formats/json/exceptions/json_type_error.hpp"

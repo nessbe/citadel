@@ -1,4 +1,4 @@
-// File:       json_type_error.cpp
+// File:       json_value.inl
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,15 +12,37 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
+#pragma once
+
+#include "citadel/formats/json/json_type_of.hpp"
+
 #include "citadel/formats/json/exceptions/json_type_error.hpp"
 
 namespace citadel {
-	json_type_error::json_type_error(json_type expected, json_type actual)
-		: json_exception(formatter::format(
-			"JSON type error: expected '{0}', got '{1}'",
-			json_type_to_string(expected),
-			json_type_to_string(actual)
-		))
-	{ }
+	template <typename T>
+	bool json_value::is() const noexcept {
+		return std::holds_alternative<T>(value_);
+	}
+
+	template <typename T>
+	T& json_value::as() {
+		if (!is<T>()) {
+			throw json_type_error(
+				type(),
+				json_type_of_v<T>
+			);
+		}
+		return std::get<T>(value_);
+	}
+
+	template <typename T>
+	const T& json_value::as() const {
+		if (!is<T>()) {
+			throw json_type_error(
+				type(),
+				json_type_of_v<T>
+			);
+		}
+		return std::get<T>(value_);
+	}
 }
