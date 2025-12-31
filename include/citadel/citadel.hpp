@@ -69,6 +69,7 @@
 #include "citadel/formats/ansi/ansi_color_style.hpp"
 #include "citadel/formats/ansi/ansi_colors.hpp"
 
+#include "citadel/formats/json/json_serialization_context.hpp"
 #include "citadel/formats/json/json_type_of.hpp"
 #include "citadel/formats/json/json_type.hpp"
 #include "citadel/formats/json/json_types.hpp"

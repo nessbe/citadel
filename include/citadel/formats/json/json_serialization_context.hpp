@@ -1,4 +1,4 @@
-// File:       json_types.hpp
+// File:       json_serialization_context.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -14,20 +14,19 @@
 
 #pragma once
 
-#include <map>
+#include <cstddef>
 #include <string>
-#include <variant>
 
-#include "citadel/memory/reference.hpp"
+#include "citadel/warnings.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class json_value;
-	using json_value_reference = reference<json_value>;
-
-	using json_null = std::nullptr_t;
-	using json_boolean = bool;
-	using json_number = double;
-	using json_string = std::string;
-	using json_array = std::vector<json_value_reference>;
-	using json_object = std::map<std::string, json_value_reference>;
+	struct json_serialization_context {
+		bool pretty = true;
+		std::string indent = "\t";
+	};
 }
+
+CITADEL_WARNING_IGNORE_POP

@@ -14,9 +14,13 @@
 
 #pragma once
 
+#include <ostream>
+#include <string>
+
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/formats/json/json_serialization_context.hpp"
 #include "citadel/formats/json/json_type.hpp"
 #include "citadel/formats/json/json_types.hpp"
 
@@ -31,6 +35,9 @@ namespace citadel {
 			json_array,
 			json_object
 		>;
+
+	public:
+		static const json_serialization_context default_context;
 
 	public:
 		json_value(const value_type& value);
@@ -67,9 +74,16 @@ namespace citadel {
 		nodisc const json_array& as_array() const;
 		nodisc const json_object& as_object() const;
 
+		nodisc std::string to_string(const json_serialization_context& context, std::size_t indent_level = 0) const;
+
+		void indent(std::ostream& out, const json_serialization_context& context, std::size_t level) const;
+		void serialize(std::ostream& out, const json_serialization_context& context, std::size_t indent_level = 0) const;
+
 	private:
 		value_type value_;
 	};
+
+	std::ostream& operator<<(std::ostream& out, const json_value& value);
 }
 
 #include "citadel/formats/json/json_value.inl"

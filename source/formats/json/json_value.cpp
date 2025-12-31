@@ -18,6 +18,8 @@
 #include "citadel/formats/json/json_type_of.hpp"
 
 namespace citadel {
+	const json_serialization_context json_value::default_context = { true, "\t" };
+
 	json_value::json_value(const value_type& value)
 		: value_(value) { }
 
@@ -98,5 +100,118 @@ namespace citadel {
 
 	const json_object& json_value::as_object() const {
 		return as<json_object>();
+	}
+
+	std::string json_value::to_string(const json_serialization_context& context, std::size_t indent_level) const {
+		std::ostringstream oss;
+		indent(oss, context, indent_level);
+		serialize(oss, context);
+		return oss.str();
+	}
+
+	void json_value::indent(std::ostream& out, const json_serialization_context& context, std::size_t level) const {
+		for (std::size_t i = 0; i < level; i++) {
+			out << context.indent;
+		}
+	}
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
+
+	void json_value::serialize(std::ostream& out, const json_serialization_context& context, std::size_t indent_level) const {
+		if (is_null()) {
+			out << "null";
+		}
+		else if (is_boolean()) {
+			out << (as_boolean() ? "true" : "false");
+		}
+		else if (is_number()) {
+			out << as_number();
+		}
+		else if (is_string()) {
+			out << '"' << as_string() << '"';
+		}
+		else if (is_array()) {
+			out << "[";
+
+			if (context.pretty) {
+				out << "\n";
+			}
+
+			const json_array& array = as_array();
+
+			for (std::size_t i = 0; i < array.size(); i++) {
+				if (context.pretty) {
+					indent(out, context, indent_level + 1);
+				}
+
+				const json_value_reference& value = array[i];
+				value->serialize(out, context, indent_level + 1);
+
+				if (i + 1 < array.size()) {
+					out << ",";
+
+					if (context.pretty) {
+						out << "\n";
+					}
+					else {
+						out << " ";
+					}
+				}
+			}
+
+			if (context.pretty) {
+				out << "\n";
+			}
+
+			indent(out, context, indent_level);
+			out << "]";
+		}
+		else if (is_object()) {
+			out << "{";
+
+			if (context.pretty) {
+				out << "\n";
+			}
+
+			const json_object& object = as_object();
+			std::size_t i = 0;
+
+			for (const auto& [key, value] : object) {
+				if (context.pretty) {
+					indent(out, context, indent_level + 1);
+				}
+
+				out << '"' << key << "\": ";
+				value->serialize(out, context, indent_level + 1);
+
+				if (i + 1 < object.size()) {
+					out << ",";
+
+					if (context.pretty) {
+						out << "\n";
+					}
+					else {
+						out << " ";
+					}
+				}
+
+				i++;
+			}
+
+			if (context.pretty) {
+				out << "\n";
+			}
+
+			indent(out, context, indent_level);
+			out << "}";
+		}
+	}
+
+CITADEL_WARNING_IGNORE_POP
+
+	std::ostream& operator<<(std::ostream& out, const json_value& value) {
+		value.serialize(out, json_value::default_context);
+		return out;
 	}
 }
