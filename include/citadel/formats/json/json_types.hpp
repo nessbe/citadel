@@ -1,4 +1,4 @@
-// File:       exception.cpp
+// File:       json_types.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,15 +12,22 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#pragma once
+
+#include <map>
+#include <string>
+#include <variant>
+
+#include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
+	class json_value;
+	using json_value_reference = reference<json_value>;
 
-	const char* exception::what() const noexcept {
-
-		return message_.c_str();
-	}
+	using json_null = std::nullptr_t;
+	using json_boolean = bool;
+	using json_number = double;
+	using json_string = std::string;
+	using json_array = std::vector<json_value_reference>;
+	using json_object = std::map<std::string, json_value_reference>;
 }

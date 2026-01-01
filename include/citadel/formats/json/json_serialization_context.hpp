@@ -1,4 +1,4 @@
-// File:       exception.cpp
+// File:       json_serialization_context.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,15 +12,21 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#pragma once
+
+#include <cstddef>
+#include <string>
+
+#include "citadel/warnings.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
-
-	const char* exception::what() const noexcept {
-
-		return message_.c_str();
-	}
+	struct json_serialization_context {
+		bool pretty = true;
+		std::string indent = "\t";
+	};
 }
+
+CITADEL_WARNING_IGNORE_POP

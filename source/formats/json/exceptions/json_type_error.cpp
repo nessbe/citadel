@@ -1,4 +1,4 @@
-// File:       exception.cpp
+// File:       json_type_error.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,14 +13,14 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#include "citadel/formats/json/exceptions/json_type_error.hpp"
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
-
-	const char* exception::what() const noexcept {
-
-		return message_.c_str();
-	}
+	json_type_error::json_type_error(json_type expected, json_type actual)
+		: json_exception(formatter::format(
+			"JSON type error: expected '{0}', got '{1}'",
+			json_type_to_string(expected),
+			json_type_to_string(actual)
+		))
+	{ }
 }

@@ -1,8 +1,8 @@
-// File:       exception.cpp
+// File:       json.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -13,14 +13,21 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#include "citadel/formats/json/json.hpp"
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
+	json::json(const json_value& root)
+		: root_(root) { }
 
-	const char* exception::what() const noexcept {
+	std::string json::to_string(const json_serialization_context& context, std::size_t indent_level) const {
+		return root_.to_string(context, indent_level);
+	}
+	
+	json_value& json::root() noexcept {
+		return root_;
+	}
 
-		return message_.c_str();
+	std::ostream& operator<<(std::ostream& out, const json& value) {
+		return out << value.to_string(json_value::default_context, 0);
 	}
 }

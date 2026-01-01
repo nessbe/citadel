@@ -1,4 +1,4 @@
-// File:       exception.cpp
+// File:       json_type.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -12,15 +12,22 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#pragma once
+
+#include <string>
+
+#include "citadel/attributes.hpp"
+#include "citadel/export.hpp"
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
+	enum class json_type {
+		null = 0,
+		boolean,
+		number,
+		string,
+		array,
+		object,
+	};
 
-	const char* exception::what() const noexcept {
-
-		return message_.c_str();
-	}
+	nodisc exported std::string json_type_to_string(json_type value);
 }

@@ -1,4 +1,4 @@
-// File:       exception.cpp
+// File:       json_type.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -13,14 +13,32 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/debug/exceptions/exception.hpp"
+#include "citadel/formats/json/json_type.hpp"
 
 namespace citadel {
-	exception::exception(std::string message) noexcept
-		: message_(std::move(message)) { }
+	std::string json_type_to_string(json_type value) {
+		switch (value) {
+		case json_type::null:
+			return "null";
 
-	const char* exception::what() const noexcept {
+		case json_type::boolean:
+			return "boolean";
 
-		return message_.c_str();
+		case json_type::number:
+			return "number";
+
+		case json_type::string:
+			return "string";
+
+		case json_type::array:
+			return "array";
+
+		case json_type::object:
+			return "object";
+
+		default:
+			CITADEL_PANIC("Unknown JSON type");
+			return "unknown";
+		}
 	}
 }
