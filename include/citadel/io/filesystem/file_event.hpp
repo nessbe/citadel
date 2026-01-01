@@ -16,7 +16,12 @@
 
 #include <filesystem>
 
+#include "citadel/warnings.hpp"
+
 #include "citadel/io/filesystem/file_action.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
 	struct file_event {
@@ -24,3 +29,5 @@ namespace citadel {
 		file_action action;
 	};
 }
+
+CITADEL_WARNING_IGNORE_POP

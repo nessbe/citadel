@@ -16,6 +16,10 @@
 #include "citadel/drivers/opengl.hpp"
 
 namespace citadel {
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
+
 	GLint opengl::get_uniform_location(unsigned int program_id, const std::string& name) {
 		GLint location = glGetUniformLocation(program_id, name.c_str());
 		if (location <= 0) {
@@ -25,6 +29,8 @@ namespace citadel {
 		}
 		return location;
 	}
+
+CITADEL_WARNING_IGNORE_POP
 
 	log_level opengl::debug_severity_to_log_level(GLenum value) {
 		switch (value) {
