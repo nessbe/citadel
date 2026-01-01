@@ -15,9 +15,11 @@
 #include "citadel/pch.hpp"
 #include "citadel/io/filesystem/watchers/file_watcher.hpp"
 
+#include "citadel/io/filesystem/watchers/polling_file_watcher.hpp"
+
 namespace citadel {
 	scope<file_watcher> file_watcher::create() {
-		return nullptr;
+		return make_scoped<polling_file_watcher>();
 	}
 
 	void file_watcher::watch(const std::filesystem::path& path) {
@@ -29,6 +31,7 @@ namespace citadel {
 	}
 
 	void file_watcher::update() {
+		events_.clear();
 		_update();
 	}
 

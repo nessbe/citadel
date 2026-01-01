@@ -105,6 +105,7 @@
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
 #include "citadel/io/filesystem/watchers/file_watcher.hpp"
+#include "citadel/io/filesystem/watchers/polling_file_watcher.hpp"
 
 #include "citadel/io/resources/meshes/mesh_reader.hpp"
 
