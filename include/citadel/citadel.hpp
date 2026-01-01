@@ -79,6 +79,8 @@
 #include "citadel/formats/json/exceptions/json_exception.hpp"
 #include "citadel/formats/json/exceptions/json_type_error.hpp"
 
+#include "citadel/formats/json/io/json_writer.hpp"
+
 #include "citadel/formats/obj/obj_face.hpp"
 #include "citadel/formats/obj/obj_reader.hpp"
 #include "citadel/formats/obj/obj_vertex.hpp"

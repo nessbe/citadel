@@ -22,7 +22,7 @@ namespace citadel {
 	std::string json::to_string(const json_serialization_context& context, std::size_t indent_level) const {
 		return root_.to_string(context, indent_level);
 	}
-
+	
 	json_value& json::root() noexcept {
 		return root_;
 	}

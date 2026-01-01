@@ -162,9 +162,9 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 			if (context.pretty) {
 				out << "\n";
+				indent(out, context, indent_level);
 			}
 
-			indent(out, context, indent_level);
 			out << "]";
 		}
 		else if (is_object()) {
@@ -201,9 +201,9 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 			if (context.pretty) {
 				out << "\n";
+				indent(out, context, indent_level);
 			}
 
-			indent(out, context, indent_level);
 			out << "}";
 		}
 	}
