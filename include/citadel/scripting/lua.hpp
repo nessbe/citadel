@@ -14,9 +14,17 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <lua/lua.h>
 #include <lua/lauxlib.h>
 #include <lua/lualib.h>
+
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef lua_isnone
 	#undef lua_isnone
