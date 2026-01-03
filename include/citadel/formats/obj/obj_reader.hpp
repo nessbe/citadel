@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -19,19 +19,21 @@
 #include "citadel/formats/obj/obj_face.hpp"
 #include "citadel/formats/obj/obj_vertex.hpp"
 
-#include "citadel/io/stream.hpp"
+#include "citadel/io/random_access_stream.hpp"
 
 #include "citadel/io/text/mathematical_reader.hpp"
 #include "citadel/io/text/text_reader.hpp"
 
 #include "citadel/io/resources/meshes/mesh_reader.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
 	class exported obj_reader : public mesh_reader {
 	public:
-		explicit obj_reader(const stream_reference& stream);
+		explicit obj_reader(const reference<random_access_stream>& stream);
 
 	private:
 		text_reader text_reader_;

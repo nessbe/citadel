@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -33,7 +33,7 @@ namespace citadel {
 		using offset_type = std::streamoff;
 
 	public:
-		static constexpr size_type eof = EOF;
+		static const size_type eof_value;
 
 	public:
 		stream() = default;
@@ -45,37 +45,19 @@ namespace citadel {
 		size_type read(void* buffer, size_type size);
 		size_type write(const void* buffer, size_type size);
 
-		nodisc position_type tell();
-		nodisc offset_type size();
-
-		nodisc int peek();
-
-		bool seek(position_type position);
-		bool seek(offset_type offset, stream_direction direction);
-
 		void flush();
 
-		nodisc bool is_good() const;
-
-		nodisc bool is_eol();
-		nodisc bool is_eof() const;
+		nodisc bool good() const;
+		nodisc bool eof() const;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) = 0;
 		virtual size_type _write(const void* buffer, size_type size) = 0;
 
-		nodisc virtual position_type _tell() = 0;
-		nodisc virtual offset_type _size() = 0;
-
-		nodisc virtual int _peek() = 0;
-
-		virtual bool _seek(position_type position) = 0;
-		virtual bool _seek(offset_type offset, stream_direction direction) = 0;
-
 		virtual void _flush() = 0;
 
-		nodisc virtual bool _is_good() const = 0;
-		nodisc virtual bool _is_eof() const = 0;
+		nodisc virtual bool _good() const = 0;
+		nodisc virtual bool _eof() const = 0;
 	};
 
 	using stream_reference = reference<stream>;

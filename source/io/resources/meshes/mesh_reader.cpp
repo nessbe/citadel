@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,7 +16,7 @@
 #include "citadel/io/resources/meshes/mesh_reader.hpp"
 
 namespace citadel {
-	mesh_reader::mesh_reader(const stream_reference& stream)
+	mesh_reader::mesh_reader(const reference<random_access_stream>& stream)
 		: reader(stream) { }
 
 	mesh mesh_reader::read_mesh() {

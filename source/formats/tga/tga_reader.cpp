@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -18,7 +18,7 @@
 #include "citadel/formats/tga/tga_header.hpp"
 
 namespace citadel {
-	tga_reader::tga_reader(const stream_reference& stream)
+	tga_reader::tga_reader(const reference<random_access_stream>& stream)
 		: image_reader(stream) { }
 
 CITADEL_WARNING_IGNORE_PUSH

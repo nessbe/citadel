@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -19,19 +19,19 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
+#include "citadel/io/random_access_stream.hpp"
 
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
 	class exported reader {
 	public:
-		explicit reader(const stream_reference& stream);
+		explicit reader(const reference<random_access_stream>& stream);
 		virtual ~reader() = default;
 
-		nodisc stream& stream() const noexcept;
+		nodisc random_access_stream& stream() const noexcept;
 
 	private:
-		stream_reference stream_;
+		reference<random_access_stream> stream_;
 	};
 }

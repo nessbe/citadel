@@ -88,6 +88,7 @@
 #include "citadel/formats/tga/tga_header.hpp"
 #include "citadel/formats/tga/tga_reader.hpp"
 
+#include "citadel/io/random_access_stream.hpp"
 #include "citadel/io/reader.hpp"
 #include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"

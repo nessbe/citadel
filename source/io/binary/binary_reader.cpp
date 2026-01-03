@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,7 +16,7 @@
 #include "citadel/io/binary/binary_reader.hpp"
 
 namespace citadel {
-	binary_reader::binary_reader(const stream_reference& stream)
+	binary_reader::binary_reader(const reference<random_access_stream>& stream)
 		: reader(stream) { }
 
 	std::int8_t binary_reader::read_int8() {

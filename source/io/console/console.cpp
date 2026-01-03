@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -17,7 +17,7 @@
 
 namespace citadel {
 	console& console::get() noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(instance_);
+		return *instance_;
 	}
 
 	const reference<console>& console::pointer() noexcept {
@@ -39,7 +39,7 @@ namespace citadel {
 		position_type previous_position = tell();
 		std::cout.write(reinterpret_cast<const char*>(buffer), size);
 
-		if (!is_good()) {
+		if (!good()) {
 			position_type current_position = tell();
 			return static_cast<size_type>(current_position - previous_position);
 		}
@@ -72,7 +72,7 @@ namespace citadel {
 		std::cin.seekg(position);
 		std::cout.seekp(position);
 
-		return is_good();
+		return good();
 	}
 
 	bool console::_seek(offset_type offset, stream_direction direction) {
@@ -84,18 +84,18 @@ namespace citadel {
 		std::cin.seekg(offset, seek_direction);
 		std::cout.seekp(offset, seek_direction);
 
-		return is_good();
+		return good();
 	}
 
 	void console::_flush() {
 		std::cout.flush();
 	}
 
-	bool console::_is_good() const {
+	bool console::_good() const {
 		return std::cin.good() && std::cout.good();
 	}
 
-	bool console::_is_eof() const {
+	bool console::_eof() const {
 		return std::cin.eof() && std::cout.eof();
 	}
 }

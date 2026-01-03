@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,18 +16,20 @@
 
 #include "citadel/export.hpp"
 
+#include "citadel/io/random_access_stream.hpp"
 #include "citadel/io/reader.hpp"
-#include "citadel/io/stream.hpp"
 
 #include "citadel/io/text/text_reader.hpp"
 
 #include "citadel/math/vectors/vec2.hpp"
 #include "citadel/math/vectors/vec3.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class exported mathematical_reader : public reader {
 	public:
-		explicit mathematical_reader(const stream_reference& stream);
+		explicit mathematical_reader(const reference<random_access_stream>& stream);
 
 		template <typename T>
 		basic_vec2<T> read_basic_vec2(const std::string& separator);

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -21,12 +21,12 @@
 #include "citadel/rendering/vertices/vertex.hpp"
 
 namespace citadel {
-	obj_reader::obj_reader(const stream_reference& stream)
+	obj_reader::obj_reader(const reference<random_access_stream>& stream)
 		: mesh_reader(stream), text_reader_(stream), mathematical_reader_(stream) { }
 
 	obj_vertex obj_reader::read_vertex() {
 		obj_vertex vertex;
-		class stream& stream = this->stream();
+		class random_access_stream& stream = this->stream();
 
 		text_reader_.read_whitespace();
 
@@ -62,11 +62,11 @@ namespace citadel {
 
 	obj_face obj_reader::read_face() {
 		obj_face face;
-		class stream& stream = this->stream();
+		class random_access_stream& stream = this->stream();
 
 		text_reader_.read_whitespace();
 
-		while (!stream.is_eol()) {
+		while (!stream.eol()) {
 			char character = static_cast<char>(stream.peek());
 
 			if (character == '\n' || character == '\r' || character == '\0') {
@@ -87,7 +87,7 @@ namespace citadel {
 	}
 
 	mesh obj_reader::_read_mesh() {
-		class stream& stream = this->stream();
+		class random_access_stream& stream = this->stream();
 
 		std::vector<vec3> positions;
 		std::vector<vec3> normals;
@@ -95,7 +95,7 @@ namespace citadel {
 
 		std::vector<obj_face> faces;
 
-		while (!stream.is_eof() && stream.is_good()) {
+		while (!stream.eof() && stream.good()) {
 			text_reader_.read_whitespace();
 			std::string directive = text_reader_.read_word();
 

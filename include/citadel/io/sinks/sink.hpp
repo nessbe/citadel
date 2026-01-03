@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -17,27 +17,26 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
+#include "citadel/io/random_access_stream.hpp"
 
 #include "citadel/memory/reference.hpp"
-#include "citadel/memory/scope.hpp"
 
 namespace citadel {
 	class exported sink {
 	public:
-		sink(const stream_reference& stream);
+		sink(const reference<random_access_stream>& stream);
 		~sink();
 
 		stream::size_type write(const void* data, stream::size_type size);
 		void flush();
 
-		nodisc stream& stream() const noexcept;
+		nodisc random_access_stream& stream() const noexcept;
 
 	private:
-		stream_reference stream_;
+		reference<random_access_stream> stream_;
 	};
 
 	using sink_reference = reference<sink>;
 
-	nodisc exported sink_reference make_sink(const stream_reference& stream);
+	nodisc exported sink_reference make_sink(const reference<random_access_stream>& stream);
 }

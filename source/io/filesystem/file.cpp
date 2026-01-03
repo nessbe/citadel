@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,15 +25,15 @@ namespace citadel {
 	file::file(const std::string& path, file_open_mode open_mode)
 		: path_(path), open_mode_(open_mode) { }
 
-	void* file::get_native_handle() const {
-		return _get_native_handle();
+	void* file::native_handle() const {
+		return _native_handle();
 	}
 
-	const std::string& file::get_path() const noexcept {
+	const std::string& file::path() const noexcept {
 		return path_;
 	}
 
-	file_open_mode file::get_open_mode() const noexcept {
+	file_open_mode file::open_mode() const noexcept {
 		return open_mode_;
 	}
 }

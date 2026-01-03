@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,13 +16,13 @@
 #include "citadel/io/reader.hpp"
 
 namespace citadel {
-	reader::reader(const stream_reference& stream)
+	reader::reader(const reference<random_access_stream>& stream)
 		: stream_(stream)
 	{
-		CITADEL_SOFT_ASSERT(stream, "The given stream is null");
+		CITADEL_CHECK_ARGUMENT(stream, stream == nullptr);
 	}
 
-	stream& reader::stream() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(stream_);
+	random_access_stream& reader::stream() const noexcept {
+		return *stream_;
 	}
 }

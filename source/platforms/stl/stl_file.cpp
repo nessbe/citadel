@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -19,11 +19,18 @@ namespace citadel {
 	stl_file::stl_file(const std::string& path, file_open_mode open_mode)
 		: file(path, open_mode)
 	{
+		if (!std::filesystem::exists(path)) {
+			throw std::invalid_argument(formatter::format("File '{0}' does not exist", path));
+		}
+
 		std::ios::openmode stl_open_mode = file_open_mode_to_stl(open_mode);
 		stl_open_mode |= std::ios::binary;
 
 		stream_.open(path, stl_open_mode);
-		CITADEL_SOFT_ASSERT(stream_.is_open(), "Failed to open file '" + path + "'");
+
+		if (!stream_.is_open()) {
+			throw std::runtime_error(formatter::format("Failed to open file '{0}'", path));
+		}
 	}
 
 	stl_file::~stl_file() {
@@ -45,7 +52,7 @@ namespace citadel {
 		position_type previous_position = tell();
 		stream_.write(reinterpret_cast<const char*>(buffer), size);
 
-		if (!is_good()) {
+		if (!good()) {
 			position_type current_position = tell();
 			return static_cast<size_type>(current_position - previous_position);
 		}
@@ -54,7 +61,7 @@ namespace citadel {
 	}
 
 	stream::position_type stl_file::_tell() {
-		file_open_mode open_mode = get_open_mode();
+		file_open_mode open_mode = this->open_mode();
 
 		if (file_open_mode_use_read(open_mode)) {
 			return stream_.tellg();
@@ -83,7 +90,7 @@ namespace citadel {
 	bool stl_file::_seek(position_type position) {
 		stream_.clear();
 
-		file_open_mode open_mode = get_open_mode();
+		file_open_mode open_mode = this->open_mode();
 
 		if (file_open_mode_use_read(open_mode)) {
 			stream_.seekg(position);
@@ -93,13 +100,13 @@ namespace citadel {
 			stream_.seekp(position);
 		}
 
-		return is_good();
+		return good();
 	}
 
 	bool stl_file::_seek(offset_type offset, stream_direction direction) {
 		stream_.clear();
 
-		file_open_mode open_mode = get_open_mode();
+		file_open_mode open_mode = this->open_mode();
 		std::ios::seekdir seek_direction = stream_direction_to_stl(direction);
 
 		if (file_open_mode_use_read(open_mode)) {
@@ -110,22 +117,22 @@ namespace citadel {
 			stream_.seekp(offset, seek_direction);
 		}
 
-		return is_good();
+		return good();
 	}
 
 	void stl_file::_flush() {
 		stream_.flush();
 	}
 
-	bool stl_file::_is_good() const {
+	bool stl_file::_good() const {
 		return stream_.good();
 	}
 
-	bool stl_file::_is_eof() const {
+	bool stl_file::_eof() const {
 		return stream_.eof();
 	}
 
-	void* stl_file::_get_native_handle() const {
+	void* stl_file::_native_handle() const {
 		return nullptr;
 	}
 }

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -21,7 +21,6 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
-#include "citadel/io/stream.hpp"
 #include "citadel/io/stream_direction.hpp"
 
 #include "citadel/io/filesystem/file.hpp"
@@ -53,9 +52,9 @@ namespace citadel {
 
 		virtual void _flush() override;
 
-		nodisc virtual bool _is_good() const override;
-		nodisc virtual bool _is_eof() const override;
+		nodisc virtual bool _good() const override;
+		nodisc virtual bool _eof() const override;
 
-		nodisc virtual void* _get_native_handle() const override;
+		nodisc virtual void* _native_handle() const override;
 	};
 }

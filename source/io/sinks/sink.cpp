@@ -1,8 +1,8 @@
-// File:       sink.hpp
+// File:       sink.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,10 +16,10 @@
 #include "citadel/io/sinks/sink.hpp"
 
 namespace citadel {
-	sink::sink(const stream_reference& stream)
+	sink::sink(const reference<random_access_stream>& stream)
 		: stream_(stream)
 	{
-		CITADEL_SOFT_ASSERT(stream_, "The given stream is null");
+		CITADEL_CHECK_ARGUMENT(stream, stream == nullptr);
 	}
 
 	sink::~sink() {
@@ -27,18 +27,18 @@ namespace citadel {
 	}
 
 	stream::size_type sink::write(const void* data, stream::size_type size) {
-		return CITADEL_POINTER_CALL_OR_ZERO(stream_, write, data, size);
+		return stream_->write(data, size);
 	}
 
 	void sink::flush() {
-		CITADEL_POINTER_CALL(stream_, flush);
+		stream_->flush();
 	}
 
-	stream& sink::stream() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(stream_);
+	random_access_stream& sink::stream() const noexcept {
+		return *stream_;
 	}
 
-	sink_reference make_sink(const stream_reference& stream) {
+	sink_reference make_sink(const reference<random_access_stream>& stream) {
 		return make_referenced<sink>(stream);
 	}
 }

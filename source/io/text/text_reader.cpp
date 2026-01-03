@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,7 +16,9 @@
 #include "citadel/io/text/text_reader.hpp"
 
 namespace citadel {
-	text_reader::text_reader(const stream_reference& stream)
+	const std::size_t text_reader::default_base_capacity = 64;
+
+	text_reader::text_reader(const reference<random_access_stream>& stream)
 		: reader(stream) { }
 
 	char text_reader::read_character() {
@@ -92,7 +94,7 @@ namespace citadel {
 	}
 
 	std::string text_reader::read_text() {
-		class stream& stream = this->stream();
+		class random_access_stream& stream = this->stream();
 		stream::size_type size = stream.size();
 
 		std::string result(static_cast<std::size_t>(size), '\0');
@@ -125,9 +127,9 @@ namespace citadel {
 		std::string result;
 		result.reserve(base_capacity);
 
-		class stream& stream = this->stream();
+		class random_access_stream& stream = this->stream();
 
-		while (!stream.is_eof() && stream.is_good()) {
+		while (!stream.eof() && stream.good()) {
 			char character = static_cast<char>(stream.peek());
 
 			if (!condition_callback(character)) {

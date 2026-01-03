@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -75,8 +75,8 @@ CITADEL_WARNING_IGNORE_POP
 	}
 
 	int string_stream::_peek() {
-		if (is_eof()) {
-			return static_cast<int>(eof);
+		if (eof()) {
+			return static_cast<int>(eof_value);
 		}
 		return static_cast<int>(buffer_[static_cast<std::size_t>(position_)]);
 	}
@@ -120,11 +120,11 @@ CITADEL_WARNING_IGNORE_POP
 
 	void string_stream::_flush() { }
 
-	bool string_stream::_is_good() const {
+	bool string_stream::_good() const {
 		return position_ <= static_cast<size_type>(buffer_.size());
 	}
 
-	bool string_stream::_is_eof() const {
+	bool string_stream::_eof() const {
 		return position_ >= static_cast<size_type>(buffer_.size());
 	}
 }
