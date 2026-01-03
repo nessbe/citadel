@@ -1,4 +1,4 @@
-// File:       script.hpp
+// File:       lua_script.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -21,22 +21,25 @@
 
 #include "citadel/memory/reference.hpp"
 
+#include "citadel/scripting/script.hpp"
+
+#include "citadel/scripting/lua/lua_stack.hpp"
+#include "citadel/scripting/lua/lua_state.hpp"
+
 namespace citadel {
-	class exported script {
+	class exported lua_script final : public script {
 	public:
-		explicit script(const reference<random_access_stream>& stream);
-		virtual ~script() = default;
+		explicit lua_script(const reference<random_access_stream>& stream);
 
-		nodisc bool can_reload() const noexcept;
-		void reload();
-
-		nodisc random_access_stream& stream() noexcept;
-
-	protected:
-		reference<random_access_stream> stream_;
+		nodisc lua_state& state() noexcept;
+		nodisc lua_stack& stack() noexcept;
 
 	private:
-		nodisc virtual bool _can_reload() const noexcept = 0;
-		virtual void _reload() = 0;
+		reference<lua_state> state_;
+		lua_stack stack_;
+
+	private:
+		nodisc virtual bool _can_reload() const noexcept override;
+		virtual void _reload() override;
 	};
 }

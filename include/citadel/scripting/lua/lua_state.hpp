@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,8 +22,8 @@ struct lua_State;
 namespace citadel {
 	class exported lua_state {
 	public:
-		lua_state();
 		lua_state(lua_State* handle);
+		lua_state();
 
 		~lua_state();
 
