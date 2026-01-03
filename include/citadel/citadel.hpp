@@ -203,6 +203,8 @@
 
 #include "citadel/utils/format/formatter.hpp"
 
+#include "citadel/utils/functional/callable.hpp"
+
 #include "citadel/utils/string/string_convertion.hpp"
 #include "citadel/utils/string/stringifier.hpp"
 
