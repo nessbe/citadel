@@ -186,6 +186,7 @@
 
 #include "citadel/scenes/scene.hpp"
 
+#include "citadel/scripting/script.hpp"
 #include "citadel/scripting/scripting_engine.hpp"
 
 #include "citadel/scripting/lua/lua_reference.hpp"
