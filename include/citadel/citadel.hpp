@@ -108,6 +108,8 @@
 #include "citadel/io/filesystem/watchers/file_watcher.hpp"
 #include "citadel/io/filesystem/watchers/polling_file_watcher.hpp"
 
+#include "citadel/io/pipes/pipe.hpp"
+
 #include "citadel/io/resources/meshes/mesh_reader.hpp"
 
 #include "citadel/io/resources/images/image_reader.hpp"
