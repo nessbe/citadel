@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -21,15 +21,36 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/utils/string/stringifiable.hpp"
+
 namespace citadel {
 	template <typename, typename = void>
-	struct has_to_string : std::false_type { };
+	struct is_stringifiable : std::false_type { };
 
 	template <typename T>
-	struct has_to_string<T, std::void_t<decltype(std::declval<T>().to_string())>> : std::true_type { };
+	struct is_stringifiable<T, std::void_t<decltype(citadel::stringifiable<T>::to_string(std::declval<T>()))>>
+		: std::bool_constant<std::is_convertible_v<decltype(citadel::stringifiable<T>::to_string(std::declval<T>())), std::string>> { };
 
 	template <typename T>
-	inline constexpr bool has_to_string_v = has_to_string<T>::value;
+	inline constexpr bool is_stringifiable_v = is_stringifiable<T>::value;
+
+	template <typename, typename = void>
+	struct has_free_to_string : std::false_type { };
+
+	template <typename T>
+	struct has_free_to_string<T, std::void_t<decltype(::to_string(std::declval<T>()))>> : std::true_type { };
+
+	template <typename T>
+	inline constexpr bool has_free_to_string_v = has_free_to_string<T>::value;
+
+	template <typename, typename = void>
+	struct has_member_to_string : std::false_type { };
+
+	template <typename T>
+	struct has_member_to_string<T, std::void_t<decltype(std::declval<T>().to_string())>> : std::true_type { };
+
+	template <typename T>
+	inline constexpr bool has_member_to_string_v = has_member_to_string<T>::value;
 
 	template <typename, typename = void>
 	struct has_std_to_string : std::false_type { };

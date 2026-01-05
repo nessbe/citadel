@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -54,13 +54,13 @@ CITADEL_WARNING_IGNORE_POP
 		using decay_type = std::decay_t<T>;
 		decay_type decay_value(value);
 
-		if constexpr (std::is_same_v<decay_type, std::string>) {
-			return decay_value;
+		if constexpr (is_stringifiable_v<decay_type>) {
+			return stringifiable<decay_type>::to_string(value);
 		}
-		else if constexpr (std::is_same_v<decay_type, bool>) {
-			return decay_value ? "true" : "false";
+		else if constexpr (has_free_to_string_v<decay_type>) {
+			return ::to_string(decay_value);
 		}
-		else if constexpr (has_to_string_v<decay_type>) {
+		else if constexpr (has_member_to_string_v<decay_type>) {
 			return decay_value.to_string();
 		}
 		else if constexpr (has_std_to_string_v<decay_type>) {
