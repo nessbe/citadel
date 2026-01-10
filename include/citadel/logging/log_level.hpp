@@ -33,9 +33,9 @@ namespace citadel {
 		off,
 	};
 
-	exported extern std::array<log_level, static_cast<std::size_t>(log_level::count)> log_levels;
+	CITADEL_API extern std::array<log_level, static_cast<std::size_t>(log_level::count)> log_levels;
 
-	nodisc exported std::string log_level_to_string(log_level value);
+	CITADEL_NODISCARD CITADEL_API std::string log_level_to_string(log_level value);
 
-	exported std::ostream& operator<<(std::ostream& out, log_level value);
+	CITADEL_API std::ostream& operator<<(std::ostream& out, log_level value);
 }

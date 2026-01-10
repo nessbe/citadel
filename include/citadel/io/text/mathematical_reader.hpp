@@ -27,7 +27,7 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported mathematical_reader : public reader {
+	class CITADEL_API mathematical_reader : public reader {
 	public:
 		explicit mathematical_reader(const reference<random_access_stream>& stream);
 

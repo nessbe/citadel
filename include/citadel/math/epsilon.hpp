@@ -31,10 +31,10 @@ namespace citadel {
 	};
 
 	template <typename T>
-	nodisc bool epsilon_equal(T x, T y) noexcept;
+	CITADEL_NODISCARD bool epsilon_equal(T x, T y) noexcept;
 
 	template <typename T>
-	nodisc bool epsilon_not_equal(T x, T y) noexcept;
+	CITADEL_NODISCARD bool epsilon_not_equal(T x, T y) noexcept;
 }
 
 #include "citadel/math/epsilon.inl"

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -30,7 +30,7 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported opengl_vertex_array : public vertex_array {
+	class CITADEL_API opengl_vertex_array : public vertex_array {
 	public:
 		using id_type = GLuint;
 
@@ -44,7 +44,7 @@ namespace citadel {
 		opengl_vertex_array(opengl_vertex_array&& other) noexcept;
 		opengl_vertex_array& operator=(opengl_vertex_array&& other) noexcept;
 
-		nodisc id_type get_id() const noexcept;
+		CITADEL_NODISCARD id_type get_id() const noexcept;
 
 	private:
 		std::size_t vertex_buffer_index_;

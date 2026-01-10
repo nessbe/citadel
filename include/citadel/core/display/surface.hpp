@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -29,16 +29,16 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported surface {
+	class CITADEL_API surface {
 	public:
 		using dimension_type = std::uint32_t;
 
 	public:
-		nodisc static scope<surface> create(rendering_api_type api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
-		nodisc static scope<surface> create(rendering_api_type api, dimension_type width, dimension_type height, color clear_color);
+		CITADEL_NODISCARD static scope<surface> create(rendering_api_type api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		CITADEL_NODISCARD static scope<surface> create(rendering_api_type api, dimension_type width, dimension_type height, color clear_color);
 
-		nodisc static scope<surface> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
-		nodisc static scope<surface> create(dimension_type width, dimension_type height, color clear_color);
+		CITADEL_NODISCARD static scope<surface> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
+		CITADEL_NODISCARD static scope<surface> create(dimension_type width, dimension_type height, color clear_color);
 
 		surface(dimension_type x, dimension_type y, dimension_type width, dimension_type height, color clear_color);
 		surface(dimension_type width, dimension_type height, color clear_color);
@@ -51,22 +51,22 @@ namespace citadel {
 		void clear();
 		void present();
 
-		nodisc dimension_type get_x() const noexcept;
+		CITADEL_NODISCARD dimension_type get_x() const noexcept;
 		void set_x(dimension_type value);
 
-		nodisc dimension_type get_y() const noexcept;
+		CITADEL_NODISCARD dimension_type get_y() const noexcept;
 		void set_y(dimension_type value);
 
-		nodisc dimension_type get_width() const noexcept;
+		CITADEL_NODISCARD dimension_type get_width() const noexcept;
 		void set_width(dimension_type value);
 
-		nodisc dimension_type get_height() const noexcept;
+		CITADEL_NODISCARD dimension_type get_height() const noexcept;
 		void set_height(dimension_type value);
 
-		nodisc color get_clear_color() const noexcept;
+		CITADEL_NODISCARD color get_clear_color() const noexcept;
 		void set_clear_color(color value) noexcept;
 
-		nodisc bool is_bound() const noexcept;
+		CITADEL_NODISCARD bool is_bound() const noexcept;
 
 	private:
 		dimension_type x_, y_, width_, height_;

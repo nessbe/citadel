@@ -31,10 +31,10 @@ namespace citadel {
 		log_level_palette(const std::unordered_map<log_level, ansi_color>& palette);
 		log_level_palette();
 
-		nodisc const ansi_color& get(log_level key) const;
+		CITADEL_NODISCARD const ansi_color& get(log_level key) const;
 		void set(log_level key, const ansi_color& value);
 
-		nodisc ansi_color& operator[](log_level key);
+		CITADEL_NODISCARD ansi_color& operator[](log_level key);
 
 	private:
 		std::unordered_map<log_level, ansi_color> palette_;

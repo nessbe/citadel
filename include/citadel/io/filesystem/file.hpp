@@ -33,9 +33,9 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported file : public random_access_stream {
+	class CITADEL_API file : public random_access_stream {
 	public:
-		nodisc static reference<file> create(const std::string& path, file_open_mode open_mode);
+		CITADEL_NODISCARD static reference<file> create(const std::string& path, file_open_mode open_mode);
 
 		file(const std::string& path, file_open_mode open_mode);
 		virtual ~file() override = default;
@@ -43,17 +43,17 @@ namespace citadel {
 		file(const file&) = delete;
 		file& operator=(const file&) = delete;
 
-		nodisc void* native_handle() const;
+		CITADEL_NODISCARD void* native_handle() const;
 
-		nodisc const std::string& path() const noexcept;
-		nodisc file_open_mode open_mode() const noexcept;
+		CITADEL_NODISCARD const std::string& path() const noexcept;
+		CITADEL_NODISCARD file_open_mode open_mode() const noexcept;
 
 	private:
 		std::string path_;
 		file_open_mode open_mode_;
 
 	private:
-		nodisc virtual void* _native_handle() const = 0;
+		CITADEL_NODISCARD virtual void* _native_handle() const = 0;
 	};
 }
 

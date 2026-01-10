@@ -23,7 +23,7 @@ namespace citadel {
 	using reference = std::shared_ptr<T>;
 
 	template <typename T, typename... Arguments>
-	nodisc reference<T> make_referenced(Arguments&&... arguments);
+	CITADEL_NODISCARD reference<T> make_referenced(Arguments&&... arguments);
 }
 
 #include "citadel/memory/reference.inl"

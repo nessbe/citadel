@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,7 +28,7 @@
 #include "citadel/rendering/meshes/mesh_instance.hpp"
 
 namespace citadel {
-	class exported scene {
+	class CITADEL_API scene {
 	public:
 		struct data {
 			mat4 view;
@@ -40,15 +40,15 @@ namespace citadel {
 
 		void refresh();
 
-		nodisc const mat4& view() const noexcept;
-		nodisc const mat4& projection() const noexcept;
-		nodisc mat4 view_projection() const noexcept;
+		CITADEL_NODISCARD const mat4& view() const noexcept;
+		CITADEL_NODISCARD const mat4& projection() const noexcept;
+		CITADEL_NODISCARD mat4 view_projection() const noexcept;
 
 		void add(const mesh_instance& mesh);
-		nodisc const std::vector<mesh_instance>& meshes() const noexcept;
+		CITADEL_NODISCARD const std::vector<mesh_instance>& meshes() const noexcept;
 
-		nodisc camera& camera() const noexcept;
-		nodisc data pack() const;
+		CITADEL_NODISCARD camera& camera() const noexcept;
+		CITADEL_NODISCARD data pack() const;
 
 	private:
 		mat4 projection_;

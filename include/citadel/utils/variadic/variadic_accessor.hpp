@@ -30,8 +30,8 @@ namespace citadel {
 		template <typename Visitor>
 		void visit(std::size_t index, Visitor&& visitor);
 
-		nodisc std::tuple<Arguments...> values() const;
-		nodisc std::size_t size() const noexcept;
+		CITADEL_NODISCARD std::tuple<Arguments...> values() const;
+		CITADEL_NODISCARD std::size_t size() const noexcept;
 
 	private:
 		std::tuple<Arguments...> values_;

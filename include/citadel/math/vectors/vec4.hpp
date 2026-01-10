@@ -38,47 +38,47 @@ namespace citadel {
 		basic_vec4();
 		basic_vec4(T x, T y, T z, T w);
 
-		nodisc T length() const;
-		nodisc basic_vec4<T> normalized() const;
+		CITADEL_NODISCARD T length() const;
+		CITADEL_NODISCARD basic_vec4<T> normalized() const;
 
-		nodisc T distance(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD T distance(const basic_vec4<T>& other) const;
 
-		nodisc T dot(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD T dot(const basic_vec4<T>& other) const;
 
-		nodisc T* data() noexcept;
-		nodisc const T* data() const noexcept;
+		CITADEL_NODISCARD T* data() noexcept;
+		CITADEL_NODISCARD const T* data() const noexcept;
 
-		nodisc T get_x() const noexcept;
+		CITADEL_NODISCARD T get_x() const noexcept;
 		void set_x(T value) noexcept;
 
-		nodisc T get_y() const noexcept;
+		CITADEL_NODISCARD T get_y() const noexcept;
 		void set_y(T value) noexcept;
 
-		nodisc T get_z() const noexcept;
+		CITADEL_NODISCARD T get_z() const noexcept;
 		void set_z(T value) noexcept;
 
-		nodisc T get_w() const noexcept;
+		CITADEL_NODISCARD T get_w() const noexcept;
 		void set_w(T value) noexcept;
 
-		nodisc T& operator[](std::size_t index) noexcept;
-		nodisc const T& operator[](std::size_t index) const noexcept;
+		CITADEL_NODISCARD T& operator[](std::size_t index) noexcept;
+		CITADEL_NODISCARD const T& operator[](std::size_t index) const noexcept;
 
-		nodisc basic_vec4<T> operator+(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD basic_vec4<T> operator+(const basic_vec4<T>& other) const;
 		basic_vec4<T>& operator+=(const basic_vec4<T>& other);
 
-		nodisc basic_vec4<T> operator-(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD basic_vec4<T> operator-(const basic_vec4<T>& other) const;
 		basic_vec4<T>& operator-=(const basic_vec4<T>& other);
 
-		nodisc basic_vec4<T> operator*(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD basic_vec4<T> operator*(const basic_vec4<T>& other) const;
 		basic_vec4<T>& operator*=(const basic_vec4<T>& other);
 
-		nodisc basic_vec4<T> operator*(T scalar) const;
+		CITADEL_NODISCARD basic_vec4<T> operator*(T scalar) const;
 		basic_vec4<T>& operator*=(T scalar);
 
-		nodisc basic_vec4<T> operator/(const basic_vec4<T>& other) const;
+		CITADEL_NODISCARD basic_vec4<T> operator/(const basic_vec4<T>& other) const;
 		basic_vec4<T>& operator/=(const basic_vec4<T>& other);
 
-		nodisc basic_vec4<T> operator/(T scalar) const;
+		CITADEL_NODISCARD basic_vec4<T> operator/(T scalar) const;
 		basic_vec4<T>& operator/=(T scalar);
 	};
 

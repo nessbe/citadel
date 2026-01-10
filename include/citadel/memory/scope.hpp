@@ -23,7 +23,7 @@ namespace citadel {
 	using scope = std::unique_ptr<T>;
 
 	template <typename T, typename... Arguments>
-	nodisc scope<T> make_scoped(Arguments&&... arguments);
+	CITADEL_NODISCARD scope<T> make_scoped(Arguments&&... arguments);
 }
 
 #include "citadel/memory/scope.inl"

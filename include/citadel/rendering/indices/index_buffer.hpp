@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,15 +28,15 @@
 #include "citadel/rendering/indices/index.hpp"
 
 namespace citadel {
-	class exported index_buffer {
+	class CITADEL_API index_buffer {
 	public:
-		nodisc static std::vector<index> linear(std::size_t size);
+		CITADEL_NODISCARD static std::vector<index> linear(std::size_t size);
 
-		nodisc static reference<index_buffer> create(rendering_api_type api, const std::vector<index>& indices);
-		nodisc static reference<index_buffer> create(rendering_api_type api, const index* data, std::size_t size);
+		CITADEL_NODISCARD static reference<index_buffer> create(rendering_api_type api, const std::vector<index>& indices);
+		CITADEL_NODISCARD static reference<index_buffer> create(rendering_api_type api, const index* data, std::size_t size);
 
-		nodisc static reference<index_buffer> create(const std::vector<index>& indices);
-		nodisc static reference<index_buffer> create(const index* data, std::size_t size);
+		CITADEL_NODISCARD static reference<index_buffer> create(const std::vector<index>& indices);
+		CITADEL_NODISCARD static reference<index_buffer> create(const index* data, std::size_t size);
 
 		index_buffer(const std::vector<index>& indices);
 		index_buffer(const index* data, std::size_t size);
@@ -52,10 +52,10 @@ namespace citadel {
 		void set_data(const std::vector<index>& indices);
 		void set_data(const index* data, std::size_t size);
 
-		nodisc index* data() noexcept;
-		nodisc const index* data() const noexcept;
+		CITADEL_NODISCARD index* data() noexcept;
+		CITADEL_NODISCARD const index* data() const noexcept;
 
-		nodisc std::size_t size() const noexcept;
+		CITADEL_NODISCARD std::size_t size() const noexcept;
 
 	private:
 		std::vector<index> indices_;

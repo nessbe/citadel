@@ -63,7 +63,7 @@ namespace citadel {
 		: window(rendering_api, 0, 0, width, height, title) { }
 
 	void window::show() {
-		if (likely(!is_visible_)) {
+		if (CITADEL_LIKELY(!is_visible_)) {
 			_show();
 		}
 		else {
@@ -75,7 +75,7 @@ namespace citadel {
 	}
 
 	void window::hide() {
-		if (likely(is_visible_)) {
+		if (CITADEL_LIKELY(is_visible_)) {
 			_hide();
 		}
 		else {

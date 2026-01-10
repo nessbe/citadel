@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -31,8 +31,8 @@ namespace citadel {
 	namespace this_logger {
 		inline std::string current;
 
-		exported inline logger& get();
-		exported inline void set(const std::string& name);
+		inline logger& get();
+		inline void set(const std::string& name);
 
 		template <typename... Arguments>
 		inline void log(const std::string& message, log_level level, Arguments&&... arguments);
@@ -55,21 +55,21 @@ namespace citadel {
 		template <typename... Arguments>
 		inline void log_fatal(const std::string& message, Arguments&&... arguments);
 
-		nodisc exported bool is_level_valid(log_level level);
-		nodisc exported bool is_off();
+		CITADEL_NODISCARD CITADEL_API bool is_level_valid(log_level level);
+		CITADEL_NODISCARD CITADEL_API bool is_off();
 
-		nodisc exported log_level_palette& palette();
+		CITADEL_NODISCARD CITADEL_API log_level_palette& palette();
 
-		nodisc exported const std::string& get_name();
+		CITADEL_NODISCARD CITADEL_API const std::string& get_name();
 
-		nodisc exported const std::vector<sink_reference>& get_sinks();
-		nodisc exported std::size_t sink_count();
+		CITADEL_NODISCARD CITADEL_API const std::vector<sink_reference>& get_sinks();
+		CITADEL_NODISCARD CITADEL_API std::size_t sink_count();
 
-		exported void push_sink(const sink_reference& sink);
-		exported void clear_sinks();
+		CITADEL_API void push_sink(const sink_reference& sink);
+		CITADEL_API void clear_sinks();
 
-		nodisc exported log_level get_level();
-		exported void set_level(log_level value);
+		CITADEL_NODISCARD CITADEL_API log_level get_level();
+		CITADEL_API void set_level(log_level value);
 	}
 }
 

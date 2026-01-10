@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,7 +24,7 @@
 #include "citadel/formats/json/exceptions/json_exception.hpp"
 
 namespace citadel {
-	class exported json_type_error : public json_exception {
+	class CITADEL_API json_type_error : public json_exception {
 	public:
 		json_type_error(json_type expected, json_type actual);
 	};

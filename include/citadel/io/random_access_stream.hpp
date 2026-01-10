@@ -20,7 +20,7 @@
 #include "citadel/io/stream.hpp"
 
 namespace citadel {
-	class exported random_access_stream : public stream {
+	class CITADEL_API random_access_stream : public stream {
 	public:
 		random_access_stream() = default;
 
@@ -30,21 +30,21 @@ namespace citadel {
 		random_access_stream(random_access_stream&&) noexcept = delete;
 		random_access_stream& operator=(random_access_stream&&) noexcept = delete;
 
-		nodisc position_type tell();
-		nodisc offset_type size();
+		CITADEL_NODISCARD position_type tell();
+		CITADEL_NODISCARD offset_type size();
 
-		nodisc int peek();
+		CITADEL_NODISCARD int peek();
 
 		bool seek(position_type position);
 		bool seek(offset_type offset, stream_direction direction);
 
-		nodisc bool eol();
+		CITADEL_NODISCARD bool eol();
 
 	private:
-		nodisc virtual position_type _tell() = 0;
-		nodisc virtual offset_type _size() = 0;
+		CITADEL_NODISCARD virtual position_type _tell() = 0;
+		CITADEL_NODISCARD virtual offset_type _size() = 0;
 
-		nodisc virtual int _peek() = 0;
+		CITADEL_NODISCARD virtual int _peek() = 0;
 
 		virtual bool _seek(position_type position) = 0;
 		virtual bool _seek(offset_type offset, stream_direction direction) = 0;

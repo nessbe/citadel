@@ -20,12 +20,12 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	noret exported void panic() noexcept;
+	CITADEL_NORETURN CITADEL_API void panic() noexcept;
 
 	template <typename... Arguments>
-	noret void panic(const std::string& message, Arguments&&... arguments);
+	CITADEL_NORETURN void panic(const std::string& message, Arguments&&... arguments);
 
-	exported void assert(bool condition) noexcept;
+	CITADEL_API void assert(bool condition) noexcept;
 
 	template <typename... Arguments>
 	void assert(bool condition, const std::string& message, Arguments&&... arguments);

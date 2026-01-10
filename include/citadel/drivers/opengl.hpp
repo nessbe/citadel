@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,9 +28,7 @@
 #include <glad/glad.h>
 
 namespace citadel {
-	namespace opengl {
-		nodisc exported GLint get_uniform_location(unsigned int program_id, const std::string& name);
+	CITADEL_NODISCARD CITADEL_API GLint get_uniform_location(unsigned int program_id, const std::string& name);
 
-		nodisc exported log_level debug_severity_to_log_level(GLenum value);
-	}
+	CITADEL_NODISCARD CITADEL_API log_level debug_severity_to_log_level(GLenum value);
 }

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,7 +25,7 @@
 #include "citadel/formats/ansi/ansi_color_style.hpp"
 
 namespace citadel {
-	class exported ansi_color {
+	class CITADEL_API ansi_color {
 	public:
 		ansi_color(ansi_color_type type, ansi_color_mode mode, ansi_color_style style);
 
@@ -35,12 +35,12 @@ namespace citadel {
 		ansi_color(ansi_color_type type);
 		ansi_color();
 
-		nodisc ansi_color_type type() const noexcept;
-		nodisc ansi_color_mode mode() const noexcept;
-		nodisc ansi_color_style style() const noexcept;
+		CITADEL_NODISCARD ansi_color_type type() const noexcept;
+		CITADEL_NODISCARD ansi_color_mode mode() const noexcept;
+		CITADEL_NODISCARD ansi_color_style style() const noexcept;
 
-		nodisc std::string escape() const;
-		nodisc std::string code() const;
+		CITADEL_NODISCARD std::string escape() const;
+		CITADEL_NODISCARD std::string code() const;
 
 		ansi_color& operator|=(ansi_color_mode mode);
 
@@ -50,6 +50,6 @@ namespace citadel {
 		ansi_color_style style_;
 	};
 
-	nodisc ansi_color operator|(const ansi_color& color, ansi_color_mode mode);
+	CITADEL_NODISCARD ansi_color operator|(const ansi_color& color, ansi_color_mode mode);
 	std::ostream& operator<<(std::ostream& out, const ansi_color& value);
 }

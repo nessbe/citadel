@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -17,27 +17,27 @@
 #include "citadel/compilers.hpp"
 
 #if CITADEL_COMPILER_MSVC
-	#define export_attribute   __declspec(dllexport)
-	#define import_attribute   __declspec(dllimport)
-	#define noexport_attribute
+	#define CITADEL_EXPORT   __declspec(dllexport)
+	#define CITADEL_IMPORT   __declspec(dllimport)
+	#define CITADEL_NOEXPORT
 #elif CITADEL_COMPILER_GCC || CITADEL_COMPILER_CLANG
-	#define export_attribute   __attribute__((visibility("default")))
-	#define import_attribute   __attribute__((visibility("default")))
-	#define noexport_attribute __attribute__((visibility("hidden")))
+	#define CITADEL_EXPORT   __attribute__((visibility("default")))
+	#define CITADEL_IMPORT   __attribute__((visibility("default")))
+	#define CITADEL_NOEXPORT __attribute__((visibility("hidden")))
 #else
-	#define export_attribute
-	#define import_attribute
-	#define noexport_attribute
+	#define CITADEL_EXPORT
+	#define CITADEL_IMPORT
+	#define CITADEL_NOEXPORT
 #endif
 
 #ifdef CITADEL_LINKAGE_STATIC
-	#define exported
+	#define CITADEL_API
 #elif defined(CITADEL_LINKAGE_DYNAMIC)
 	#ifdef CITADEL_BUILD_DLL
-		#define exported export_attribute
+		#define CITADEL_API CITADEL_EXPORT
 	#else
-		#define exported import_attribute
+		#define CITADEL_API CITADEL_IMPORT
 	#endif
 #else
-	#define exported noexport_attribute
+	#define CITADEL_API CITADEL_NOEXPORT
 #endif

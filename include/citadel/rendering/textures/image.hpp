@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,7 +22,7 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	class exported image {
+	class CITADEL_API image {
 	public:
 		using dimension_type = std::uint32_t;
 		using channel_type = std::uint8_t;
@@ -33,18 +33,18 @@ namespace citadel {
 		image(dimension_type width, dimension_type height, std::size_t channel_count, std::initializer_list<channel_type> data);
 		image(dimension_type width, dimension_type height, std::size_t channel_count);
 
-		nodisc std::size_t size() const noexcept;
+		CITADEL_NODISCARD std::size_t size() const noexcept;
 
-		nodisc buffer_type& data() noexcept;
-		nodisc const buffer_type& data() const noexcept;
+		CITADEL_NODISCARD buffer_type& data() noexcept;
+		CITADEL_NODISCARD const buffer_type& data() const noexcept;
 
-		nodisc std::uint8_t* raw() noexcept;
-		nodisc const std::uint8_t* raw() const noexcept;
+		CITADEL_NODISCARD std::uint8_t* raw() noexcept;
+		CITADEL_NODISCARD const std::uint8_t* raw() const noexcept;
 
-		nodisc std::size_t get_channel_count() const noexcept;
+		CITADEL_NODISCARD std::size_t get_channel_count() const noexcept;
 
-		nodisc dimension_type get_width() const noexcept;
-		nodisc dimension_type get_height() const noexcept;
+		CITADEL_NODISCARD dimension_type get_width() const noexcept;
+		CITADEL_NODISCARD dimension_type get_height() const noexcept;
 
 	private:
 		buffer_type data_;

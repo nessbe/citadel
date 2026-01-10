@@ -38,20 +38,20 @@ namespace citadel {
 		basic_vec4<T> x, y, z, w;
 
 	public:
-		nodisc static basic_mat4<T> identity();
+		CITADEL_NODISCARD static basic_mat4<T> identity();
 
-		nodisc static basic_mat4<T> view(const basic_vec3<T>& eye, const basic_vec3<T>& center, const basic_vec3<T>& up);
-		nodisc static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
-		nodisc static basic_mat4<T> perspective(T fov, T aspect, T near, T far);
+		CITADEL_NODISCARD static basic_mat4<T> view(const basic_vec3<T>& eye, const basic_vec3<T>& center, const basic_vec3<T>& up);
+		CITADEL_NODISCARD static basic_mat4<T> ortho(T left, T right, T bottom, T top, T near, T far);
+		CITADEL_NODISCARD static basic_mat4<T> perspective(T fov, T aspect, T near, T far);
 
-		nodisc static basic_mat4<T> translated(const basic_vec3<T>& translation);
+		CITADEL_NODISCARD static basic_mat4<T> translated(const basic_vec3<T>& translation);
 
-		nodisc static basic_mat4<T> rotated(const basic_vec3<T>& axis, T angle);
-		nodisc static basic_mat4<T> rotated_x(T angle);
-		nodisc static basic_mat4<T> rotated_y(T angle);
-		nodisc static basic_mat4<T> rotated_z(T angle);
+		CITADEL_NODISCARD static basic_mat4<T> rotated(const basic_vec3<T>& axis, T angle);
+		CITADEL_NODISCARD static basic_mat4<T> rotated_x(T angle);
+		CITADEL_NODISCARD static basic_mat4<T> rotated_y(T angle);
+		CITADEL_NODISCARD static basic_mat4<T> rotated_z(T angle);
 
-		nodisc static basic_mat4<T> scaled(const basic_vec3<T>& scale);
+		CITADEL_NODISCARD static basic_mat4<T> scaled(const basic_vec3<T>& scale);
 
 		basic_mat4(T unit);
 		basic_mat4();
@@ -59,49 +59,49 @@ namespace citadel {
 		basic_mat4(const basic_vec4<T>& x, const basic_vec4<T>& y, const basic_vec4<T>& z, const basic_vec4<T>& w);
 		basic_mat4(T xx, T xy, T xz, T xw, T yx, T yy, T yz, T yw, T zx, T zy, T zz, T zw, T wx, T wy, T wz, T ww);
 
-		nodisc T determinant() const;
-		nodisc basic_mat4<T> transpose() const;
-		nodisc basic_mat4<T> inverse() const;
+		CITADEL_NODISCARD T determinant() const;
+		CITADEL_NODISCARD basic_mat4<T> transpose() const;
+		CITADEL_NODISCARD basic_mat4<T> inverse() const;
 
-		nodisc basic_mat4<T> translate(const basic_vec3<T>& translation) const;
+		CITADEL_NODISCARD basic_mat4<T> translate(const basic_vec3<T>& translation) const;
 
-		nodisc basic_mat4<T> rotate(const basic_vec3<T>& axis, T angle) const;
-		nodisc basic_mat4<T> rotate_x(T angle) const;
-		nodisc basic_mat4<T> rotate_y(T angle) const;
-		nodisc basic_mat4<T> rotate_z(T angle) const;
+		CITADEL_NODISCARD basic_mat4<T> rotate(const basic_vec3<T>& axis, T angle) const;
+		CITADEL_NODISCARD basic_mat4<T> rotate_x(T angle) const;
+		CITADEL_NODISCARD basic_mat4<T> rotate_y(T angle) const;
+		CITADEL_NODISCARD basic_mat4<T> rotate_z(T angle) const;
 
-		nodisc basic_mat4<T> scale(const basic_vec3<T>& scale) const;
+		CITADEL_NODISCARD basic_mat4<T> scale(const basic_vec3<T>& scale) const;
 
-		nodisc T* data() noexcept;
-		nodisc const T* data() const noexcept;
+		CITADEL_NODISCARD T* data() noexcept;
+		CITADEL_NODISCARD const T* data() const noexcept;
 
-		nodisc const basic_vec4<T>& get_x() const noexcept;
+		CITADEL_NODISCARD const basic_vec4<T>& get_x() const noexcept;
 		void set_x(const basic_vec4<T>& value) noexcept;
 
-		nodisc const basic_vec4<T>& get_y() const noexcept;
+		CITADEL_NODISCARD const basic_vec4<T>& get_y() const noexcept;
 		void set_y(const basic_vec4<T>& value) noexcept;
 
-		nodisc const basic_vec4<T>& get_z() const noexcept;
+		CITADEL_NODISCARD const basic_vec4<T>& get_z() const noexcept;
 		void set_z(const basic_vec4<T>& value) noexcept;
 
-		nodisc const basic_vec4<T>& get_w() const noexcept;
+		CITADEL_NODISCARD const basic_vec4<T>& get_w() const noexcept;
 		void set_w(const basic_vec4<T>& value) noexcept;
 
-		nodisc basic_vec4<T>& operator[](std::size_t index) noexcept;
-		nodisc const basic_vec4<T>& operator[](std::size_t index) const noexcept;
+		CITADEL_NODISCARD basic_vec4<T>& operator[](std::size_t index) noexcept;
+		CITADEL_NODISCARD const basic_vec4<T>& operator[](std::size_t index) const noexcept;
 
-		nodisc basic_mat4<T> operator+(const basic_mat4<T>& other) const;
+		CITADEL_NODISCARD basic_mat4<T> operator+(const basic_mat4<T>& other) const;
 		basic_mat4<T>& operator+=(const basic_mat4<T>& other);
 
-		nodisc basic_mat4<T> operator-(const basic_mat4<T>& other) const;
+		CITADEL_NODISCARD basic_mat4<T> operator-(const basic_mat4<T>& other) const;
 		basic_mat4<T>& operator-=(const basic_mat4<T>& other);
 
-		nodisc basic_mat4<T> operator*(const basic_mat4<T>& other) const;
+		CITADEL_NODISCARD basic_mat4<T> operator*(const basic_mat4<T>& other) const;
 		basic_mat4<T>& operator*=(const basic_mat4<T>& other);
 
-		nodisc basic_vec4<T> operator*(const basic_vec4<T>& vector) const;
+		CITADEL_NODISCARD basic_vec4<T> operator*(const basic_vec4<T>& vector) const;
 
-		nodisc basic_mat4<T> operator*(T scalar) const;
+		CITADEL_NODISCARD basic_mat4<T> operator*(T scalar) const;
 		basic_mat4<T>& operator*=(T scalar);
 	};
 

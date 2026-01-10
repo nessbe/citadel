@@ -28,19 +28,19 @@
 #include "citadel/io/sinks/sink.hpp"
 
 namespace citadel {
-	class exported json_writer : public writer {
+	class CITADEL_API json_writer : public writer {
 	public:
 		explicit json_writer(const sink_reference& sink);
 
 		void write_json(const json& json);
 
-		nodisc bool is_pretty() const noexcept;
+		CITADEL_NODISCARD bool is_pretty() const noexcept;
 		void set_pretty(bool value) noexcept;
 
-		nodisc const std::string& get_indent() const noexcept;
+		CITADEL_NODISCARD const std::string& ident() const noexcept;
 		void set_indent(const std::string& value) noexcept;
 
-		nodisc std::size_t get_indent_level() const noexcept;
+		CITADEL_NODISCARD std::size_t ident_level() const noexcept;
 		void set_indent_level(std::size_t value) noexcept;
 
 	private:

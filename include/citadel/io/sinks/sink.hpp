@@ -22,7 +22,7 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported sink {
+	class CITADEL_API sink {
 	public:
 		sink(const reference<random_access_stream>& stream);
 		~sink();
@@ -30,7 +30,7 @@ namespace citadel {
 		stream::size_type write(const void* data, stream::size_type size);
 		void flush();
 
-		nodisc random_access_stream& stream() const noexcept;
+		CITADEL_NODISCARD random_access_stream& stream() const noexcept;
 
 	private:
 		reference<random_access_stream> stream_;
@@ -38,5 +38,5 @@ namespace citadel {
 
 	using sink_reference = reference<sink>;
 
-	nodisc exported sink_reference make_sink(const reference<random_access_stream>& stream);
+	CITADEL_NODISCARD CITADEL_API sink_reference make_sink(const reference<random_access_stream>& stream);
 }

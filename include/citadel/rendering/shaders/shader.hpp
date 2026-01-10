@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -39,13 +39,13 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported shader {
+	class CITADEL_API shader {
 	public:
-		nodisc static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type, const std::string& source);
-		nodisc static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type);
+		CITADEL_NODISCARD static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type, const std::string& source);
+		CITADEL_NODISCARD static reference<shader> create(rendering_api_type api, const std::string& name, shader_type type);
 
-		nodisc static reference<shader> create(const std::string& name, shader_type type, const std::string& source);
-		nodisc static reference<shader> create(const std::string& name, shader_type type);
+		CITADEL_NODISCARD static reference<shader> create(const std::string& name, shader_type type, const std::string& source);
+		CITADEL_NODISCARD static reference<shader> create(const std::string& name, shader_type type);
 
 		shader(const std::string& name, shader_type type, const std::string& source);
 		shader(const std::string& name, shader_type type);
@@ -57,14 +57,14 @@ namespace citadel {
 
 		bool compile();
 
-		nodisc const std::string& get_name() const noexcept;
+		CITADEL_NODISCARD const std::string& get_name() const noexcept;
 
-		nodisc const std::string& get_source() const noexcept;
+		CITADEL_NODISCARD const std::string& get_source() const noexcept;
 		void set_source(const std::string& value);
 
-		nodisc shader_type get_type() const noexcept;
+		CITADEL_NODISCARD shader_type get_type() const noexcept;
 
-		nodisc bool is_compiled() const noexcept;
+		CITADEL_NODISCARD bool is_compiled() const noexcept;
 
 	private:
 		std::string name_;

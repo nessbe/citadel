@@ -19,7 +19,7 @@
 #include "citadel/rendering/renderer.hpp"
 
 namespace citadel {
-	class exported default_renderer final : public renderer {
+	class CITADEL_API default_renderer final : public renderer {
 	private:
 		virtual void _begin_scene(scene& scene) override;
 		virtual void _end_scene() override;

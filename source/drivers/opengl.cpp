@@ -20,7 +20,7 @@ namespace citadel {
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
-	GLint opengl::get_uniform_location(unsigned int program_id, const std::string& name) {
+	GLint get_uniform_location(unsigned int program_id, const std::string& name) {
 		GLint location = glGetUniformLocation(program_id, name.c_str());
 		if (location <= 0) {
 			throw shader_uniform_not_found_error(
@@ -32,7 +32,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 CITADEL_WARNING_IGNORE_POP
 
-	log_level opengl::debug_severity_to_log_level(GLenum value) {
+	log_level debug_severity_to_log_level(GLenum value) {
 		switch (value) {
 		case GL_DEBUG_SEVERITY_NOTIFICATION:
 			return log_level::trace;

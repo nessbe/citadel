@@ -26,7 +26,7 @@
 #include "citadel/memory/scope.hpp"
 
 namespace citadel {
-	class exported stream {
+	class CITADEL_API stream {
 	public:
 		using size_type = std::streamsize;
 		using position_type = std::streampos;
@@ -47,8 +47,8 @@ namespace citadel {
 
 		void flush();
 
-		nodisc bool good() const;
-		nodisc bool eof() const;
+		CITADEL_NODISCARD bool good() const;
+		CITADEL_NODISCARD bool eof() const;
 
 	private:
 		virtual size_type _read(void* buffer, size_type size) = 0;
@@ -56,8 +56,8 @@ namespace citadel {
 
 		virtual void _flush() = 0;
 
-		nodisc virtual bool _good() const = 0;
-		nodisc virtual bool _eof() const = 0;
+		CITADEL_NODISCARD virtual bool _good() const = 0;
+		CITADEL_NODISCARD virtual bool _eof() const = 0;
 	};
 
 	using stream_reference = reference<stream>;

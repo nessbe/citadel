@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,10 +28,10 @@
 #include "citadel/rendering/vertices/vertex_buffer.hpp"
 
 namespace citadel {
-	class exported vertex_array {
+	class CITADEL_API vertex_array {
 	public:
-		nodisc static reference<vertex_array> create(rendering_api_type api);
-		nodisc static reference<vertex_array> create();
+		CITADEL_NODISCARD static reference<vertex_array> create(rendering_api_type api);
+		CITADEL_NODISCARD static reference<vertex_array> create();
 
 		vertex_array() = default;
 		virtual ~vertex_array() = default;
@@ -44,7 +44,7 @@ namespace citadel {
 
 		void add_vertex_buffer(const reference<vertex_buffer>& buffer);
 
-		nodisc index_buffer& index_buffer() const;
+		CITADEL_NODISCARD index_buffer& index_buffer() const;
 		void set_index_buffer(const reference<class index_buffer>& buffer);
 
 	private:

@@ -70,7 +70,7 @@ namespace citadel {
 	template <typename T>
 	inline constexpr bool has_ostream_operator_v = has_ostream_operator<T>::value;
 
-	class exported stringifier {
+	class CITADEL_API stringifier {
 	public:
 		template <typename T, std::size_t N>
 		static std::string stringify(const T(&array)[N]);
@@ -88,7 +88,7 @@ namespace citadel {
 		template <typename T>
 		void reset(const T& value);
 
-		nodisc const std::string& value() const noexcept;
+		CITADEL_NODISCARD const std::string& value() const noexcept;
 
 	private:
 		std::string value_;

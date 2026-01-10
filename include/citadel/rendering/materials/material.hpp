@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -38,7 +38,7 @@
 #include "citadel/rendering/shaders/uniform_info.hpp"
 
 namespace citadel {
-	class exported material {
+	class CITADEL_API material {
 	public:
 		material(rendering_api_type api, const std::string& name, const std::string& vertex_source, const std::string& fragment_source);
 		material(const std::string& name, const std::string& vertex_source, const std::string& fragment_source);
@@ -65,9 +65,9 @@ namespace citadel {
 		void set_uniform_mat3(const std::string& name, const mat3& value);
 		void set_uniform_mat4(const std::string& name, const mat4& value);
 
-		nodisc shader& vertex_shader();
-		nodisc shader& fragment_shader();
-		nodisc shader_program& shader_program();
+		CITADEL_NODISCARD shader& vertex_shader();
+		CITADEL_NODISCARD shader& fragment_shader();
+		CITADEL_NODISCARD shader_program& shader_program();
 
 	private:
 		std::unordered_map<std::string, bool> bool_uniforms_;

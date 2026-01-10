@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,7 +27,7 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	struct exported vertex_buffer_element {
+	struct CITADEL_API vertex_buffer_element {
 	public:
 		friend class vertex_buffer_layout;
 
@@ -39,9 +39,9 @@ namespace citadel {
 	public:
 		vertex_buffer_element(const std::string& name, shader_data_type data_type, bool normalized);
 
-		nodisc std::size_t size() const noexcept;
-		nodisc std::size_t component_count() const noexcept;
-		nodisc std::size_t offset() const noexcept;
+		CITADEL_NODISCARD std::size_t size() const noexcept;
+		CITADEL_NODISCARD std::size_t component_count() const noexcept;
+		CITADEL_NODISCARD std::size_t offset() const noexcept;
 
 	private:
 		std::size_t offset_;

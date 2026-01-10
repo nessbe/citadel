@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -20,17 +20,17 @@
 #include "citadel/export.hpp"
 
 namespace citadel {
-	class exported formatter {
+	class CITADEL_API formatter {
 	public:
 		template <typename... Arguments>
-		nodisc static std::string format(const std::string& source, Arguments&&... arguments);
+		CITADEL_NODISCARD static std::string format(const std::string& source, Arguments&&... arguments);
 
 		formatter(const std::string& source);
 
 		template <typename... Arguments>
-		nodisc std::string formatted(Arguments&&... arguments);
+		CITADEL_NODISCARD std::string formatted(Arguments&&... arguments);
 
-		nodisc const std::string& source() const noexcept;
+		CITADEL_NODISCARD const std::string& source() const noexcept;
 
 	private:
 		std::string source_;

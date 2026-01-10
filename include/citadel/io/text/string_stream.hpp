@@ -22,18 +22,18 @@
 #include "citadel/io/random_access_stream.hpp"
 
 namespace citadel {
-	class exported string_stream : public random_access_stream {
+	class CITADEL_API string_stream : public random_access_stream {
 	public:
 		explicit string_stream(const std::string& buffer);
 
 		string_stream(const string_stream&) = delete;
 		string_stream& operator=(const string_stream&) = delete;
 
-		nodisc std::string& data() noexcept;
-		nodisc const std::string& data() const noexcept;
+		CITADEL_NODISCARD std::string& data() noexcept;
+		CITADEL_NODISCARD const std::string& data() const noexcept;
 
-		nodisc char* raw() noexcept;
-		nodisc const char* raw() const noexcept;
+		CITADEL_NODISCARD char* raw() noexcept;
+		CITADEL_NODISCARD const char* raw() const noexcept;
 
 	private:
 		std::string buffer_;
@@ -45,18 +45,18 @@ namespace citadel {
 		virtual size_type _read(void* buffer, size_type size) override;
 		virtual size_type _write(const void* buffer, size_type size) override;
 
-		nodisc virtual position_type _tell() override;
-		nodisc virtual offset_type _size() override;
+		CITADEL_NODISCARD virtual position_type _tell() override;
+		CITADEL_NODISCARD virtual offset_type _size() override;
 
-		nodisc virtual int _peek() override;
+		CITADEL_NODISCARD virtual int _peek() override;
 
 		virtual bool _seek(position_type position) override;
 		virtual bool _seek(offset_type offset, stream_direction direction) override;
 
 		virtual void _flush() override;
 
-		nodisc virtual bool _good() const override;
-		nodisc virtual bool _eof() const override;
+		CITADEL_NODISCARD virtual bool _good() const override;
+		CITADEL_NODISCARD virtual bool _eof() const override;
 	};
 }
 

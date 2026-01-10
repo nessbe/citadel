@@ -27,7 +27,7 @@ namespace citadel {
 	}
 
 	void assert(bool condition) noexcept {
-		if (unlikely(!condition)) {
+		if (CITADEL_UNLIKELY(!condition)) {
 			panic();
 		}
 	}

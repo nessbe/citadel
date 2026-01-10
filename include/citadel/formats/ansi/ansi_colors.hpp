@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -20,70 +20,70 @@
 
 namespace citadel {
 	namespace ansi_colors {
-		exported extern const ansi_color placeholder;
-		exported extern const ansi_color reset;
+		CITADEL_API extern const ansi_color placeholder;
+		CITADEL_API extern const ansi_color reset;
 
-		exported extern const ansi_color black;
-		exported extern const ansi_color red;
-		exported extern const ansi_color green;
-		exported extern const ansi_color yellow;
-		exported extern const ansi_color blue;
-		exported extern const ansi_color purple;
-		exported extern const ansi_color cyan;
-		exported extern const ansi_color white;
+		CITADEL_API extern const ansi_color black;
+		CITADEL_API extern const ansi_color red;
+		CITADEL_API extern const ansi_color green;
+		CITADEL_API extern const ansi_color yellow;
+		CITADEL_API extern const ansi_color blue;
+		CITADEL_API extern const ansi_color purple;
+		CITADEL_API extern const ansi_color cyan;
+		CITADEL_API extern const ansi_color white;
 
-		exported extern const ansi_color bold_black;
-		exported extern const ansi_color bold_red;
-		exported extern const ansi_color bold_green;
-		exported extern const ansi_color bold_yellow;
-		exported extern const ansi_color bold_blue;
-		exported extern const ansi_color bold_purple;
-		exported extern const ansi_color bold_cyan;
-		exported extern const ansi_color bold_white;
+		CITADEL_API extern const ansi_color bold_black;
+		CITADEL_API extern const ansi_color bold_red;
+		CITADEL_API extern const ansi_color bold_green;
+		CITADEL_API extern const ansi_color bold_yellow;
+		CITADEL_API extern const ansi_color bold_blue;
+		CITADEL_API extern const ansi_color bold_purple;
+		CITADEL_API extern const ansi_color bold_cyan;
+		CITADEL_API extern const ansi_color bold_white;
 
-		exported extern const ansi_color underline_black;
-		exported extern const ansi_color underline_red;
-		exported extern const ansi_color underline_green;
-		exported extern const ansi_color underline_yellow;
-		exported extern const ansi_color underline_blue;
-		exported extern const ansi_color underline_purple;
-		exported extern const ansi_color underline_cyan;
-		exported extern const ansi_color underline_white;
+		CITADEL_API extern const ansi_color underline_black;
+		CITADEL_API extern const ansi_color underline_red;
+		CITADEL_API extern const ansi_color underline_green;
+		CITADEL_API extern const ansi_color underline_yellow;
+		CITADEL_API extern const ansi_color underline_blue;
+		CITADEL_API extern const ansi_color underline_purple;
+		CITADEL_API extern const ansi_color underline_cyan;
+		CITADEL_API extern const ansi_color underline_white;
 
-		exported extern const ansi_color background_black;
-		exported extern const ansi_color background_red;
-		exported extern const ansi_color background_green;
-		exported extern const ansi_color background_yellow;
-		exported extern const ansi_color background_blue;
-		exported extern const ansi_color background_purple;
-		exported extern const ansi_color background_cyan;
-		exported extern const ansi_color background_white;
+		CITADEL_API extern const ansi_color background_black;
+		CITADEL_API extern const ansi_color background_red;
+		CITADEL_API extern const ansi_color background_green;
+		CITADEL_API extern const ansi_color background_yellow;
+		CITADEL_API extern const ansi_color background_blue;
+		CITADEL_API extern const ansi_color background_purple;
+		CITADEL_API extern const ansi_color background_cyan;
+		CITADEL_API extern const ansi_color background_white;
 
-		exported extern const ansi_color high_intensity_black;
-		exported extern const ansi_color high_intensity_red;
-		exported extern const ansi_color high_intensity_green;
-		exported extern const ansi_color high_intensity_yellow;
-		exported extern const ansi_color high_intensity_blue;
-		exported extern const ansi_color high_intensity_purple;
-		exported extern const ansi_color high_intensity_cyan;
-		exported extern const ansi_color high_intensity_white;
+		CITADEL_API extern const ansi_color high_intensity_black;
+		CITADEL_API extern const ansi_color high_intensity_red;
+		CITADEL_API extern const ansi_color high_intensity_green;
+		CITADEL_API extern const ansi_color high_intensity_yellow;
+		CITADEL_API extern const ansi_color high_intensity_blue;
+		CITADEL_API extern const ansi_color high_intensity_purple;
+		CITADEL_API extern const ansi_color high_intensity_cyan;
+		CITADEL_API extern const ansi_color high_intensity_white;
 
-		exported extern const ansi_color bold_high_intensity_black;
-		exported extern const ansi_color bold_high_intensity_red;
-		exported extern const ansi_color bold_high_intensity_green;
-		exported extern const ansi_color bold_high_intensity_yellow;
-		exported extern const ansi_color bold_high_intensity_blue;
-		exported extern const ansi_color bold_high_intensity_purple;
-		exported extern const ansi_color bold_high_intensity_cyan;
-		exported extern const ansi_color bold_high_intensity_white;
+		CITADEL_API extern const ansi_color bold_high_intensity_black;
+		CITADEL_API extern const ansi_color bold_high_intensity_red;
+		CITADEL_API extern const ansi_color bold_high_intensity_green;
+		CITADEL_API extern const ansi_color bold_high_intensity_yellow;
+		CITADEL_API extern const ansi_color bold_high_intensity_blue;
+		CITADEL_API extern const ansi_color bold_high_intensity_purple;
+		CITADEL_API extern const ansi_color bold_high_intensity_cyan;
+		CITADEL_API extern const ansi_color bold_high_intensity_white;
 
-		exported extern const ansi_color high_intensity_background_black;
-		exported extern const ansi_color high_intensity_background_red;
-		exported extern const ansi_color high_intensity_background_green;
-		exported extern const ansi_color high_intensity_background_yellow;
-		exported extern const ansi_color high_intensity_background_blue;
-		exported extern const ansi_color high_intensity_background_purple;
-		exported extern const ansi_color high_intensity_background_cyan;
-		exported extern const ansi_color high_intensity_background_white;
+		CITADEL_API extern const ansi_color high_intensity_background_black;
+		CITADEL_API extern const ansi_color high_intensity_background_red;
+		CITADEL_API extern const ansi_color high_intensity_background_green;
+		CITADEL_API extern const ansi_color high_intensity_background_yellow;
+		CITADEL_API extern const ansi_color high_intensity_background_blue;
+		CITADEL_API extern const ansi_color high_intensity_background_purple;
+		CITADEL_API extern const ansi_color high_intensity_background_cyan;
+		CITADEL_API extern const ansi_color high_intensity_background_white;
 	}
 }

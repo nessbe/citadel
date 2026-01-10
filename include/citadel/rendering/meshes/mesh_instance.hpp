@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,17 +28,17 @@
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
-	class exported mesh_instance {
+	class CITADEL_API mesh_instance {
 	public:
 		mesh_instance(const reference<mesh>& mesh, const reference<material>& material, const transform_3d& transform);
 
 		void use();
 		void render(const mat4& view, const mat4& projection);
 
-		nodisc mesh& mesh() const;
-		nodisc material& material() const;
+		CITADEL_NODISCARD mesh& mesh() const;
+		CITADEL_NODISCARD material& material() const;
 
-		nodisc const transform_3d& transform() const noexcept;
+		CITADEL_NODISCARD const transform_3d& transform() const noexcept;
 		void set_transform(const transform_3d& value);
 
 	private:

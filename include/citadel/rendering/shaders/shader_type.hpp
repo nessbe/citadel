@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -26,5 +26,5 @@ namespace citadel {
 		fragment,
 	};
 
-	nodisc exported GLenum shader_type_to_opengl(shader_type type) noexcept;
+	CITADEL_NODISCARD CITADEL_API GLenum shader_type_to_opengl(shader_type type) noexcept;
 }

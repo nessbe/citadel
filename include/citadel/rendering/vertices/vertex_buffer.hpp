@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,13 +27,13 @@
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 namespace citadel {
-	class exported vertex_buffer {
+	class CITADEL_API vertex_buffer {
 	public:
-		nodisc static reference<vertex_buffer> create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout);
-		nodisc static reference<vertex_buffer> create(std::size_t size, const vertex_buffer_layout& layout);
+		CITADEL_NODISCARD static reference<vertex_buffer> create(rendering_api_type api, std::size_t size, const vertex_buffer_layout& layout);
+		CITADEL_NODISCARD static reference<vertex_buffer> create(std::size_t size, const vertex_buffer_layout& layout);
 
-		nodisc static reference<vertex_buffer> create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout);
-		nodisc static reference<vertex_buffer> create(const void* data, std::size_t size, const vertex_buffer_layout& layout);
+		CITADEL_NODISCARD static reference<vertex_buffer> create(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout);
+		CITADEL_NODISCARD static reference<vertex_buffer> create(const void* data, std::size_t size, const vertex_buffer_layout& layout);
 
 		vertex_buffer(std::size_t size, const vertex_buffer_layout& layout);
 		virtual ~vertex_buffer() = default;
@@ -46,8 +46,8 @@ namespace citadel {
 
 		void set_data(const void* data, std::size_t size);
 
-		nodisc vertex_buffer_layout& get_layout() noexcept;
-		nodisc std::size_t size() const noexcept;
+		CITADEL_NODISCARD vertex_buffer_layout& get_layout() noexcept;
+		CITADEL_NODISCARD std::size_t size() const noexcept;
 
 	private:
 		vertex_buffer_layout layout_;

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -23,17 +23,17 @@
 
 namespace citadel {
 	template <typename T>
-	nodisc std::optional<T> from_characters(const std::string& string);
+	CITADEL_NODISCARD std::optional<T> from_characters(const std::string& string);
 
 	template <typename T, typename Enabled>
-	nodisc std::optional<T> to_arithmetic(const std::string& string);
+	CITADEL_NODISCARD std::optional<T> to_arithmetic(const std::string& string);
 
 	template <typename T>
-	nodisc std::enable_if_t<std::is_arithmetic_v<T>, std::optional<T>> to_arithmetic(const std::string& string);
+	CITADEL_NODISCARD std::enable_if_t<std::is_arithmetic_v<T>, std::optional<T>> to_arithmetic(const std::string& string);
 
-	nodisc exported std::optional<int> to_int(const std::string& string);
-	nodisc exported std::optional<float> to_float(const std::string& string);
-	nodisc exported std::optional<double> to_double(const std::string& string);
+	CITADEL_NODISCARD CITADEL_API std::optional<int> to_int(const std::string& string);
+	CITADEL_NODISCARD CITADEL_API std::optional<float> to_float(const std::string& string);
+	CITADEL_NODISCARD CITADEL_API std::optional<double> to_double(const std::string& string);
 }
 
 #include "citadel/utils/string/string_convertion.inl"

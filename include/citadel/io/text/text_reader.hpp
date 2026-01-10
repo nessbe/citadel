@@ -25,7 +25,7 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported text_reader : public reader {
+	class CITADEL_API text_reader : public reader {
 	public:
 		using condition_callback_type = std::function<bool(char)>;
 

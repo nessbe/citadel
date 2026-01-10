@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,9 +25,9 @@
 #include "citadel/rendering/vertices/vertex_array.hpp"
 
 namespace citadel {
-	class exported render_command {
+	class CITADEL_API render_command {
 	public:
-		nodisc static rendering_api_type get_api();
+		CITADEL_NODISCARD static rendering_api_type get_api();
 		static void set_api(rendering_api_type value);
 
 		static void draw_indexed(const vertex_array& vertex_array, std::size_t vertex_count);
@@ -37,7 +37,7 @@ namespace citadel {
 		static void draw_lines(const vertex_array& vertex_array);
 
 		static void set_line_width(float value);
-		nodisc static float get_line_width() noexcept;
+		CITADEL_NODISCARD static float get_line_width() noexcept;
 
 	private:
 		static scope<rendering_api> rendering_api_;

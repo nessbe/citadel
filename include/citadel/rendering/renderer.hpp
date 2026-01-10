@@ -39,10 +39,10 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported renderer {
+	class CITADEL_API renderer {
 	public:
-		nodisc static scope<renderer> create(rendering_api_type api);
-		nodisc static scope<renderer> create();
+		CITADEL_NODISCARD static scope<renderer> create(rendering_api_type api);
+		CITADEL_NODISCARD static scope<renderer> create();
 
 		virtual ~renderer() = default;
 
@@ -54,8 +54,8 @@ namespace citadel {
 
 		void flush();
 
-		nodisc bool has_scene() const noexcept;
-		nodisc scene::data& scene_data();
+		CITADEL_NODISCARD bool has_scene() const noexcept;
+		CITADEL_NODISCARD scene::data& scene_data();
 
 	private:
 		std::optional<scene::data> scene_data_;

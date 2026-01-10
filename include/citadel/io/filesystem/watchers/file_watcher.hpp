@@ -25,9 +25,9 @@
 #include "citadel/io/filesystem/file_event.hpp"
 
 namespace citadel {
-	class exported file_watcher {
+	class CITADEL_API file_watcher {
 	public:
-		nodisc static scope<file_watcher> create();
+		CITADEL_NODISCARD static scope<file_watcher> create();
 
 		virtual ~file_watcher() = default;
 
@@ -36,7 +36,7 @@ namespace citadel {
 
 		void update();
 
-		nodisc const std::vector<file_event>& events() const noexcept;
+		CITADEL_NODISCARD const std::vector<file_event>& events() const noexcept;
 
 	private:
 		virtual void _watch(const std::filesystem::path& path) = 0;

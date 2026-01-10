@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,10 +27,10 @@
 #include "citadel/rendering/textures/texture.hpp"
 
 namespace citadel {
-	class exported texture_2d : public texture {
+	class CITADEL_API texture_2d : public texture {
 	public:
-		nodisc static scope<texture_2d> create(rendering_api_type api, const image& image);
-		nodisc static scope<texture_2d> create(const image& image);
+		CITADEL_NODISCARD static scope<texture_2d> create(rendering_api_type api, const image& image);
+		CITADEL_NODISCARD static scope<texture_2d> create(const image& image);
 
 		texture_2d(const image& image);
 	};

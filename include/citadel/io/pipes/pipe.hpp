@@ -20,16 +20,16 @@
 #include "citadel/io/stream.hpp"
 
 namespace citadel {
-	class exported pipe : public stream {
+	class CITADEL_API pipe : public stream {
 	public:
 		virtual ~pipe() = default;
 
 		pipe(const pipe&) = delete;
 		pipe& operator=(const pipe&) = delete;
 
-		nodisc bool valid() const noexcept;
+		CITADEL_NODISCARD bool valid() const noexcept;
 
 	private:
-		nodisc virtual bool _valid() const noexcept = 0;
+		CITADEL_NODISCARD virtual bool _valid() const noexcept = 0;
 	};
 }

@@ -22,7 +22,7 @@
 #include "citadel/io/filesystem/watchers/file_watcher.hpp"
 
 namespace citadel {
-	class exported polling_file_watcher final : public file_watcher {
+	class CITADEL_API polling_file_watcher final : public file_watcher {
 	private:
 		std::unordered_map<std::filesystem::path, std::filesystem::file_time_type> files_;
 

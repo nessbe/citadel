@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -32,7 +32,7 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported logger {
+	class CITADEL_API logger {
 	public:
 		logger(const std::string& name, log_level level, std::initializer_list<sink_reference> sinks = { });
 		logger(const std::string& name, std::initializer_list<sink_reference> sinks = { });
@@ -61,20 +61,20 @@ namespace citadel {
 		template <typename... Arguments>
 		void log_fatal(const std::string& message, Arguments&&... arguments) const;
 
-		nodisc bool is_level_valid(log_level value) const noexcept;
-		nodisc bool is_off() const noexcept;
+		CITADEL_NODISCARD bool is_level_valid(log_level value) const noexcept;
+		CITADEL_NODISCARD bool is_off() const noexcept;
 
-		nodisc log_level_palette& palette() noexcept;
+		CITADEL_NODISCARD log_level_palette& palette() noexcept;
 
-		nodisc const std::string& get_name() const noexcept;
+		CITADEL_NODISCARD const std::string& get_name() const noexcept;
 
-		nodisc const std::vector<sink_reference>& get_sinks() const noexcept;
-		nodisc std::size_t sink_count() const noexcept;
+		CITADEL_NODISCARD const std::vector<sink_reference>& get_sinks() const noexcept;
+		CITADEL_NODISCARD std::size_t sink_count() const noexcept;
 
 		void push_sink(const sink_reference& sink);
 		void clear_sinks();
 
-		nodisc log_level get_level() const noexcept;
+		CITADEL_NODISCARD log_level get_level() const noexcept;
 		void set_level(log_level value) noexcept;
 
 	private:

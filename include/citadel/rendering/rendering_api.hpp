@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -30,9 +30,9 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported rendering_api {
+	class CITADEL_API rendering_api {
 	public:
-		nodisc static scope<rendering_api> create(rendering_api_type api);
+		CITADEL_NODISCARD static scope<rendering_api> create(rendering_api_type api);
 
 		rendering_api(rendering_api_type api);
 		virtual ~rendering_api() = default;
@@ -45,7 +45,7 @@ namespace citadel {
 
 		void set_line_width(float value);
 
-		nodisc rendering_api_type get_api() const noexcept;
+		CITADEL_NODISCARD rendering_api_type get_api() const noexcept;
 
 	private:
 		rendering_api_type api_;

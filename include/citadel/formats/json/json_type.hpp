@@ -2,8 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
-// This file is part of the citadel project and is licensed
+// Copyright (c) 2025-2026 of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
 //
@@ -29,5 +28,5 @@ namespace citadel {
 		object,
 	};
 
-	nodisc exported std::string json_type_to_string(json_type value);
+	CITADEL_NODISCARD CITADEL_API std::string json_type_to_string(json_type value);
 }

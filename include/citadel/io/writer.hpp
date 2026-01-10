@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,12 +24,12 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported writer {
+	class CITADEL_API writer {
 	public:
 		explicit writer(const sink_reference& file);
 		virtual ~writer() = default;
 
-		nodisc sink& sink() const noexcept;
+		CITADEL_NODISCARD sink& sink() const noexcept;
 
 	private:
 		sink_reference sink_;

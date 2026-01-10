@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,7 +24,7 @@
 #include "citadel/core/extensions/extension_loader.hpp"
 
 namespace citadel {
-	class exported wgl_loader : public extension_loader {
+	class CITADEL_API wgl_loader : public extension_loader {
 	public:
 		static void* get_procedure_address(const char* name) noexcept;
 
@@ -37,8 +37,8 @@ namespace citadel {
 		virtual int _load() override;
 		virtual void _unload() override;
 
-		nodisc virtual int _get_version_major() const override;
-		nodisc virtual int _get_version_minor() const override;
+		CITADEL_NODISCARD virtual int _get_version_major() const override;
+		CITADEL_NODISCARD virtual int _get_version_minor() const override;
 	};
 }
 

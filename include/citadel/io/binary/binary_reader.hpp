@@ -26,7 +26,7 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported binary_reader : public reader {
+	class CITADEL_API binary_reader : public reader {
 	public:
 		using dynamic_buffer_type = std::vector<std::uint8_t>;
 

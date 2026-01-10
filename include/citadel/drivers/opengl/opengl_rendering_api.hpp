@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,7 +22,7 @@
 #include "citadel/rendering/rendering_api_type.hpp"
 
 namespace citadel {
-	class exported opengl_rendering_api : public rendering_api {
+	class CITADEL_API opengl_rendering_api : public rendering_api {
 	public:
 		opengl_rendering_api(rendering_api_type api);
 

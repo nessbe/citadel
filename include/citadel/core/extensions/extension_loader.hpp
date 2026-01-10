@@ -26,14 +26,14 @@ namespace citadel {
 		int load();
 		void unload();
 
-		nodisc int get_version_major() const;
-		nodisc int get_version_minor() const;
+		CITADEL_NODISCARD int get_version_major() const;
+		CITADEL_NODISCARD int get_version_minor() const;
 
 	private:
 		virtual int _load() = 0;
 		virtual void _unload() = 0;
 
-		nodisc virtual int _get_version_major() const = 0;
-		nodisc virtual int _get_version_minor() const = 0;
+		CITADEL_NODISCARD virtual int _get_version_major() const = 0;
+		CITADEL_NODISCARD virtual int _get_version_minor() const = 0;
 	};
 }

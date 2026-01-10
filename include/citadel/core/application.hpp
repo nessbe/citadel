@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,12 +27,12 @@
 namespace citadel {
 	int run_application(int argc, char** argv);
 
-	class exported application {
+	class CITADEL_API application {
 	public:
 		friend int run_application(int argc, char** argv);
 
 	public:
-		nodisc static application& get();
+		CITADEL_NODISCARD static application& get();
 
 		application() = default;
 		virtual ~application() = default;
@@ -44,12 +44,12 @@ namespace citadel {
 		exit_code run();
 		void shutdown();
 
-		noret void exit(exit_code code);
+		CITADEL_NORETURN void exit(exit_code code);
 
-		nodisc std::size_t get_error_level() const noexcept;
+		CITADEL_NODISCARD std::size_t get_error_level() const noexcept;
 		void notify_error() noexcept;
 
-		nodisc engine& engine() const;
+		CITADEL_NODISCARD engine& engine() const;
 
 	private:
 		static application* instance_;

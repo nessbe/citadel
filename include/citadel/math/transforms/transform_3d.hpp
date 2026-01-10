@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,7 +22,7 @@
 #include "citadel/math/vectors/vec3.hpp"
 
 namespace citadel {
-	class exported transform_3d {
+	class CITADEL_API transform_3d {
 	public:
 		transform_3d();
 		transform_3d(const mat4& matrix);
@@ -30,19 +30,19 @@ namespace citadel {
 
 		bool decompose(vec3& translation, vec3& rotation, vec3& scale) const;
 
-		nodisc vec3 get_translation() const;
+		CITADEL_NODISCARD vec3 get_translation() const;
 		void set_translation(const vec3& value);
 
-		nodisc vec3 get_rotation() const;
+		CITADEL_NODISCARD vec3 get_rotation() const;
 		void set_rotation(const vec3& value);
 
-		nodisc vec3 get_scale() const;
+		CITADEL_NODISCARD vec3 get_scale() const;
 		void set_scale(const vec3& value);
 
-		nodisc const mat4& get_matrix() const noexcept;
+		CITADEL_NODISCARD const mat4& get_matrix() const noexcept;
 		void set_matrix(const mat4& value) noexcept;
 
-		nodisc operator mat4() const;
+		CITADEL_NODISCARD operator mat4() const;
 
 	private:
 		mat4 matrix_;

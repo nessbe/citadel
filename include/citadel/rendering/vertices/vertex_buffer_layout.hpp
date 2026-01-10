@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -28,24 +28,24 @@
 #include "citadel/rendering/vertices/vertex_buffer_element.hpp"
 
 namespace citadel {
-	class exported vertex_buffer_layout {
+	class CITADEL_API vertex_buffer_layout {
 	public:
-		nodisc static vertex_buffer_layout begin();
-		nodisc static vertex_buffer_layout begin(std::size_t size);
+		CITADEL_NODISCARD static vertex_buffer_layout begin();
+		CITADEL_NODISCARD static vertex_buffer_layout begin(std::size_t size);
 
 		vertex_buffer_layout() = default;
 
 		vertex_buffer_layout(std::size_t size);
 		vertex_buffer_layout(std::initializer_list<vertex_buffer_element> elements);
 
-		nodisc vertex_buffer_layout& add(const vertex_buffer_element& element);
-		nodisc vertex_buffer_layout& add(const std::string& name, shader_data_type data_type, bool normalized);
-		nodisc vertex_buffer_layout& add(const std::string& name, shader_data_type data_type);
+		CITADEL_NODISCARD vertex_buffer_layout& add(const vertex_buffer_element& element);
+		CITADEL_NODISCARD vertex_buffer_layout& add(const std::string& name, shader_data_type data_type, bool normalized);
+		CITADEL_NODISCARD vertex_buffer_layout& add(const std::string& name, shader_data_type data_type);
 
 		vertex_buffer_layout& end();
 
-		nodisc const std::vector<vertex_buffer_element>& get_elements() const noexcept;
-		nodisc std::size_t get_stride() const noexcept;
+		CITADEL_NODISCARD const std::vector<vertex_buffer_element>& get_elements() const noexcept;
+		CITADEL_NODISCARD std::size_t get_stride() const noexcept;
 
 	private:
 		std::vector<vertex_buffer_element> elements_;

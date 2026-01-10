@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,7 +22,7 @@
 #include "citadel/math/vectors/vec3.hpp"
 
 namespace citadel {
-	class exported camera {
+	class CITADEL_API camera {
 	public:
 		using dimension_type = std::uint32_t;
 
@@ -30,15 +30,15 @@ namespace citadel {
 		camera() = default;
 		virtual ~camera() = default;
 
-		nodisc mat4 get_view() const;
+		CITADEL_NODISCARD mat4 get_view() const;
 
 		void set_projection(dimension_type width, dimension_type height);
-		nodisc mat4 get_projection() const;
+		CITADEL_NODISCARD mat4 get_projection() const;
 
-		nodisc const vec3& get_position() const noexcept;
+		CITADEL_NODISCARD const vec3& get_position() const noexcept;
 		void set_position(const vec3& value) noexcept;
 
-		nodisc const vec3& get_rotation() const noexcept;
+		CITADEL_NODISCARD const vec3& get_rotation() const noexcept;
 		void set_rotation(const vec3& value) noexcept;
 
 	private:
@@ -47,6 +47,6 @@ namespace citadel {
 
 	private:
 		virtual void _set_projection(dimension_type width, dimension_type height) = 0;
-		nodisc virtual mat4 _get_projection() const = 0;
+		CITADEL_NODISCARD virtual mat4 _get_projection() const = 0;
 	};
 }

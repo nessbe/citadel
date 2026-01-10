@@ -24,7 +24,7 @@
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
-	class exported mesh_reader : public reader {
+	class CITADEL_API mesh_reader : public reader {
 	public:
 		explicit mesh_reader(const reference<random_access_stream>& stream);
 

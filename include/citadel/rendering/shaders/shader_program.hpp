@@ -35,10 +35,10 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported shader_program {
+	class CITADEL_API shader_program {
 	public:
-		nodisc static scope<shader_program> create(rendering_api_type api, const std::string& name);
-		nodisc static scope<shader_program> create(const std::string& name);
+		CITADEL_NODISCARD static scope<shader_program> create(rendering_api_type api, const std::string& name);
+		CITADEL_NODISCARD static scope<shader_program> create(const std::string& name);
 
 		shader_program(const std::string& name);
 		virtual ~shader_program() = default;
@@ -69,16 +69,16 @@ namespace citadel {
 		void set_uniform_mat3(const std::string& name, const mat3& value);
 		void set_uniform_mat4(const std::string& name, const mat4& value);
 
-		nodisc bool uniform_exists(const std::string& name) const;
-		nodisc uniform_info get_uniform(const std::string& name) const;
-		nodisc const std::unordered_map<std::string, uniform_info>& get_uniforms() const noexcept;
-		nodisc std::size_t uniform_count() const noexcept;
+		CITADEL_NODISCARD bool uniform_exists(const std::string& name) const;
+		CITADEL_NODISCARD uniform_info get_uniform(const std::string& name) const;
+		CITADEL_NODISCARD const std::unordered_map<std::string, uniform_info>& get_uniforms() const noexcept;
+		CITADEL_NODISCARD std::size_t uniform_count() const noexcept;
 
-		nodisc std::vector<reference<shader>> get_shaders() const;
-		nodisc bool has_shader(shader_type type) const;
-		nodisc reference<shader> get_shader(shader_type type) const;
+		CITADEL_NODISCARD std::vector<reference<shader>> get_shaders() const;
+		CITADEL_NODISCARD bool has_shader(shader_type type) const;
+		CITADEL_NODISCARD reference<shader> get_shader(shader_type type) const;
 
-		nodisc const std::string& get_name() const noexcept;
+		CITADEL_NODISCARD const std::string& get_name() const noexcept;
 
 	protected:
 		void add_uniform(const uniform_info& uniform);

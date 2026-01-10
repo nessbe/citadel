@@ -36,17 +36,17 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported window {
+	class CITADEL_API window {
 	public:
 		using dimension_type = std::uint32_t;
 		using clock_type = std::chrono::high_resolution_clock;
 
 	public:
-		nodisc static scope<window> create(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
-		nodisc static scope<window> create(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
+		CITADEL_NODISCARD static scope<window> create(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		CITADEL_NODISCARD static scope<window> create(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
 
-		nodisc static scope<window> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
-		nodisc static scope<window> create(dimension_type width, dimension_type height, const std::string& title);
+		CITADEL_NODISCARD static scope<window> create(dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
+		CITADEL_NODISCARD static scope<window> create(dimension_type width, dimension_type height, const std::string& title);
 
 		window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title);
 		window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title);
@@ -68,32 +68,32 @@ namespace citadel {
 		void begin_frame();
 		void end_frame();
 
-		nodisc void* get_native_handle() const;
+		CITADEL_NODISCARD void* get_native_handle() const;
 
-		nodisc const std::string& get_title() const noexcept;
+		CITADEL_NODISCARD const std::string& get_title() const noexcept;
 		void set_title(const std::string& value);
 
-		nodisc layer_stack& layer_stack();
-		nodisc surface& surface() const;
-		nodisc rendering_context& rendering_context() const;
+		CITADEL_NODISCARD layer_stack& layer_stack();
+		CITADEL_NODISCARD surface& surface() const;
+		CITADEL_NODISCARD rendering_context& rendering_context() const;
 
-		nodisc dimension_type get_x() const noexcept;
+		CITADEL_NODISCARD dimension_type get_x() const noexcept;
 		void set_x(dimension_type value);
 
-		nodisc dimension_type get_y() const noexcept;
+		CITADEL_NODISCARD dimension_type get_y() const noexcept;
 		void set_y(dimension_type value);
 
-		nodisc dimension_type get_width() const noexcept;
+		CITADEL_NODISCARD dimension_type get_width() const noexcept;
 		void set_width(dimension_type value);
 
-		nodisc dimension_type get_height() const noexcept;
+		CITADEL_NODISCARD dimension_type get_height() const noexcept;
 		void set_height(dimension_type value);
 
-		nodisc bool is_vsync() const noexcept;
+		CITADEL_NODISCARD bool is_vsync() const noexcept;
 		void set_vsync(bool value);
 
-		nodisc bool should_close() const noexcept;
-		nodisc bool is_visible() const noexcept;
+		CITADEL_NODISCARD bool should_close() const noexcept;
+		CITADEL_NODISCARD bool is_visible() const noexcept;
 
 	protected:
 		dimension_type x_, y_, width_, height_;		

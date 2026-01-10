@@ -38,9 +38,9 @@ namespace citadel {
 		type_mat4,
 	};
 
-	nodisc exported std::size_t shader_data_type_size(shader_data_type value) noexcept;
-	nodisc exported std::size_t shader_data_type_component_count(shader_data_type value) noexcept;
+	CITADEL_NODISCARD CITADEL_API std::size_t shader_data_type_size(shader_data_type value) noexcept;
+	CITADEL_NODISCARD CITADEL_API std::size_t shader_data_type_component_count(shader_data_type value) noexcept;
 
-	nodisc exported GLenum shader_data_type_to_opengl(shader_data_type value) noexcept;
-	nodisc exported shader_data_type shader_data_type_from_opengl(GLenum value) noexcept;
+	CITADEL_NODISCARD CITADEL_API GLenum shader_data_type_to_opengl(shader_data_type value) noexcept;
+	CITADEL_NODISCARD CITADEL_API shader_data_type shader_data_type_from_opengl(GLenum value) noexcept;
 }

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,7 +25,7 @@
 #include "citadel/formats/json/json_types.hpp"
 
 namespace citadel {
-	class exported json_value {
+	class CITADEL_API json_value {
 	public:
 		using value_type = std::variant<
 			json_null,
@@ -42,39 +42,39 @@ namespace citadel {
 	public:
 		json_value(const value_type& value);
 
-		nodisc json_type type() const noexcept;
+		CITADEL_NODISCARD json_type type() const noexcept;
 
 		template <typename T>
-		nodisc bool is() const noexcept;
+		CITADEL_NODISCARD bool is() const noexcept;
 
-		nodisc bool is_null() const noexcept;
-		nodisc bool is_boolean() const noexcept;
-		nodisc bool is_number() const noexcept;
-		nodisc bool is_string() const noexcept;
-		nodisc bool is_array() const noexcept;
-		nodisc bool is_object() const noexcept;
-
-		template <typename T>
-		nodisc T& as();
+		CITADEL_NODISCARD bool is_null() const noexcept;
+		CITADEL_NODISCARD bool is_boolean() const noexcept;
+		CITADEL_NODISCARD bool is_number() const noexcept;
+		CITADEL_NODISCARD bool is_string() const noexcept;
+		CITADEL_NODISCARD bool is_array() const noexcept;
+		CITADEL_NODISCARD bool is_object() const noexcept;
 
 		template <typename T>
-		nodisc const T& as() const;
+		CITADEL_NODISCARD T& as();
 
-		nodisc json_null& as_null();
-		nodisc json_boolean& as_boolean();
-		nodisc json_number& as_number();
-		nodisc json_string& as_string();
-		nodisc json_array& as_array();
-		nodisc json_object& as_object();
+		template <typename T>
+		CITADEL_NODISCARD const T& as() const;
 
-		nodisc const json_null& as_null() const;
-		nodisc const json_boolean& as_boolean() const;
-		nodisc const json_number& as_number() const;
-		nodisc const json_string& as_string() const;
-		nodisc const json_array& as_array() const;
-		nodisc const json_object& as_object() const;
+		CITADEL_NODISCARD json_null& as_null();
+		CITADEL_NODISCARD json_boolean& as_boolean();
+		CITADEL_NODISCARD json_number& as_number();
+		CITADEL_NODISCARD json_string& as_string();
+		CITADEL_NODISCARD json_array& as_array();
+		CITADEL_NODISCARD json_object& as_object();
 
-		nodisc std::string to_string(const json_serialization_context& context, std::size_t indent_level = 0) const;
+		CITADEL_NODISCARD const json_null& as_null() const;
+		CITADEL_NODISCARD const json_boolean& as_boolean() const;
+		CITADEL_NODISCARD const json_number& as_number() const;
+		CITADEL_NODISCARD const json_string& as_string() const;
+		CITADEL_NODISCARD const json_array& as_array() const;
+		CITADEL_NODISCARD const json_object& as_object() const;
+
+		CITADEL_NODISCARD std::string to_string(const json_serialization_context& context, std::size_t indent_level = 0) const;
 
 		void indent(std::ostream& out, const json_serialization_context& context, std::size_t level) const;
 		void serialize(std::ostream& out, const json_serialization_context& context, std::size_t indent_level = 0) const;

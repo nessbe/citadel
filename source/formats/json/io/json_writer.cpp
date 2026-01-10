@@ -34,7 +34,7 @@ namespace citadel {
 		context_.pretty = value;
 	}
 
-	const std::string& json_writer::get_indent() const noexcept {
+	const std::string& json_writer::ident() const noexcept {
 		return context_.indent;
 	}
 
@@ -42,7 +42,7 @@ namespace citadel {
 		context_.indent = value;
 	}
 
-	std::size_t json_writer::get_indent_level() const noexcept {
+	std::size_t json_writer::ident_level() const noexcept {
 		return indent_level_;
 	}
 

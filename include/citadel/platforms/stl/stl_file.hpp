@@ -27,7 +27,7 @@
 #include "citadel/io/filesystem/file_open_mode.hpp"
 
 namespace citadel {
-	class exported stl_file : public file {
+	class CITADEL_API stl_file : public file {
 	public:
 		stl_file(const std::string& path, file_open_mode mode);
 		virtual ~stl_file() override;
@@ -42,19 +42,19 @@ namespace citadel {
 		virtual size_type _read(void* buffer, size_type size) override;
 		virtual size_type _write(const void* buffer, size_type size) override;
 
-		nodisc virtual position_type _tell() override;
-		nodisc virtual offset_type _size() override;
+		CITADEL_NODISCARD virtual position_type _tell() override;
+		CITADEL_NODISCARD virtual offset_type _size() override;
 
-		nodisc virtual int _peek() override;
+		CITADEL_NODISCARD virtual int _peek() override;
 
 		virtual bool _seek(position_type position) override;
 		virtual bool _seek(offset_type offset, stream_direction direction) override;
 
 		virtual void _flush() override;
 
-		nodisc virtual bool _good() const override;
-		nodisc virtual bool _eof() const override;
+		CITADEL_NODISCARD virtual bool _good() const override;
+		CITADEL_NODISCARD virtual bool _eof() const override;
 
-		nodisc virtual void* _native_handle() const override;
+		CITADEL_NODISCARD virtual void* _native_handle() const override;
 	};
 }

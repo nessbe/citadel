@@ -23,13 +23,13 @@
 #include "citadel/formats/json/json_value.hpp"
 
 namespace citadel {
-	class exported json {
+	class CITADEL_API json {
 	public:
 		json(const json_value& root);
 
-		nodisc std::string to_string(const json_serialization_context& context, std::size_t indent_level = 0) const;
+		CITADEL_NODISCARD std::string to_string(const json_serialization_context& context, std::size_t indent_level = 0) const;
 
-		nodisc json_value& root() noexcept;
+		CITADEL_NODISCARD json_value& root() noexcept;
 
 	private:
 		json_value root_;

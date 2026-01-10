@@ -29,13 +29,13 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported image_reader : public reader {
+	class CITADEL_API image_reader : public reader {
 	public:
 		explicit image_reader(const reference<random_access_stream>& stream);
 
 		image read_image();
 
-		nodisc bool should_flip_vertically() const noexcept;
+		CITADEL_NODISCARD bool should_flip_vertically() const noexcept;
 		void set_flip_vertically(bool value) noexcept;
 
 	private:

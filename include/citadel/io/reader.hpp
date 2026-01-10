@@ -24,12 +24,12 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported reader {
+	class CITADEL_API reader {
 	public:
 		explicit reader(const reference<random_access_stream>& stream);
 		virtual ~reader() = default;
 
-		nodisc random_access_stream& stream() const noexcept;
+		CITADEL_NODISCARD random_access_stream& stream() const noexcept;
 
 	private:
 		reference<random_access_stream> stream_;

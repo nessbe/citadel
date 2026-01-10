@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -26,7 +26,7 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class exported opengl_shader : public shader {
+	class CITADEL_API opengl_shader : public shader {
 	public:
 		using id_type = GLuint;
 
@@ -42,8 +42,8 @@ namespace citadel {
 		opengl_shader(opengl_shader&& other) noexcept;
 		opengl_shader& operator=(opengl_shader&& other) noexcept;
 
-		nodisc id_type get_id() const noexcept;
-		nodisc GLenum get_opengl_type() const noexcept;
+		CITADEL_NODISCARD id_type get_id() const noexcept;
+		CITADEL_NODISCARD GLenum get_opengl_type() const noexcept;
 
 	private:
 		id_type id_ = 0;

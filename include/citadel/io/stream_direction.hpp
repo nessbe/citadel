@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,5 +27,5 @@ namespace citadel {
 		end,
 	};
 
-	nodisc exported std::ios::seekdir stream_direction_to_stl(stream_direction value);
+	CITADEL_NODISCARD CITADEL_API std::ios::seekdir stream_direction_to_stl(stream_direction value);
 }

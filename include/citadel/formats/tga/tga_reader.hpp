@@ -25,7 +25,7 @@
 #include "citadel/rendering/textures/image.hpp"
 
 namespace citadel {
-	class exported tga_reader : public image_reader {
+	class CITADEL_API tga_reader : public image_reader {
 	public:
 		tga_reader(const reference<random_access_stream>& stream);
 

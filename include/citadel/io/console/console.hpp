@@ -23,10 +23,10 @@
 #include "citadel/memory/reference.hpp"
 
 namespace citadel {
-	class exported console : public random_access_stream {
+	class CITADEL_API console : public random_access_stream {
 	public:
-		nodisc static console& get() noexcept;
-		nodisc static const reference<console>& pointer() noexcept;
+		CITADEL_NODISCARD static console& get() noexcept;
+		CITADEL_NODISCARD static const reference<console>& pointer() noexcept;
 
 		console() = default;
 
@@ -43,17 +43,17 @@ namespace citadel {
 		virtual size_type _read(void* buffer, size_type size) override;
 		virtual size_type _write(const void* buffer, size_type size) override;
 
-		nodisc virtual position_type _tell() override;
-		nodisc virtual offset_type _size() override;
+		CITADEL_NODISCARD virtual position_type _tell() override;
+		CITADEL_NODISCARD virtual offset_type _size() override;
 
-		nodisc virtual int _peek() override;
+		CITADEL_NODISCARD virtual int _peek() override;
 
 		virtual bool _seek(position_type position) override;
 		virtual bool _seek(offset_type offset, stream_direction direction) override;
 
 		virtual void _flush() override;
 
-		nodisc virtual bool _good() const override;
-		nodisc virtual bool _eof() const override;
+		CITADEL_NODISCARD virtual bool _good() const override;
+		CITADEL_NODISCARD virtual bool _eof() const override;
 	};
 }

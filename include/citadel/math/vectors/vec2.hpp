@@ -36,41 +36,41 @@ namespace citadel {
 		basic_vec2();
 		basic_vec2(T x, T y);
 
-		nodisc T length() const;
-		nodisc basic_vec2<T> normalized() const;
+		CITADEL_NODISCARD T length() const;
+		CITADEL_NODISCARD basic_vec2<T> normalized() const;
 
-		nodisc T distance(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD T distance(const basic_vec2<T>& other) const;
 
-		nodisc T dot(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD T dot(const basic_vec2<T>& other) const;
 
-		nodisc T* data() noexcept;
-		nodisc const T* data() const noexcept;
+		CITADEL_NODISCARD T* data() noexcept;
+		CITADEL_NODISCARD const T* data() const noexcept;
 
-		nodisc T get_x() const noexcept;
+		CITADEL_NODISCARD T get_x() const noexcept;
 		void set_x(T value) noexcept;
 
-		nodisc T get_y() const noexcept;
+		CITADEL_NODISCARD T get_y() const noexcept;
 		void set_y(T value) noexcept;
 
-		nodisc T& operator[](std::size_t index) noexcept;
-		nodisc const T& operator[](std::size_t index) const noexcept;
+		CITADEL_NODISCARD T& operator[](std::size_t index) noexcept;
+		CITADEL_NODISCARD const T& operator[](std::size_t index) const noexcept;
 
-		nodisc basic_vec2<T> operator+(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD basic_vec2<T> operator+(const basic_vec2<T>& other) const;
 		basic_vec2<T>& operator+=(const basic_vec2<T>& other);
 
-		nodisc basic_vec2<T> operator-(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD basic_vec2<T> operator-(const basic_vec2<T>& other) const;
 		basic_vec2<T>& operator-=(const basic_vec2<T>& other);
 
-		nodisc basic_vec2<T> operator*(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD basic_vec2<T> operator*(const basic_vec2<T>& other) const;
 		basic_vec2<T>& operator*=(const basic_vec2<T>& other);
 
-		nodisc basic_vec2<T> operator*(T scalar) const;
-		nodisc basic_vec2<T>& operator*=(T scalar);
+		CITADEL_NODISCARD basic_vec2<T> operator*(T scalar) const;
+		CITADEL_NODISCARD basic_vec2<T>& operator*=(T scalar);
 
-		nodisc basic_vec2<T> operator/(const basic_vec2<T>& other) const;
+		CITADEL_NODISCARD basic_vec2<T> operator/(const basic_vec2<T>& other) const;
 		basic_vec2<T>& operator/=(const basic_vec2<T>& other);
 
-		nodisc basic_vec2<T> operator/(T scalar) const;
+		CITADEL_NODISCARD basic_vec2<T> operator/(T scalar) const;
 		basic_vec2<T>& operator/=(T scalar);
 	};
 

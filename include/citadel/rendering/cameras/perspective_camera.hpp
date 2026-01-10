@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,21 +24,21 @@
 #include "citadel/rendering/cameras/camera.hpp"
 
 namespace citadel {
-	class exported perspective_camera : public camera {
+	class CITADEL_API perspective_camera : public camera {
 	public:
 		perspective_camera(float fov, float aspect, float near, float far);
 		perspective_camera(float fov, dimension_type width, dimension_type height, float near, float far);
 
-		nodisc float get_fov() const noexcept;
+		CITADEL_NODISCARD float get_fov() const noexcept;
 		void set_fov(float value) noexcept;
 
-		nodisc float get_aspect() const noexcept;
+		CITADEL_NODISCARD float get_aspect() const noexcept;
 		void set_aspect(float value) noexcept;
 
-		nodisc float get_near() const noexcept;
+		CITADEL_NODISCARD float get_near() const noexcept;
 		void set_near(float value) noexcept;
 
-		nodisc float get_far() const noexcept;
+		CITADEL_NODISCARD float get_far() const noexcept;
 		void set_far(float value) noexcept;
 
 	private:
@@ -46,6 +46,6 @@ namespace citadel {
 
 	private:
 		virtual void _set_projection(dimension_type width, dimension_type height) override;
-		nodisc virtual mat4 _get_projection() const override;
+		CITADEL_NODISCARD virtual mat4 _get_projection() const override;
 	};
 }

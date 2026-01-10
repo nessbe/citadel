@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -32,7 +32,7 @@
 #include "citadel/rendering/vertices/vertex_buffer_layout.hpp"
 
 namespace citadel {
-	class exported mesh {
+	class CITADEL_API mesh {
 	public:
 		mesh(rendering_api_type api, const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices);
 		mesh(const void* data, std::size_t size, const vertex_buffer_layout& layout, const std::vector<index>& indices);
@@ -47,9 +47,9 @@ namespace citadel {
 
 		void render();
 
-		nodisc vertex_array& vertex_array();
-		nodisc vertex_buffer& vertex_buffer();
-		nodisc index_buffer& index_buffer();
+		CITADEL_NODISCARD vertex_array& vertex_array();
+		CITADEL_NODISCARD vertex_buffer& vertex_buffer();
+		CITADEL_NODISCARD index_buffer& index_buffer();
 
 	private:
 		static vertex_buffer_layout default_layout_;

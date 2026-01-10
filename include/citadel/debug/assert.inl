@@ -29,7 +29,7 @@ namespace citadel {
 
 	template <typename... Arguments>
 	void assert(bool condition, const std::string& message, Arguments&&... arguments) {
-		if (unlikely(!condition)) {
+		if (CITADEL_UNLIKELY(!condition)) {
 			CITADEL_LOG_FATAL(message, std::forward<Arguments>(arguments)...);
 			panic();
 		}
