@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,15 +27,16 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 	scope<shader_program> shader_program::create(rendering_api_type api, const std::string& name) {
 		switch (api) {
 		case rendering_api_type::none:
-			CITADEL_PANIC("Rendering API cannot be none");
+			CITADEL_UNREACHABLE("Rendering API must not be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
 			return make_scoped<opengl_shader_program>(name);
-		}
 
-		CITADEL_PANIC("Unknown rendering API");
-		return nullptr;
+		default:
+			CITADEL_UNREACHABLE("Unknown rendering API: {0}", api);
+			return nullptr;
+		}
 	}
 
 CITADEL_WARNING_IGNORE_POP
@@ -62,9 +63,10 @@ CITADEL_WARNING_IGNORE_POP
 	}
 
 	bool shader_program::attach(const reference<shader>& shader) {
-		CITADEL_SOFT_ASSERT(shader, "The given shader is null");
-		shader_type type = CITADEL_POINTER_CALL_OR_DEFAULT(shader, get_type, shader_type::none);
-		CITADEL_SOFT_ASSERT(type != shader_type::none, "Shader type cannot be none");
+		CITADEL_PRECONDITION(shader != nullptr, "Shader must not be null");
+
+		shader_type type = shader->get_type();
+		CITADEL_ASSERT(type != shader_type::none, "Shader type must not be none");
 
 		if (has_shader(type)) {
 			return false;
@@ -140,8 +142,8 @@ CITADEL_WARNING_IGNORE_POP
 		return uniforms_.find(name) != uniforms_.end();
 	}
 
-	const uniform_info& shader_program::get_uniform(const std::string& name) const {
-		CITADEL_SOFT_ASSERT(uniform_exists(name), "Uniform '" + name + "' does not exist");
+	uniform_info shader_program::get_uniform(const std::string& name) const {
+		CITADEL_PRECONDITION(uniform_exists(name), "Uniform '{0}' not found", name);
 		return uniforms_.at(name);
 	}
 

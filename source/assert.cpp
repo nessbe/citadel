@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -13,7 +13,7 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/assert.hpp"
+#include "citadel/debug/assert.hpp"
 
 namespace citadel {
 	void panic() noexcept {
@@ -29,12 +29,6 @@ namespace citadel {
 	void assert(bool condition) noexcept {
 		if (unlikely(!condition)) {
 			panic();
-		}
-	}
-
-	void soft_assert(bool condition) {
-		if (unlikely(!condition)) {
-			throw std::runtime_error("Soft assertion failed");
 		}
 	}
 }

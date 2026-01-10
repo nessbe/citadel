@@ -2,7 +2,7 @@
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
--- Copyright (c) 2025 nessbe
+-- Copyright (c) 2025-2026 nessbe
 -- This file is part of the citadel project and is licensed
 -- under the terms specified in the LICENSE file located at the
 -- root of this repository.
@@ -49,7 +49,8 @@ project "citadel"
 	filter "action:gmake"
 		buildoptions {
 			"-Wall",
-			"-Wno-unused-parameter"
+			"-Wno-unused-parameter",
+			"-Wno-inline"
 		}
 
 	filter "action:vs*"
@@ -57,7 +58,8 @@ project "citadel"
 			"/Wall",
 			"/Qspectre",
 			"/wd28251",
-			"/wd4100"
+			"/wd4100",
+			"/wd4514"
 		}
 
 	filter "kind:StaticLib"

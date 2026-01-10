@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -43,7 +43,7 @@ namespace sandbox {
 			"Sandbox Application"
 		);
 
-		window_->get_layer_stack().push(citadel::make_referenced<sandbox_layer>());
+		window_->layer_stack().push(citadel::make_referenced<sandbox_layer>());
 
 		window_->set_vsync(false);
 		window_->show();

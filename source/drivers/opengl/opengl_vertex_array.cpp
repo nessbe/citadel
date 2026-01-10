@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -22,7 +22,7 @@ namespace citadel {
 		: vertex_buffer_index_(0)
 	{
 		glGenVertexArrays(1, &id_);
-		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex array");
+		CITADEL_ASSERT(id_ != 0, "Failed to generate OpenGL vertex array");
 	}
 
 	opengl_vertex_array::~opengl_vertex_array() {
@@ -63,72 +63,75 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	void opengl_vertex_array::_add_vertex_buffer(const reference<vertex_buffer>& buffer) {
-		CITADEL_CHECK_ARGUMENT(buffer, buffer == nullptr);
+		CITADEL_ASSERT(buffer != nullptr, "Vertex buffer must not be null");
 
 		bind();
-		CITADEL_POINTER_CALL(buffer, bind);
+		buffer->bind();
 
-		if (buffer) {
-			const vertex_buffer_layout& buffer_layout = CITADEL_POINTER_CALL_RAW(buffer, get_layout);
-			std::size_t buffer_layout_stride = buffer_layout.get_stride();
+		const vertex_buffer_layout& buffer_layout = buffer->get_layout();
+		std::size_t buffer_layout_stride = buffer_layout.get_stride();
 
-			for (const vertex_buffer_element& buffer_element : buffer_layout.get_elements()) {
-				switch (buffer_element.data_type) {
-				case shader_data_type::type_bool:
-				case shader_data_type::type_int:
-				case shader_data_type::type_ivec2:
-				case shader_data_type::type_ivec3:
-				case shader_data_type::type_ivec4: {
-					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
-					glVertexAttribIPointer(
-						static_cast<GLuint>(vertex_buffer_index_),
-						static_cast<GLint>(buffer_element.component_count()),
-						shader_data_type_to_opengl(buffer_element.data_type),
-						static_cast<GLsizei>(buffer_layout_stride),
-						reinterpret_cast<const void*>(buffer_element.offset())
-					);
-					vertex_buffer_index_++;
-				} break;
+		for (const vertex_buffer_element& buffer_element : buffer_layout.get_elements()) {
+			switch (buffer_element.data_type) {
+			case shader_data_type::type_bool:
+			case shader_data_type::type_int:
+			case shader_data_type::type_ivec2:
+			case shader_data_type::type_ivec3:
+			case shader_data_type::type_ivec4: {
+				glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
+				glVertexAttribIPointer(
+					static_cast<GLuint>(vertex_buffer_index_),
+					static_cast<GLint>(buffer_element.component_count()),
+					shader_data_type_to_opengl(buffer_element.data_type),
+					static_cast<GLsizei>(buffer_layout_stride),
+					reinterpret_cast<const void*>(buffer_element.offset())
+				);
+				vertex_buffer_index_++;
+			} break;
 
-				case shader_data_type::type_float:
-				case shader_data_type::type_vec2:
-				case shader_data_type::type_vec3:
-				case shader_data_type::type_vec4: {
+			case shader_data_type::type_float:
+			case shader_data_type::type_vec2:
+			case shader_data_type::type_vec3:
+			case shader_data_type::type_vec4: {
+				glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
+				glVertexAttribPointer(
+					static_cast<GLuint>(vertex_buffer_index_),
+					static_cast<GLint>(buffer_element.component_count()),
+					shader_data_type_to_opengl(buffer_element.data_type),
+					buffer_element.normalized ? GL_TRUE : GL_FALSE,
+					static_cast<GLsizei>(buffer_layout_stride),
+					reinterpret_cast<const void*>(buffer_element.offset())
+				);
+				vertex_buffer_index_++;
+			} break;
+
+			case shader_data_type::type_mat3:
+			case shader_data_type::type_mat4: {
+				std::size_t component_count = buffer_element.component_count();
+
+				for (std::size_t i = 0; i < component_count; i++) {
 					glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
 					glVertexAttribPointer(
 						static_cast<GLuint>(vertex_buffer_index_),
-						static_cast<GLint>(buffer_element.component_count()),
+						static_cast<GLint>(component_count),
 						shader_data_type_to_opengl(buffer_element.data_type),
 						buffer_element.normalized ? GL_TRUE : GL_FALSE,
 						static_cast<GLsizei>(buffer_layout_stride),
-						reinterpret_cast<const void*>(buffer_element.offset())
+						reinterpret_cast<const void*>(buffer_element.offset() + sizeof(float) * component_count * i)
 					);
+
+					glVertexAttribDivisor(static_cast<GLuint>(vertex_buffer_index_), 1);
 					vertex_buffer_index_++;
-				} break;
-
-				case shader_data_type::type_mat3:
-				case shader_data_type::type_mat4: {
-					std::size_t component_count = buffer_element.component_count();
-
-					for (std::size_t i = 0; i < component_count; i++) {
-						glEnableVertexAttribArray(static_cast<GLuint>(vertex_buffer_index_));
-						glVertexAttribPointer(
-							static_cast<GLuint>(vertex_buffer_index_),
-							static_cast<GLint>(component_count),
-							shader_data_type_to_opengl(buffer_element.data_type),
-							buffer_element.normalized ? GL_TRUE : GL_FALSE,
-							static_cast<GLsizei>(buffer_layout_stride),
-							reinterpret_cast<const void*>(buffer_element.offset() + sizeof(float) * component_count * i)
-						);
-
-						glVertexAttribDivisor(static_cast<GLuint>(vertex_buffer_index_), 1);
-						vertex_buffer_index_++;
-					}
-				} break;
-
-				case shader_data_type::unknown:
-					break;
 				}
+			} break;
+
+			case shader_data_type::unknown:
+				CITADEL_UNREACHABLE("Shader data type must not be unknown");
+				break;
+
+			default:
+				CITADEL_UNREACHABLE("Unknown shader data type: {0}", buffer_element.data_type);
+				break;
 			}
 		}
 	}
@@ -136,8 +139,8 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 CITADEL_WARNING_IGNORE_POP
 
 	void opengl_vertex_array::_set_index_buffer(const reference<class index_buffer>& buffer) {
-		CITADEL_CHECK_ARGUMENT(buffer, buffer == nullptr);
+		CITADEL_ASSERT(buffer != nullptr, "Index buffer must not be null");
 		bind();
-		CITADEL_POINTER_CALL(buffer, bind);
+		buffer->bind();
 	}
 }

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -57,7 +57,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		case shader_data_type::unknown:
 		default:
-			CITADEL_PANIC("Unknown shader data type");
+			CITADEL_UNREACHABLE("Unknown shader data type: {0}", value);
 			return 0;
 		}
 	}
@@ -99,7 +99,49 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		case shader_data_type::unknown:
 		default:
-			CITADEL_PANIC("Unknown shader data type");
+			CITADEL_UNREACHABLE("Unknown shader data type: {0}", value);
+			return 0;
+		}
+	}
+
+	GLenum shader_data_type_to_opengl(shader_data_type value) noexcept {
+		switch (value) {
+		case shader_data_type::type_bool:
+			return GL_BOOL;
+
+		case shader_data_type::type_int:
+			return GL_INT;
+
+		case shader_data_type::type_ivec2:
+			return GL_INT;
+
+		case shader_data_type::type_ivec3:
+			return GL_INT;
+
+		case shader_data_type::type_ivec4:
+			return GL_INT;
+
+		case shader_data_type::type_float:
+			return GL_FLOAT;
+
+		case shader_data_type::type_vec2:
+			return GL_FLOAT;
+
+		case shader_data_type::type_vec3:
+			return GL_FLOAT;
+
+		case shader_data_type::type_vec4:
+			return GL_FLOAT;
+
+		case shader_data_type::type_mat3:
+			return GL_FLOAT;
+
+		case shader_data_type::type_mat4:
+			return GL_FLOAT;
+
+		case shader_data_type::unknown:
+		default:
+			CITADEL_UNREACHABLE("Unknown shader data type: {0}", value);
 			return 0;
 		}
 	}
@@ -143,52 +185,11 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 			return shader_data_type::type_int;
 
 		default:
-			CITADEL_PANIC("The given OpenGL shader data type is not yet supported");
+			CITADEL_UNREACHABLE("OpenGL shader data type {0} is not yet supported", value);
 			return shader_data_type::unknown;
 		}
 	}
 
-	GLenum shader_data_type_to_opengl(shader_data_type value) noexcept {
-		switch (value) {
-		case shader_data_type::type_bool:
-			return GL_BOOL;
-
-		case shader_data_type::type_int:
-			return GL_INT;
-
-		case shader_data_type::type_ivec2:
-			return GL_INT;
-
-		case shader_data_type::type_ivec3:
-			return GL_INT;
-
-		case shader_data_type::type_ivec4:
-			return GL_INT;
-
-		case shader_data_type::type_float:
-			return GL_FLOAT;
-
-		case shader_data_type::type_vec2:
-			return GL_FLOAT;
-
-		case shader_data_type::type_vec3:
-			return GL_FLOAT;
-
-		case shader_data_type::type_vec4:
-			return GL_FLOAT;
-
-		case shader_data_type::type_mat3:
-			return GL_FLOAT;
-
-		case shader_data_type::type_mat4:
-			return GL_FLOAT;
-
-		case shader_data_type::unknown:
-		default:
-			CITADEL_PANIC("Unknown shader data type");
-			return 0;
-		}
-	}
-
 CITADEL_WARNING_IGNORE_POP
+
 }

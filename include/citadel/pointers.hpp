@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -14,17 +14,19 @@
 
 #pragma once
 
-#include "citadel/assert.hpp"
+#ifdef CITADEL_COMPATIBILITY
+	#include "citadel/debug/assert.hpp"
 
-#define CITADEL_POINTER_GET(pointer, property, placeholder) pointer ? pointer->property : placeholder
-#define CITADEL_POINTER_GET_OR_NULL(pointer, property) CITADEL_POINTER_GET(pointer, property, nullptr)
+	#define CITADEL_POINTER_GET(pointer, property, placeholder) pointer ? pointer->property : placeholder
+	#define CITADEL_POINTER_GET_OR_NULL(pointer, property) CITADEL_POINTER_GET(pointer, property, nullptr)
 
-#define CITADEL_POINTER_SET(pointer, property, value) do { if (pointer) { pointer->property = value; } } while (0)
+	#define CITADEL_POINTER_SET(pointer, property, value) do { if (pointer) { pointer->property = value; } } while (0)
 
-#define CITADEL_POINTER_CALL(pointer, method, ...) do { if (pointer) { pointer->method(__VA_ARGS__); } } while (0)
-#define CITADEL_POINTER_CALL_RAW(pointer, method, ...) pointer->method(__VA_ARGS__)
-#define CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, placeholder, ...) pointer ? pointer->method(__VA_ARGS__) : placeholder
-#define CITADEL_POINTER_CALL_OR_FALSE(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, false, __VA_ARGS__)
-#define CITADEL_POINTER_CALL_OR_ZERO(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, 0, __VA_ARGS__)
+	#define CITADEL_POINTER_CALL(pointer, method, ...) do { if (pointer) { pointer->method(__VA_ARGS__); } } while (0)
+	#define CITADEL_POINTER_CALL_RAW(pointer, method, ...) pointer->method(__VA_ARGS__)
+	#define CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, placeholder, ...) pointer ? pointer->method(__VA_ARGS__) : placeholder
+	#define CITADEL_POINTER_CALL_OR_FALSE(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, false, __VA_ARGS__)
+	#define CITADEL_POINTER_CALL_OR_ZERO(pointer, method, ...) CITADEL_POINTER_CALL_OR_DEFAULT(pointer, method, 0, __VA_ARGS__)
 
-#define CITADEL_POINTER_RETURN_REFERENCE(pointer) CITADEL_SOFT_ASSERT(pointer, "Pointer " #pointer " is null"); return *pointer
+	#define CITADEL_POINTER_RETURN_REFERENCE(pointer) CITADEL_SOFT_ASSERT(pointer, "Pointer " #pointer " is null"); return *pointer
+#endif

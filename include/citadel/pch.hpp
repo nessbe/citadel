@@ -14,6 +14,11 @@
 
 #pragma once
 
+#include "citadel/warnings.hpp"
+
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
+
 #include <algorithm>
 #include <array>
 #include <charconv>
@@ -48,7 +53,6 @@
 #include <vector>
 
 #include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/exceptions.hpp"
@@ -57,7 +61,8 @@
 #include "citadel/platforms.hpp"
 #include "citadel/pointers.hpp"
 #include "citadel/pragma.hpp"
-#include "citadel/warnings.hpp"
+
+#include "citadel/debug/assert.hpp"
 
 #include "citadel/debug/exceptions/exception.hpp"
 #include "citadel/debug/exceptions/invalid_argument_error.hpp"
@@ -99,3 +104,5 @@
 
 #include <glad/glad.h>
 #include <glad/glad_wgl.h>
+
+CITADEL_WARNING_IGNORE_POP

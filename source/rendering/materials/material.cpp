@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,17 +25,18 @@ namespace citadel {
 		fragment_shader_(shader::create(api, name + "-fragment", shader_type::fragment, fragment_source)),
 		shader_program_(shader_program::create(api, name))
 	{
-		CITADEL_SOFT_ASSERT(vertex_shader_, "Failed to create vertex shader");
-		CITADEL_SOFT_ASSERT(fragment_shader_, "Failed to create fragment shader");
-		CITADEL_SOFT_ASSERT(shader_program_, "Failed to create shader program");
+		CITADEL_PRECONDITION(vertex_shader_, "Failed to create vertex shader");
+		CITADEL_PRECONDITION(fragment_shader_, "Failed to create fragment shader");
+		CITADEL_PRECONDITION(shader_program_, "Failed to create shader program");
 
-		CITADEL_POINTER_CALL(vertex_shader_, compile);
-		CITADEL_POINTER_CALL(fragment_shader_, compile);
+		vertex_shader_->compile();
+		fragment_shader_->compile();
 
-		CITADEL_POINTER_CALL(shader_program_, attach, vertex_shader_);
-		CITADEL_POINTER_CALL(shader_program_, attach, fragment_shader_);
+		shader_program_->attach(vertex_shader_);
+		shader_program_->attach(fragment_shader_);
 
-		if (CITADEL_POINTER_CALL_OR_FALSE(shader_program_, link)) {
+		if (shader_program_->link()) {
+			CITADEL_LOG_ERROR("Failed to link shader program. TODO: Replace this log with an exception");
 			fetch();
 		}
 	}
@@ -59,10 +60,10 @@ namespace citadel {
 		mat3_uniforms_.clear();
 		mat4_uniforms_.clear();
 
-		CITADEL_POINTER_CALL(shader_program_, fetch_uniforms);
+		shader_program_->fetch_uniforms();
 
 		using uniform_map = std::unordered_map<std::string, uniform_info>;
-		uniform_map uniforms = CITADEL_POINTER_CALL_OR_DEFAULT(shader_program_, get_uniforms, uniform_map());
+		uniform_map uniforms = shader_program_->get_uniforms();
 
 		for (const auto& [uniform_name, uniform] : uniforms) {
 			switch (uniform.type) {
@@ -111,13 +112,18 @@ namespace citadel {
 				break;
 
 			case shader_data_type::unknown:
+				CITADEL_UNREACHABLE("Shader data type must not be unknown");
+				break;
+
+			default:
+				CITADEL_UNREACHABLE("Unknown shader data type: {0}", uniform.type);
 				break;
 			}
 		}
 	}
 
 	void material::use() const {
-		CITADEL_POINTER_CALL(shader_program_, use);
+		shader_program_->use();
 	}
 
 #define CITADEL_APPLY_TYPE_UNIFORMS(type)                                                 \
@@ -149,69 +155,102 @@ namespace citadel {
 #undef CITADEL_APPLY_TYPE_UNIFORMS
 
 	void material::set_uniform_bool(const std::string& name, bool value) {
-		CITADEL_SOFT_ASSERT(bool_uniforms_.find(name) != bool_uniforms_.end(), "Boolean uniform '" + name + "' does not exist");
+		if (bool_uniforms_.find(name) == bool_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Boolean uniform '{0}' not found", name);
+			return;
+		}
 		bool_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_int(const std::string& name, int value) {
-		CITADEL_SOFT_ASSERT(int_uniforms_.find(name) != int_uniforms_.end(), "Integer uniform '" + name + "' does not exist");
+		if (int_uniforms_.find(name) == int_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Integer uniform '{0}' not found", name);
+			return;
+		}
 		int_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec2(const std::string& name, const ivec2& value) {
-		CITADEL_SOFT_ASSERT(ivec2_uniforms_.find(name) != ivec2_uniforms_.end(), "Integer 2D vector uniform '" + name + "' does not exist");
+		if (ivec2_uniforms_.find(name) == ivec2_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Integer 2D vector uniform '{0}' not found", name);
+			return;
+		}
 		ivec2_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec3(const std::string& name, const ivec3& value) {
-		CITADEL_SOFT_ASSERT(ivec3_uniforms_.find(name) != ivec3_uniforms_.end(), "Integer 3D vector uniform '" + name + "' does not exist");
+		if (ivec3_uniforms_.find(name) == ivec3_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Integer 3D vector uniform '{0}' not found", name);
+			return;
+		}
 		ivec3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_ivec4(const std::string& name, const ivec4& value) {
-		CITADEL_SOFT_ASSERT(ivec4_uniforms_.find(name) != ivec4_uniforms_.end(), "Integer 4D vector uniform '" + name + "' does not exist");
+		if (ivec4_uniforms_.find(name) == ivec4_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Integer 4D vector uniform '{0}' not found", name);
+			return;
+		}
 		ivec4_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_float(const std::string& name, float value) {
-		CITADEL_SOFT_ASSERT(float_uniforms_.find(name) != float_uniforms_.end(), "Floating point uniform '" + name + "' does not exist");
+		if (float_uniforms_.find(name) == float_uniforms_.end()) {
+			CITADEL_LOG_WARNING("Floating point uniform '{0}' not found", name);
+			return;
+		}
 		float_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec2(const std::string& name, const vec2& value) {
-		CITADEL_SOFT_ASSERT(vec2_uniforms_.find(name) != vec2_uniforms_.end(), "2D vector uniform '" + name + "' does not exist");
+		if (vec2_uniforms_.find(name) == vec2_uniforms_.end()) {
+			CITADEL_LOG_WARNING("2D vector uniform '{0}' not found", name);
+			return;
+		}
 		vec2_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec3(const std::string& name, const vec3& value) {
-		CITADEL_SOFT_ASSERT(vec3_uniforms_.find(name) != vec3_uniforms_.end(), "3D vector uniform '" + name + "' does not exist");
+		if (vec3_uniforms_.find(name) == vec3_uniforms_.end()) {
+			CITADEL_LOG_WARNING("3D vector uniform '{0}' not found", name);
+			return;
+		}
 		vec3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_vec4(const std::string& name, const vec4& value) {
-		CITADEL_SOFT_ASSERT(vec4_uniforms_.find(name) != vec4_uniforms_.end(), "4D vector uniform '" + name + "' does not exist");
+		if (vec4_uniforms_.find(name) == vec4_uniforms_.end()) {
+			CITADEL_LOG_WARNING("3D vector uniform '{0}' not found", name);
+			return;
+		}
 		vec4_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_mat3(const std::string& name, const mat3& value) {
-		CITADEL_SOFT_ASSERT(mat3_uniforms_.find(name) != mat3_uniforms_.end(), "3x3 matrix uniform '" + name + "' does not exist");
+		if (mat3_uniforms_.find(name) == mat3_uniforms_.end()) {
+			CITADEL_LOG_WARNING("3x3 matrix uniform '{0}' not found", name);
+			return;
+		}
 		mat3_uniforms_[name] = value;
 	}
 
 	void material::set_uniform_mat4(const std::string& name, const mat4& value) {
-		CITADEL_SOFT_ASSERT(mat4_uniforms_.find(name) != mat4_uniforms_.end(), "4x4 matrix uniform '" + name + "' does not exist");
+		if (mat4_uniforms_.find(name) == mat4_uniforms_.end()) {
+			CITADEL_LOG_WARNING("4x4 matrix uniform '{0}' not found", name);
+			return;
+		}
 		mat4_uniforms_[name] = value;
 	}
 
 	shader& material::vertex_shader() {
-		CITADEL_POINTER_RETURN_REFERENCE(vertex_shader_);
+		return *vertex_shader_;
 	}
 
 	shader& material::fragment_shader() {
-		CITADEL_POINTER_RETURN_REFERENCE(fragment_shader_);
+		return *fragment_shader_;
 	}
 
 	shader_program& material::shader_program() {
-		CITADEL_POINTER_RETURN_REFERENCE(shader_program_);
+		return *shader_program_;
 	}
 }

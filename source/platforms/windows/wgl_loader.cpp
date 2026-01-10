@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -40,10 +40,7 @@ namespace citadel {
 		dummy_window_class.hInstance = GetModuleHandle(NULL);
 		dummy_window_class.lpszClassName = CITADEL_UNIVERSAL_STRING("DummyCitadelWindow");
 
-		CITADEL_SOFT_ASSERT(
-			RegisterClass(&dummy_window_class),
-			"Failed to register dummy window class"
-		);
+		CITADEL_WIN32_CALL(RegisterClass(&dummy_window_class));
 
 		HWND dummy_window = CreateWindowEx(
 			0,
@@ -60,7 +57,7 @@ namespace citadel {
 			NULL
 		);
 
-		CITADEL_SOFT_ASSERT(dummy_window, "Failed to open dummy window");
+		CITADEL_ASSERT(dummy_window, "Failed to open Win32 dummy window");
 
 		HDC dummy_device_context = GetDC(dummy_window);
 
@@ -74,17 +71,14 @@ namespace citadel {
 		pixel_format_descriptor.cStencilBits = 8;
 
 		int pixel_format = ChoosePixelFormat(dummy_device_context, &pixel_format_descriptor);
-		CITADEL_SOFT_ASSERT(pixel_format != 0, "Failed to choose dummy window pixel format");
+		CITADEL_WIN32_LOG_LAST_ERROR();
 
-		CITADEL_SOFT_ASSERT(
-			SetPixelFormat(dummy_device_context, pixel_format, &pixel_format_descriptor),
-			"Failed to set dummy window pixel format"
-		);
+		CITADEL_WIN32_CALL(SetPixelFormat(dummy_device_context, pixel_format, &pixel_format_descriptor));
 
 		HGLRC dummy_rendering_context = wglCreateContext(dummy_device_context);
-		CITADEL_SOFT_ASSERT(dummy_rendering_context, "Failed to create dummy rendering context");
+		CITADEL_ASSERT(dummy_rendering_context, "Failed to create dummy WGL rendering context");
 
-		CITADEL_SOFT_ASSERT(
+		CITADEL_ASSERT(
 			wglMakeCurrent(dummy_device_context, dummy_rendering_context),
 			"Failed to make dummy rendering context current for dummy window"
 		);

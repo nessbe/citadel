@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -73,9 +73,9 @@ namespace citadel {
 		nodisc const std::string& get_title() const noexcept;
 		void set_title(const std::string& value);
 
-		nodisc layer_stack& get_layer_stack();
-		nodisc surface& get_surface() const;
-		nodisc rendering_context& get_rendering_context() const;
+		nodisc layer_stack& layer_stack();
+		nodisc surface& surface() const;
+		nodisc rendering_context& rendering_context() const;
 
 		nodisc dimension_type get_x() const noexcept;
 		void set_x(dimension_type value);
@@ -101,9 +101,9 @@ namespace citadel {
 	private:
 		std::string title_;
 
-		layer_stack layer_stack_;
-		scope<surface> surface_;
-		scope<rendering_context> rendering_context_;
+		class layer_stack layer_stack_;
+		scope<class surface> surface_;
+		scope<class rendering_context> rendering_context_;
 
 		clock_type::time_point last_frame_;
 

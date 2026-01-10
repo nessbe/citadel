@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,6 +24,6 @@ namespace sandbox {
 	void layer_attach(citadel::layer* layer);
 	void layer_detach(citadel::layer* layer);
 
-	bool layer_update(citadel::layer* layer, double update);
+	bool layer_update(citadel::layer* layer, double delta);
 	bool layer_render(citadel::layer* layer, const citadel::scope<citadel::surface>& surface);
 }

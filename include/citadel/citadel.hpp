@@ -15,7 +15,6 @@
 #pragma once
 
 #include "citadel/architectures.hpp"
-#include "citadel/assert.hpp"
 #include "citadel/attributes.hpp"
 #include "citadel/compilers.hpp"
 #include "citadel/exceptions.hpp"
@@ -39,6 +38,8 @@
 
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
+
+#include "citadel/debug/assert.hpp"
 
 #include "citadel/debug/exceptions/exception.hpp"
 #include "citadel/debug/exceptions/invalid_argument_error.hpp"

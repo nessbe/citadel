@@ -112,6 +112,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 		}
 
 		default:
+			CITADEL_UNREACHABLE("Unknown stream direction: {0}", direction);
 			return false;
 		}
 	}

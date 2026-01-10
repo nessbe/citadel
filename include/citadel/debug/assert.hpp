@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -29,11 +29,6 @@ namespace citadel {
 
 	template <typename... Arguments>
 	void assert(bool condition, const std::string& message, Arguments&&... arguments);
-
-	exported void soft_assert(bool condition);
-
-	template <typename... Arguments>
-	void soft_assert(bool condition, const std::string& message, Arguments&&... arguments);
 }
 
 #ifdef CITADEL_DEBUG
@@ -44,6 +39,9 @@ namespace citadel {
 	#define CITADEL_ASSERT(condition, message, ...)
 #endif
 
-#define CITADEL_SOFT_ASSERT(condition, message, ...) ::citadel::soft_assert(static_cast<bool>(condition), "Soft assertion failed (" #condition "): " message, ##__VA_ARGS__)
+#define CITADEL_UNREACHABLE(message, ...) CITADEL_PANIC(message, __VA_ARGS__)
 
-#include "citadel/assert.inl"
+#define CITADEL_PRECONDITION(condition, message, ...) CITADEL_ASSERT(condition, message, __VA_ARGS__)
+#define CITADEL_POSTCONDITION(condition, message, ...) CITADEL_ASSERT(condition, message, __VA_ARGS__)
+
+#include "citadel/debug/assert.inl"

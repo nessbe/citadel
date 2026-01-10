@@ -96,7 +96,7 @@ namespace citadel {
 		std::size_t message_size = formatted_message.size();
 
 		for (const sink_reference& sink : sinks_) {
-			CITADEL_POINTER_CALL(sink, write, message_buffer, static_cast<stream::size_type>(message_size));
+			sink->write(message_buffer, static_cast<stream::size_type>(message_size));
 		}
 	}
 }

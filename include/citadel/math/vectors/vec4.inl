@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -16,7 +16,7 @@
 
 #include <cmath>
 
-#include "citadel/assert.hpp"
+#include "citadel/debug/assert.hpp"
 
 namespace citadel {
 	template <typename T>

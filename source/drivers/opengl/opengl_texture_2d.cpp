@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -32,8 +32,8 @@ namespace citadel {
 			data_format_ = GL_RGB;
 		}
 
-		CITADEL_SOFT_ASSERT(internal_format_, "Internal format not supported");
-		CITADEL_SOFT_ASSERT(data_format_, "Data format not supported");
+		CITADEL_ASSERT(internal_format_ != 0, "2D texture internal format not supported (channel count: {0})", channel_count);
+		CITADEL_ASSERT(data_format_ != 0, "2D texture data format not supported (channel count: {0})", channel_count);
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &id_);
 		glTextureStorage2D(id_, 1, internal_format_, static_cast<GLsizei>(width), static_cast<GLsizei>(height));

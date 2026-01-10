@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -47,7 +47,7 @@ CITADEL_WARNING_IGNORE_POP
 			return log_level::error;
 
 		default:
-			CITADEL_PANIC("Unknown OpenGL debug severity");
+			CITADEL_UNREACHABLE("Unknown OpenGL debug severity: {0}", value);
 			return log_level::debug;
 		}
 	}
