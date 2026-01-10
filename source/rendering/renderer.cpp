@@ -15,6 +15,7 @@
 #include "citadel/pch.hpp"
 #include "citadel/rendering/renderer.hpp"
 
+#include "citadel/rendering/default_renderer.hpp"
 #include "citadel/rendering/render_command.hpp"
 
 namespace citadel {
@@ -26,7 +27,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 		switch (api) {
 		case rendering_api_type::none:
 			CITADEL_LOG_WARNING("No rendering API specified, using default one");
-			return make_scoped<renderer>();
+			return make_scoped<default_renderer>();
 
 		case rendering_api_type::opengl:
 			return nullptr;
@@ -66,7 +67,7 @@ CITADEL_WARNING_IGNORE_POP
 	}
 
 	void renderer::submit(const vertex_array& vertex_array, shader_program& shader, const transform_3d& transform) {
-		CITADEL_PRECONDITION(scene_data_.has_value(), "Current scene must not be null");
+		CITADEL_PRECONDITION(has_scene(), "Current scene must not be null");
 		_submit(vertex_array, shader, transform);
 	}
 
@@ -86,19 +87,7 @@ CITADEL_WARNING_IGNORE_POP
 		return scene_data_.has_value();
 	}
 
-	void renderer::_begin_scene(scene& scene) { }
-	void renderer::_end_scene() { }
-
-	void renderer::_submit(const vertex_array& vertex_array, shader_program& shader, const transform_3d& transform) {
-		shader.use();
-		const scene::data& data = scene_data_.value();
-
-		shader.set_uniform_mat4("view", data.view);
-		shader.set_uniform_mat4("projection", data.projection);
-		shader.set_uniform_mat4("transform", transform);
-
-		render_command::draw_indexed(vertex_array);
+	scene::data& renderer::scene_data() {
+		return scene_data_.value();
 	}
-
-	void renderer::_flush() { }
 }

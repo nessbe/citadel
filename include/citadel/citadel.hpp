@@ -152,6 +152,7 @@
 #include "citadel/platforms/windows/windows_window.hpp"
 
 #include "citadel/rendering/color.hpp"
+#include "citadel/rendering/default_renderer.hpp"
 #include "citadel/rendering/render_command.hpp"
 #include "citadel/rendering/renderer.hpp"
 #include "citadel/rendering/rendering_api.hpp"

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -55,16 +55,17 @@ namespace citadel {
 		void flush();
 
 		nodisc bool has_scene() const noexcept;
+		nodisc scene::data& scene_data();
 
 	private:
 		std::optional<scene::data> scene_data_;
 
 	private:
-		virtual void _begin_scene(scene& scene);
-		virtual void _end_scene();
+		virtual void _begin_scene(scene& scene) = 0;
+		virtual void _end_scene() = 0;
 
-		virtual void _submit(const vertex_array& vertex_array, shader_program& shader, const transform_3d& transform);
-		virtual void _flush();
+		virtual void _submit(const vertex_array& vertex_array, shader_program& shader, const transform_3d& transform) = 0;
+		virtual void _flush() = 0;
 	};
 }
 
