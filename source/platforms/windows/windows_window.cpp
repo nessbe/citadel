@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -37,7 +37,7 @@ namespace citadel {
 	windows_window::windows_window(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title)
 		: window(rendering_api, x, y, width, height, title), window_(nullptr), instance_(GetModuleHandle(NULL))
 	{
-		CITADEL_SOFT_ASSERT(instance_, "Failed to get module handle");
+		CITADEL_PRECONDITION(instance_ != nullptr, "Failed to get module handle");
 
 		if (instance_count_ <= 0) {
 			register_class(class_name);
@@ -67,15 +67,13 @@ namespace citadel {
 			this
 		);
 
-		CITADEL_SOFT_ASSERT(window_, "Failed to create window");
+		CITADEL_POSTCONDITION(window_ != nullptr, "Failed to create Windows window handle");
 	}
 
 	windows_window::windows_window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title)
 		: windows_window(rendering_api, 0, 0, width, height, title) { }
 
 	windows_window::~windows_window() {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
-
 		DestroyWindow(window_);
 
 		if (instance_count_ <= 0) {
@@ -86,13 +84,12 @@ namespace citadel {
 	std::size_t windows_window::instance_count_ = 0;
 
 	LRESULT windows_window::window_procedure(HWND handle, UINT message, WPARAM wide_parameter, LPARAM long_parameter) {
-		CITADEL_SOFT_ASSERT(handle, "The given window handle is null");
+		CITADEL_PRECONDITION(handle, "Window handle is null");
 
 		if (message == WM_CREATE) {
 			CREATESTRUCT* create_struct = reinterpret_cast<CREATESTRUCT*>(long_parameter);
-			CITADEL_SOFT_ASSERT(create_struct, "Failed to retrieve create struct");
 
-			void* raw_pointer = CITADEL_POINTER_GET_OR_NULL(create_struct, lpCreateParams);
+			void* raw_pointer = create_struct->lpCreateParams;
 			LONG_PTR long_pointer = reinterpret_cast<LONG_PTR>(raw_pointer);
 
 			SetWindowLongPtr(handle, GWLP_USERDATA, long_pointer);
@@ -105,26 +102,22 @@ namespace citadel {
 			int x = GET_X_LPARAM(long_parameter);
 			int y = GET_Y_LPARAM(long_parameter);
 
-			CITADEL_SOFT_ASSERT(window, "Failed to retrieve Windows window");
+			window->x_ = static_cast<surface::dimension_type>(x);
+			window->y_ = static_cast<surface::dimension_type>(y);
 
-			CITADEL_POINTER_SET(window, x_, static_cast<dimension_type>(x));
-			CITADEL_POINTER_SET(window, y_, static_cast<dimension_type>(y));
-
-			CITADEL_POINTER_CALL(window, get_surface().set_x, static_cast<dimension_type>(x));
-			CITADEL_POINTER_CALL(window, get_surface().set_y, static_cast<dimension_type>(y));
+			window->surface().set_x(static_cast<surface::dimension_type>(x));
+			window->surface().set_y(static_cast<surface::dimension_type>(y));
 		} break;
 
 		case WM_SIZE: {
 			int width = GET_X_LPARAM(long_parameter);
 			int height = GET_Y_LPARAM(long_parameter);
 
-			CITADEL_ASSERT(window, "Failed to retrieve Windows window");
+			window->width_ = static_cast<surface::dimension_type>(width);
+			window->height_ = static_cast<surface::dimension_type>(height);
 
-			CITADEL_POINTER_SET(window, width_, static_cast<dimension_type>(width));
-			CITADEL_POINTER_SET(window, height_, static_cast<dimension_type>(height));
-
-			CITADEL_POINTER_CALL(window, get_surface().set_width, static_cast<dimension_type>(width));
-			CITADEL_POINTER_CALL(window, get_surface().set_height, static_cast<dimension_type>(height));
+			window->surface().set_width(static_cast<surface::dimension_type>(width));
+			window->surface().set_height(static_cast<surface::dimension_type>(height));
 		} break;
 
 		case WM_CREATE:
@@ -156,8 +149,6 @@ namespace citadel {
 	}
 
 	void windows_window::move_window(dimension_type x, dimension_type y, dimension_type width, dimension_type height) const {
-		CITADEL_ASSERT(window_, "Window handle is null");
-
 		RECT rect = calculate_rect(x, y, width, height);
 
 		MoveWindow(
@@ -176,28 +167,22 @@ namespace citadel {
 	}
 
 	void windows_window::_show() {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
 		ShowWindow(window_, SW_SHOW);
 	}
 
 	void windows_window::_hide() {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
 		ShowWindow(window_, SW_HIDE);
 	}
 
 	void windows_window::_maximize() {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
 		ShowWindow(window_, SW_MAXIMIZE);
 	}
 
 	void windows_window::_minimize() {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
 		ShowWindow(window_, SW_MINIMIZE);
 	}
 
 	bool windows_window::_update(double delta) {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
-
 		MSG message = { };
 
 		while (PeekMessage(&message, window_, 0, 0, PM_REMOVE)) {
@@ -221,7 +206,6 @@ namespace citadel {
 	}
 
 	void windows_window::_set_title(const std::string& value) {
-		CITADEL_SOFT_ASSERT(window_, "Window handle is null");
 		universal_string title(value.begin(), value.end());
 		SetWindowText(window_, title.c_str());
 	}

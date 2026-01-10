@@ -19,7 +19,7 @@ namespace citadel {
 	sink::sink(const reference<random_access_stream>& stream)
 		: stream_(stream)
 	{
-		CITADEL_CHECK_ARGUMENT(stream, stream == nullptr);
+		CITADEL_PRECONDITION(stream != nullptr, "Stream must not be null");
 	}
 
 	sink::~sink() {

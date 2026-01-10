@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -70,7 +70,7 @@ namespace citadel {
 		void set_uniform_mat4(const std::string& name, const mat4& value);
 
 		nodisc bool uniform_exists(const std::string& name) const;
-		nodisc const uniform_info& get_uniform(const std::string& name) const;
+		nodisc uniform_info get_uniform(const std::string& name) const;
 		nodisc const std::unordered_map<std::string, uniform_info>& get_uniforms() const noexcept;
 		nodisc std::size_t uniform_count() const noexcept;
 

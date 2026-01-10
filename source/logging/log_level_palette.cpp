@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -30,7 +30,12 @@ namespace citadel {
 	log_level_palette::log_level_palette(const std::unordered_map<log_level, ansi_color>& palette)
 		: palette_(palette)
 	{
-		CITADEL_SOFT_ASSERT(palette_.size() == log_levels.size(), "Failed to initialize log level palette successfully");
+		CITADEL_PRECONDITION(
+			palette.size() == static_cast<std::size_t>(log_level::count),
+			"Palette size must be equal to log level count (log_level::count) ({0} != {1})",
+			palette.size(),
+			log_level::count
+		);
 	}
 
 	log_level_palette::log_level_palette()

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -23,7 +23,7 @@ namespace citadel {
 	scope<window> window::create(rendering_api_type rendering_api, dimension_type x, dimension_type y, dimension_type width, dimension_type height, const std::string& title) {
 #if CITADEL_PLATFORM_WINDOWS
 		scope<windows_window> window = make_scoped<windows_window>(rendering_api, x, y, width, height, title);
-		CITADEL_POINTER_CALL(window, initialize, rendering_api);
+		window->initialize(rendering_api);
 		return window;
 
 #else
@@ -117,10 +117,10 @@ namespace citadel {
 	}
 
 	void window::begin_frame() {
-		CITADEL_POINTER_CALL(rendering_context_, bind);
-		CITADEL_POINTER_CALL(surface_, bind);
+		rendering_context_->bind();
+		surface_->bind();
 
-		CITADEL_POINTER_CALL(surface_, clear);
+		surface_->clear();
 		_begin_frame();
 
 		CITADEL_LOG_DEBUG("Beginning '{0}' window's frame", title_);
@@ -129,11 +129,11 @@ namespace citadel {
 	void window::end_frame() {
 		_end_frame();
 
-		CITADEL_POINTER_CALL(surface_, present);
-		CITADEL_POINTER_CALL(rendering_context_, swap_buffers);
+		surface_->present();
+		rendering_context_->swap_buffers();
 
-		CITADEL_POINTER_CALL(surface_, unbind);
-		CITADEL_POINTER_CALL(rendering_context_, unbind);
+		surface_->unbind();
+		rendering_context_->unbind();
 
 		CITADEL_LOG_DEBUG("Ending '{0}' window's frame", title_);
 	}
@@ -151,16 +151,16 @@ namespace citadel {
 		title_ = value;
 	}
 
-	layer_stack& window::get_layer_stack() {
+	layer_stack& window::layer_stack() {
 		return layer_stack_;
 	}
 
-	surface& window::get_surface() const {
-		CITADEL_POINTER_RETURN_REFERENCE(surface_);
+	surface& window::surface() const {
+		return *surface_;
 	}
 
-	rendering_context& window::get_rendering_context() const {
-		CITADEL_POINTER_RETURN_REFERENCE(rendering_context_);
+	rendering_context& window::rendering_context() const {
+		return *rendering_context_;
 	}
 
 	window::dimension_type window::get_x() const noexcept {
@@ -171,7 +171,7 @@ namespace citadel {
 		_set_x(value);
 		x_ = value;
 
-		CITADEL_POINTER_CALL(surface_, set_x, value);
+		surface_->set_x(value);
 	}
 
 	window::dimension_type window::get_y() const noexcept {
@@ -182,7 +182,7 @@ namespace citadel {
 		_set_y(value);
 		y_ = value;
 
-		CITADEL_POINTER_CALL(surface_, set_y, value);
+		surface_->set_y(value);
 	}
 
 	window::dimension_type window::get_width() const noexcept {
@@ -193,7 +193,7 @@ namespace citadel {
 		_set_width(value);
 		width_ = value;
 
-		CITADEL_POINTER_CALL(surface_, set_width, value);
+		surface_->set_width(value);
 	}
 
 	window::dimension_type window::get_height() const noexcept {
@@ -204,7 +204,7 @@ namespace citadel {
 		_set_height(value);
 		height_ = value;
 
-		CITADEL_POINTER_CALL(surface_, set_height, value);
+		surface_->set_height(value);
 	}
 
 	bool window::is_vsync() const noexcept {
@@ -226,9 +226,9 @@ namespace citadel {
 
 	void window::initialize(rendering_api_type rendering_api) {
 		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_value, color::max_value, color::max_value, color::max_value));
-		CITADEL_CHECK_NULL_REFERENCE(surface_);
-
 		rendering_context_ = rendering_context::create(rendering_api, this);
-		CITADEL_CHECK_NULL_REFERENCE(rendering_context_);
+
+		CITADEL_POSTCONDITION(surface_ != nullptr, "Failed to create surface");
+		CITADEL_POSTCONDITION(rendering_context_ != nullptr, "Failted to create rendering context");
 	}
 }

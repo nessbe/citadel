@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -14,9 +14,10 @@
 
 #pragma once
 
-#include "citadel/assert.hpp"
 #include "citadel/export.hpp"
 #include "citadel/platforms.hpp"
+
+#include "citadel/debug/assert.hpp"
 
 #include "citadel/core/application.hpp"
 #include "citadel/core/exit_code.hpp"
@@ -31,10 +32,10 @@ namespace citadel {
 		CITADEL_ASSERT(application, "Failed to create application");
 
 		application::instance_ = application;
-		CITADEL_POINTER_CALL(application, initialize);
+		application->initialize();
 
-		exit_code exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(application, run, exit_code::failure);
-		CITADEL_POINTER_CALL(application, shutdown);
+		exit_code exit_code = application->run();
+		application->shutdown();
 
 		application::instance_ = nullptr;
 		delete application;

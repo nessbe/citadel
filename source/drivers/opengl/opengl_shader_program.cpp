@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -24,7 +24,7 @@ namespace citadel {
 		: shader_program(name)
 	{
 		id_ = glCreateProgram();
-		CITADEL_SOFT_ASSERT(id_, "Failed to create OpenGL shader program");
+		CITADEL_ASSERT(id_ != 0, "Failed to create OpenGL shader program");
 	}
 
 	opengl_shader_program::~opengl_shader_program() {
@@ -61,10 +61,10 @@ namespace citadel {
 			GLint log_length = 0;
 			glGetProgramiv(id_, GL_INFO_LOG_LENGTH, &log_length);
 
-			std::string log(static_cast<std::size_t>(log_length), '\0');
-			glGetProgramInfoLog(id_, log_length, nullptr, &log[0]);
+			std::string log_message(static_cast<std::size_t>(log_length), '\0');
+			glGetProgramInfoLog(id_, log_length, nullptr, &log_message[0]);
 
-			std::cerr << "[CITADEL][ERROR][SHADER_PROGRAM] " << log << std::endl;
+			CITADEL_LOG_ERROR("OpenGL shader program linking error: {0}", log_message);
 			return false;
 		}
 
@@ -76,93 +76,126 @@ namespace citadel {
 	}
 
 	void opengl_shader_program::_attach(const reference<shader>& shader) {
-		reference<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
-		CITADEL_SOFT_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
+		reference<opengl_shader> opengl_shader = std::dynamic_pointer_cast<class opengl_shader>(shader);
+		CITADEL_ASSERT(opengl_shader, "Shader must be an OpenGL shader");
 
-		if (driver_shader) {
-			opengl_shader::id_type shader_id = driver_shader->get_id();
+		if (opengl_shader) {
+			opengl_shader::id_type shader_id = opengl_shader->get_id();
 			glAttachShader(id_, shader_id);
 		}
 	}
 
 	void opengl_shader_program::_detach(const reference<shader>& shader) {
-		reference<opengl_shader> driver_shader = std::dynamic_pointer_cast<opengl_shader>(shader);
-		CITADEL_SOFT_ASSERT(driver_shader, "The given shader is not a valid OpenGL shader");
+		reference<opengl_shader> opengl_shader = std::dynamic_pointer_cast<class opengl_shader>(shader);
+		CITADEL_ASSERT(opengl_shader, "Shader must be an OpenGL shader");
 
-		if (driver_shader) {
-			opengl_shader::id_type shader_id = driver_shader->get_id();
+		if (opengl_shader) {
+			opengl_shader::id_type shader_id = opengl_shader->get_id();
 			glDetachShader(id_, shader_id);
 		}
 	}
 
+CITADEL_WARNING_IGNORE_PUSH
+CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
+
 	void opengl_shader_program::_set_uniform_bool(const std::string& name, bool value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Boolean uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform1i(location, value);
 	}
 
 	void opengl_shader_program::_set_uniform_int(const std::string& name, int value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Integer uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform1i(location, value);
 	}
 
 	void opengl_shader_program::_set_uniform_ivec2(const std::string& name, const ivec2& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Integer 2D vector uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform2i(location, value.x, value.y);
 	}
 
 	void opengl_shader_program::_set_uniform_ivec3(const std::string& name, const ivec3& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Integer 3D vector uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform3i(location, value.x, value.y, value.z);
 	}
 
 	void opengl_shader_program::_set_uniform_ivec4(const std::string& name, const ivec4& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Integer 4D uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform4i(location, value.x, value.y, value.z, value.w);
 	}
 
 	void opengl_shader_program::_set_uniform_float(const std::string& name, float value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("Floating point uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform1f(location, value);
 	}
 
 	void opengl_shader_program::_set_uniform_vec2(const std::string& name, const vec2& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("2D vector uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform2f(location, value.x, value.y);
 	}
 
 	void opengl_shader_program::_set_uniform_vec3(const std::string& name, const vec3& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("3D vector uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
 	void opengl_shader_program::_set_uniform_vec4(const std::string& name, const vec4& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("4D vector uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
 	void opengl_shader_program::_set_uniform_mat3(const std::string& name, const mat3& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("3x3 matrix uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniformMatrix3fv(location, 1, GL_FALSE, value.data());
 	}
 
 	void opengl_shader_program::_set_uniform_mat4(const std::string& name, const mat4& value) {
 		GLint location = glGetUniformLocation(id_, name.c_str());
-		CITADEL_SOFT_ASSERT(location >= 0, "Uniform '" + name + "' not found in shader program " + std::to_string(id_));
+		if (location < 0) {
+			CITADEL_LOG_WARNING("4x4 matrix uniform '{0}' not found in OpenGL shader program {1}", name, id_);
+			return;
+		}
 		glUniformMatrix4fv(location, 1, GL_FALSE, value.data());
 	}
-
-CITADEL_WARNING_IGNORE_PUSH
-CITADEL_WARNING_IGNORE(CITADEL_WARNING_SPECTRE)
 
 	void opengl_shader_program::_fetch_uniforms() {
 		GLint uniform_count;

@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -25,15 +25,16 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 	scope<texture_2d> texture_2d::create(rendering_api_type api, const image& image) {
 		switch (api) {
 		case rendering_api_type::none:
-			CITADEL_PANIC("Rendering API cannot be none");
+			CITADEL_UNREACHABLE("Rendering API must not be none");
 			return nullptr;
 
 		case rendering_api_type::opengl:
 			return make_scoped<opengl_texture_2d>(image);
-		}
 
-		CITADEL_PANIC("Unknown rendering API");
-		return nullptr;
+		default:
+			CITADEL_UNREACHABLE("Unknown rendering API: {0}", api);
+			return nullptr;
+		}
 	}
 
 CITADEL_WARNING_IGNORE_POP

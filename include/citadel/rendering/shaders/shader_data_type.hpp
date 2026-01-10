@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -41,6 +41,6 @@ namespace citadel {
 	nodisc exported std::size_t shader_data_type_size(shader_data_type value) noexcept;
 	nodisc exported std::size_t shader_data_type_component_count(shader_data_type value) noexcept;
 
-	nodisc exported shader_data_type shader_data_type_from_opengl(GLenum value) noexcept;
 	nodisc exported GLenum shader_data_type_to_opengl(shader_data_type value) noexcept;
+	nodisc exported shader_data_type shader_data_type_from_opengl(GLenum value) noexcept;
 }

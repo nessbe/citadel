@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -18,6 +18,10 @@
 
 #include "citadel/platforms.hpp"
 
+#include "citadel/debug/assert.hpp"
+
+#include "citadel/logging/log_macros.hpp"
+
 #if CITADEL_PLATFORM_WINDOWS
 	#ifndef NOMINMAX
 		#define NOMINMAX 1
@@ -30,6 +34,22 @@
 	#undef near
 	#undef far
 #endif
+
+#define CITADEL_WIN32_LOG_LAST_ERROR()                                        \
+	do {                                                                  \
+		const DWORD error = GetLastError();                           \
+		if (error != NO_ERROR) {                                      \
+			CITADEL_LOG_FATAL("Detected Win32 error {0}", error); \
+		}                                                             \
+	} while (0)
+
+#define CITADEL_WIN32_CALL(function)                                                     \
+	do {                                                                             \
+		if (!(function)) {                                                       \
+			CITADEL_WIN32_LOG_LAST_ERROR();                                  \
+			CITADEL_PANIC("Failed to call Win32 function '{0}'", #function); \
+		}                                                                        \
+	} while (0)                                                                      \
 
 #ifdef UNICODE
 	#define CITADEL_UNIVERSAL_STRING(string) L##string

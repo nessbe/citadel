@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -30,10 +30,11 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 
 		case rendering_api_type::opengl:
 			return nullptr;
-		}
 
-		CITADEL_PANIC("Unknown rendering API");
-		return nullptr;
+		default:
+			CITADEL_UNREACHABLE("Unknown rendering API: {0}", api);
+			return nullptr;
+		}
 	}
 
 CITADEL_WARNING_IGNORE_POP
@@ -43,7 +44,10 @@ CITADEL_WARNING_IGNORE_POP
 	}
 
 	void renderer::begin_scene(scene& scene) {
-		CITADEL_CHECK_OPERATION("renderer::begin_scene", scene_data_.has_value());
+		if (scene_data_.has_value()) {
+			end_scene();
+		}
+
 		scene_data_ = scene.pack();
 
 		scene.refresh();
@@ -56,15 +60,13 @@ CITADEL_WARNING_IGNORE_POP
 	}
 
 	void renderer::end_scene() {
-		CITADEL_CHECK_OPERATION("renderer::end_scene", !scene_data_.has_value());
 		scene_data_.reset();
-
 		_end_scene();
 		flush();
 	}
 
 	void renderer::submit(const vertex_array& vertex_array, shader_program& shader, const transform_3d& transform) {
-		CITADEL_CHECK_OPERATION("renderer::submit", !scene_data_.has_value());
+		CITADEL_PRECONDITION(scene_data_.has_value(), "Current scene must not be null");
 		_submit(vertex_array, shader, transform);
 	}
 

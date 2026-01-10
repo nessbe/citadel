@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -19,7 +19,7 @@ namespace citadel {
 	scene::scene(const reference<class camera>& camera)
 		: camera_(camera)
 	{
-		CITADEL_CHECK_ARGUMENT(camera, camera == nullptr);
+		CITADEL_PRECONDITION(camera != nullptr, "Camera must not be null");
 	}
 
 	void scene::refresh() {
@@ -49,7 +49,7 @@ namespace citadel {
 	}
 
 	camera& scene::camera() const noexcept {
-		CITADEL_POINTER_RETURN_REFERENCE(camera_);
+		return *camera_;
 	}
 
 	scene::data scene::pack() const {

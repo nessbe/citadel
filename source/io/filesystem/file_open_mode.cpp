@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -35,7 +35,7 @@ CITADEL_WARNING_IGNORE(CITADEL_WARNING_UNREACHABLE_CODE)
 			return std::ios::in | std::ios::out | std::ios::trunc;
 
 		default:
-			CITADEL_PANIC("Unknown file open mode");
+			CITADEL_UNREACHABLE("Unknown file open mode: {0}", value);
 			return std::ios::in;
 		}
 	}

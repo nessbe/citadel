@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -20,7 +20,7 @@ namespace citadel {
 		: shader(name, type, source)
 	{
 		id_ = glCreateShader(get_opengl_type());
-		CITADEL_SOFT_ASSERT(id_, "Failed to create OpenGL shader");
+		CITADEL_ASSERT(id_ != 0, "Failed to create OpenGL shader");
 
 		const char* raw_source = source.c_str();
 		glShaderSource(id_, 1, &raw_source, nullptr);
@@ -69,10 +69,10 @@ namespace citadel {
 			GLint log_length = 0;
 			glGetShaderiv(id_, GL_INFO_LOG_LENGTH, &log_length);
 
-			std::string log(static_cast<std::size_t>(log_length), '\0');
-			glGetShaderInfoLog(id_, log_length, nullptr, &log[0]);
+			std::string log_message(static_cast<std::size_t>(log_length), '\0');
+			glGetShaderInfoLog(id_, log_length, nullptr, &log_message[0]);
 
-			std::cerr << "[CITADEL][ERROR][SHADER] " << log << std::endl;
+			CITADEL_LOG_ERROR("OpenGL shader compilation error: {0}", log_message);
 			return false;
 		}
 

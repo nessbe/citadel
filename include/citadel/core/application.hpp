@@ -49,14 +49,14 @@ namespace citadel {
 		nodisc std::size_t get_error_level() const noexcept;
 		void notify_error() noexcept;
 
-		nodisc engine& get_engine() const;
+		nodisc engine& engine() const;
 
 	private:
 		static application* instance_;
 
 		std::size_t error_level_ = 0;
 
-		scope<engine> engine_ = nullptr;
+		scope<class engine> engine_ = nullptr;
 
 	private:
 		virtual void _initialize() = 0;

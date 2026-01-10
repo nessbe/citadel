@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -23,9 +23,10 @@ namespace citadel {
 
 		case texture_format_type::data:
 			return "Data";
-		}
 
-		CITADEL_LOG_ERROR("Unknown texture format type");
-		return "Unknown";
+		default:
+			CITADEL_UNREACHABLE("Unknown texture format type: {0}", value);
+			return "Unknown";
+		}
 	}
 }

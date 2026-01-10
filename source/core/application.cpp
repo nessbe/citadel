@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -17,27 +17,28 @@
 
 namespace citadel {
 	application& application::get() {
-		CITADEL_POINTER_RETURN_REFERENCE(instance_);
+		return *instance_;
 	}
 
 	void application::initialize() {
-		engine_ = make_scoped<engine>();
-		CITADEL_POINTER_CALL(engine_, initialize);
+		engine_ = make_scoped<class engine>();
+		CITADEL_ASSERT(engine_ != nullptr, "Failed to create engine");
+
+		engine_->initialize();
 		_initialize();
 	}
 
 	exit_code application::run() {
-		exit_code engine_exit_code = CITADEL_POINTER_CALL_OR_DEFAULT(engine_, run, exit_code::failure);
+		exit_code engine_exit_code = engine_->run();
 		exit_code application_exit_code = _run();
 
 		exit_code exit_code = static_cast<enum exit_code>(engine_exit_code | application_exit_code);
-
 		return exit_code;
 	}
 
 	void application::shutdown() {
 		_shutdown();
-		CITADEL_POINTER_CALL(engine_, shutdown);
+		engine_->shutdown();
 		engine_ = nullptr;
 	}
 
@@ -54,8 +55,8 @@ namespace citadel {
 		error_level_++;
 	}
 
-	engine& application::get_engine() const {
-		CITADEL_POINTER_RETURN_REFERENCE(engine_);
+	engine& application::engine() const {
+		return *engine_;
 	}
 
 	application* application::instance_ = nullptr;

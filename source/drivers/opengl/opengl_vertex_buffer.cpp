@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -20,7 +20,7 @@ namespace citadel {
 		: vertex_buffer(size, layout)
 	{
 		glGenBuffers(1, &id_);
-		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
+		CITADEL_ASSERT(id_ != 0, "Failed to generate OpenGL vertex buffer");
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
@@ -31,7 +31,7 @@ namespace citadel {
 		: vertex_buffer(size, layout)
 	{
 		glGenBuffers(1, &id_);
-		CITADEL_SOFT_ASSERT(id_, "Failed to generate OpenGL vertex buffer");
+		CITADEL_ASSERT(id_ != 0, "Failed to generate OpenGL vertex buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, id_);
 		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(size), data, GL_STATIC_DRAW);

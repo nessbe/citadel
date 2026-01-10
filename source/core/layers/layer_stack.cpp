@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -18,13 +18,13 @@
 namespace citadel {
 	layer_stack::~layer_stack() {
 		for (const reference<layer>& layer : layers_) {
-			CITADEL_POINTER_CALL(layer, detach);
+			layer->detach();
 		}
 	}
 
 	void layer_stack::update(double delta) {
 		for (const reference<layer>& layer : layers_) {
-			if (CITADEL_POINTER_CALL_OR_FALSE(layer, update, delta)) {
+			if (layer->update(delta)) {
 				break;
 			}
 		}
@@ -32,22 +32,22 @@ namespace citadel {
 
 	void layer_stack::render(const scope<surface>& surface) {
 		for (const reference<layer>& layer : layers_) {
-			if (CITADEL_POINTER_CALL_OR_FALSE(layer, render, surface)) {
+			if (layer->render(surface)) {
 				break;
 			}
 		}
 	}
 
 	void layer_stack::push(const reference<layer>& layer) {
-		CITADEL_SOFT_ASSERT(layer, "The given layer is null");
+		CITADEL_PRECONDITION(layer != nullptr, "Layer must not be null");
 		layers_.push_back(layer);
-		CITADEL_POINTER_CALL(layer, attach);
+		layer->attach();
 	}
 
 	reference<layer> layer_stack::pop() {
 		reference<layer> layer = layers_.back();
 		layers_.pop_back();
-		CITADEL_POINTER_CALL(layer, detach);
+		layer->detach();
 		return layer;
 	}
 }

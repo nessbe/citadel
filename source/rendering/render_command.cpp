@@ -2,7 +2,7 @@
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025 nessbe
+// Copyright (c) 2025-2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -27,27 +27,27 @@ namespace citadel {
 
 	void render_command::set_api(rendering_api_type value) {
 		rendering_api_ = rendering_api::create(value);
-		CITADEL_SOFT_ASSERT(rendering_api_, "Failed to create rendering API");
+		CITADEL_POSTCONDITION(rendering_api_, "Failed to create rendering API");
 	}
 
 	void render_command::draw_indexed(const vertex_array& vertex_array, std::size_t vertex_count) {
-		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array, vertex_count);
+		rendering_api_->draw_indexed(vertex_array, vertex_count);
 	}
 
 	void render_command::draw_indexed(const vertex_array& vertex_array) {
-		CITADEL_POINTER_CALL(rendering_api_, draw_indexed, vertex_array);
+		rendering_api_->draw_indexed(vertex_array);
 	}
 
 	void render_command::draw_lines(const vertex_array& vertex_array, std::size_t vertex_count) {
-		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array, vertex_count);
+		rendering_api_->draw_lines(vertex_array, vertex_count);
 	}
 
 	void render_command::draw_lines(const vertex_array& vertex_array) {
-		CITADEL_POINTER_CALL(rendering_api_, draw_lines, vertex_array);
+		rendering_api_->draw_lines(vertex_array);
 	}
 
 	void render_command::set_line_width(float value) {
-		CITADEL_POINTER_CALL(rendering_api_, set_line_width, value);
+		rendering_api_->set_line_width(value);
 		line_width_ = value;
 	}
 
