@@ -32,14 +32,14 @@ namespace citadel {
 }
 
 #ifdef CITADEL_DEBUG
-	#define CITADEL_PANIC(message, ...) ::citadel::panic("Program panicked: " message, ##__VA_ARGS__)
-	#define CITADEL_ASSERT(condition, message, ...) ::citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message, ##__VA_ARGS__)
+	#define CITADEL_PANIC(message, ...) ::citadel::panic("Program panicked: " message __VA_OPT__(,) __VA_ARGS__)
+	#define CITADEL_ASSERT(condition, message, ...) ::citadel::assert(static_cast<bool>(condition), "Assertion failed (" #condition "): " message __VA_OPT__(,) __VA_ARGS__)
 #else
 	#define CITADEL_PANIC(message, ...)
 	#define CITADEL_ASSERT(condition, message, ...)
 #endif
 
-#define CITADEL_UNREACHABLE(message, ...) CITADEL_PANIC(message, __VA_ARGS__)
+#define CITADEL_UNREACHABLE(message, ...) CITADEL_PANIC(message __VA_OPT__(,) __VA_ARGS__)
 
 #define CITADEL_PRECONDITION(condition, message, ...) CITADEL_ASSERT(condition, message, __VA_ARGS__)
 #define CITADEL_POSTCONDITION(condition, message, ...) CITADEL_ASSERT(condition, message, __VA_ARGS__)
