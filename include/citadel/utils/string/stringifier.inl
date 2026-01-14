@@ -18,6 +18,8 @@
 
 #include "citadel/warnings.hpp"
 
+#include "citadel/utils/enumerations/enumeration_underlying.hpp"
+
 #include "citadel/utils/string/type_traits/adl_to_string.hpp"
 #include "citadel/utils/string/type_traits/has_free_to_string.hpp"
 #include "citadel/utils/string/type_traits/has_member_to_string.hpp"
@@ -78,6 +80,9 @@ CITADEL_WARNING_IGNORE_POP
 			std::ostringstream oss;
 			oss << value;
 			return oss.str();
+		}
+		else if constexpr (std::is_enum_v<decay_type>) {
+			return stringify(detail::enumeration_to_underlying(value));
 		}
 		else {
 			static_assert(detail::dependent_false_v<decay_type>, "Type T is not stringifiable");

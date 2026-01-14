@@ -190,6 +190,8 @@
 
 #include "citadel/scenes/scene.hpp"
 
+#include "citadel/utils/enumerations/enumeration_underlying.hpp"
+
 #include "citadel/utils/format/formatter.hpp"
 
 #include "citadel/utils/string/string_convertion.hpp"
