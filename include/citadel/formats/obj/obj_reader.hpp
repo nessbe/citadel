@@ -31,7 +31,7 @@
 #include "citadel/rendering/meshes/mesh.hpp"
 
 namespace citadel {
-	class exported obj_reader : public mesh_reader {
+	class CITADEL_API obj_reader : public mesh_reader {
 	public:
 		explicit obj_reader(const reference<random_access_stream>& stream);
 

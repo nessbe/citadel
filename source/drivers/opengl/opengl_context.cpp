@@ -27,7 +27,7 @@ namespace citadel {
 		const GLchar* message,
 		const void* user_parameters
 	) {
-		log_level level = opengl::debug_severity_to_log_level(severity);
+		log_level level = debug_severity_to_log_level(severity);
 		CITADEL_LOG(level, "OpenGL debug callback: {0}", message);
 
 		CITADEL_LOG(level, "\tSource: {0}", source);
