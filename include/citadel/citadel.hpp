@@ -195,4 +195,13 @@
 #include "citadel/utils/string/string_convertion.hpp"
 #include "citadel/utils/string/stringifier.hpp"
 
+#include "citadel/utils/string/type_traits/adl_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_free_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_member_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_ostream_operator.hpp"
+#include "citadel/utils/string/type_traits/has_std_to_string.hpp"
+#include "citadel/utils/string/type_traits/is_stringifiable.hpp"
+
+#include "citadel/utils/type_traits/dependent_false.hpp"
+
 #include "citadel/utils/variadic/variadic_accessor.hpp"

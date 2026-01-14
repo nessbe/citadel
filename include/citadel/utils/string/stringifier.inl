@@ -18,6 +18,15 @@
 
 #include "citadel/warnings.hpp"
 
+#include "citadel/utils/string/type_traits/adl_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_free_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_member_to_string.hpp"
+#include "citadel/utils/string/type_traits/has_ostream_operator.hpp"
+#include "citadel/utils/string/type_traits/has_std_to_string.hpp"
+#include "citadel/utils/string/type_traits/is_stringifiable.hpp"
+
+#include "citadel/utils/type_traits/dependent_false.hpp"
+
 namespace citadel {
 
 CITADEL_WARNING_IGNORE_PUSH
@@ -52,27 +61,28 @@ CITADEL_WARNING_IGNORE_POP
 	template <typename T>
 	std::string stringifier::stringify(const T& value) {
 		using decay_type = std::decay_t<T>;
-		decay_type decay_value(value);
 
 		if constexpr (is_stringifiable_v<decay_type>) {
 			return stringifiable<decay_type>::to_string(value);
 		}
-		else if constexpr (has_free_to_string_v<decay_type>) {
-			return ::to_string(decay_value);
-		}
 		else if constexpr (has_member_to_string_v<decay_type>) {
-			return decay_value.to_string();
+			return value.to_string();
+		}
+		else if constexpr (has_free_to_string_v<decay_type>) {
+			return detail::adl_to_string(value);
 		}
 		else if constexpr (has_std_to_string_v<decay_type>) {
-			return std::to_string(decay_value);
+			return std::to_string(value);
 		}
 		else if constexpr (has_ostream_operator_v<decay_type>) {
 			std::ostringstream oss;
-			oss << decay_value;
+			oss << value;
 			return oss.str();
 		}
-
-		return "<null>";
+		else {
+			static_assert(detail::dependent_false_v<decay_type>, "Type T is not stringifiable");
+			return "<null>";
+		}
 	}
 
 CITADEL_WARNING_IGNORE_POP
