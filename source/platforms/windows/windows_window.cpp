@@ -74,8 +74,6 @@ namespace citadel {
 		: windows_window(rendering_api, 0, 0, width, height, title) { }
 
 	windows_window::~windows_window() {
-		DestroyWindow(window_);
-
 		if (instance_count_ <= 0) {
 			unregister_class(class_name);
 		}
@@ -129,7 +127,16 @@ namespace citadel {
 			return 0;
 
 		case WM_DESTROY:
-			PostQuitMessage(0);
+			instance_count_--;
+
+			if (instance_count_ <= 0) {
+				PostQuitMessage(0);
+			}
+
+			return 0;
+
+		case WM_NCDESTROY:
+			window->set_should_close(true);
 			return 0;
 		}
 
@@ -185,11 +192,7 @@ namespace citadel {
 	bool windows_window::_update(double delta) {
 		MSG message = { };
 
-		while (PeekMessage(&message, window_, 0, 0, PM_REMOVE)) {
-			if (message.message == WM_QUIT) {
-				return false;
-			}
-
+		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}

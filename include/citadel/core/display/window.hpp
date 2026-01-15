@@ -93,10 +93,12 @@ namespace citadel {
 		void set_vsync(bool value);
 
 		CITADEL_NODISCARD bool should_close() const noexcept;
+		void set_should_close(bool value) noexcept;
+
 		CITADEL_NODISCARD bool is_visible() const noexcept;
 
 	protected:
-		dimension_type x_, y_, width_, height_;		
+		dimension_type x_, y_, width_, height_;
 
 	private:
 		std::string title_;

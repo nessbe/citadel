@@ -94,6 +94,10 @@ namespace citadel {
 	}
 
 	bool window::update() {
+		if (should_close()) {
+			return false;
+		}
+
 		clock_type::time_point now = clock_type::now();
 		std::chrono::duration<double> elapsed_time = now - last_frame_;
 		double delta_time = elapsed_time.count();
@@ -102,11 +106,11 @@ namespace citadel {
 		layer_stack_.update(delta_time);
 
 		if (!result) {
-			CITADEL_LOG_INFO("Window '{0}' should now close", title_);
-			should_close_ = true;
+			set_should_close(true);
+			return false;
 		}
 
-		last_frame_ = clock_type::now();
+		last_frame_ = now;
 
 		return result;
 	}
@@ -220,6 +224,11 @@ namespace citadel {
 		return should_close_;
 	}
 
+	void window::set_should_close(bool value) noexcept {
+		CITADEL_LOG_INFO("Window '{0}' should now close", title_);
+		should_close_ = value;
+	}
+
 	bool window::is_visible() const noexcept {
 		return is_visible_;
 	}
@@ -229,6 +238,6 @@ namespace citadel {
 		rendering_context_ = rendering_context::create(rendering_api, this);
 
 		CITADEL_POSTCONDITION(surface_ != nullptr, "Failed to create surface");
-		CITADEL_POSTCONDITION(rendering_context_ != nullptr, "Failted to create rendering context");
+		CITADEL_POSTCONDITION(rendering_context_ != nullptr, "Failed to create rendering context");
 	}
 }
