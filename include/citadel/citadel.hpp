@@ -34,6 +34,8 @@
 #include "citadel/core/display/surface.hpp"
 #include "citadel/core/display/window.hpp"
 
+#include "citadel/core/events/event.hpp"
+
 #include "citadel/core/extensions/extension_loader.hpp"
 
 #include "citadel/core/layers/layer.hpp"
