@@ -31,8 +31,20 @@ namespace citadel {
 	}
 
 	void layer_stack::render(const scope<surface>& surface) {
+		CITADEL_PRECONDITION(surface != nullptr, "Surface must not be null");
+
 		for (const reference<layer>& layer : layers_) {
 			if (layer->render(surface)) {
+				break;
+			}
+		}
+	}
+
+	void layer_stack::handle(const event_reference& event) {
+		CITADEL_PRECONDITION(event != nullptr, "Event must not be null");
+
+		for (const reference<layer>& layer : layers_) {
+			if (layer->handle(event) || event->consumed()) {
 				break;
 			}
 		}

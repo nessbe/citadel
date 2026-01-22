@@ -27,10 +27,14 @@ namespace sandbox {
 	void layer_detach(citadel::layer* layer) { }
 
 	bool layer_update(citadel::layer* layer, double delta) {
-		return true;
+		return false;
 	}
 
 	bool layer_render(citadel::layer* layer, const citadel::scope<citadel::surface>& surface) {
-		return true;
+		return false;
+	}
+
+	bool layer_handle(citadel::layer* layer, const citadel::event_reference& event) {
+		return false;
 	}
 }

@@ -19,6 +19,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/core/events/event.hpp"
+
 #include "citadel/core/layers/layer.hpp"
 
 #include "citadel/memory/reference.hpp"
@@ -32,6 +34,8 @@ namespace citadel {
 
 		void update(double delta);
 		void render(const scope<surface>& surface);
+
+		void handle(const event_reference& event);
 
 		void push(const reference<layer>& layer);
 		reference<layer> pop();

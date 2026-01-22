@@ -17,6 +17,8 @@
 #include "citadel/attributes.hpp"
 #include "citadel/export.hpp"
 
+#include "citadel/memory/reference.hpp"
+
 namespace citadel {
 	class CITADEL_API event {
 	public:
@@ -31,4 +33,6 @@ namespace citadel {
 	private:
 		virtual void _consume() noexcept = 0;
 	};
+
+	using event_reference = reference<event>;
 }

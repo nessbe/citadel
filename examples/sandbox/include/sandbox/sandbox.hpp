@@ -26,4 +26,6 @@ namespace sandbox {
 
 	bool layer_update(citadel::layer* layer, double delta);
 	bool layer_render(citadel::layer* layer, const citadel::scope<citadel::surface>& surface);
+
+	bool layer_handle(citadel::layer* layer, const citadel::event_reference& event);
 }
