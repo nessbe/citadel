@@ -25,6 +25,8 @@
 
 #include "citadel/core/display/surface.hpp"
 
+#include "citadel/core/handles/handle.hpp"
+
 #include "citadel/core/layers/layer_stack.hpp"
 
 #include "citadel/memory/scope.hpp"
@@ -36,6 +38,11 @@ CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
+	class window;
+
+	struct window_tag { };
+	using window_handle = handle<window_tag>;
+
 	class CITADEL_API window {
 	public:
 		using dimension_type = std::uint32_t;
@@ -77,6 +84,8 @@ namespace citadel {
 		CITADEL_NODISCARD surface& surface() const;
 		CITADEL_NODISCARD rendering_context& rendering_context() const;
 
+		CITADEL_NODISCARD const window_handle& handle() const noexcept;
+
 		CITADEL_NODISCARD dimension_type get_x() const noexcept;
 		void set_x(dimension_type value);
 
@@ -108,6 +117,8 @@ namespace citadel {
 		scope<class rendering_context> rendering_context_;
 
 		clock_type::time_point last_frame_;
+
+		window_handle handle_;
 
 		bool is_vsync_ = false;
 

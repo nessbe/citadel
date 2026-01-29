@@ -38,6 +38,8 @@
 
 #include "citadel/core/extensions/extension_loader.hpp"
 
+#include "citadel/core/handles/handle.hpp"
+
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
 

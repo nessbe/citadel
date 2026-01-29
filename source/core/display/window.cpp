@@ -167,6 +167,10 @@ namespace citadel {
 		return *rendering_context_;
 	}
 
+	const window_handle& window::handle() const noexcept {
+		return handle_;
+	}
+
 	window::dimension_type window::get_x() const noexcept {
 		return x_;
 	}

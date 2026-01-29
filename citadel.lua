@@ -15,7 +15,7 @@
 project "citadel"
 	kind "StaticLib"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 
 	targetdir("build/bin")
 	objdir("build/obj")
@@ -57,6 +57,7 @@ project "citadel"
 		buildoptions {
 			"/Wall",
 			"/Qspectre",
+			"/Zc:preprocessor",
 			"/wd28251",
 			"/wd4100",
 			"/wd4514"
