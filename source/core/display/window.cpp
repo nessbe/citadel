@@ -56,7 +56,8 @@ namespace citadel {
 		height_(height),
 		title_(title),
 		surface_(nullptr),
-		rendering_context_(nullptr)
+		rendering_context_(nullptr),
+		handle_(handle_factory_.acquire())
 	{ }
 
 	window::window(rendering_api_type rendering_api, dimension_type width, dimension_type height, const std::string& title)

@@ -26,8 +26,11 @@
 #include "citadel/core/display/surface.hpp"
 
 #include "citadel/core/handles/handle.hpp"
+#include "citadel/core/handles/handle_factory.hpp"
 
 #include "citadel/core/layers/layer_stack.hpp"
+
+#include "citadel/core/policies/sequential_policy.hpp"
 
 #include "citadel/memory/scope.hpp"
 
@@ -41,7 +44,9 @@ namespace citadel {
 	class window;
 
 	struct window_tag { };
+
 	using window_handle = handle<window_tag>;
+	using window_handle_factory = handle_factory<window_tag, sequencial_policy>;
 
 	class CITADEL_API window {
 	public:
@@ -110,6 +115,8 @@ namespace citadel {
 		dimension_type x_, y_, width_, height_;
 
 	private:
+		static window_handle_factory handle_factory_;
+
 		std::string title_;
 
 		class layer_stack layer_stack_;
