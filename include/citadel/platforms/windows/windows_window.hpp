@@ -23,6 +23,8 @@
 
 #include "citadel/core/display/window.hpp"
 
+#include "citadel/core/events/event.hpp"
+
 #include "citadel/platforms/windows.hpp"
 
 CITADEL_WARNING_IGNORE_PUSH
@@ -68,10 +70,12 @@ namespace citadel {
 		virtual void _minimize() override;
 
 		virtual bool _update(double delta) override;
-		virtual void _render() override;
 
+		virtual void _render() override;
 		virtual void _begin_frame() override;
 		virtual void _end_frame() override;
+
+		virtual void _event(const event_reference& event) override;
 
 		virtual void* _get_native_handle() const override;
 

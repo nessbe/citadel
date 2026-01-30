@@ -204,6 +204,8 @@ namespace citadel {
 	void windows_window::_begin_frame() { }
 	void windows_window::_end_frame() { }
 
+	void windows_window::_event(const event_reference& event) { }
+
 	void* windows_window::_get_native_handle() const {
 		return window_;
 	}

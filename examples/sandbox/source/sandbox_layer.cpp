@@ -33,7 +33,7 @@ namespace sandbox {
 		return layer_render(this, surface);
 	}
 
-	bool sandbox_layer::_handle(const citadel::event_reference& event) {
-		return layer_handle(this, event);
+	bool sandbox_layer::_event(const citadel::event_reference& event) {
+		return layer_event(this, event);
 	}
 }

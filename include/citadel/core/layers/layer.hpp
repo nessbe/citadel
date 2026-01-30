@@ -34,7 +34,7 @@ namespace citadel {
 		bool update(double delta);
 		bool render(const scope<surface>& surface);
 
-		bool handle(const event_reference& event);
+		bool event(const event_reference& event);
 
 	private:
 		virtual void _attach() = 0;
@@ -43,6 +43,6 @@ namespace citadel {
 		virtual bool _update(double delta) = 0;
 		virtual bool _render(const scope<surface>& surface) = 0;
 
-		virtual bool _handle(const event_reference& event) = 0;
+		virtual bool _event(const event_reference& event) = 0;
 	};
 }

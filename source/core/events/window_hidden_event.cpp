@@ -1,8 +1,8 @@
-// File:       layer.cpp
+// File:       window_hidden_event.cpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025-2026 nessbe
+// Copyright (c) 2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -13,26 +13,15 @@
 // See the LICENSE file for details.
 
 #include "citadel/pch.hpp"
-#include "citadel/core/layers/layer.hpp"
+#include "citadel/core/events/window_hidden_event.hpp"
 
 namespace citadel {
-	void layer::attach() {
-		_attach();
+	window_hidden_event::window_hidden_event(window_handle window)
+		: window_(window) { }
+
+	window_handle window_hidden_event::window() const noexcept {
+		return window_;
 	}
 
-	void layer::detach() {
-		_detach();
-	}
-
-	bool layer::update(double delta) {
-		return _update(delta);
-	}
-
-	bool layer::render(const scope<surface>& surface) {
-		return _render(surface);
-	}
-
-	bool layer::event(const event_reference& event) {
-		return _event(event);
-	}
+	void window_hidden_event::_consume() noexcept { }
 }

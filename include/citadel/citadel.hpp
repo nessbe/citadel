@@ -35,6 +35,8 @@
 #include "citadel/core/display/window.hpp"
 
 #include "citadel/core/events/event.hpp"
+#include "citadel/core/events/window_hidden_event.hpp"
+#include "citadel/core/events/window_shown_event.hpp"
 
 #include "citadel/core/extensions/extension_loader.hpp"
 

@@ -34,7 +34,7 @@ namespace sandbox {
 		return false;
 	}
 
-	bool layer_handle(citadel::layer* layer, const citadel::event_reference& event) {
+	bool layer_event(citadel::layer* layer, const citadel::event_reference& event) {
 		return false;
 	}
 }

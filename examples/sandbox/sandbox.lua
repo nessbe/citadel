@@ -2,7 +2,7 @@
 -- Project:    citadel
 -- Repository: https://github.com/nessbe/citadel
 --
--- Copyright (c) 2025 nessbe
+-- Copyright (c) 2025-2026 nessbe
 -- This file is part of the citadel project and is licensed
 -- under the terms specified in the LICENSE file located at the
 -- root of this repository.
@@ -15,7 +15,7 @@
 project "sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 
 	targetdir("%{wks.location}/build/bin/%{prj.name}")
 	objdir("%{wks.location}/build/obj/%{prj.name}")
@@ -54,6 +54,7 @@ project "sandbox"
 		buildoptions {
 			"/Wall",
 			"/Qspectre",
+			"/Zc:preprocessor",
 			"/wd28251",
 			"/wd4100"
 		}

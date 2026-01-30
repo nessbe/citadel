@@ -25,6 +25,6 @@ namespace sandbox {
 		bool _update(double delta) override;
 		bool _render(const citadel::scope<citadel::surface>& surface) override;
 
-		bool _handle(const citadel::event_reference& event) override;
+		bool _event(const citadel::event_reference& event) override;
 	};
 }

@@ -15,6 +15,9 @@
 #include "citadel/pch.hpp"
 #include "citadel/core/display/window.hpp"
 
+#include "citadel/core/events/window_hidden_event.hpp"
+#include "citadel/core/events/window_shown_event.hpp"
+
 #include "citadel/rendering/render_command.hpp"
 
 #include "citadel/platforms/windows/windows_window.hpp"
@@ -66,6 +69,7 @@ namespace citadel {
 	void window::show() {
 		if (CITADEL_LIKELY(!is_visible_)) {
 			_show();
+			event(make_event<window_shown_event>(handle_));
 		}
 		else {
 			CITADEL_LOG_WARNING("Trying to show window '{0}' which is already visible", title_);
@@ -78,6 +82,7 @@ namespace citadel {
 	void window::hide() {
 		if (CITADEL_LIKELY(is_visible_)) {
 			_hide();
+			event(make_event<window_hidden_event>(handle_));
 		}
 		else {
 			CITADEL_LOG_WARNING("Trying to hide window '{0}' which is already hidden", title_);
@@ -141,6 +146,18 @@ namespace citadel {
 		rendering_context_->unbind();
 
 		CITADEL_LOG_DEBUG("Ending '{0}' window's frame", title_);
+	}
+
+	void window::event(const event_reference& event) {
+		CITADEL_PRECONDITION(event != nullptr, "Event must not be null");
+
+		_event(event);
+
+		if (event->consumed()) {
+			return;
+		}
+
+		layer_stack_.event(event);
 	}
 
 	void* window::get_native_handle() const {
@@ -237,6 +254,8 @@ namespace citadel {
 	bool window::is_visible() const noexcept {
 		return is_visible_;
 	}
+
+	window_handle_factory window::handle_factory_;
 
 	void window::initialize(rendering_api_type rendering_api) {
 		surface_ = surface::create(rendering_api, x_, y_, width_, height_, color(color::max_value, color::max_value, color::max_value, color::max_value));

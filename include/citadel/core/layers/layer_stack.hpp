@@ -35,7 +35,7 @@ namespace citadel {
 		void update(double delta);
 		void render(const scope<surface>& surface);
 
-		void handle(const event_reference& event);
+		void event(const event_reference& event);
 
 		void push(const reference<layer>& layer);
 		reference<layer> pop();

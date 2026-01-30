@@ -40,11 +40,11 @@ namespace citadel {
 		}
 	}
 
-	void layer_stack::handle(const event_reference& event) {
+	void layer_stack::event(const event_reference& event) {
 		CITADEL_PRECONDITION(event != nullptr, "Event must not be null");
 
 		for (const reference<layer>& layer : layers_) {
-			if (layer->handle(event) || event->consumed()) {
+			if (layer->event(event) || event->consumed()) {
 				break;
 			}
 		}

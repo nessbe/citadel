@@ -1,4 +1,4 @@
-// File:       event.hpp
+// File:       window_hidden_event.hpp
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
@@ -18,32 +18,26 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
-#include "citadel/memory/reference.hpp"
+#include "citadel/core/display/window.hpp"
+
+#include "citadel/core/events/event.hpp"
 
 CITADEL_WARNING_IGNORE_PUSH
 CITADEL_WARNING_IGNORE(CITADEL_WARNING_PADDING)
 
 namespace citadel {
-	class CITADEL_API event {
+	class CITADEL_API window_hidden_event final : public event {
 	public:
-		virtual ~event() = default;
+		explicit window_hidden_event(window_handle window);
 
-		CITADEL_NODISCARD bool consumed() const noexcept;
-		void consume() noexcept;
-
-	private:
-		bool consumed_ = false;
+		CITADEL_NODISCARD window_handle window() const noexcept;
 
 	private:
-		virtual void _consume() noexcept = 0;
+		window_handle window_;
+
+	private:
+		virtual void _consume() noexcept override;
 	};
-
-	using event_reference = reference<event>;
-
-	template <typename Event, typename... Arguments>
-	CITADEL_NODISCARD event_reference make_event(Arguments&&... arguments);
 }
 
 CITADEL_WARNING_IGNORE_POP
-
-#include "citadel/core/events/event.inl"

@@ -23,6 +23,8 @@
 #include "citadel/export.hpp"
 #include "citadel/warnings.hpp"
 
+#include "citadel/core/events/event.hpp"
+
 #include "citadel/core/display/surface.hpp"
 
 #include "citadel/core/handles/handle.hpp"
@@ -75,10 +77,12 @@ namespace citadel {
 		void minimize();
 
 		bool update();
-		void render();
 
+		void render();
 		void begin_frame();
 		void end_frame();
+
+		void event(const event_reference& event);
 
 		CITADEL_NODISCARD void* get_native_handle() const;
 
@@ -142,10 +146,12 @@ namespace citadel {
 		virtual void _minimize() = 0;
 
 		virtual bool _update(double delta) = 0;
-		virtual void _render() = 0;
 
+		virtual void _render() = 0;
 		virtual void _begin_frame() = 0;
 		virtual void _end_frame() = 0;
+
+		virtual void _event(const event_reference& event) = 0;
 
 		virtual void* _get_native_handle() const = 0;
 

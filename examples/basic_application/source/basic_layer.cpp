@@ -26,7 +26,7 @@ namespace basic_application {
 		return false;
 	}
 
-	bool basic_layer::_handle(const citadel::event_reference& event) {
+	bool basic_layer::_event(const citadel::event_reference& event) {
 		return false;
 	}
 }

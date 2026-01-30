@@ -1,8 +1,8 @@
-// File:       layer.cpp
+// File:       event.inl
 // Project:    citadel
 // Repository: https://github.com/nessbe/citadel
 //
-// Copyright (c) 2025-2026 nessbe
+// Copyright (c) 2026 nessbe
 // This file is part of the citadel project and is licensed
 // under the terms specified in the LICENSE file located at the
 // root of this repository.
@@ -12,27 +12,16 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the LICENSE file for details.
 
-#include "citadel/pch.hpp"
-#include "citadel/core/layers/layer.hpp"
+#pragma once
+
+#include <type_traits>
 
 namespace citadel {
-	void layer::attach() {
-		_attach();
-	}
-
-	void layer::detach() {
-		_detach();
-	}
-
-	bool layer::update(double delta) {
-		return _update(delta);
-	}
-
-	bool layer::render(const scope<surface>& surface) {
-		return _render(surface);
-	}
-
-	bool layer::event(const event_reference& event) {
-		return _event(event);
+	template <typename Event, typename... Arguments>
+	event_reference make_event(Arguments&&... arguments) {
+		static_assert(std::is_base_of_v<event, Event>, "Event must inherit from event class");
+		return std::dynamic_pointer_cast<event>(
+			make_referenced<Event>(std::forward<Arguments>(arguments)...)
+		);
 	}
 }
