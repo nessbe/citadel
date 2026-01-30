@@ -43,6 +43,8 @@
 #include "citadel/core/layers/layer.hpp"
 #include "citadel/core/layers/layer_stack.hpp"
 
+#include "citadel/core/policies/sequential_policy.hpp"
+
 #include "citadel/debug/assert.hpp"
 
 #include "citadel/debug/exceptions/exception.hpp"
